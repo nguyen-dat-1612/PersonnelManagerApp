@@ -1,4 +1,4 @@
-package com.mastercoding.personnelmanagerapp;
+package com.managerapp.personnelmanagerapp;
 
 import org.junit.Test;
 
