@@ -5,28 +5,28 @@ app/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/managerapp/personnelmanagerapp/
-│   │   │   ├── data/ # Chứa data layer (API, Database, Repository)
-│   │   │   │   ├── api/ # Chứa các service gọi API
-│   │   │   │   ├── database/ # Chứa Room Database, Dao
-│   │   │   │   ├── model/ # Chứa các data class, entity
-│   │   │   │   ├── repository/ # Chứa repository (cầu nối giữa Data Layer và ViewModel)
-│   │   │   │   ├── pref/ # Chứa SharedPreferences
-│   │   │   │   ├── datasource/ # Chứa RemoteDataSource, LocalDataSource
-│   │   │   │   ├── di/ # Dependency Injection (Dagger)
-│   │   │   ├── domain/ # Chứa business logic (Use Cases)
-│   │   │   ├── ui/ # UI Layer (View, ViewModel)
-│   │   │   │   ├── adapters/ # Adapter cho RecyclerView
-│   │   │   │   ├── activities/ # Chứa các Activity
-│   │   │   │   ├── fragments/ # Chứa các Fragment
-│   │   │   │   ├── viewmodel/ # ViewModel cho mỗi màn hình
-│   │   │   │   ├── utils/ # Chứa helper class, extension function
-│   │   ├── App.java # Application class
-│   │   ├── MainActivity.java # MainActivity
+│   │   │   ├── data/              # Chứa data layer (API, Database, Repository)
+│   │   │   │   ├── api/           # Chứa các service gọi API
+│   │   │   │   ├── database/      # Chứa Room Database, Dao
+│   │   │   │   ├── model/         # Chứa các data class, entity
+│   │   │   │   ├── repository/    # Chứa repository (cầu nối giữa Data Layer và ViewModel)
+│   │   │   │   ├── pref/          # Chứa SharedPreferences
+│   │   │   │   ├── datasource/    # Chứa RemoteDataSource, LocalDataSource
+│   │   │   ├── di/                # Dependency Injection (Dagger)
+│   │   │   ├── domain/            # Chứa business logic (Use Cases)
+│   │   │   ├── ui/                # UI Layer (View, ViewModel)
+│   │   │   │   ├── adapters/      # Adapter cho RecyclerView
+│   │   │   │   ├── activities/    # Chứa các Activity
+│   │   │   │   ├── fragments/     # Chứa các Fragment
+│   │   │   │   ├── viewmodel/     # ViewModel cho mỗi màn hình
+│   │   │   │   ├── utils/         # Chứa helper class, extension function
+│   │   ├── App.java               # Application class
+│   │   ├── MainActivity.java      # MainActivity
 │   ├── res/
-│   │   ├── layout/ # XML layout
-│   │   ├── values/ # Strings, styles, themes
-│   ├── test/ # Unit Test
-│   ├── androidTest/ # UI Test
+│   │   ├── layout/                # XML layout
+│   │   ├── values/                # Strings, styles, themes
+│   ├── test/                      # Unit Test
+│   ├── androidTest/               # UI Test
 ```
 # Giải thích các thành phần chính
 
