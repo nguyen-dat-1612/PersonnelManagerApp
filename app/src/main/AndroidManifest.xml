@@ -13,16 +13,13 @@
         android:theme="@style/Theme.PersonnelManagerApp"
         tools:targetApi="31">
         <activity
-            android:name="com.managerapp.personnelmanagerapp.ui.activities.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name="com.managerapp.personnelmanagerapp.ui.activities.ProfileActivity"
+            android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.managerapp.personnelmanagerapp.ui.activities.HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.managerapp.personnelmanagerapp.ui.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
