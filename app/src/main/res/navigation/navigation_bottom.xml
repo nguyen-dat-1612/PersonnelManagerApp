@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home_fragment">
+
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.HomeFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notifications_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notifications_fragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.NotificationsFragment"
+        android:label="Leaderboard"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_notificationsFragment_to_scheduleFragment"
+            app:destination="@id/schedule_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/schedule_fragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.ScheduleFragment"
+        android:label="Store"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_scheduleFragment_to_profileFragment"
+            app:destination="@id/profile_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

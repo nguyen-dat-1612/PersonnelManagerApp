@@ -19,8 +19,12 @@
             android:name="com.managerapp.personnelmanagerapp.ui.activities.HomeActivity"
             android:exported="true" />
         <activity
+            android:name="com.managerapp.personnelmanagerapp.ui.activities.MainActivity"
+            android:exported="true"/>
+        <activity
             android:name="com.managerapp.personnelmanagerapp.ui.activities.LoginActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

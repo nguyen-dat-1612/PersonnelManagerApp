@@ -3,4 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FFFF0000</color>  <!-- Màu đỏ -->
+    <color name="colorSelected">#FFFFFF</color> <!-- Trắng khi chọn -->
+    <color name="colorUnselected">#C8FFFFFF</color> <!-- Màu nhạt khi không chọn -->
+    <color name="red_light">#FFCDD2</color>  <!-- Đỏ nhạt -->
+    <color name="red_dark">#D32F2F</color>  <!-- Đỏ đậm -->
+    <color name="gray">#616161</color>  <!-- Đỏ đậm -->
 </resources>

@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/home_fragment"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="Trang chủ"
+        app:cnb_backgroundColor="#FFCDD2"
+        app:cnb_iconColor="#FF0000"
+        app:cnb_textColor="#FF0000"/>
+
 
     <item
-        android:id="@+id/nav_search"
-        android:icon="@drawable/ic_search"
-        android:title="Search" />
+        android:id="@+id/notifications_fragment"
+        android:icon="@drawable/ic_notifications"
+        android:title="Thông báo"
+        app:cnb_backgroundColor="#FFCDD2"
+        app:cnb_iconColor="#FF0000"
+        app:cnb_textColor="#FF0000"
+        />
 
     <item
-        android:id="@+id/nav_profile"
+        android:id="@+id/schedule_fragment"
+        android:icon="@drawable/ic_schedule"
+        android:title="Lịch giảng"
+        app:cnb_backgroundColor="#FFCDD2"
+        app:cnb_iconColor="#FF0000"
+        app:cnb_textColor="#FF0000"/>
+
+    <item
+        android:id="@+id/profile_fragment"
         android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        android:title="Tài khoản"
+        app:cnb_backgroundColor="#FFCDD2"
+        app:cnb_iconColor="#FF0000"
+        app:cnb_textColor="#FF0000"/>
 
 </menu>

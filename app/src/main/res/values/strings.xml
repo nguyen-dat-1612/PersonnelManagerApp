@@ -3,4 +3,6 @@
     <string name="text_login">Đăng nhập bằng tài khoản giảng viên của \n PTIT HCM</string>
     <string name="forgot_password">Quên mật khẩu ?</string>
     <string name="login_google">Đăng nhập với Google</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
