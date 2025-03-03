@@ -116,10 +116,10 @@
                 android:background="@drawable/button_background_2">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="60dp"
+                    app:cardCornerRadius="48dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardElevation="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -138,7 +138,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Xem điểm"
+                    android:text="Xem TKB"
                     android:textSize="14sp"
                     android:gravity="center"
                     android:textColor="@color/black"/>
@@ -156,10 +156,48 @@
                 android:background="@drawable/button_background_2">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="60dp"
+                    app:cardCornerRadius="48dp"
+                    app:cardBackgroundColor="#A4D1E2"
+                    app:cardElevation="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/ic_schedule"
+                        android:layout_gravity="center"/>
+
+                </androidx.cardview.widget.CardView>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xem môn"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:background="@drawable/button_background_2">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="48dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardElevation="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -194,10 +232,47 @@
                 android:background="@drawable/button_background_2">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="60dp"
+                    app:cardCornerRadius="48dp"
+                    app:cardBackgroundColor="#A4D1E2"
+                    app:cardElevation="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/ic_schedule"
+                        android:layout_gravity="center"/>
+
+                </androidx.cardview.widget.CardView>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đăng ký môn"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:background="@drawable/button_background_2">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="48dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardElevation="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -232,47 +307,10 @@
                 android:background="@drawable/button_background_2">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="60dp"
-                    app:cardBackgroundColor="#A4D1E2"
-                    app:cardElevation="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/ic_schedule"
-                        android:layout_gravity="center"/>
-
-                </androidx.cardview.widget.CardView>
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Xem điểm"
-                    android:textSize="14sp"
-                    android:gravity="center"
-                    android:textColor="@color/black"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="130dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp"
-                android:background="@drawable/button_background_2">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="60dp"
+                    app:cardCornerRadius="48dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardElevation="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -307,10 +345,10 @@
                 android:background="@drawable/button_background_2">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="60dp"
+                    app:cardCornerRadius="48dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardElevation="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -345,48 +383,10 @@
                 android:background="@drawable/button_background_2">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="60dp"
-                    app:cardBackgroundColor="#A4D1E2"
-                    app:cardElevation="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/ic_schedule"
-                        android:layout_gravity="center"/>
-
-                </androidx.cardview.widget.CardView>
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Xem điểm"
-                    android:textSize="14sp"
-                    android:gravity="center"
-                    android:textColor="@color/black"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="130dp"
-                android:layout_columnWeight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp"
-                android:background="@drawable/button_background_2">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="60dp"
+                    app:cardCornerRadius="48dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardElevation="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -1,17 +1,17 @@
 package com.managerapp.personnelmanagerapp.ui.fragments;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mastercoding.personnelmanagerapp.R;
+import com.mastercoding.personnelmanagerapp.databinding.FragmentHomeBinding;
 
 
 public class HomeFragment extends Fragment {
+
+    private FragmentHomeBinding binding;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -20,8 +20,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Sử dụng View Binding để inflate layout
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // Giải phóng bộ nhớ để tránh memory leak
     }
 }
