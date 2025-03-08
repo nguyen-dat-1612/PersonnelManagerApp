@@ -5,4 +5,15 @@
     <string name="login_google">Đăng nhập với Google</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="select_type_notification">
+        <item>Tất cả</item>
+        <item>Hôm nay</item>
+    </string-array>
+
+    <string-array name="select_form">
+        <item>Đơn xin nghỉ phép</item>
+        <item>Đơn xin công tác</item>
+    </string-array>
 </resources>

@@ -1,13 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = "com.mastercoding.personnelmanagerapp"
+    namespace = "com.managerapp.personnelmanagerapp"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.mastercoding.personnelmanagerapp"
+        applicationId = "com.managerapp.personnelmanagerapp"
         minSdk = 29
         targetSdk = 35
         versionCode = 1
@@ -68,10 +69,6 @@ dependencies {
     // **Gson (Chuyển đổi JSON)**
     implementation ("com.google.code.gson:gson:2.10.1")
 
-    // **Dagger (Dependency Injection)**
-    implementation ("com.google.dagger:dagger:2.50")
-    annotationProcessor ("com.google.dagger:dagger-compiler:2.50")
-
     // **Navigation Component (Chuyển màn hình)**
     implementation ("androidx.navigation:navigation-fragment:2.7.6")
     implementation ("androidx.navigation:navigation-ui:2.7.6")
@@ -82,10 +79,6 @@ dependencies {
 
     // **RecyclerView**
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
-
-    // **ViewModel & LiveData**
-    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
-    implementation ("androidx.lifecycle:lifecycle-livedata:2.6.2")
 
     // **SharedPreferences (DataStore - thay thế SharedPreferences)**
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
@@ -105,4 +98,9 @@ dependencies {
     implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
     implementation ("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
 
+    // **Hilt (Dependency Injection)**
+    implementation ("com.google.dagger:hilt-android:2.51.1")
+    annotationProcessor ("com.google.dagger:hilt-android-compiler:2.51.1") // Dùng annotationProcessor thay cho kapt
+    // Coroutines
+    implementation  ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 }

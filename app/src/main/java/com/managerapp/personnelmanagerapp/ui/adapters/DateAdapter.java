@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.mastercoding.personnelmanagerapp.R;
+
+import com.managerapp.personnelmanagerapp.R;
+
 import java.util.Calendar;
 import java.util.List;
 

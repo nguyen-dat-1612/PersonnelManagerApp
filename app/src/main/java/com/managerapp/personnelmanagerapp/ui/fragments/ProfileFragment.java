@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mastercoding.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.R;
+
 
 public class ProfileFragment extends Fragment {
 

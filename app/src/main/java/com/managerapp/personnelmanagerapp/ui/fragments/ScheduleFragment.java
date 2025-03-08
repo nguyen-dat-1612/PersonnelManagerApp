@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.managerapp.personnelmanagerapp.databinding.FragmentScheduleBinding;
 import com.managerapp.personnelmanagerapp.ui.adapters.DateAdapter;
-import com.mastercoding.personnelmanagerapp.databinding.FragmentScheduleBinding;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ScheduleFragment extends Fragment {
     private FragmentScheduleBinding binding;
 
     public ScheduleFragment() {
-        // Required empty public constructor
+
     }
 
     @Override

@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mastercoding.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.databinding.FragmentNotificationsBinding;
 
 
 public class NotificationsFragment extends Fragment {
 
+    private FragmentNotificationsBinding binding;
     public NotificationsFragment() {
         // Required empty public constructor
     }

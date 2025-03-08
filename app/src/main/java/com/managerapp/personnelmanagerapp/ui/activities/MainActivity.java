@@ -8,8 +8,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
-import com.mastercoding.personnelmanagerapp.R;
-import com.mastercoding.personnelmanagerapp.databinding.ActivityMainBinding;
+import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.databinding.ActivityMainBinding;
+
 
 public class MainActivity extends AppCompatActivity {
 
