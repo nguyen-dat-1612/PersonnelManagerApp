@@ -1,7 +1,6 @@
 package com.managerapp.personnelmanagerapp.domain.usecase;
 
 import com.managerapp.personnelmanagerapp.data.repository.AuthRepository;
-import com.managerapp.personnelmanagerapp.domain.model.UserModel;
 
 import javax.inject.Inject;
 

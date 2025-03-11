@@ -6,30 +6,33 @@
 
     <application
         android:name=".App"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher_main_foreground"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_main_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.PersonnelManagerApp"
         tools:targetApi="31">
         <activity
-            android:name="com.managerapp.personnelmanagerapp.ui.activities.SplashActivity"
+            android:name=".ui.activities.DetailsRequestActitivy"
             android:exported="false" />
         <activity
-            android:name="com.managerapp.personnelmanagerapp.ui.activities.FormActivity"
+            android:name=".ui.activities.SplashActivity"
             android:exported="false" />
         <activity
-            android:name="com.managerapp.personnelmanagerapp.ui.activities.RequestActivity"
+            android:name=".ui.activities.FormActivity"
             android:exported="false" />
         <activity
-            android:name="com.managerapp.personnelmanagerapp.ui.activities.MainActivity"
+            android:name=".ui.activities.RequestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.MainActivity"
             android:exported="true" />
         <activity
-            android:name="com.managerapp.personnelmanagerapp.ui.activities.LoginActivity"
+            android:name=".ui.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

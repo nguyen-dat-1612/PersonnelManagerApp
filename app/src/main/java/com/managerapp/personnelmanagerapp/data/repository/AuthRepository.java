@@ -5,11 +5,8 @@ import android.util.Log;
 import com.managerapp.personnelmanagerapp.data.remote.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.LoginResponse;
-import com.managerapp.personnelmanagerapp.domain.model.UserModel;
 
 import java.io.IOException;
-
-import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;

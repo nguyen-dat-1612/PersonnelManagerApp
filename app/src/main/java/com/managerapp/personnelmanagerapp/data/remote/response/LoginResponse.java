@@ -1,7 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.remote.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.managerapp.personnelmanagerapp.domain.model.UserModel;
 
 public class LoginResponse {
 
