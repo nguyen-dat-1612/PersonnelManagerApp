@@ -7,12 +7,12 @@ app/
 │   │   ├── java/com/managerapp/personnelmanagerapp/
 │   │   │   ├── data/              # Chứa data layer (API, Database, Repository)
 │   │   │   │   ├── remote/        # Chứa các service gọi API
-│   │   │   │   ├── local/         #
+│   │   │   │   ├── local/         # Chứa dữ liệu cục bộ
 │   │   │   │   ├── repository/    # Chứa repository (cầu nối giữa Data Layer và ViewModel)
 │   │   │   ├── di/                # Dependency Injection (Hilt)
 │   │   │   ├── domain/            # Chứa business logic (Use Cases)
 │   │   │   │   ├── model/         # Chứa các data class, entity
-│   │   │   │   ├── usecase/       #
+│   │   │   │   ├── usecase/       # Chứa Use Case
 │   │   │   ├── ui/                # UI Layer (View, ViewModel)
 │   │   │   │   ├── adapters/      # Adapter cho RecyclerView
 │   │   │   │   ├── activities/    # Chứa các Activity
@@ -29,9 +29,12 @@ app/
 # Giải thích các thành phần chính
 
 ## Data Layer (`data/`)
+- **remote** chứa api gọi cơ sở dữ liệu từ xa
+- **local** chứa cơ sở dữ liệu cục bộ
 - **`repository/`**: Đóng vai trò trung gian giữa API/DB và ViewModel.
 
 ## Domain Layer (`domain/`)
+- Chứa **Model** 
 - Chứa **Use Case** để xử lý logic nghiệp vụ.
 
 ## UI Layer (`ui/`)
