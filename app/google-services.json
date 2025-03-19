@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400712073962",
+    "project_id": "personnelmanagerapp",
+    "storage_bucket": "personnelmanagerapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400712073962:android:c73e5668b2afad75c14d93",
+        "android_client_info": {
+          "package_name": "com.managerapp.personnelmanagerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDapeeAVuvfelx6cSioA5u-vEz7CeUEonc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

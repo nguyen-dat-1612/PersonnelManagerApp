@@ -2,10 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#FFFF0000</color>  <!-- Màu đỏ -->
+    <color name="light_white">#F5F5F5</color>    <!-- Trắng nhạt -->
     <color name="colorSelected">#FFFFFF</color> <!-- Trắng khi chọn -->
     <color name="colorUnselected">#C8FFFFFF</color> <!-- Màu nhạt khi không chọn -->
     <color name="red_light">#FFCDD2</color>  <!-- Đỏ nhạt -->
     <color name="red_dark">#D32F2F</color>  <!-- Đỏ đậm -->
-    <color name="gray">#616161</color>  <!-- Đỏ đậm -->
+    <color name="gray">#616161</color>
+    <color name="light_pink">#FFC1CC</color>
+    <color name="red">#FF0000</color>         <!-- Màu đỏ cho thumb khi bật -->
+    <color name="light_red">#FF9999</color>   <!-- Màu đỏ nhạt cho track khi bật -->
 </resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/requestHistoryFragment">
+
+    <fragment
+        android:id="@+id/requestHistoryFragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.RequestHistoryFragment"
+        android:label="Request History"
+        tools:layout="@layout/fragment_request_history">
+        <action
+            android:id="@+id/action_requestHistoryFragment_to_newRequestFragment"
+            app:destination="@id/newRequestFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newRequestFragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.NewRequestFragment"
+        android:label="New Request"
+        tools:layout="@layout/fragment_new_request">
+        <action
+            android:id="@+id/action_newRequestFragment_to_requestHistoryFragment"
+            app:destination="@id/requestHistoryFragment"
+            app:popUpTo="@id/requestHistoryFragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
+</navigation>

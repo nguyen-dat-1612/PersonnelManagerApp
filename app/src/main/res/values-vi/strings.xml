@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">PersonnelManagerApp</string>
+    <string name="text_login">Đăng nhập bằng tài khoản nhân sự của \n PTIT HCM</string>
+    <string name="forgot_password">Quên mật khẩu ?</string>
+    <string name="login_google">Đăng nhập với Google</string>
+
+
+    <string-array name="select_type_notification">
+        <item>Tất cả</item>
+        <item>Hôm nay</item>
+    </string-array>
+
+    <string-array name="select_form">
+        <item>Đơn xin nghỉ phép</item>
+        <item>Đơn xin công tác</item>
+    </string-array>
+
+    <string-array name="select_language">
+        <item>Tiếng Việt</item>
+        <item>Tiếng Anh</item>
+    </string-array>
+
+
+    <!--Profile-->
+    <string name="profile_info">Thông tin hồ sơ</string>
+    <string name="msgv">MSGV: </string>
+    <string name="faculty">Khoa: </string>
+
+    <!-- Thông tin người dùng -->
+    <string name="employee_id">Mã nhân viên</string>
+    <string name="full_name">Họ và tên</string>
+    <string name="gender">Giới tính</string>
+    <string name="date_of_birth">Ngày sinh</string>
+    <string name="permanent_address">Địa chỉ thường trú</string>
+    <string name="ethnicity">Dân tộc</string>
+    <string name="religion">Tôn giáo</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="academic_degree">Học vị</string>
+    
+    <!-- Nghỉ phép-->
+    <string name="leave_history">Lịch sử nghỉ phép</string>
+
+</resources>

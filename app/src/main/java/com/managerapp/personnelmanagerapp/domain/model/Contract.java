@@ -1,47 +1,80 @@
 package com.managerapp.personnelmanagerapp.domain.model;
 
-// Class hợp đồng
 public class Contract {
-    private String id;
-    private int employeeId;
+    private String contractId;
+    private String employeeId;
     private String contractTypeId;
     private String startDate;
     private String endDate;
-    private double salary;
-    private String status;
+    private double baseSalary;
+    private double positionAllowance;
+    private double seniorityAllowance;
+    private int currentJobGrade;
+    private boolean isActive;
 
-    public Contract(String id, double salary, String status, String endDate, String startDate, String contractTypeId, int employeeId) {
-        this.id = id;
-        this.salary = salary;
-        this.status = status;
-        this.endDate = endDate;
-        this.startDate = startDate;
-        this.contractTypeId = contractTypeId;
+
+    public Contract(String contractId, String employeeId, String contractTypeId,
+                    String startDate, String endDate, double baseSalary,
+                    double positionAllowance, double seniorityAllowance,
+                    int currentJobGrade, boolean isActive) {
+        this.contractId = contractId;
         this.employeeId = employeeId;
+        this.contractTypeId = contractTypeId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.baseSalary = baseSalary;
+        this.positionAllowance = positionAllowance;
+        this.seniorityAllowance = seniorityAllowance;
+        this.currentJobGrade = currentJobGrade;
+        this.isActive = isActive;
     }
 
-    public String getId() {
-        return id;
+    public String getContractId() {
+        return contractId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setContractId(String contractId) {
+        this.contractId = contractId;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
-    public double getSalary() {
-        return salary;
+    public int getCurrentJobGrade() {
+        return currentJobGrade;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    public void setCurrentJobGrade(int currentJobGrade) {
+        this.currentJobGrade = currentJobGrade;
+    }
+
+    public double getSeniorityAllowance() {
+        return seniorityAllowance;
+    }
+
+    public void setSeniorityAllowance(double seniorityAllowance) {
+        this.seniorityAllowance = seniorityAllowance;
+    }
+
+    public double getPositionAllowance() {
+        return positionAllowance;
+    }
+
+    public void setPositionAllowance(double positionAllowance) {
+        this.positionAllowance = positionAllowance;
+    }
+
+    public double getBaseSalary() {
+        return baseSalary;
+    }
+
+    public void setBaseSalary(double baseSalary) {
+        this.baseSalary = baseSalary;
     }
 
     public String getEndDate() {
@@ -68,11 +101,11 @@ public class Contract {
         this.contractTypeId = contractTypeId;
     }
 
-    public int getEmployeeId() {
+    public String getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 }

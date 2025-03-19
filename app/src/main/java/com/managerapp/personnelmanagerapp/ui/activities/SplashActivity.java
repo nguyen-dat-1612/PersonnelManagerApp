@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.managerapp.personnelmanagerapp.R;
 
-
 public class SplashActivity extends AppCompatActivity {
 
     @Override

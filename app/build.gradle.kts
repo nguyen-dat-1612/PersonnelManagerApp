@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -101,6 +102,21 @@ dependencies {
     // **Hilt (Dependency Injection)**
     implementation ("com.google.dagger:hilt-android:2.51.1")
     annotationProcessor ("com.google.dagger:hilt-android-compiler:2.51.1") // Dùng annotationProcessor thay cho kapt
-    // Coroutines
-    implementation  ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+    // RxJava Core
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.6")
+
+    // RxAndroid để chạy trên UI Thread
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+
+    // Adapter RxJava cho Retrofit
+    implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-messaging:23.0.0")
+
+    //Biometric
+    implementation ("androidx.biometric:biometric:1.1.0")
 }

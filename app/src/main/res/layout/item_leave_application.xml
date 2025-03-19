@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="leaveApplication"
+            type="com.managerapp.personnelmanagerapp.domain.model.LeaveApplication" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewLeaveApplication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tvLeaveReason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{leaveApplication.reason}"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tvLeaveDates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"Từ ngày: " + leaveApplication.startDate + " đến " + leaveApplication.endDate}'
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvLeaveStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"Trạng thái: " + leaveApplication.status}'
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

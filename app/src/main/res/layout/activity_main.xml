@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.managerapp.personnelmanagerapp.ui.activities.MainActivity">
 
-<!--    &lt;!&ndash; Toolbar &ndash;&gt;-->
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-<!--        app:titleTextColor="@android:color/white"-->
-<!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <!-- Navigation Fragment -->
     <fragment
         android:id="@+id/main_fragment"

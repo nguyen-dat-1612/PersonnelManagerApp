@@ -8,6 +8,9 @@ import com.managerapp.personnelmanagerapp.data.remote.response.LoginResponse;
 
 import java.io.IOException;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,43 +21,27 @@ public class AuthRepository {
     public AuthRepository(AuthApiService authApiService) {
         this.authApiService = authApiService;
     }
-
-    public void login(String email, String password, AuthCallback callback) {
+    public Single<LoginResponse> login(String email, String password) {
         LoginRequest request = new LoginRequest(email, password);
-        authApiService.login(request).enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    callback.onSuccess(response.body());
-                    Log.d("Auth Repository", "Đăng nhập thành công");
-                } else {
-                    String errorMessage;
-                    try {
+        return authApiService.login(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(response -> {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Log.d("Auth Repository", "Đăng nhập thành công");
+                        return Single.just(response.body());
+                    } else {
+                        String errorMessage = "Đăng nhập thất bại với mã lỗi: " + response.code();
                         if (response.errorBody() != null) {
-                            errorMessage = response.errorBody().string(); // Lấy chi tiết lỗi từ server
-                        } else {
-                            errorMessage = "Đăng nhập thất bại với mã lỗi: " + response.code();
+                            try {
+                                errorMessage = response.errorBody().string();
+                            } catch (Exception e) {
+                                Log.e("Auth Repository", "Không thể đọc lỗi từ phản hồi", e);
+                            }
                         }
-                    } catch (IOException e) {
-                        errorMessage = "Không thể đọc lỗi từ phản hồi.";
+                        Log.d("Auth Repository", "Đăng nhập thất bại: " + email + "." + password + ": " + errorMessage);
+                        return Single.error(new Exception(errorMessage));
                     }
-                    callback.onFailure(errorMessage);
-                    Log.d("Auth Repository", "Đăng nhập thất bại ."+email + "." + password+": " + errorMessage);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                String errorMsg = "Lỗi kết nối: " + t.getMessage();
-                callback.onFailure(errorMsg);
-                Log.e("Auth Repository", errorMsg);
-            }
-        });
+                });
     }
-
-    public interface AuthCallback {
-        void onSuccess(LoginResponse response);
-        void onFailure(String error);
-    }
-
 }

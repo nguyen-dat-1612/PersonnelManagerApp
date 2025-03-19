@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/contractListFragment">
+
+    <fragment
+        android:id="@+id/contractListFragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.ContractListFragment"
+        android:label="Danh sách hợp đồng"
+        tools:layout="@layout/fragment_contract_list">
+        <action
+            android:id="@+id/action_contractListFragment_to_contractDetailFragment"
+            app:destination="@id/contractDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/contractDetailFragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.ContractDetailFragment"
+        android:label="Chi tiết hợp đồng"
+        tools:layout="@layout/fragment_contract_detail">
+        <argument
+            android:name="contractId"
+            app:argType="string" />
+    </fragment>
+</navigation>
