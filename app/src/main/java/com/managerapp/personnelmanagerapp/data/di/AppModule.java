@@ -1,4 +1,4 @@
-package com.managerapp.personnelmanagerapp.di;
+package com.managerapp.personnelmanagerapp.data.di;
 
 import android.content.Context;
 import dagger.Module;

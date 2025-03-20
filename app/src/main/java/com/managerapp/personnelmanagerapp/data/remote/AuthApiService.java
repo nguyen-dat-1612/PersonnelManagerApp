@@ -19,6 +19,5 @@ public interface AuthApiService {
     @POST("auth/login")
     Single<Response<LoginResponse>> login(@Body LoginRequest request);
 
-
 }
 

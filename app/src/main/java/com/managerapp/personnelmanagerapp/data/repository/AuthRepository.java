@@ -5,15 +5,9 @@ import android.util.Log;
 import com.managerapp.personnelmanagerapp.data.remote.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.LoginResponse;
-
-import java.io.IOException;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AuthRepository {
     private final AuthApiService authApiService;

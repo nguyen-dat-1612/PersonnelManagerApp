@@ -1,6 +1,5 @@
-package com.managerapp.personnelmanagerapp.di.network;
+package com.managerapp.personnelmanagerapp.data.di;
 
-import com.managerapp.personnelmanagerapp.data.remote.AuthApiService;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 import dagger.Module;
@@ -16,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
 
-    private static final String BASE_URL = "http://192.168.1.118:8080/api/";
+    private static final String BASE_URL = "http://192.168.179.165:8080/api/";
 
     @Provides
     @Singleton
@@ -40,9 +39,4 @@ public class NetworkModule {
                 .build();
     }
 
-    @Provides
-    @Singleton
-    public static AuthApiService provideAuthApiService(Retrofit retrofit) {
-        return retrofit.create(AuthApiService.class);
-    }
 }

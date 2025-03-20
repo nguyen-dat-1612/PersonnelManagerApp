@@ -19,8 +19,6 @@ public class LoginUseCase {
     }
 
     public Single<LoginResponse> execute(String email, String password) {
-        return authRepository.login(email, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+        return authRepository.login(email, password);
     }
 }
