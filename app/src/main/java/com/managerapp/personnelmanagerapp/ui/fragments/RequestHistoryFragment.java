@@ -44,41 +44,49 @@ public class RequestHistoryFragment extends Fragment {
         binding = FragmentRequestHistoryBinding.inflate(inflater, container, false);
 
         List<LeaveApplication> list = new ArrayList<>();
+//
+//        list.add(new LeaveApplication(1, "Nghỉ ốm", 1,
+//                "2024-03-10", "2024-03-12", "Bị sốt cao", "Chờ duyệt", true));
+//
+//        list.add(new LeaveApplication(2, "Nghỉ thai sản", 1,
+//                "2024-04-01", "2024-10-01", "Sinh con", "Đã duyệt", true));
+//
+//        list.add(new LeaveApplication(3, "Nghỉ phép", 1,
+//                "2024-05-15", "2024-05-20", "Đi du lịch", "Bị từ chối", false));
+//
+//        list.add(new LeaveApplication(4, "Nghỉ công tác", 1,
+//                "2024-06-01", "2024-06-05", "Tham gia hội nghị", "Đã duyệt", true));
+//
+//        list.add(new LeaveApplication(5, "Nghỉ không lương", 1,
+//                "2024-07-10", "2024-07-12", "Việc cá nhân", "Chờ duyệt", false));
+//
+//        list.add(new LeaveApplication(6, "Nghỉ ốm", 1,
+//                "2024-08-20", "2024-08-25", "Phẫu thuật", "Đã duyệt", true));
+//
+//        list.add(new LeaveApplication(7, "Nghỉ phép", 1,
+//                "2024-09-05", "2024-09-07", "Về quê", "Chờ duyệt", false));
+//
+//        list.add(new LeaveApplication(8, "Nghỉ thai sản", 1,
+//                "2024-10-01", "2025-04-01", "Sinh con", "Đã duyệt", true));
+//
+//        list.add(new LeaveApplication(9, "Nghỉ công tác", 1,
+//                "2024-11-15", "2024-11-20", "Hội thảo ngành", "Bị từ chối", true));
+//
+//        list.add(new LeaveApplication(10, "Nghỉ không lương", 1,
+//                "2024-12-10", "2024-12-15", "Lý do cá nhân", "Chờ duyệt", false));
 
-        list.add(new LeaveApplication(1, "Nghỉ ốm", 1,
-                "2024-03-10", "2024-03-12", "Bị sốt cao", "Chờ duyệt", true));
+        if (list.isEmpty()) {
+            binding.recyclerViewHistory.setVisibility(View.GONE);
+            binding.emptyView.setVisibility(View.VISIBLE);
+        } else {
+            binding.recyclerViewHistory.setVisibility(View.VISIBLE);
+            binding.recyclerViewHistory.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.recyclerViewHistory.setAdapter(new LeaveApplicationAdapter(list, leaveApplication -> {
+                Toast.makeText(requireContext(),leaveApplication.getLeaveApplicationId() + " ", Toast.LENGTH_LONG ).show();
+            }));
+            binding.emptyView.setVisibility(View.GONE);
+        }
 
-        list.add(new LeaveApplication(2, "Nghỉ thai sản", 1,
-                "2024-04-01", "2024-10-01", "Sinh con", "Đã duyệt", true));
-
-        list.add(new LeaveApplication(3, "Nghỉ phép", 1,
-                "2024-05-15", "2024-05-20", "Đi du lịch", "Bị từ chối", false));
-
-        list.add(new LeaveApplication(4, "Nghỉ công tác", 1,
-                "2024-06-01", "2024-06-05", "Tham gia hội nghị", "Đã duyệt", true));
-
-        list.add(new LeaveApplication(5, "Nghỉ không lương", 1,
-                "2024-07-10", "2024-07-12", "Việc cá nhân", "Chờ duyệt", false));
-
-        list.add(new LeaveApplication(6, "Nghỉ ốm", 1,
-                "2024-08-20", "2024-08-25", "Phẫu thuật", "Đã duyệt", true));
-
-        list.add(new LeaveApplication(7, "Nghỉ phép", 1,
-                "2024-09-05", "2024-09-07", "Về quê", "Chờ duyệt", false));
-
-        list.add(new LeaveApplication(8, "Nghỉ thai sản", 1,
-                "2024-10-01", "2025-04-01", "Sinh con", "Đã duyệt", true));
-
-        list.add(new LeaveApplication(9, "Nghỉ công tác", 1,
-                "2024-11-15", "2024-11-20", "Hội thảo ngành", "Bị từ chối", true));
-
-        list.add(new LeaveApplication(10, "Nghỉ không lương", 1,
-                "2024-12-10", "2024-12-15", "Lý do cá nhân", "Chờ duyệt", false));
-
-        binding.recyclerViewHistory.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerViewHistory.setAdapter(new LeaveApplicationAdapter(list, leaveApplication -> {
-            Toast.makeText(requireContext(),leaveApplication.getLeaveApplicationId() + " ", Toast.LENGTH_LONG ).show();
-        }));
 
         binding.fabNewRequest.setOnClickListener(new View.OnClickListener() {
             @Override

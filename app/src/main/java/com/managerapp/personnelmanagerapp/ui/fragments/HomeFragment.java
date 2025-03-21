@@ -12,6 +12,7 @@ import com.managerapp.personnelmanagerapp.ui.activities.ContractActivity;
 import com.managerapp.personnelmanagerapp.ui.activities.FeedBackActivity;
 import com.managerapp.personnelmanagerapp.ui.activities.LoginActivity;
 import com.managerapp.personnelmanagerapp.ui.activities.RequestActivity;
+import com.managerapp.personnelmanagerapp.ui.activities.RewardDisciplineActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -52,6 +53,11 @@ public class HomeFragment extends Fragment {
         // Feedback Button
         binding.btnContracts.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), ContractActivity.class);
+            startActivity(intent);
+        });
+
+        binding.btnRewardAndDiscipline.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), RewardDisciplineActivity.class);
             startActivity(intent);
         });
 

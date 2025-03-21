@@ -9,7 +9,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="#F5F5F5">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header"
@@ -45,7 +45,6 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/user_logo" />
-
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -70,9 +69,6 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -88,7 +84,6 @@
             android:paddingStart="16dp"
             android:gravity="center_vertical" />
 
-
         <GridLayout
             android:id="@+id/gridlayout"
             android:layout_width="match_parent"
@@ -103,13 +98,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- Chức năng 1 -->
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Chức năng 1: Chấm công -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_columnWeight="1"
                 android:padding="8dp"
-                android:background="@drawable/button_background_2">
+                app:cardElevation="1dp"
+                app:cardCornerRadius="12dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewChamCong"
@@ -118,17 +114,15 @@
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardCornerRadius="48dp"
                     app:cardElevation="4dp"
-                    android:layout_margin="8dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center_horizontal|top">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/calendar" />
-
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -138,39 +132,35 @@
                     android:text="Chấm công"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardViewChamCong" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="76dp" />
+            </androidx.cardview.widget.CardView>
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Chức năng 2: Khen thưởng/Kỷ luật -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnRewardAndDiscipline"
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/button_background_2">
+                app:cardElevation="1dp"
+                app:cardCornerRadius="12dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardViewKhenThuong"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="15dp"
                     app:cardCornerRadius="48dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardElevation="4dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    android:layout_gravity="center_horizontal|top">
 
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:background="@drawable/reward"
                         android:layout_gravity="center"/>
-
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -180,40 +170,35 @@
                     android:textSize="14sp"
                     android:gravity="center"
                     android:textColor="@color/black"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardViewKhenThuong"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="76dp"/>
+            </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Chức năng 3: Nghỉ phép -->
+            <androidx.cardview.widget.CardView
                 android:id="@+id/YeucauBtn"
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/button_background_2">
+                app:cardElevation="1dp"
+                app:cardCornerRadius="12dp" >
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView2"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_margin="8dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardCornerRadius="48dp"
                     app:cardElevation="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_gravity="center_horizontal|top">
 
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
                         android:background="@drawable/contact_form" />
-
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -223,38 +208,34 @@
                     android:text="Nghỉ phép"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView2" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="76dp" />
+            </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Chức năng 4: Nâng ngạch -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/button_background_2">
+                app:cardElevation="1dp"
+                app:cardCornerRadius="12dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView3"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="15dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardCornerRadius="48dp"
                     app:cardElevation="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_gravity="center_horizontal|top">
 
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
                         android:background="@drawable/register" />
-
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -264,21 +245,19 @@
                     android:text="Nâng ngạch"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView3" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="76dp" />
+            </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Chức năng 5: Thắc mắc/Phản hồi -->
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnFeedBack"
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_columnWeight="1"
-                android:gravity="center"
-                android:orientation="vertical"
                 android:padding="8dp"
-                android:background="@drawable/button_background_2">
+                app:cardElevation="1dp"
+                app:cardCornerRadius="12dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView4"
@@ -287,143 +266,128 @@
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardCornerRadius="48dp"
                     app:cardElevation="4dp"
-                    android:layout_marginTop="20dp"                    android:layout_margin="8dp"                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center_horizontal|top">
 
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
                         android:background="@drawable/message" />
-
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="76dp"
                     android:gravity="center"
-                    android:text="Thắc mắc/phản hồi"
+                    android:text="Thắc mắc"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView4" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="center_horizontal" />
+            </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Chức năng 6: Câu hỏi thường gặp -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/button_background_2">
+                app:cardElevation="1dp"
+                app:cardCornerRadius="12dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView5"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="15dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardCornerRadius="48dp"
                     app:cardElevation="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_gravity="center_horizontal|top">
 
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
                         android:background="@drawable/chat_bubble" />
-
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="76dp"
                     android:gravity="center"
-                    android:text="Câu hỏi thường gặp"
+                    android:text="Câu hỏi"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView5" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="center_horizontal" />
+            </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Chức năng 7: Lịch Sử Lương -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/button_background_2">
+                app:cardElevation="1dp"
+                app:cardCornerRadius="12dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView6"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="15dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardCornerRadius="48dp"
                     app:cardElevation="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_gravity="center_horizontal|top">
 
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
                         android:background="@drawable/salary" />
-
                 </androidx.cardview.widget.CardView>
-
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Lịch Sử Lương"
+                    android:text="Lương"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:layout_margin="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView6" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="76dp" />
+            </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Chức năng 8: Hợp Đồng -->
+            <androidx.cardview.widget.CardView
                 android:id="@+id/btnContracts"
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:padding="8dp"
-                android:background="@drawable/button_background_2">
+                app:cardElevation="1dp"
+                app:cardCornerRadius="12dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView7"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="15dp"
                     app:cardBackgroundColor="#A4D1E2"
                     app:cardCornerRadius="48dp"
                     app:cardElevation="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_gravity="center_horizontal|top">
 
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
                         android:background="@drawable/contract" />
-
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -433,13 +397,9 @@
                     android:text="Hợp Đồng"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView7" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Thêm các chức năng còn lại tương tự -->
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="76dp" />
+            </androidx.cardview.widget.CardView>
         </GridLayout>
 
         <TextView
@@ -454,8 +414,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:paddingStart="16dp"
             android:gravity="center_vertical" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

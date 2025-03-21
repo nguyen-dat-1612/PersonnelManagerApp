@@ -9,19 +9,17 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.databinding.ActivitySalaryBinding;
 
+public class SalaryActivity extends AppCompatActivity {
 
-public class FormActivity extends AppCompatActivity {
-
+    private ActivitySalaryBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_form);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        binding = ActivitySalaryBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
     }
 }

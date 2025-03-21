@@ -107,7 +107,7 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/button_background_3"
-                    app:layout_constraintTop_toBottomOf="@id/forgotPassTV"
+                    app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
@@ -150,7 +150,7 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/button_background_3"
-                    app:layout_constraintTop_toBottomOf="@id/forgotPassTV"
+                    app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
@@ -206,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/button_background"
-                    app:layout_constraintTop_toBottomOf="@id/forgotPassTV"
+                    app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:textColor="@color/white"

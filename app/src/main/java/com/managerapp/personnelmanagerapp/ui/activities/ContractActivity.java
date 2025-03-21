@@ -1,6 +1,8 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
 import android.os.Bundle;
+
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,7 +19,7 @@ public class ContractActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        EdgeToEdge.enable(this);
         binding = ActivityContractBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

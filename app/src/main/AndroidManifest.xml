@@ -19,6 +19,19 @@
         android:theme="@style/Theme.PersonnelManagerApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.SalaryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.ForgotPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PersonnelManagerApp" />
+        <activity
+            android:name=".ui.activities.RewardDisciplineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.ContractActivity"
             android:exported="false"
             android:theme="@style/Theme.PersonnelManagerApp" />
@@ -34,9 +47,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.activities.SplashActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.activities.FormActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.RequestActivity"

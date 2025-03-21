@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PersonnelManagerApp</string>
+    <string name="app_name">PM-Box PTIT\nHCM</string>
     <string name="text_login">Đăng nhập bằng tài khoản nhân sự của \n PTIT HCM</string>
     <string name="forgot_password">Quên mật khẩu ?</string>
     <string name="login_google">Đăng nhập với Google</string>
@@ -21,6 +21,12 @@
     </string-array>
 
 
+    <!--Account-->
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="change_password">Đổi mật khẩu</string>
+    <string name="school_account_login">Đăng nhập với tài khoản trường</string>
+
     <!--Profile-->
     <string name="profile_info">Thông tin hồ sơ</string>
     <string name="msgv">MSGV: </string>
@@ -34,11 +40,13 @@
     <string name="permanent_address">Địa chỉ thường trú</string>
     <string name="ethnicity">Dân tộc</string>
     <string name="religion">Tôn giáo</string>
-    <string name="email">Email</string>
     <string name="phone_number">Số điện thoại</string>
     <string name="academic_degree">Học vị</string>
     
     <!-- Nghỉ phép-->
     <string name="leave_history">Lịch sử nghỉ phép</string>
+
+    <!-- Khen thưởng và kỹ luật-->
+    <string name="reward_and_discipline">Khen thưởng và kỷ luật</string>
 
 </resources>

@@ -4,4 +4,8 @@
         <item name="android:textSize">12sp</item> <!-- Giảm kích thước chữ -->
         <item name="android:textStyle">bold</item> <!-- Chữ in đậm -->
     </style>
+    <style name="TabTextStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@drawable/tab_text_color</item>
+    </style>
 </resources>

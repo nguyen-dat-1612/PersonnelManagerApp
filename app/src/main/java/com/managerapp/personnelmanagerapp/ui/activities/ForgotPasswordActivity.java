@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -14,22 +15,29 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.managerapp.personnelmanagerapp.databinding.ActivitySettingsBinding;
+import com.managerapp.personnelmanagerapp.databinding.ActivityForgotPasswordBinding;
 
 import com.managerapp.personnelmanagerapp.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
 
-    private ActivitySettingsBinding binding;
+    private ActivityForgotPasswordBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
-        binding = ActivitySettingsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.backBtn.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+        binding.btnBackLogin.setOnClickListener(v-> {
+            Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        });
 
     }
+
+
 }

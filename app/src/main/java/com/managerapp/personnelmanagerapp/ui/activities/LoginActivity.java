@@ -2,6 +2,7 @@ package com.managerapp.personnelmanagerapp.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityLoginBinding;
 import com.managerapp.personnelmanagerapp.ui.viewmodel.LoginViewModel;
 
@@ -23,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+
+    private boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.loginBtn.setOnClickListener(v -> {
             binding.progressOverlay.setVisibility(View.VISIBLE);
-            String email = binding.emailEditText.getText().toString().trim();
-            String password = binding.passwordEditText.getText().toString().trim();
+            String email = binding.editTextEmail.getText().toString().trim();
+            String password = binding.editTextPassword.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_LONG).show();
@@ -71,6 +75,23 @@ public class LoginActivity extends AppCompatActivity {
 
             // Gọi API Login
             loginViewModel.login(email, password);
+        });
+
+        binding.passwordToggle.setOnClickListener(v -> {
+            isPasswordVisible = !isPasswordVisible;
+            if (isPasswordVisible) {
+                binding.editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                binding.passwordToggle.setImageResource(R.drawable.ic_eye_on);
+            } else {
+                binding.editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                binding.passwordToggle.setImageResource(R.drawable.ic_eye_off);
+            }
+            binding.editTextPassword.setSelection(binding.editTextPassword.getText().length()); // Giữ con trỏ văn bản ở cuối
+        });
+
+        binding.btnForgotPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ForgotPasswordActivity.class);
+            startActivity(intent);
         });
     }
 }
