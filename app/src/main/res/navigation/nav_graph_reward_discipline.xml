@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_reward">
         <action
             android:id="@+id/action_rewardFragment_to_disciplineFragment"
-            app:destination="@+id/disciplineFragment"/>
+            app:destination="@+id/disciplineFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -22,7 +26,11 @@
         tools:layout="@layout/fragment_discipline">
         <action
             android:id="@+id/action_disciplineFragment_to_rewardFragment"
-            app:destination="@+id/rewardFragment"/>
+            app:destination="@+id/rewardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
 </navigation>

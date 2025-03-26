@@ -7,4 +7,5 @@
     android:layout_height="match_parent"
     tools:context="com.managerapp.personnelmanagerapp.ui.activities.SplashActivity">
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>

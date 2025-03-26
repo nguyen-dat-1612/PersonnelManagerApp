@@ -17,9 +17,9 @@ import java.util.function.Consumer;
 public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ContractViewHolder> {
     private List<Contract> contractList;
     private Context context;
-    private Consumer<Contract> consumer;
+    private Consumer<String> consumer;
 
-    public ContractAdapter(List<Contract> contractList, Context context, Consumer<Contract> consumer) {
+    public ContractAdapter(List<Contract> contractList, Context context, Consumer<String> consumer) {
         this.contractList = contractList;
         this.context = context;
         this.consumer = consumer;
@@ -41,7 +41,7 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
         Contract contract = contractList.get(position);
         holder.binding.setContract(contract);
         holder.itemView.setOnClickListener(v -> {
-            consumer.accept(contract);
+            consumer.accept(contract.getId());
         });
     }
 

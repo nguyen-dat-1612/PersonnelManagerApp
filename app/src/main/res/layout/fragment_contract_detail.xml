@@ -63,299 +63,316 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Nội dung dạng bảng -->
-            <ScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/header"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-                <LinearLayout
+                android:layout_height="match_parent">
+                <!-- Nội dung dạng bảng -->
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
-                    <!-- TableLayout: Gộp thông tin hợp đồng và lương -->
-                    <androidx.cardview.widget.CardView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="12dp"
-                        app:cardElevation="6dp">
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <TableLayout
+                        <!-- TableLayout: Gộp thông tin hợp đồng và lương -->
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="20dp"
-                            android:stretchColumns="1">
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="6dp">
 
-                            <!-- Tiêu đề -->
-                            <TableRow>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Chi tiết hợp đồng và lương"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#333333"
-                                    android:layout_span="2" />
-                            </TableRow>
-
-                            <!-- Divider -->
-                            <View
+                            <TableLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#D3D3D3"
-                                android:layout_marginTop="12dp"
-                                android:layout_marginBottom="12dp"/>
+                                android:layout_height="wrap_content"
+                                android:padding="20dp"
+                                android:stretchColumns="1">
 
-                            <!-- Mã hợp đồng -->
-                            <TableRow
-                                android:paddingVertical="12dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Mã hợp đồng:"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#555555"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@{contract != null ? contract.contractId : `Chưa có dữ liệu`}"
-                                    android:textSize="16sp"
-                                    android:textColor="#333333"
-                                    android:gravity="end"/>
-                            </TableRow>
+                                <!-- Tiêu đề -->
+                                <TableRow>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Chi tiết hợp đồng và lương"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#333333"
+                                        android:layout_span="2" />
+                                </TableRow>
 
-                            <!-- Divider -->
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#D3D3D3"
-                                android:layout_marginVertical="4dp"/>
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginTop="12dp"
+                                    android:layout_marginBottom="12dp"/>
 
-                            <!-- Mã nhân viên -->
-                            <TableRow
-                                android:paddingVertical="12dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Mã nhân viên:"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#555555"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@{contract != null ? contract.employeeId : `Chưa có dữ liệu`}"
-                                    android:textSize="16sp"
-                                    android:gravity="end"
-                                    android:textColor="#333333"/>
-                            </TableRow>
+                                <!-- Mã hợp đồng -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Mã hợp đồng:"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@{contract != null ? contract.id : `Chưa có dữ liệu`}"
+                                        android:textSize="16sp"
+                                        android:textColor="#333333"
+                                        android:gravity="end"/>
+                                </TableRow>
 
-                            <!-- Divider -->
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#D3D3D3"
-                                android:layout_marginVertical="4dp"/>
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
 
-                            <!-- Loại hợp đồng -->
-                            <TableRow
-                                android:paddingVertical="12dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Loại hợp đồng:"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#555555"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@{contract != null ? contract.contractTypeId : `Chưa có dữ liệu`}"
-                                    android:textSize="16sp"
-                                    android:gravity="end"
-                                    android:textColor="#333333"/>
-                            </TableRow>
+                                <!-- Mã nhân viên -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Mã nhân viên:"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text='@{contract != null ? (contract.userId + "" ): `Chưa có dữ liệu`}'
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
 
-                            <!-- Divider -->
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#D3D3D3"
-                                android:layout_marginVertical="4dp"/>
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
 
-                            <!-- Thời gian -->
-                            <TableRow
-                                android:paddingVertical="12dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Thời gian:"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#555555"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text='@{contract != null ? (contract.startDate + " - " + contract.endDate) : "Chưa có dữ liệu"}'
-                                    android:textSize="16sp"
-                                    android:gravity="end"
-                                    android:textColor="#333333"/>
-                            </TableRow>
+                                <!-- Loại hợp đồng -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Loại hợp đồng:"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@{contract != null ? contract.contractTypeId : `Chưa có dữ liệu`}"
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
 
-                            <!-- Divider -->
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#D3D3D3"
-                                android:layout_marginVertical="4dp"/>
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
 
-                            <!-- Trạng thái -->
-                            <TableRow
-                                android:paddingVertical="12dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Trạng thái:"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#555555"/>
-<!--                                android:text="@{contract != null ? (contract.isActive ? `Còn hiệu lực` : `Hết hạn`) : `Chưa có dữ liệu`}"-->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Chưa có dữ liệu"
-                                    android:textSize="16sp"
-                                    android:gravity="end"
-                                    android:textColor="#333333"/>
-                            </TableRow>
+                                <!-- Thời gian -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Thời gian:"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text='@{contract != null ? (contract.startDate.toString() + " - " + contract.endDate.toString()) : "Chưa có dữ liệu"}'
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
 
-                            <!-- Divider -->
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#D3D3D3"
-                                android:layout_marginVertical="4dp"/>
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
 
-                            <!-- Lương cơ bản -->
-                            <TableRow
-                                android:paddingVertical="12dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Lương cơ bản:"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#555555"/>
-<!--                           android:text="@{contract != null ? String.valueOf(contract.baseSalary) + ` VNĐ` : `Chưa có dữ liệu`}"-->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Chưa có dữ liệu"
-                                    android:textSize="16sp"
-                                    android:gravity="end"
-                                    android:textColor="#333333"/>
-                            </TableRow>
+                                <!-- Trạng thái -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Trạng thái:"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <!--                                android:text="@{contract != null ? (contract.isActive ? `Còn hiệu lực` : `Hết hạn`) : `Chưa có dữ liệu`}"-->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Chưa có dữ liệu"
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
 
-                            <!-- Divider -->
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#D3D3D3"
-                                android:layout_marginVertical="4dp"/>
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
 
-                            <!-- Phụ cấp chức vụ -->
-                            <TableRow
-                                android:paddingVertical="12dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Phụ cấp chức vụ:"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#555555"/>
-<!--                                android:text="@{contract != null ? String.valueOf(contract.positionAllowance) + ` VNĐ` : `Chưa có dữ liệu`}"-->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Chưa có dữ liệu"
-                                    android:textSize="16sp"
-                                    android:gravity="end"
-                                    android:textColor="#333333"/>
-                            </TableRow>
+                                <!-- Lương cơ bản -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Lương cơ bản:"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <!--                           android:text="@{contract != null ? String.valueOf(contract.baseSalary) + ` VNĐ` : `Chưa có dữ liệu`}"-->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Chưa có dữ liệu"
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
 
-                            <!-- Divider -->
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#D3D3D3"
-                                android:layout_marginVertical="4dp"/>
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
 
-                            <!-- Phụ cấp thâm niên -->
-                            <TableRow
-                                android:paddingVertical="12dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Phụ cấp thâm niên:"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#555555"/>
-<!--                                android:text="@{contract != null ? String.valueOf(contract.seniorityAllowance) + ` VNĐ` : `Chưa có dữ liệu`}"-->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Chưa có dữ liệu"
-                                    android:textSize="16sp"
-                                    android:gravity="end"
-                                    android:textColor="#333333"/>
-                            </TableRow>
+                                <!-- Phụ cấp chức vụ -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Phụ cấp chức vụ:"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <!--                                android:text="@{contract != null ? String.valueOf(contract.positionAllowance) + ` VNĐ` : `Chưa có dữ liệu`}"-->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Chưa có dữ liệu"
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
 
-                            <!-- Divider -->
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="#D3D3D3"
-                                android:layout_marginVertical="4dp"/>
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
 
-                            <!-- Bậc lương -->
-                            <TableRow
-                                android:paddingVertical="12dp">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Bậc lương:"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#555555"/>
-                                <!--android:text="@{contract != null ? contract.currentJobGrade : `Chưa có dữ liệu`}"-->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Chưa có dữ liệu"
-                                    android:textSize="16sp"
-                                    android:gravity="end"
-                                    android:textColor="#333333"/>
-                            </TableRow>
-                        </TableLayout>
-                    </androidx.cardview.widget.CardView>
+                                <!-- Phụ cấp thâm niên -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Phụ cấp thâm niên:"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <!--                                android:text="@{contract != null ? String.valueOf(contract.seniorityAllowance) + ` VNĐ` : `Chưa có dữ liệu`}"-->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Chưa có dữ liệu"
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
 
-                    <!-- Button: Xin nâng ngạch -->
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/requestUpgradeButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/button_height"
-                        android:layout_marginTop="24dp"
-                        android:text="Xin nâng ngạch"
-                        android:background="@drawable/button_background"
-                        android:textSize="16sp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-            </ScrollView>
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
+
+                                <!-- Bậc lương -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Bậc lương:"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <!--android:text="@{contract != null ? contract.currentJobGrade : `Chưa có dữ liệu`}"-->
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Chưa có dữ liệu"
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
+                            </TableLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Button: Xin nâng ngạch -->
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/requestUpgradeButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_marginTop="24dp"
+                            android:text="Xin nâng ngạch"
+                            android:background="@drawable/button_background"
+                            android:textSize="16sp"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

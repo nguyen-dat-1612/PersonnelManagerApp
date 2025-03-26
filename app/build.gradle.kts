@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
+    id("androidx.navigation.safeargs") version "2.7.7"
 }
 
 android {
@@ -14,7 +15,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,8 +28,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
 
     buildFeatures {
@@ -39,11 +39,11 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.transport.api)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -71,8 +71,8 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
 
     // **Navigation Component (Chuyển màn hình)**
-    implementation ("androidx.navigation:navigation-fragment:2.7.6")
-    implementation ("androidx.navigation:navigation-ui:2.7.6")
+    implementation ("androidx.navigation:navigation-fragment:2.7.7")
+    implementation ("androidx.navigation:navigation-ui:2.7.7")
 
     // **Glide (Load ảnh)**
     implementation ("com.github.bumptech.glide:glide:4.16.0")
@@ -83,6 +83,12 @@ dependencies {
 
     // **SharedPreferences (DataStore - thay thế SharedPreferences)**
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Mã hóa SharedPreferences
+    implementation ("androidx.security:security-crypto:1.1.0-alpha03")
+
+    // Thư viện JWT để giải mã token
+    implementation ("com.auth0:java-jwt:3.19.2")
 
     // **Lottie (Animation đẹp)**
     implementation ("com.airbnb.android:lottie:6.1.0")
@@ -119,4 +125,7 @@ dependencies {
 
     //Biometric
     implementation ("androidx.biometric:biometric:1.1.0")
+
+    //SwipeRefreshLayout
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

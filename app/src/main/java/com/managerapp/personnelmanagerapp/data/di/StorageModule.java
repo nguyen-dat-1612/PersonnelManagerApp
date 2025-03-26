@@ -1,14 +1,14 @@
 package com.managerapp.personnelmanagerapp.data.di;
 
 import android.content.Context;
-
-import com.managerapp.personnelmanagerapp.data.local.UserPreferences;
+import android.content.SharedPreferences;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
 
 @Module
@@ -17,7 +17,7 @@ public class StorageModule {
 
     @Provides
     @Singleton
-    public static UserPreferences provideUserPreferences(Context context) {
-        return new UserPreferences(context);
+    public static SharedPreferences provideSharedPreferences(@ApplicationContext Context context) {
+        return context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
     }
 }

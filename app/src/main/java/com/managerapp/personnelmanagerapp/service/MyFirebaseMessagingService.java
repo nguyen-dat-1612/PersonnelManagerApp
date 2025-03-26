@@ -20,7 +20,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "FCMService";
     private static final String CHANNEL_ID = "DemoChannel";
-    private static final String SERVER_URL = "http://192.168.1.118:8080/save-token"; // Đồng bộ với server
+    private static final String SERVER_URL = "http://192.168.179.165:8080/save-token"; // Đồng bộ với server
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

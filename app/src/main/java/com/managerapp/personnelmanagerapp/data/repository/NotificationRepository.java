@@ -2,7 +2,7 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 
-import com.managerapp.personnelmanagerapp.data.remote.NotificationApiService;
+import com.managerapp.personnelmanagerapp.data.remote.api.NotificationApiService;
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
 
 import java.util.List;
@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Response;
 
 @Singleton
 public class NotificationRepository {

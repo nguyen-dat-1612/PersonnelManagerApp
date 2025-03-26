@@ -31,7 +31,7 @@
                     android:id="@+id/tvContractId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{"Mã HD: " + contract.contractId}'
+                    android:text='@{"Mã HD: " + contract.id}'
                     android:textStyle="bold"
                     android:textSize="16sp"/>
 
@@ -47,7 +47,7 @@
                 android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{contract.isActive ? "\uD83D\uDFE2 Còn hiệu lực" : "\uD83D\uDD34 Hết hạn"}'
+                android:text='@{contract.status + ""}'
                 android:textSize="14sp"
                 android:layout_gravity="center_vertical"/>
 

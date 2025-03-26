@@ -5,4 +5,8 @@ import com.google.gson.annotations.SerializedName;
 public class RequestResponse {
     @SerializedName("status")
     private String status;
+
+    public String getStatus() {
+        return status;
+    }
 }

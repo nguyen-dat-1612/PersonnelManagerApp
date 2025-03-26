@@ -1,40 +1,48 @@
 package com.managerapp.personnelmanagerapp.ui.fragments;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.managerapp.personnelmanagerapp.R;
-import com.managerapp.personnelmanagerapp.databinding.FragmentContractDetailBinding;
 import com.managerapp.personnelmanagerapp.databinding.FragmentContractListBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import com.managerapp.personnelmanagerapp.ui.activities.MainActivity;
 import com.managerapp.personnelmanagerapp.ui.adapters.ContractAdapter;
+import com.managerapp.personnelmanagerapp.ui.state.ContractListState;
+import com.managerapp.personnelmanagerapp.ui.state.LeaveApplicationState;
+import com.managerapp.personnelmanagerapp.ui.viewmodel.ContractListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class ContractListFragment extends Fragment {
 
     private static final String TAG = "ContractListFragment";
+    private ContractListViewModel viewModel;
     private FragmentContractListBinding binding;
     private NavController navController;
+    private List<Contract> contractList = new ArrayList<>();
+    private ContractAdapter adapter;
 
     public ContractListFragment() {
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,57 +56,20 @@ public class ContractListFragment extends Fragment {
 
         binding = FragmentContractListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
-        view.post(() -> {
-            try {
-                navController = Navigation.findNavController(view);
-            } catch (IllegalStateException e) {
-                Log.e(TAG, "NavController chưa sẵn sàng", e);
-            }
+        navController = Navigation.findNavController(requireActivity(), R.id.contract_fragment);
+        viewModel = new ViewModelProvider(this).get(ContractListViewModel.class);
+        adapter = new ContractAdapter(contractList, requireContext(), contractId -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("contractId", contractId);
+            navController.navigate(R.id.action_contractListFragment_to_contractDetailFragment, bundle);
         });
 
-        List<Contract> contracts = new ArrayList<>();
-
-        contracts.add(new Contract(
-                "CT001", "EMP001", "CTT",
-                "2023-01-01", "2023-12-31",
-                10000000, 2000000, 1000000,
-                3, true));
-
-        contracts.add(new Contract(
-                "CT002", "EMP002", "CTV",
-                "2023-05-01", "2023-11-30",
-                8000000, 1500000, 500000,
-                2, true));
-
-        contracts.add(new Contract(
-                "CT003", "EMP003", "CTT",
-                "2022-07-01", "2023-06-30",
-                12000000, 2500000, 2000000,
-                4, false));
-
-        contracts.add(new Contract(
-                "CT004", "EMP004", "CTV",
-                "2023-02-01", "2023-08-31",
-                7500000, 1200000, 600000,
-                2, true));
-
-        contracts.add(new Contract(
-                "CT005", "EMP005", "CTT",
-                "2021-09-01", "2023-09-01",
-                14000000, 3000000, 2500000,
-                5, false));
-
-        if (contracts.isEmpty()) {
-            Toast.makeText(requireContext(), "Không có hợp đồng nào!", Toast.LENGTH_SHORT).show();
-        }
-
+        loadAllContracts();
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            loadAllContracts();
+        });
         binding.recyclerViewContact.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recyclerViewContact.setAdapter(new ContractAdapter(contracts,requireContext(), contract -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("contractId",contract.getContractId());
-            navController.navigate(R.id.action_contractListFragment_to_contractDetailFragment, bundle);
-        }));
+        binding.recyclerViewContact.setAdapter(adapter);
 
         binding.backBtn.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), MainActivity.class);
@@ -107,5 +78,32 @@ public class ContractListFragment extends Fragment {
         });
 
         return view;
+    }
+    public void loadAllContracts() {
+        viewModel.getContractState().observe(getViewLifecycleOwner(), state -> {
+            binding.swipeRefresh.setRefreshing(false);
+            if (state instanceof ContractListState.Loading) {
+                binding.swipeRefresh.setRefreshing(true);
+            } else if (state instanceof ContractListState.Success) {
+                contractList.clear();
+                contractList.addAll(((ContractListState.Success) state).contracts);
+                adapter.notifyDataSetChanged();
+
+                binding.emptyView.setVisibility(GONE);
+                binding.recyclerViewContact.setVisibility(VISIBLE);
+            } else if (state instanceof ContractListState.Error) {
+                Toast.makeText(requireContext(), ((ContractListState.Error) state).message, Toast.LENGTH_SHORT).show();
+                binding.emptyView.setVisibility(VISIBLE);
+            } else if (state instanceof ContractListState.Empty) {
+                binding.emptyView.setVisibility(VISIBLE);
+                binding.recyclerViewContact.setVisibility(GONE);
+            }
+        });
+        viewModel.loadAllContracts();
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

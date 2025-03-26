@@ -1,20 +1,24 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityContractBinding;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class ContractActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
+    private final String TAG = "ContractActivity";
     private ActivityContractBinding binding;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +27,19 @@ public class ContractActivity extends AppCompatActivity {
         binding = ActivityContractBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Kiểm tra ID của NavHostFragment trong layout
-        NavController navController = Navigation.findNavController(this, R.id.contract_fragment);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contract_fragment);
+
+        if (navHostFragment != null) {
+            navController = navHostFragment.getNavController();
+        } else {
+            throw new IllegalStateException("NavHostFragment is null. Check activity_request.xml.");
+        }
     }
 
-    @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.contract_fragment);
-        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
+        boolean result = navController != null && (navController.navigateUp() || super.onSupportNavigateUp());
+        Log.d(TAG, "onSupportNavigateUp: Result = " + result);
+        return result;
     }
 }

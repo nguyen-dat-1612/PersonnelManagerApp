@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="salary"
+            type="com.managerapp.personnelmanagerapp.domain.model.Salary" />
+    </data>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSalary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#FFFFFF">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Tháng lương -->
+            <TextView
+                android:id="@+id/tvSalaryMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text= '@{"Tháng lương: " + salary.salaryMonth}'
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <!-- Tổng phụ cấp -->
+            <TextView
+                android:id="@+id/tvTotalAllowancesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng phụ cấp:"
+                android:textSize="16sp"
+                android:textColor="#424242"
+                app:layout_constraintTop_toBottomOf="@id/tvSalaryMonth"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/tvTotalAllowances"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{salary.totalDeductions + ""}'
+                android:textSize="16sp"
+                android:textColor="#1976D2"
+                app:layout_constraintTop_toTopOf="@id/tvTotalAllowancesLabel"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Tổng khấu trừ -->
+            <TextView
+                android:id="@+id/tvTotalDeductionsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng khấu trừ:"
+                android:textSize="16sp"
+                android:textColor="#424242"
+                app:layout_constraintTop_toBottomOf="@id/tvTotalAllowancesLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tvTotalDeductions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{salary.totalAllowances + ""}'
+                android:textSize="16sp"
+                android:textColor="#D32F2F"
+                app:layout_constraintTop_toTopOf="@id/tvTotalDeductionsLabel"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Ngày thanh toán -->
+            <TextView
+                android:id="@+id/tvPaymentDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày thanh toán:"
+                android:textSize="16sp"
+                android:textColor="#424242"
+                app:layout_constraintTop_toBottomOf="@id/tvTotalDeductionsLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tvPaymentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{salary.paymentDate + ""}'
+                android:textSize="16sp"
+                android:textColor="#1976D2"
+                app:layout_constraintTop_toTopOf="@id/tvPaymentDateLabel"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Trạng thái thanh toán -->
+            <TextView
+                android:id="@+id/tvPaymentStatusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trạng thái:"
+                android:textSize="16sp"
+                android:textColor="#424242"
+                app:layout_constraintTop_toBottomOf="@id/tvPaymentDateLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tvPaymentStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{salary.paymentStatus + ""}'
+                android:textSize="16sp"
+                android:textColor="#388E3C"
+                app:layout_constraintTop_toTopOf="@id/tvPaymentStatusLabel"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

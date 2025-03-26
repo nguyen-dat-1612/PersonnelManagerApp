@@ -4,9 +4,7 @@ package com.managerapp.personnelmanagerapp.ui.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.managerapp.personnelmanagerapp.data.local.UserPreferences;
 import com.managerapp.personnelmanagerapp.data.remote.response.LoginResponse;
-import com.managerapp.personnelmanagerapp.data.repository.AuthRepository;
 import com.managerapp.personnelmanagerapp.domain.usecase.LoginUseCase;
 
 import javax.inject.Inject;
@@ -21,13 +19,11 @@ public class LoginViewModel extends ViewModel {
     private final LoginUseCase loginUseCase;
     private final MutableLiveData<LoginResponse> loginLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
-    private final UserPreferences userPreferences;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Inject
-    public LoginViewModel(LoginUseCase loginUseCase, UserPreferences userPreferences) {
+    public LoginViewModel(LoginUseCase loginUseCase) {
         this.loginUseCase = loginUseCase;
-        this.userPreferences = userPreferences;
     }
 
     public MutableLiveData<LoginResponse> getUserLiveData() {
@@ -42,7 +38,6 @@ public class LoginViewModel extends ViewModel {
                 .subscribe(
                         response -> {
                             loginLiveData.postValue(response);
-                            userPreferences.saveTokens(response.getData().getAccessToken(), response.getData().getRefreshToken());
                         },
                         throwable -> {
                             errorLiveData.postValue(throwable.getMessage());

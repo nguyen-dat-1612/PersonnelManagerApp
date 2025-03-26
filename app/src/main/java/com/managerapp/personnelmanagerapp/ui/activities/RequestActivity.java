@@ -13,6 +13,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityRequestBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class RequestActivity extends AppCompatActivity {
     private ActivityRequestBinding binding;
     private NavController navController;

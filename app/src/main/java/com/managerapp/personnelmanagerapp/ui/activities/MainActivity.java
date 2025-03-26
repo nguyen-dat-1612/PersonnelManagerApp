@@ -23,10 +23,13 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private static final String SERVER_URL = "http://192.168.1.118:8080/save-token"; // Đồng bộ với server
+    private static final String SERVER_URL = "http://192.168.179.165:8080/save-token"; // Đồng bộ với server
     private NavController navController;
     private ActivityMainBinding binding;
     private ChipNavigationBar bottomBar;

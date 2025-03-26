@@ -1,54 +1,95 @@
 package com.managerapp.personnelmanagerapp.ui.fragments;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.managerapp.personnelmanagerapp.databinding.FragmentNotificationsBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
 import com.managerapp.personnelmanagerapp.ui.adapters.NotificationAdapter;
+import com.managerapp.personnelmanagerapp.ui.state.NotificationState;
+import com.managerapp.personnelmanagerapp.ui.viewmodel.NotificationViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class NotificationsFragment extends Fragment {
 
+    private static final String TAG = "NotificationsFragment";
     private FragmentNotificationsBinding binding;
+    private List<Notification> notificationList = new ArrayList<>();
+    private NotificationAdapter adapter;
+    private NotificationViewModel viewModel;
+
     public NotificationsFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        viewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
 
-        List<Notification> notifications = new ArrayList<>();
-//        notifications.add(new Notification(1, "Xét duyệt yêu cầu", "Yêu cầu nghỉ phép của bạn đã được phê duyệt."));
-//        notifications.add(new Notification(2, "Cập nhật hệ thống", "Hệ thống sẽ bảo trì từ 1:00 AM đến 3:00 AM."));
-//        notifications.add(new Notification(3, "Thông báo mới", "Bạn có lịch họp vào 14:00 ngày mai."));
-//        notifications.add(new Notification(4, "Nhắc nhở", "Hãy hoàn thành báo cáo trước 17:00 hôm nay."));
+        adapter = new NotificationAdapter(notificationList, notification -> {
+            Toast.makeText(requireContext(), "Clicked: " + notification.toString(), Toast.LENGTH_SHORT).show();
+        });
 
-        if (notifications.isEmpty() ) {
-            binding.emptyView.setVisibility(View.VISIBLE);
-            binding.notificationList.setVisibility(View.GONE);
-        } else  {
-            binding.notificationList.setVisibility(View.VISIBLE);
-            binding.notificationList.setLayoutManager(new LinearLayoutManager(requireContext()));
-            binding.notificationList.setAdapter(new NotificationAdapter(notifications,notification -> {
-                Toast.makeText(requireContext(), "Clicked: " + notification.getTitle(), Toast.LENGTH_SHORT).show();
-            }));
-        }
+        // Gọi API để lấy danh sách thông báo
+        loadNotifications();
 
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            loadNotifications();
+        });
 
 
         return binding.getRoot();
+    }
+
+    private void loadNotifications() {
+        viewModel.getNotificationState().observe(getViewLifecycleOwner(), state -> {
+            binding.swipeRefresh.setRefreshing(false);
+
+            if (state instanceof NotificationState.Loading) {
+                binding.swipeRefresh.setRefreshing(true);
+            } else if (state instanceof NotificationState.Success) {
+                notificationList.clear();
+                notificationList.addAll(((NotificationState.Success) state).notifications);
+                adapter.notifyDataSetChanged();
+
+                binding.emptyView.setVisibility(GONE);
+                binding.notificationList.setVisibility(VISIBLE);
+
+            } else if (state instanceof NotificationState.Error) {
+                Toast.makeText(requireContext(),
+                        ((NotificationState.Error) state).message,
+                        Toast.LENGTH_SHORT).show();
+                binding.emptyView.setVisibility(VISIBLE);
+            } else if (state instanceof NotificationState.Empty) {
+                binding.emptyView.setVisibility(VISIBLE);
+                binding.notificationList.setVisibility(GONE);
+            }
+        });
+
+        viewModel.loadAllNotifications();
     }
 
     @Override

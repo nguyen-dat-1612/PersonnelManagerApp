@@ -1,37 +1,59 @@
 package com.managerapp.personnelmanagerapp.domain.model;
 
-// Class đóng góp phản hồi
-public class Feedback {
-    private String id;
-    private int employeeId;
-    private String content;
-    private String sendDate;
-    private String status;
-    private int processorId;
+import java.util.Date;
+import java.util.Objects;
 
-    public Feedback(int processorId, String status, String sendDate, String content, int employeeId, String id) {
-        this.processorId = processorId;
-        this.status = status;
-        this.sendDate = sendDate;
-        this.content = content;
-        this.employeeId = employeeId;
-        this.id = id;
+public class Feedback {
+    private String id;          // Mã phản hồi
+    private int userId;         // Mã người dùng phản hồi
+    private String title;       // Tiêu đề phản hồi
+    private String content;     // Nội dung phản hồi
+    private Date sendDate;      // Thời gian phản hồi
+
+    // Constructors
+    public Feedback() {
     }
 
+    public Feedback(String id, int userId, String title, String content, Date sendDate) {
+        setId(id);
+        setUserId(userId);
+        setTitle(title);
+        setContent(content);
+        setSendDate(sendDate);
+    }
+
+    // Getters and Setters
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        if (id == null || id.trim().isEmpty()) {
+            throw new IllegalArgumentException("Feedback ID cannot be null or empty");
+        }
+        this.id = id.trim();
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setUserId(int userId) {
+        if (userId <= 0) {
+            throw new IllegalArgumentException("User ID must be positive");
+        }
+        this.userId = userId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be null or empty");
+        }
+        this.title = title.trim();
     }
 
     public String getContent() {
@@ -39,30 +61,46 @@ public class Feedback {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        if (content == null || content.trim().isEmpty()) {
+            throw new IllegalArgumentException("Content cannot be null or empty");
+        }
+        this.content = content.trim();
     }
 
-    public String getSendDate() {
+    public Date getSendDate() {
         return sendDate;
     }
 
-    public void setSendDate(String sendDate) {
+    public void setSendDate(Date sendDate) {
+        if (sendDate == null) {
+            throw new IllegalArgumentException("Send date cannot be null");
+        }
         this.sendDate = sendDate;
     }
 
-    public int getProcessorId() {
-        return processorId;
+    // toString method for debugging/logging
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "id='" + id + '\'' +
+                ", userId=" + userId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", sendDate=" + sendDate +
+                '}';
     }
 
-    public void setProcessorId(int processorId) {
-        this.processorId = processorId;
+    // equals and hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Feedback feedback = (Feedback) o;
+        return id.equals(feedback.id);
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

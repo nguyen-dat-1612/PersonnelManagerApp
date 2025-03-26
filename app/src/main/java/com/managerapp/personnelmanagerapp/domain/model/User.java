@@ -1,122 +1,178 @@
 package com.managerapp.personnelmanagerapp.domain.model;
 
+import java.util.Date;
+
 public class User {
-    private int MaNhanSu;
-    private String HovaTen;
-    private String SoCCCD;
-    private String Email;
-    private String SoDT;
-    private String DiaChiTT;
-    private String NgaySinh;
-    private String GioiTinh;
-    private String MaPhong;
-    private String MaKhoa;
-    private String MaChucDanh;
-    private String MaChucVu;
-    private String MaHocVi;
+    private int id;  // Primary key, auto-increment
+    private Integer accountId;  // Foreign key (nullable)
+    private String fullName;
+    private String cccd;  // Citizen ID (12 chars)
+    private Gender gender;
+    private Date dateOfBirth;
+    private String permanentAddress;
+    private String ethnicity;  // Foreign key
+    private String religion;
+    private String email;  // Unique
+    private String status;
+    private String phoneNumber;  // Unique
+    private String academicDegree;
 
-    // Getters and Setters
-    public int getMaNhanSu() {
-        return MaNhanSu;
+    public enum Gender {
+        MALE("Nam"),
+        FEMALE("Nữ"),
+        OTHER("Khác");
+
+        private final String vietnameseName;
+
+        Gender(String vietnameseName) {
+            this.vietnameseName = vietnameseName;
+        }
+
+        public String getVietnameseName() {
+            return vietnameseName;
+        }
     }
 
-    public void setMaNhanSu(int maNhanSu) {
-        MaNhanSu = maNhanSu;
+    // Constructors
+    public User() {
     }
 
-    public String getHovaTen() {
-        return HovaTen;
+    public User(int id, Integer accountId, String fullName, String cccd,
+                Gender gender, Date dateOfBirth, String permanentAddress,
+                String ethnicity, String religion, String email,
+                String status, String phoneNumber, String academicDegree) {
+        setId(id);
+        setAccountId(accountId);
+        setFullName(fullName);
+        setCccd(cccd);
+        setGender(gender);
+        setDateOfBirth(dateOfBirth);
+        setPermanentAddress(permanentAddress);
+        setEthnicity(ethnicity);
+        setReligion(religion);
+        setEmail(email);
+        setStatus(status);
+        setPhoneNumber(phoneNumber);
+        setAcademicDegree(academicDegree);
     }
 
-    public void setHovaTen(String hovaTen) {
-        HovaTen = hovaTen;
+    // Getters and Setters with validation
+    public int getId() {
+        return id;
     }
 
-    public String getSoCCCD() {
-        return SoCCCD;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setSoCCCD(String soCCCD) {
-        SoCCCD = soCCCD;
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName != null ? fullName.trim() : null;
+    }
+
+    public String getCccd() {
+        return cccd;
+    }
+
+    public void setCccd(String cccd) {
+        if (cccd != null && cccd.length() != 12) {
+            throw new IllegalArgumentException("CCCD must be 12 characters");
+        }
+        this.cccd = cccd;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPermanentAddress() {
+        return permanentAddress;
+    }
+
+    public void setPermanentAddress(String permanentAddress) {
+        this.permanentAddress = permanentAddress != null ? permanentAddress.trim() : null;
+    }
+
+    public String getEthnicity() {
+        return ethnicity;
+    }
+
+    public void setEthnicity(String ethnicity) {
+        this.ethnicity = ethnicity;
+    }
+
+    public String getReligion() {
+        return religion;
+    }
+
+    public void setReligion(String religion) {
+        this.religion = religion != null ? religion.trim() : null;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        if (email != null && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            throw new IllegalArgumentException("Invalid email format");
+        }
+        this.email = email != null ? email.trim() : null;
     }
 
-    public String getSoDT() {
-        return SoDT;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSoDT(String soDT) {
-        SoDT = soDT;
+    public void setStatus(String status) {
+        this.status = status != null ? status.trim() : null;
     }
 
-    public String getDiaChiTT() {
-        return DiaChiTT;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setDiaChiTT(String diaChiTT) {
-        DiaChiTT = diaChiTT;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getNgaySinh() {
-        return NgaySinh;
+    public String getAcademicDegree() {
+        return academicDegree;
     }
 
-    public void setNgaySinh(String ngaySinh) {
-        NgaySinh = ngaySinh;
+    public void setAcademicDegree(String academicDegree) {
+        this.academicDegree = academicDegree != null ? academicDegree.trim() : null;
     }
 
-    public String getGioiTinh() {
-        return GioiTinh;
-    }
-
-    public void setGioiTinh(String gioiTinh) {
-        GioiTinh = gioiTinh;
-    }
-
-    public String getMaPhong() {
-        return MaPhong;
-    }
-
-    public void setMaPhong(String maPhong) {
-        MaPhong = maPhong;
-    }
-
-    public String getMaKhoa() {
-        return MaKhoa;
-    }
-
-    public void setMaKhoa(String maKhoa) {
-        MaKhoa = maKhoa;
-    }
-
-    public String getMaChucDanh() {
-        return MaChucDanh;
-    }
-
-    public void setMaChucDanh(String maChucDanh) {
-        MaChucDanh = maChucDanh;
-    }
-
-    public String getMaChucVu() {
-        return MaChucVu;
-    }
-
-    public void setMaChucVu(String maChucVu) {
-        MaChucVu = maChucVu;
-    }
-
-    public String getMaHocVi() {
-        return MaHocVi;
-    }
-
-    public void setMaHocVi(String maHocVi) {
-        MaHocVi = maHocVi;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

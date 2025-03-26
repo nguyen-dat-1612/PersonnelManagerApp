@@ -1,45 +1,56 @@
 package com.managerapp.personnelmanagerapp.ui.viewmodel;
 
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.managerapp.personnelmanagerapp.domain.model.Notification;
 import com.managerapp.personnelmanagerapp.domain.usecase.GetAllNotificationsUseCase;
-
-import java.util.List;
+import com.managerapp.personnelmanagerapp.ui.state.NotificationState;
 
 import javax.inject.Inject;
-
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class NotificationViewModel extends ViewModel {
     private final GetAllNotificationsUseCase getAllNotificationsUseCase;
-    private final MutableLiveData<List<Notification>> notifications = new MutableLiveData<>();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
+    private final MutableLiveData<NotificationState> notificationState = new MutableLiveData<>();
+
+    public LiveData<NotificationState> getNotificationState() {
+        return notificationState;
+    }
     @Inject
     public NotificationViewModel(GetAllNotificationsUseCase getAllNotificationsUseCase) {
         this.getAllNotificationsUseCase = getAllNotificationsUseCase;
     }
 
-    private LiveData<List<Notification>> getNotifications() {
-        return notifications;
-    }
-
     public void loadAllNotifications() {
-        if (notifications != null ) {
-            getAllNotificationsUseCase.execute()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            notifications -> this.notifications.setValue(notifications),
-                            throwable ->  { // Xử lý lỗi
-
-                            }
-                    );
-        }
+        notificationState.postValue(new NotificationState.Loading());
+        disposables.add(
+                getAllNotificationsUseCase.execute()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                notifications -> {
+                                    if (notifications.isEmpty()) {
+                                        notificationState.postValue(new NotificationState.Empty());
+                                    } else {
+                                        notificationState.postValue(new NotificationState.Success(notifications));
+                                    }
+                                },
+                                throwable -> notificationState.postValue(
+                                        new NotificationState.Error(throwable.getMessage()))
+                        )
+        );
+    }
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        disposables.clear(); // Hủy tất cả request khi ViewModel bị hủy
     }
 }

@@ -328,6 +328,7 @@
 
             <!-- Chức năng 7: Lịch Sử Lương -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/btnSalary"
                 android:layout_width="0dp"
                 android:layout_height="130dp"
                 android:layout_columnWeight="1"
