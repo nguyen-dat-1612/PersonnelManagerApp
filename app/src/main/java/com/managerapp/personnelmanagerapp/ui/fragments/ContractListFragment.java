@@ -99,7 +99,7 @@ public class ContractListFragment extends Fragment {
                 binding.recyclerViewContact.setVisibility(GONE);
             }
         });
-        viewModel.loadAllContracts();
+//        viewModel.loadAllContracts();
     }
     @Override
     public void onDestroyView() {

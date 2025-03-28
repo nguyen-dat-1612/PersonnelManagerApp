@@ -1,16 +1,15 @@
 package com.managerapp.personnelmanagerapp.data.local;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-// SecureTokenManager: Quản lý tokens và các hoạt động bảo mật
 public class SecureTokenManager {
+    private static final String TAG = "SecureTokenManager"; // Thêm TAG cho log
     private static final String KEY_ACCESS_TOKEN = "access_token";
-    private static final String KEY_REFRESH_TOKEN = "refresh_token";
-    private static final String KEY_TOKEN_EXPIRY = "token_expiry";
 
     private final EncryptionManager encryptionManager;
     private final SharedPreferences sharedPreferences;
@@ -19,42 +18,38 @@ public class SecureTokenManager {
     public SecureTokenManager(EncryptionManager encryptionManager, SharedPreferences sharedPreferences) {
         this.encryptionManager = encryptionManager;
         this.sharedPreferences = sharedPreferences;
+        Log.d(TAG, "SecureTokenManager initialized");
     }
 
     public void saveAccessToken(String token) {
+        Log.d(TAG, "Original token: " + token); // Log token gốc
+
         String encryptedToken = encryptionManager.encrypt(token);
+        Log.d(TAG, "Encrypted token: " + encryptedToken); // Log token đã mã hóa
+
         sharedPreferences.edit().putString(KEY_ACCESS_TOKEN, encryptedToken).apply();
+        Log.d(TAG, "Token saved to SharedPreferences"); // Xác nhận đã lưu
     }
 
     public String getAccessToken() {
         String encryptedToken = sharedPreferences.getString(KEY_ACCESS_TOKEN, null);
-        return encryptedToken != null ? encryptionManager.decrypt(encryptedToken) : null;
-    }
+        Log.d(TAG, "Retrieved encrypted token from SharedPreferences: " + encryptedToken); // Log token mã hóa từ SharedPreferences
 
-    public void saveRefreshToken(String token) {
-        String encryptedToken = encryptionManager.encrypt(token);
-        sharedPreferences.edit().putString(KEY_REFRESH_TOKEN, encryptedToken).apply();
-    }
-
-    public String getRefreshToken() {
-        String encryptedToken = sharedPreferences.getString(KEY_REFRESH_TOKEN, null);
-        return encryptedToken != null ? encryptionManager.decrypt(encryptedToken) : null;
-    }
-
-    public boolean isTokenExpired() {
-        long expiryTime = sharedPreferences.getLong(KEY_TOKEN_EXPIRY, 0);
-        return System.currentTimeMillis() > expiryTime;
+        if (encryptedToken != null) {
+            String decryptedToken = encryptionManager.decrypt(encryptedToken);
+            Log.d(TAG, "Decrypted token: " + decryptedToken); // Log token đã giải mã
+            return decryptedToken;
+        } else {
+            Log.d(TAG, "No token found in SharedPreferences");
+            return null;
+        }
     }
 
     public void clearTokens() {
+        Log.d(TAG, "Clearing tokens from SharedPreferences");
         sharedPreferences.edit()
                 .remove(KEY_ACCESS_TOKEN)
-                .remove(KEY_REFRESH_TOKEN)
-                .remove(KEY_TOKEN_EXPIRY)
                 .apply();
-    }
-
-    public void setTokenExpiry(long expiryTimeMillis) {
-        sharedPreferences.edit().putLong(KEY_TOKEN_EXPIRY, expiryTimeMillis).apply();
+        Log.d(TAG, "Tokens cleared"); // Xác nhận đã xóa
     }
 }

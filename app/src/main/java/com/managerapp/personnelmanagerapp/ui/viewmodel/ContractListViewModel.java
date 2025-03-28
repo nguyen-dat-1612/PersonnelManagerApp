@@ -26,10 +26,10 @@ public class ContractListViewModel extends ViewModel {
         return contractState;
     }
 
-    public void loadAllContracts() {
+    public void loadAllContracts(int userId) {
         contractState.postValue(new ContractListState.Loading());
         disposables.add(
-                getAllContractsUseCase.execute()
+                getAllContractsUseCase.execute(userId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe( contracts -> {

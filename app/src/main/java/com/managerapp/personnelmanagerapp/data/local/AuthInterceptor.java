@@ -19,6 +19,10 @@ public class AuthInterceptor implements Interceptor {
         Request originalRequest = chain.request();
         String token = secureTokenManager.getAccessToken();
 
+        // Nếu có header "No-Authentication", bỏ qua việc gắn token
+        if (originalRequest.header("No-Authentication") != null) {
+            return chain.proceed(originalRequest);
+        }
         Request authenticatedRequest = token != null
                 ? originalRequest.newBuilder()
                 .addHeader("Authorization", "Bearer " + token)

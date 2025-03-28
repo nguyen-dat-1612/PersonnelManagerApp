@@ -20,8 +20,8 @@ public class ContractRepository {
         this.contractApiService = contractApiService;
     }
 
-    public Single<List<Contract>> getContracts() {
-        return contractApiService.getContracts()
+    public Single<List<Contract>> getContracts(int userId) {
+        return contractApiService.getContracts(userId)
                 .flatMap(response -> {
                     if (response.isSuccessful() && response.body() != null) {
                         Log.d(TAG, "Lấy dữ liệu thành công");

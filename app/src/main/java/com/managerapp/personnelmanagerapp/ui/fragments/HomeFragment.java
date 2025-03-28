@@ -23,7 +23,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 
     public HomeFragment() {
-        // Required empty public constructor
+
     }
 
     @Override

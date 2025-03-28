@@ -8,7 +8,7 @@
     tools:context="com.managerapp.personnelmanagerapp.ui.activities.MainActivity">
 
     <!-- Navigation Fragment -->
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -29,7 +29,6 @@
         android:elevation="12dp"
         app:cnb_menuResource="@menu/bottom_nav_menu"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:cnb_textAppearance="@style/BottomNavTextStyle"
-        />
+        app:cnb_textAppearance="@style/BottomNavTextStyle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

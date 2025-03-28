@@ -17,7 +17,7 @@ public class GetAllContractsUseCase {
         this.contractRepository = contractRepository;
     }
 
-    public Single<List<Contract>> execute() {
-        return contractRepository.getContracts();
+    public Single<List<Contract>> execute(int userId) {
+        return contractRepository.getContracts(userId);
     }
 }

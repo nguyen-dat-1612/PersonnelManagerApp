@@ -21,8 +21,8 @@ public class UserRepository {
         this.apiService = apiService;
     }
 
-    public Single<User> getUser(int userId) {
-        return apiService.getUser(userId)
+    public Single<User> getUser() {
+        return apiService.getUser()
                 .flatMap( response -> {
                     if (response.isSuccessful() && response.body() != null) {
                         Log.d(TAG, "Lấy dữ liệu thông tin người dùng thành công");

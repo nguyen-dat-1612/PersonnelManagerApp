@@ -33,16 +33,33 @@
     <string name="faculty">Khoa: </string>
 
     <!-- Thông tin người dùng -->
-    <string name="full_name">Họ và tên</string>
-    <string name="gender">Giới tính</string>
-    <string name="date_of_birth">Ngày sinh</string>
-    <string name="phone_number">Số điện thoại</string>
-    <string name="cccd">CCCD</string>
-    <string name="permanent_address">Địa chỉ thường trú</string>
-    <string name="ethnicity">Dân tộc</string>
-    <string name="religion">Tôn giáo</string>
-    <string name="status">Trạng thái</string>
-    <string name="academic_degree">Trình độ học vấn</string>
+    <!-- User fields -->
+    <string name="user_id">ID</string>
+    <string name="user_email">Email</string>
+    <string name="user_full_name">Họ và tên</string>
+    <string name="user_number_cccd">Số CCCD</string>
+    <string name="user_phone_number">Số điện thoại</string>
+    <string name="user_dob">Ngày sinh</string>
+    <string name="user_gender">Giới tính</string>
+    <string name="user_address">Địa chỉ</string>
+    <string name="user_ethnicity">Dân tộc</string>
+    <string name="user_religion">Tôn giáo</string>
+    <string name="user_tax_code">Mã số thuế</string>
+    <string name="user_degree">Trình độ</string>
+    <string name="user_status">Trạng thái</string>
+    <string name="user_avatar">Ảnh đại diện</string>
+    <string name="not_available">Không có thông tin</string>
+
+    <!-- User status -->
+    <string name="user_status_pending">Chờ xử lý</string>
+    <string name="user_status_expired">Hết hạn</string>
+    <string name="user_status_terminated">Đã chấm dứt</string>
+
+    <!-- Gender options -->
+    <string name="gender_male">Nam</string>
+    <string name="gender_female">Nữ</string>
+    <string name="gender_other">Khác</string>
+
     <string name="loading_error">Lỗi tải thông tin người dùng!</string>
     <string name="back">Quay lại</string>
     
@@ -52,4 +69,11 @@
     <!-- Khen thưởng và kỹ luật-->
     <string name="reward_and_discipline">Khen thưởng và kỷ luật</string>
 
+
+    <string name="otp_verification_title">Xác nhận mã OTP</string>
+    <string name="otp_verification_description">Nhập mã 4 chữ số đã gửi đến\n+84 ••• ••• 1234</string>
+    <string name="verify">Xác nhận</string>
+    <string name="did_not_receive_code">Không nhận được mã?</string>
+    <string name="resend_otp">Gửi lại</string>
+    <string name="otp_verification_icon">Icon xác thực OTP</string>
 </resources>

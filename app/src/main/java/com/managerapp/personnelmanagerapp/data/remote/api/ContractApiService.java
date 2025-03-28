@@ -1,6 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.remote.api;
 
-import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
+import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.domain.model.Contract;
 
 import java.util.List;
@@ -12,9 +12,9 @@ import retrofit2.http.Path;
 
 public interface ContractApiService {
 
-    @GET("contracts")
-    Single<Response<ContractResponse<List<Contract>>>> getContracts();
+    @GET("contracts/{id}")
+    Single<Response<BaseResponse<List<Contract>>>> getContracts(@Path("id") int userId);
 
     @GET("contracts/{id}")
-    Single<Response<ContractResponse<Contract>>> getContractById(@Path("id") String contractId);
+    Single<Response<BaseResponse<Contract>>> getContractById(@Path("id") String contractId);
 }

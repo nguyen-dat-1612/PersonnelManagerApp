@@ -1,6 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.remote.api;
 
-import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
+import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 
 import java.util.List;
@@ -12,8 +12,8 @@ import retrofit2.http.Path;
 
 public interface LeaveApplicationApiService {
     @GET("leaveApplications")
-    Single<Response<LeaveApplicationResponse<List<LeaveApplication>>>> getLeaveApplications();
+    Single<Response<BaseResponse<List<LeaveApplication>>>> getLeaveApplications();
 
     @GET("leaveApplications/{id}")
-    Single<Response<LeaveApplicationResponse<LeaveApplication>>> getLeaveApplicationById(@Path("id") String id);
+    Single<Response<BaseResponse<LeaveApplication>>> getLeaveApplicationById(@Path("id") String id);
 }

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.PersonnelManagerApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.OtpVerificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.SalaryActivity"
             android:exported="false" />
         <activity
@@ -52,10 +55,10 @@
             android:name=".ui.activities.RequestActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.LoginActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".ui.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,10 +1,7 @@
 package com.managerapp.personnelmanagerapp.domain.usecase;
 
 import com.managerapp.personnelmanagerapp.data.repository.UserRepository;
-import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import com.managerapp.personnelmanagerapp.domain.model.User;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,8 +16,8 @@ public class GetUserUseCase {
         this.userRepository = userRepository;
     }
 
-    public Single<User> execute(int userId) {
-        return userRepository.getUser(userId);
+    public Single<User> execute() {
+        return userRepository.getUser();
     }
 
 }

@@ -1,135 +1,53 @@
 package com.managerapp.personnelmanagerapp.domain.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class User {
-    private int id;  // Primary key, auto-increment
-    private Integer accountId;  // Foreign key (nullable)
+
+    private long id;
+    private String email;
     private String fullName;
-    private String cccd;  // Citizen ID (12 chars)
-    private Gender gender;
-    private Date dateOfBirth;
-    private String permanentAddress;
-    private String ethnicity;  // Foreign key
+    private String numberCCCD;
+    private String phoneNumber;
+    private Date dob;
+    private String gender;
+    private String address;
+    private String ethnicity;
     private String religion;
-    private String email;  // Unique
-    private String status;
-    private String phoneNumber;  // Unique
-    private String academicDegree;
-
-    public enum Gender {
-        MALE("Nam"),
-        FEMALE("Nữ"),
-        OTHER("Khác");
-
-        private final String vietnameseName;
-
-        Gender(String vietnameseName) {
-            this.vietnameseName = vietnameseName;
-        }
-
-        public String getVietnameseName() {
-            return vietnameseName;
-        }
-    }
+    private String taxCode;
+    private String degree;
+    private Status status;
+    private String avatar;
 
     // Constructors
     public User() {
     }
 
-    public User(int id, Integer accountId, String fullName, String cccd,
-                Gender gender, Date dateOfBirth, String permanentAddress,
-                String ethnicity, String religion, String email,
-                String status, String phoneNumber, String academicDegree) {
-        setId(id);
-        setAccountId(accountId);
-        setFullName(fullName);
-        setCccd(cccd);
-        setGender(gender);
-        setDateOfBirth(dateOfBirth);
-        setPermanentAddress(permanentAddress);
-        setEthnicity(ethnicity);
-        setReligion(religion);
-        setEmail(email);
-        setStatus(status);
-        setPhoneNumber(phoneNumber);
-        setAcademicDegree(academicDegree);
-    }
-
-    // Getters and Setters with validation
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public User(long id, String email, String fullName, String numberCCCD,
+                String phoneNumber, Date dob, String gender, String address,
+                String ethnicity, String religion, String taxCode, String degree,
+                Status status, String avatar) {
         this.id = id;
-    }
-
-    public Integer getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName != null ? fullName.trim() : null;
-    }
-
-    public String getCccd() {
-        return cccd;
-    }
-
-    public void setCccd(String cccd) {
-        if (cccd != null && cccd.length() != 12) {
-            throw new IllegalArgumentException("CCCD must be 12 characters");
-        }
-        this.cccd = cccd;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
+        this.email = email;
+        this.fullName = fullName;
+        this.numberCCCD = numberCCCD;
+        this.phoneNumber = phoneNumber;
+        this.dob = dob;
         this.gender = gender;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getPermanentAddress() {
-        return permanentAddress;
-    }
-
-    public void setPermanentAddress(String permanentAddress) {
-        this.permanentAddress = permanentAddress != null ? permanentAddress.trim() : null;
-    }
-
-    public String getEthnicity() {
-        return ethnicity;
-    }
-
-    public void setEthnicity(String ethnicity) {
+        this.address = address;
         this.ethnicity = ethnicity;
+        this.religion = religion;
+        this.taxCode = taxCode;
+        this.degree = degree;
+        this.status = status;
+        this.avatar = avatar;
     }
 
-    public String getReligion() {
-        return religion;
-    }
-
-    public void setReligion(String religion) {
-        this.religion = religion != null ? religion.trim() : null;
+    // Factory method for empty user
+    public static User empty() {
+        return new User(0L, "", "", "", "", new Date(), "", "",
+                "", "", "", "", Status.PENDING, null);
     }
 
     public String getEmail() {
@@ -137,18 +55,31 @@ public class User {
     }
 
     public void setEmail(String email) {
-        if (email != null && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            throw new IllegalArgumentException("Invalid email format");
-        }
-        this.email = email != null ? email.trim() : null;
+        this.email = email;
     }
 
-    public String getStatus() {
-        return status;
+    public long getId() {
+        return id;
     }
 
-    public void setStatus(String status) {
-        this.status = status != null ? status.trim() : null;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getNumberCCCD() {
+        return numberCCCD;
+    }
+
+    public void setNumberCCCD(String numberCCCD) {
+        this.numberCCCD = numberCCCD;
     }
 
     public String getPhoneNumber() {
@@ -159,20 +90,122 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAcademicDegree() {
-        return academicDegree;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setAcademicDegree(String academicDegree) {
-        this.academicDegree = academicDegree != null ? academicDegree.trim() : null;
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEthnicity() {
+        return ethnicity;
+    }
+
+    public void setEthnicity(String ethnicity) {
+        this.ethnicity = ethnicity;
+    }
+
+    public String getTaxCode() {
+        return taxCode;
+    }
+
+    public void setTaxCode(String taxCode) {
+        this.taxCode = taxCode;
+    }
+
+    public String getReligion() {
+        return religion;
+    }
+
+    public void setReligion(String religion) {
+        this.religion = religion;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(email, user.email) && Objects.equals(fullName, user.fullName) && Objects.equals(numberCCCD, user.numberCCCD) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(dob, user.dob) && Objects.equals(gender, user.gender) && Objects.equals(address, user.address) && Objects.equals(ethnicity, user.ethnicity) && Objects.equals(religion, user.religion) && Objects.equals(taxCode, user.taxCode) && Objects.equals(degree, user.degree) && status == user.status && Objects.equals(avatar, user.avatar);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, fullName, numberCCCD, phoneNumber, dob, gender, address, ethnicity, religion, taxCode, degree, status, avatar);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", numberCCCD='" + numberCCCD + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", dob=" + dob +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
+                ", ethnicity='" + ethnicity + '\'' +
+                ", religion='" + religion + '\'' +
+                ", taxCode='" + taxCode + '\'' +
+                ", degree='" + degree + '\'' +
+                ", status=" + status +
+                ", avatar='" + avatar + '\'' +
                 '}';
+    }
+
+    public enum Status {
+        PENDING,
+        EXPIRED,
+        TERMINATED;
+
+        public static Status fromString(String value) {
+            if (value == null) return null;
+            try {
+                return Status.valueOf(value.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
+        }
     }
 }

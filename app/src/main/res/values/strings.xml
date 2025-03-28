@@ -31,16 +31,32 @@
     <string name="msgv">Employee Code: </string>
     <string name="faculty">Faculty: </string>
 
-    <string name="full_name">Full Name</string>
-    <string name="gender">Gender</string>
-    <string name="date_of_birth">Date of Birth</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="cccd">Citizen ID (CCCD)</string>
-    <string name="permanent_address">Permanent Address</string>
-    <string name="ethnicity">Ethnicity</string>
-    <string name="religion">Religion</string>
-    <string name="status">Status</string>
-    <string name="academic_degree">Academic Degree</string>
+    <!-- User fields -->
+    <string name="user_id">ID</string>
+    <string name="user_email">Email</string>
+    <string name="user_full_name">Full name</string>
+    <string name="user_number_cccd">ID number</string>
+    <string name="user_phone_number">Phone number</string>
+    <string name="user_dob">Date of birth</string>
+    <string name="user_gender">Gender</string>
+    <string name="user_address">Address</string>
+    <string name="user_ethnicity">Ethnicity</string>
+    <string name="user_religion">Religion</string>
+    <string name="user_tax_code">Tax code</string>
+    <string name="user_degree">Degree</string>
+    <string name="user_status">Status</string>
+    <string name="user_avatar">Avatar</string>
+    <string name="not_available">Not available</string>
+
+    <!-- User status -->
+    <string name="user_status_pending">Pending</string>
+    <string name="user_status_expired">Expired</string>
+    <string name="user_status_terminated">Terminated</string>
+
+    <!-- Gender options -->
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_other">Other</string>
     <string name="loading_error">Failed to load user information!</string>
     <string name="back">Back</string>
 
@@ -49,6 +65,15 @@
 
     <!-- Khen thưởng và kỹ luật-->
     <string name="reward_and_discipline">Reward and discipline</string>
+
+    <string name="otp_verification_title">OTP Verification</string>
+    <string name="otp_verification_description">Enter the 4-digit code sent to\n+84 ••• ••• 1234</string>
+    <string name="verify">Verify</string>
+    <string name="did_not_receive_code">Didn\'t receive the code?</string>
+    <string name="resend_otp">Resend</string>
+    <string name="otp_verification_icon">OTP Verification Icon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

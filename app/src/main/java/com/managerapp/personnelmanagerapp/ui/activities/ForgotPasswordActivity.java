@@ -1,43 +1,54 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.managerapp.personnelmanagerapp.databinding.ActivityForgotPasswordBinding;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.ui.viewmodel.ForgotPasswordViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    private ActivityForgotPasswordBinding binding;
-
+    private NavController navController;
+    private final String TAG = "ForgotPasswordActivity";
+    private  ForgotPasswordViewModel forgotPasswordViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
-        EdgeToEdge.enable(this);
-        setContentView(binding.getRoot());
-
-        binding.btnBackLogin.setOnClickListener(v-> {
-            Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            finish();
-        });
-
+        setContentView(R.layout.activity_forgot_password);
+        forgotPasswordViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
+        setupNavigation();
     }
 
+    private void setupNavigation() {
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.forgot_fragment);
 
+        if (navHostFragment != null) {
+            navController = navHostFragment.getNavController();
+        } else {
+            throw new IllegalStateException("NavHostFragment is null. Check activity_request.xml.");
+        }
+    }
+
+    public boolean onSupportNavigateUp() {
+        boolean result = navController != null && (navController.navigateUp() || super.onSupportNavigateUp());
+        Log.d(TAG, "onSupportNavigateUp: Result = " + result);
+        return result;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!navController.popBackStack()) {
+            super.onBackPressed();
+        }
+    }
 }

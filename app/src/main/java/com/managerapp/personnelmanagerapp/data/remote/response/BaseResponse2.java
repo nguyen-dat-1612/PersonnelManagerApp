@@ -2,27 +2,19 @@ package com.managerapp.personnelmanagerapp.data.remote.response;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class LeaveApplicationResponse<T> {
+public class BaseResponse2 {
     @SerializedName("code")
     private int code;
 
-    @SerializedName("message")
-    private String message;
-
     @SerializedName("data")
-    private T data;
+    private boolean data;
 
     public int getCode() {
         return code;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public T getData() {
+    public boolean getData() {
         return data;
     }
+
 }

@@ -3,7 +3,6 @@ package com.managerapp.personnelmanagerapp.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,10 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityLoginBinding;
+import com.managerapp.personnelmanagerapp.ui.state.LoginState;
 import com.managerapp.personnelmanagerapp.ui.viewmodel.LoginViewModel;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -25,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
-
     private boolean isPasswordVisible = false;
 
     @Override
@@ -35,43 +31,22 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
 
-        binding.progressOverlay.setVisibility(View.INVISIBLE);
         // Khởi tạo ViewModel
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        // Observe LiveData ngay từ đầu, không đặt trong onClick
-        loginViewModel.getUserLiveData().observe(this, user -> {
-            if (user != null) {
-                Log.d("DangNhap", "Đăng nhập thành công!");
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        loginViewModel.getErrorLiveData().observe(this, error -> {
-            Log.d("DangNhap", "Đăng nhập thất bại: " + error);
-            binding.progressOverlay.setVisibility(View.INVISIBLE);
-            try {
-                JSONObject jsonObject = new JSONObject(error);
-                String errorMessage = jsonObject.optString("message", "Đăng nhập thất bại, vui lòng thử lại!");
-                Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-            } catch (JSONException e) {
-                Log.e("DangNhap", "Lỗi parse JSON: " + e.getMessage());
-                Toast.makeText(LoginActivity.this, "Lỗi hệ thống, vui lòng thử lại sau!", Toast.LENGTH_LONG).show();
-            }
-        });
+        // Ẩn progress ban đầu
+        binding.progressOverlay.setVisibility(View.INVISIBLE);
 
         binding.loginBtn.setOnClickListener(v -> {
-            binding.progressOverlay.setVisibility(View.VISIBLE);
             String email = binding.editTextEmail.getText().toString().trim();
             String password = binding.editTextPassword.getText().toString().trim();
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_LONG).show();
-                binding.progressOverlay.setVisibility(View.INVISIBLE);
                 return;
             }
+
+            binding.progressOverlay.setVisibility(View.VISIBLE); // Hiển thị tiến trình
 
             // Gọi API Login
             loginViewModel.login(email, password);
@@ -92,6 +67,29 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnForgotPassword.setOnClickListener(v -> {
             Intent intent = new Intent(this, ForgotPasswordActivity.class);
             startActivity(intent);
+        });
+
+        // Gọi hàm theo dõi trạng thái đăng nhập
+        loadLogin();
+    }
+
+    private void loadLogin() {
+        loginViewModel.getLoginState().observe(this, loginState -> {
+            if (loginState instanceof LoginState.Loading) {
+                binding.progressOverlay.setVisibility(View.VISIBLE); // Hiển thị tiến trình
+            } else if (loginState instanceof LoginState.Success) {
+                binding.progressOverlay.setVisibility(View.INVISIBLE);
+                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                // Chuyển sang màn hình chính hoặc màn hình khác
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish(); // Đóng màn hình login
+            } else if (loginState instanceof LoginState.Error) {
+                binding.progressOverlay.setVisibility(View.INVISIBLE);
+                // Lấy thông báo lỗi và hiển thị
+                String errorMessage = ((LoginState.Error) loginState).getErrorMessage();
+                Toast.makeText(this, "Đăng nhập thất bại: " + errorMessage, Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
