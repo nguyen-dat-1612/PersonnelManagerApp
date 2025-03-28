@@ -42,7 +42,7 @@ app/
 ### **2. Thư Viện Chính**
 ## 📚 Danh Mục Thư Viện
 
-### **1. Core Android**
+#### **1. Core Android**
 | Thư Viện | Phiên Bản | Mục Đích |
 |----------|----------|----------|
 | `androidx.appcompat` | 1.6.1 | Hỗ trợ backward compatibility |
@@ -51,26 +51,25 @@ app/
 | `androidx.constraintlayout` | 2.1.4 | Layout nâng cao |
 | `com.google.android.material` | 1.11.0 | Material Design Components |
 
-### **2. Networking**
+#### **2. Networking**
 | Thư Viện | Phiên Bản | Mục Đích |
 |----------|----------|----------|
 | `Retrofit` | 2.9.0 | REST API Client |
 | `Gson Converter` | 2.9.0 | Chuyển đổi JSON ↔ Object |
 | `OkHttp Logging` | 4.11.0 | Debug API requests |
 
-### **3. Database & Local Storage**
+#### **3. Database & Local Storage**
 | Thư Viện | Phiên Bản | Mục Đích |
 |----------|----------|----------|
-| `Room` | 2.6.1 | Local SQLite Database |
-| `DataStore` | 1.0.0 | Thay thế SharedPreferences |
+| `SharedPreferences` | 1.0.0 | SharedPreferences |
 | `Security Crypto` | 1.1.0-alpha03 | Mã hóa dữ liệu nhạy cảm |
 
-### **4. Dependency Injection**
+#### **4. Dependency Injection**
 | Thư Viện | Phiên Bản | Mục Đích |
 |----------|----------|----------|
 | `Hilt` | 2.51.1 | DI cho Android |
 
-### **5. UI & Animation**
+#### **5. UI & Animation**
 | Thư Viện | Phiên Bản | Mục Đích |
 |----------|----------|----------|
 | `Navigation Component` | 2.7.7 | Điều hướng giữa màn hình |
@@ -79,20 +78,20 @@ app/
 | `SmoothBottomBar` | 1.7.9 | Bottom Navigation đẹp |
 | `SwipeRefreshLayout` | 1.1.0 | Pull-to-refresh |
 
-### **6. Reactive Programming**
+#### **6. Reactive Programming**
 | Thư Viện | Phiên Bản | Mục Đích |
 |----------|----------|----------|
 | `RxJava 3` | 3.1.6 | Reactive Extensions |
 | `RxAndroid` | 3.0.2 | RxJava trên UI Thread |
 | `Retrofit RxJava Adapter` | 2.9.0 | Kết hợp Retrofit + RxJava |
 
-### **7. Firebase**
+#### **7. Firebase**
 | Thư Viện | Phiên Bản | Mục Đích |
 |----------|----------|----------|
 | `Firebase BOM` | 33.10.0 | Quản lý phiên bản tự động |
 | `Firebase Messaging` | 23.0.0 | Push Notification |
 
-### **8. Security & Authentication**
+#### **8. Security & Authentication**
 | Thư Viện | Phiên Bản | Mục Đích |
 |----------|----------|----------|
 | `Java JWT` | 3.19.2 | Giải mã token |
