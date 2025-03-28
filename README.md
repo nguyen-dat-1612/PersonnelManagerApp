@@ -1,53 +1,55 @@
-# Cấu trúc thư mục chính
+# Personnel Manager App - Android Java
 
+Dự án quản lý nhân sự sử dụng **Android Java + XML**, tuân thủ Clean Architecture và MVVM.
+
+## 📁 Cấu Trúc Dự Án
 ```plaintext
 app/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/managerapp/personnelmanagerapp/
-│   │   │   ├── data/              # Chứa data layer (API, Database, Repository)
-│   │   │   │   ├── remote/        # Chứa các service gọi API
-│   │   │   │   ├── local/         # Chứa dữ liệu cục bộ
-│   │   │   │   ├── repository/    # Chứa repository (cầu nối giữa Data Layer và ViewModel)
-│   │   │   ├── di/                # Dependency Injection (Hilt)
-│   │   │   ├── domain/            # Chứa business logic (Use Cases)
-│   │   │   │   ├── model/         # Chứa các data class, entity
-│   │   │   │   ├── usecase/       # Chứa Use Case
-│   │   │   ├── ui/                # UI Layer (View, ViewModel)
-│   │   │   │   ├── adapters/      # Adapter cho RecyclerView
-│   │   │   │   ├── activities/    # Chứa các Activity
-│   │   │   │   ├── fragments/     # Chứa các Fragment
-│   │   │   │   ├── viewmodel/     # ViewModel cho mỗi màn hình
-│   |   │   ├── utils/         # Chứa helper class, extension function
-│   │   ├── App.java               # Application class
-│   ├── res/
-│   │   ├── layout/                # XML layout
-│   │   ├── values/                # Strings, styles, themes
-│   ├── test/                      # Unit Test
-│   ├── androidTest/               # UI Test
+│   │   │   ├── data/
+│   │   │   │   ├── di/            # Hilt Modules (Dependency Injection)
+│   │   │   │   ├── remote/        # Retrofit + API Service, DTOs
+│   │   │   │   ├── local/         # Room Database, SharedPreferences
+│   │   │   │   ├── repository/    # Repository pattern
+│   │   │   ├── domain/            # Pure Java (Không phụ thuộc Android)
+│   │   │   │   ├── model/         # Entities/POJOs
+│   │   │   │   ├── usecase/       # Business Logic (Clean Architecture)
+│   │   │   ├── ui/                # UI Layer (MVVM)
+│   │   │   │   ├── activities/    # Activity classes
+│   │   │   │   ├── fragments/     # Fragment classes
+│   │   │   │   ├── viewmodel/     # ViewModel + LiveData
+│   │   │   │   ├── state/         # Sealed Interface/Class cho UI State
+│   │   │   │   ├── adapters/      # RecyclerView.Adapter
+│   │   │   ├── utils/             # Helper classes, Extensions
+│   │   │   ├── service/           # Background Services
+│   │   ├── res/
+│   │   │   ├── layout/            # XML layouts (activity_*, fragment_*)
+│   │   │   ├── values/            # strings.xml, colors.xml, styles.xml
+│   │   │   ├── drawable/          # Icons, selectors, shapes
+│   │   │   ├── navigation/        # NavGraph (Navigation Component)
+│   ├── test/                      # JUnit tests (Domain/Data Layer)
+│   ├── androidTest/               # Espresso tests (UI Layer)
 ```
-# Giải thích các thành phần chính
+## 🛠 Công Nghệ Sử Dụng
 
-## Data Layer (`data/`)
-- **remote** chứa api gọi cơ sở dữ liệu từ xa
-- **local** chứa cơ sở dữ liệu cục bộ
-- **`repository/`**: Đóng vai trò trung gian giữa API/DB và ViewModel.
+### **1. Kiến Trúc**
+- **Clean Architecture** (Data - Domain - UI Layers)
+- **MVVM** với ViewModel + LiveData
+- **Sealed Interface** cho UI State Management
 
-## Domain Layer (`domain/`)
-- Chứa **Model** 
-- Chứa **Use Case** để xử lý logic nghiệp vụ.
+### **2. Thư Viện Chính**
+| Loại               | Thư Viện                  | Mục Đích                     |
+|--------------------|--------------------------|-----------------------------|
+| Dependency Injection | Hilt                    | Quản lý dependencies        |
+| Networking          | Retrofit + GSON         | Gọi API                     |
+| Database            | Room                    | Local caching               |
+| Navigation          | Navigation Component    | Điều hướng giữa màn hình     |
+| Testing             | JUnit, Espresso         | Unit test & UI test         |
 
-## UI Layer (`ui/`)
-- **`adapters/`**: Chứa các adapter cho RecyclerView.
-- **`activities/`**: Chứa các màn hình chính (`Activity`).
-- **`fragments/`**: Chứa các màn hình con (`Fragment`).
-- **`viewmodel/`**: Chứa ViewModel cho từng màn hình.
+### **3. UI Components**
+- **XML Layouts**: Activity/Fragment layouts
+- **RecyclerView**: Hiển thị danh sách nhân viên
+- **DataBinding**: Binding dữ liệu vào View 
 
-## Dependency Injection (`di/`)
-- Chứa các module **Hilt** để quản lý Dependency Injection.
-
-# Design Pattern
-- **MVVM**: Phân tách **UI (View)**, **logic xử lý (ViewModel)**, và **dữ liệu (Model)**.
-- **Repository Pattern**: Tách API/Database khỏi ViewModel.
-- **Singleton Pattern**: Áp dụng cho Retrofit, Room Database.
-- **Dependency Injection**: Dùng Hilt để inject Repository, ViewModel.
