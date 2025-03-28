@@ -14,7 +14,7 @@ app/
 │   │   │   │   ├── local/         # Room Database, SharedPreferences
 │   │   │   │   ├── repository/    # Repository pattern
 │   │   │   ├── domain/            # Pure Java (Không phụ thuộc Android)
-│   │   │   │   ├── model/         # Entities/POJOs
+│   │   │   │   ├── model/         # Entities
 │   │   │   │   ├── usecase/       # Business Logic (Clean Architecture)
 │   │   │   ├── ui/                # UI Layer (MVVM)
 │   │   │   │   ├── activities/    # Activity classes
@@ -29,6 +29,8 @@ app/
 │   │   │   ├── values/            # strings.xml, colors.xml, styles.xml
 │   │   │   ├── drawable/          # Icons, selectors, shapes
 │   │   │   ├── navigation/        # NavGraph (Navigation Component)
+│   │   │   ├── anim/              # Chứa các file animation định nghĩa bằng XML
+│   │   │   ├── raw/               # Chứa file dữ liệu thô (không bị biên dịch)
 │   ├── test/                      # JUnit tests (Domain/Data Layer)
 │   ├── androidTest/               # Espresso tests (UI Layer)
 ```
