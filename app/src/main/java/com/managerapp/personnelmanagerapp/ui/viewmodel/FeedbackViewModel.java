@@ -51,7 +51,8 @@ public class FeedbackViewModel extends ViewModel {
                             Log.e(TAG, "Lỗi khi gửi phản hồi: ", throwable);
                             feedbackState.setValue(new FeedbackState.Error("Lỗi hệ thống: " + throwable.getMessage()));
                         }
-                ));
+                )
+        );
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.managerapp.personnelmanagerapp.data.di;
 
+import androidx.annotation.NonNull;
+
 import com.managerapp.personnelmanagerapp.data.remote.api.ContractApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.FeedbackApiService;
 import com.managerapp.personnelmanagerapp.data.repository.ContractRepository;
@@ -17,6 +19,7 @@ import retrofit2.Retrofit;
 @InstallIn(SingletonComponent.class)
 public class FeedBackModule {
 
+    @NonNull
     @Provides
     @Singleton
     public static FeedbackApiService provideFeedbackApiService(Retrofit retrofit) {

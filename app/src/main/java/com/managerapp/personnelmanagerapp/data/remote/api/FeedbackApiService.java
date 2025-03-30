@@ -1,7 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.remote.api;
 
 import com.managerapp.personnelmanagerapp.data.remote.request.FeedbackRequest;
-import com.managerapp.personnelmanagerapp.data.remote.response.RequestResponse;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.Response;

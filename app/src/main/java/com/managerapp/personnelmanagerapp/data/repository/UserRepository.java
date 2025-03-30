@@ -2,6 +2,7 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.ChangePasswordRequest;
 import com.managerapp.personnelmanagerapp.domain.model.User;
@@ -15,12 +16,15 @@ import io.reactivex.rxjava3.core.Single;
 public class UserRepository {
     private final UserApiService apiService;
     private final String TAG = "UserRepository";
+    private static final String SUCCESS_MESSAGE = "Successful";
+    private static final String TRUE_STRING = "true";
 
     @Inject
     public UserRepository(UserApiService apiService) {
         this.apiService = apiService;
     }
 
+    // Lấy thông tin người đăng nhập
     public Single<User> getUser() {
         return apiService.getUser()
                 .flatMap( response -> {
@@ -43,25 +47,31 @@ public class UserRepository {
         );
     }
 
-    public Single<String> changePasswordUser(int userId, String currentPassword, String newPassword) {
-        ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest(currentPassword, newPassword);
-        return apiService.changePassword(userId, changePasswordRequest)
-                .flatMap( response -> {
+    // Đổi mật khẩu
+    public Single<Boolean> changePasswordUser(int userId, String oldPass, String newPass) {
+        ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest(userId, oldPass, newPass);
+
+        return apiService.changePassword(changePasswordRequest)
+                .map(response -> {
                     if (response.isSuccessful() && response.body() != null) {
-                        Log.d(TAG, "Đổi mật khẩu thành công");
-                        return Single.just(response.body().getStatus());
-                    } else {
-                        String errorMessage  = "Đổi mật khẩu người dùng thất bại: " + response.code();
-                        if (response.errorBody() != null) {
-                            try {
-                                errorMessage = response.errorBody().string();
-                            } catch (Exception e) {
-                                Log.e(TAG, "Không thể đọc lỗi từ phản hồi", e);
-                            }
+                        boolean isSuccess = SUCCESS_MESSAGE.equalsIgnoreCase(response.body().getMessage());
+                        if (isSuccess) {
+                            Log.d(TAG, "Đổi mật khẩu thành công cho userId: " + userId);
+                            return true;
                         }
-                        Log.d(TAG, "Đổi mật khẩu thất bại: " + errorMessage);
-                        return Single.error(new Exception(errorMessage));
+                        throw new Exception(response.body().getMessage() != null ?
+                                response.body().getMessage() : "Lỗi không xác định từ server");
                     }
+                    String errorMessage = "Lỗi server (code: " + response.code() + ")";
+                    if (response.errorBody() != null) {
+                        try {
+                            errorMessage = new Gson().toJson(response.errorBody().string());
+                        } catch (Exception e) {
+                            Log.e(TAG, "Không thể đọc lỗi từ phản hồi", e);
+                        }
+                    }
+                    throw new Exception(errorMessage);
                 });
     }
+
 }

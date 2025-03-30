@@ -1,5 +1,7 @@
 package com.managerapp.personnelmanagerapp.data.di;
 
+import androidx.annotation.NonNull;
+
 import com.managerapp.personnelmanagerapp.data.remote.api.LeaveApplicationApiService;
 import com.managerapp.personnelmanagerapp.data.repository.LeaveApplicationRepository;
 
@@ -15,6 +17,7 @@ import retrofit2.Retrofit;
 @InstallIn(SingletonComponent.class)
 public class LeaveApplicationModule {
 
+    @NonNull
     @Provides
     @Singleton
     public static LeaveApplicationApiService leaveApplicationApiService (Retrofit retrofit) {

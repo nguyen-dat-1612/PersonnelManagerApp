@@ -6,15 +6,12 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import com.managerapp.personnelmanagerapp.data.remote.request.TokenRefreshRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
-import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse2;
 import com.managerapp.personnelmanagerapp.data.remote.response.LoginResponse;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
-import com.managerapp.personnelmanagerapp.data.remote.response.RequestResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.TokenRefreshResponse;
 
 public interface AuthApiService {
@@ -38,5 +35,7 @@ public interface AuthApiService {
     @POST("auth/resetPassword")
     Single<Response<BaseResponse<String>>> resetPassword(@Query("newPass") String newPass, @Query("email") String email);
 
+//    @GET("/change-password")
+//    Single<Response<BaseResponse>>
 }
 
