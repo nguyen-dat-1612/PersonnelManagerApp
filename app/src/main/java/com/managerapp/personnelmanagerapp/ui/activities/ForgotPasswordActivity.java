@@ -3,19 +3,18 @@ package com.managerapp.personnelmanagerapp.ui.activities;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.ui.viewmodel.ForgotPasswordViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends BaseActivity {
 
     private NavController navController;
     private final String TAG = "ForgotPasswordActivity";

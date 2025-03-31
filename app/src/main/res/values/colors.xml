@@ -23,4 +23,10 @@
 
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
+
+    <!-- Màu cho notiftication-->
+    <color name="read_notification_bg">#FFFFFF</color>
+    <color name="unread_notification_bg">#E3F2FD</color>
+    <color name="read_notification_text">#333333</color>
+    <color name="unread_notification_text">#1976D2</color>
 </resources>

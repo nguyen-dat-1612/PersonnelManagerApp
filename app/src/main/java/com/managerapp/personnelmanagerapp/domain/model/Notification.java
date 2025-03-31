@@ -6,6 +6,7 @@ public class Notification {
     private String id;          // Primary key (e.g., TB001, TB002,...)
     private String title;       // Notification title (not null, max 255 chars)
     private String content;     // Notification content (not null)
+    private String attached;
     private LocalDateTime sendDate; // Date and time when notification was sent (not null)
 
     // Constructors

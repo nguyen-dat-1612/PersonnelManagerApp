@@ -1,44 +1,27 @@
 package com.managerapp.personnelmanagerapp.ui.state;
 
-import androidx.annotation.NonNull;
 import com.managerapp.personnelmanagerapp.domain.model.RewardAssignment;
 
 import java.util.List;
 
-public sealed interface RewardState {
-    final class Loading implements RewardState {
-        private static final RewardState.Loading INSTANCE = new RewardState.Loading();
+public class RewardState {
+    public static class Loading extends RewardState {}
 
-        public Loading() {
-        }
-        public static RewardState.Loading getInstance() {
-            return INSTANCE;
-        }
-
+    public static class ListSuccess extends RewardState {
+        private final List<RewardAssignment> data;
+        public ListSuccess(List<RewardAssignment> data) { this.data = data; }
+        public List<RewardAssignment> getData() { return data; }
     }
-    final class Success implements RewardState {
-        @NonNull
-        public final List<RewardAssignment> rewardAssignments;
 
-        public Success(@NonNull List<RewardAssignment> rewardAssignments) {
-            this.rewardAssignments = rewardAssignments;
-        }
-
-        @NonNull
-        public List<RewardAssignment> getRewardAssignments() {
-            return rewardAssignments;
-        }
+    public static class DetailSuccess extends RewardState {
+        private final RewardAssignment rewardAssignment;
+        public DetailSuccess(RewardAssignment rewardAssignment) { this.rewardAssignment = rewardAssignment; }
+        public RewardAssignment getRewardAssignment() { return rewardAssignment; }
     }
-    final class Error implements RewardState {
-        public final String message;
 
-        public Error(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
+    public static class Error extends RewardState {
+        private final String message;
+        public Error(String message) { this.message = message; }
+        public String getMessage() { return message; }
     }
-    final class Empty implements RewardState {}
 }

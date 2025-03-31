@@ -6,7 +6,6 @@ import static android.view.View.VISIBLE;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,13 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.FragmentContractListBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import com.managerapp.personnelmanagerapp.ui.activities.MainActivity;
 import com.managerapp.personnelmanagerapp.ui.adapters.ContractAdapter;
 import com.managerapp.personnelmanagerapp.ui.state.ContractListState;
-import com.managerapp.personnelmanagerapp.ui.state.LeaveApplicationState;
 import com.managerapp.personnelmanagerapp.ui.viewmodel.ContractListViewModel;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ContractListFragment extends Fragment {
+public class ContractListFragment extends BaseFragment {
 
     private static final String TAG = "ContractListFragment";
     private ContractListViewModel viewModel;
@@ -88,18 +87,20 @@ public class ContractListFragment extends Fragment {
                 contractList.clear();
                 contractList.addAll(((ContractListState.Success) state).contracts);
                 adapter.notifyDataSetChanged();
-
                 binding.emptyView.setVisibility(GONE);
                 binding.recyclerViewContact.setVisibility(VISIBLE);
             } else if (state instanceof ContractListState.Error) {
                 Toast.makeText(requireContext(), ((ContractListState.Error) state).message, Toast.LENGTH_SHORT).show();
                 binding.emptyView.setVisibility(VISIBLE);
+
             } else if (state instanceof ContractListState.Empty) {
+                binding.emptyAnimation.setAnimation(R.raw.empty_animation);
+                binding.emptyText.setText("Danh sách hợp đồng trống");
                 binding.emptyView.setVisibility(VISIBLE);
                 binding.recyclerViewContact.setVisibility(GONE);
             }
         });
-//        viewModel.loadAllContracts();
+        viewModel.loadAllContracts(1);
     }
     @Override
     public void onDestroyView() {

@@ -6,7 +6,6 @@ import static android.view.View.VISIBLE;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.FragmentRequestHistoryBinding;
 import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
@@ -29,7 +29,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class RequestHistoryFragment extends Fragment {
+public class RequestHistoryFragment extends BaseFragment {
 
     private static final String TAG = "RequestHistoryFragment";
     private FragmentRequestHistoryBinding binding;

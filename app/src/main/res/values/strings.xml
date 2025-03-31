@@ -31,7 +31,7 @@
     <string name="msgv">Employee Code: </string>
     <string name="faculty">Faculty: </string>
 
-    <!-- User fields -->
+    <!-- UserEntity fields -->
     <string name="user_id">ID</string>
     <string name="user_email">Email</string>
     <string name="user_full_name">Full name</string>
@@ -48,7 +48,7 @@
     <string name="user_avatar">Avatar</string>
     <string name="not_available">Not available</string>
 
-    <!-- User status -->
+    <!-- UserEntity status -->
     <string name="user_status_pending">Pending</string>
     <string name="user_status_expired">Expired</string>
     <string name="user_status_terminated">Terminated</string>

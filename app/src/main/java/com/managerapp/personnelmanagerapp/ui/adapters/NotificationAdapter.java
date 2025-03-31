@@ -8,16 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.managerapp.personnelmanagerapp.databinding.ItemNotificationBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
+import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
 
-    private List<Notification> notificationList;
-    private Consumer<Notification> onItemClick;
+    private List<NotificationRecipient> notificationList;
+    private Consumer<NotificationRecipient> onItemClick;
 
-    public NotificationAdapter(List<Notification> notificationList,Consumer<Notification> onItemClick ) {
+    public NotificationAdapter(List<NotificationRecipient> notificationList,Consumer<NotificationRecipient> onItemClick ) {
         this.notificationList = notificationList;
         this.onItemClick = onItemClick;
     }
@@ -35,10 +36,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NotificationAdapter.NotificationViewHolder holder, int position) {
-        Notification notification = notificationList.get(position);
+        NotificationRecipient notification = notificationList.get(position);
 
-        holder.binding.notificationTitle.setText(notification.getTitle());
-        holder.binding.notificationContent.setText(notification.getContent());
+        holder.binding.setNotification(notification);
         // Gán sự kiện click bằng lambda
         holder.itemView.setOnClickListener(v -> {
             if (onItemClick != null) {

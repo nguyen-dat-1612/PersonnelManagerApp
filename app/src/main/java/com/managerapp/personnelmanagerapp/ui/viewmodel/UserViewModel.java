@@ -35,7 +35,7 @@ public class UserViewModel extends ViewModel {
                                     if (user != null) {
                                         profileInfoState.postValue(new ProfileInfoState.Success(user));
                                     } else {
-                                        profileInfoState.postValue(new ProfileInfoState.Error("User not found"));
+                                        profileInfoState.postValue(new ProfileInfoState.Error("UserEntity not found"));
                                     }
                                 },
                                 throwable -> new ProfileInfoState.Error(throwable.getMessage())

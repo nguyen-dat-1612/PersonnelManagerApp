@@ -1,19 +1,20 @@
 package com.managerapp.personnelmanagerapp.ui.fragments;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentScheduleBinding;
 import com.managerapp.personnelmanagerapp.ui.adapters.DateAdapter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends BaseFragment {
 
     private DateAdapter dateAdapter;
     private FragmentScheduleBinding binding;

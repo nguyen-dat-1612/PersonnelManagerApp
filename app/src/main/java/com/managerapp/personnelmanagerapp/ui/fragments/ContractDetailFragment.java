@@ -6,7 +6,6 @@ import static android.view.View.VISIBLE;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -14,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentContractDetailBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import com.managerapp.personnelmanagerapp.ui.state.ContractDetailState;
@@ -22,7 +23,7 @@ import com.managerapp.personnelmanagerapp.ui.viewmodel.ContractDetailViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ContractDetailFragment extends Fragment {
+public class ContractDetailFragment extends BaseFragment {
 
     private static final String ARG_CONTRACT_ID = "contractId";
     private FragmentContractDetailBinding binding;

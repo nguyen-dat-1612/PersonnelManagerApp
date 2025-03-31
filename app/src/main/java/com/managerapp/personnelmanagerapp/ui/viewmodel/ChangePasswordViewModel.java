@@ -19,7 +19,6 @@ public class ChangePasswordViewModel extends ViewModel {
     private final ChangePasswordUseCase changePasswordUseCase;
     private final CompositeDisposable composite = new CompositeDisposable();
     private MutableLiveData<ChangePasswordState> changePasswordState = new MutableLiveData<>();
-
     @Inject
     public ChangePasswordViewModel(ChangePasswordUseCase changePasswordUseCase) {
         this.changePasswordUseCase = changePasswordUseCase;
@@ -29,10 +28,9 @@ public class ChangePasswordViewModel extends ViewModel {
         return changePasswordState;
     }
 
-    public void loadChangePassword(int userId,String oldPass, String newPass) {
+    public void loadChangePassword(String oldPass, String newPass) {
         changePasswordState.setValue(ChangePasswordState.Loading.getInstance());
-
-        composite.add(changePasswordUseCase.excute(userId, oldPass, newPass)
+        composite.add(changePasswordUseCase.excute(oldPass, newPass)
                 .observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(

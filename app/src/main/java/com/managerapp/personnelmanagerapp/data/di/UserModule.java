@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.di;
 
+import com.managerapp.personnelmanagerapp.data.local.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.data.repository.UserRepository;
 
@@ -23,7 +24,7 @@ public class UserModule {
 
     @Provides
     @Singleton
-    public static UserRepository provideUserRepository(UserApiService userApiService) {
-        return new UserRepository(userApiService);
+    public static UserRepository provideUserRepository(UserApiService userApiService, LocalDataManager localDataManager) {
+        return new UserRepository(userApiService, localDataManager);
     }
 }

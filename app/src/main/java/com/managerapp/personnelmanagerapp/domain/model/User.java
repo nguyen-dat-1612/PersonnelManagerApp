@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Objects;
 
 public class User {
-
     private long id;
     private String email;
     private String fullName;
@@ -176,7 +175,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserEntity{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +

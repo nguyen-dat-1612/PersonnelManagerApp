@@ -1,8 +1,5 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +12,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityProfileInfoBinding;
 import com.managerapp.personnelmanagerapp.domain.model.DataItem;
@@ -34,7 +31,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ProfileInfoActivity extends AppCompatActivity {
+public class ProfileInfoActivity extends BaseActivity {
 
     private static final String TAG = "ProfileInfoActivity";
     private ActivityProfileInfoBinding binding;

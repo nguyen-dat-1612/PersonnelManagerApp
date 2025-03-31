@@ -95,7 +95,7 @@
                         android:layout_height="200dp"
                         app:lottie_autoPlay="true"
                         app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/empty_notification"
+                        app:lottie_rawRes="@raw/error_animation"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
@@ -104,7 +104,7 @@
                         android:id="@+id/emptyText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Danh sách thông báo trống"
+                        android:text="Đã có lỗi xảy ra"
                         android:textSize="16sp"
                         android:textColor="#666666"
                         android:layout_marginTop="16dp"

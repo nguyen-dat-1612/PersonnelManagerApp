@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.di;
 
+import com.managerapp.personnelmanagerapp.data.local.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.NotificationApiService;
 import com.managerapp.personnelmanagerapp.data.repository.NotificationRepository;
 
@@ -23,7 +24,7 @@ public class NotificationModule {
 
     @Provides
     @Singleton
-    public static NotificationRepository provideNotificationRepository(NotificationApiService notificationApiService) {
-        return new NotificationRepository(notificationApiService);
+    public static NotificationRepository provideNotificationRepository(NotificationApiService notificationApiService, LocalDataManager localDataManager) {
+        return new NotificationRepository(notificationApiService, localDataManager);
     }
 }

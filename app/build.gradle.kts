@@ -128,4 +128,7 @@ dependencies {
 
     //SwipeRefreshLayout
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    // Room RxJava3
+    implementation("androidx.room:room-rxjava3:2.6.1")
 }

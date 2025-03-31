@@ -1,11 +1,8 @@
 package com.managerapp.personnelmanagerapp.ui.fragments;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -14,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.FragmentNewRequestBinding;
 import com.managerapp.personnelmanagerapp.utils.DateUtils;
@@ -23,7 +21,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class NewRequestFragment extends Fragment {
+public class NewRequestFragment extends BaseFragment {
 
     private FragmentNewRequestBinding binding;
 

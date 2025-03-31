@@ -1,19 +1,14 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
-import static android.view.View.VISIBLE;
-
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityChangePasswordBinding;
 import com.managerapp.personnelmanagerapp.ui.state.ChangePasswordState;
@@ -22,7 +17,7 @@ import com.managerapp.personnelmanagerapp.ui.viewmodel.ChangePasswordViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ChangePasswordActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends BaseActivity {
 
     private ActivityChangePasswordBinding binding;
     private boolean isNewPasswordVisible = false;
@@ -86,6 +81,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 binding.confirmPasswordToggle.setImageResource(R.drawable.ic_eye_off);
             }
             binding.edtOldPass.setSelection(binding.edtOldPass.getText().length()); // Giữ con trỏ văn bản ở cuối
+        });
+
+        binding.saveButton.setOnClickListener(v -> {
+           viewModel.loadChangePassword(binding.edtOldPass.getText().toString(), binding.edtNewPass.getText().toString());
         });
 
         // Xử lý sự kiện click cho nút quay lại

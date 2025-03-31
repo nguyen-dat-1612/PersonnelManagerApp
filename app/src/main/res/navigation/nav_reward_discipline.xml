@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_reward_discipline"
+    app:startDestination="@id/rewardListFragment">
+
+    <fragment
+        android:id="@+id/disciplineListFragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.DisciplineListFragment"
+        android:label="fragment_discipline"
+        tools:layout="@layout/fragment_discipline_list" >
+        <action
+            android:id="@+id/action_disciplineListFragment_to_disciplineDetailFragment"
+            app:destination="@id/disciplineDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/disciplineDetailFragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.DisciplineDetailFragment"
+        android:label="fragment_discipline_detail"
+        tools:layout="@layout/fragment_discipline_detail" >
+        <argument
+            android:name="disciplineId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/rewardListFragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.RewardListFragment"
+        android:label="fragment_reward"
+        tools:layout="@layout/fragment_reward_list" >
+        <action
+            android:id="@+id/action_rewardListFragment_to_rewardDetailFragment"
+            app:destination="@id/rewardDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rewardDetailFragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.RewardDetailFragment"
+        android:label="fragment_reward_detail"
+        tools:layout="@layout/fragment_reward_detail" >
+        <argument
+            android:name="rewardId"
+            app:argType="integer" />
+    </fragment>
+</navigation>

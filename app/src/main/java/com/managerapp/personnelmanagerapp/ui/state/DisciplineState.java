@@ -1,45 +1,28 @@
 package com.managerapp.personnelmanagerapp.ui.state;
 
-import androidx.annotation.NonNull;
-
 import com.managerapp.personnelmanagerapp.domain.model.DisciplineAssignment;
 
 import java.util.List;
 
-public sealed interface DisciplineState {
-    final class Loading implements DisciplineState {
-        private static final DisciplineState.Loading INSTANCE = new DisciplineState.Loading();
+public class DisciplineState {
+    public static class Loading extends DisciplineState {}
 
-        public Loading() {
-        }
-        public static DisciplineState.Loading getInstance() {
-            return INSTANCE;
-        }
-
+    public static class ListSuccess extends DisciplineState {
+        private final List<DisciplineAssignment> data;
+        public ListSuccess(List<DisciplineAssignment> data) { this.data = data; }
+        public List<DisciplineAssignment> getData() { return data; }
     }
-    final class Success implements DisciplineState {
-        @NonNull
-        public final List<DisciplineAssignment> disciplineAssignments;
 
-        public Success(@NonNull List<DisciplineAssignment> notifications) {
-            this.disciplineAssignments = notifications;
-        }
-
-        @NonNull
-        public List<DisciplineAssignment> getDisciplineAssignments() {
-            return disciplineAssignments;
-        }
+    public static class DetailSuccess extends DisciplineState {
+        private final DisciplineAssignment disciplineAssignment;
+        public DetailSuccess(DisciplineAssignment disciplineAssignment) { this.disciplineAssignment = disciplineAssignment; }
+        public DisciplineAssignment getSelectedDiscipline() { return disciplineAssignment; }
     }
-    final class Error implements DisciplineState {
-        public final String message;
 
-        public Error(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
+    public static class Error extends DisciplineState {
+        private final String message;
+        public Error(String message) { this.message = message; }
+        public String getMessage() { return message; }
     }
-    final class Empty implements DisciplineState {}
 }
+

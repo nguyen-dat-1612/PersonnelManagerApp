@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="notification"
+            type="com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient" />
+    </data>
+
+    <!-- Thay CardView bằng LinearLayout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_bg_notification"
+        android:backgroundTint="@{notification.readStatus ? @color/read_notification_bg : @color/unread_notification_bg}">
 
-        <TextView
-            android:id="@+id/notificationTitle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tiêu đề"
-            android:textSize="16sp"
-            android:textColor="#333333"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/notificationContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nội dung thông báo"
-            android:textSize="14sp"
-            android:textColor="#757575"
-            android:layout_marginTop="4dp" />
+            <TextView
+                android:id="@+id/notificationTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{notification.title}"
+                android:textSize="16sp"
+                android:textColor="@{notification.readStatus ? @color/read_notification_text : @color/unread_notification_text}"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/notificationDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{notification.sendDate.toString()}"
+                android:textSize="12sp"
+                android:textColor="#757575"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</layout>

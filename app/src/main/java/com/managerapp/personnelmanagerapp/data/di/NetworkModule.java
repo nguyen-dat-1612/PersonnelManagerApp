@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
     // Địa chỉ base URL -
-    private static final String BASE_URL = "http://192.168.1.118:8080/api/";
+    private static final String BASE_URL = "http://192.168.1.61:8080/api/";
 
 
     @Provides

@@ -40,7 +40,7 @@ public class Feedback {
 
     public void setUserId(int userId) {
         if (userId <= 0) {
-            throw new IllegalArgumentException("User ID must be positive");
+            throw new IllegalArgumentException("UserEntity ID must be positive");
         }
         this.userId = userId;
     }

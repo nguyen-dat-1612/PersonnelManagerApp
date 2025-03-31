@@ -33,7 +33,7 @@
     <string name="faculty">Khoa: </string>
 
     <!-- Thông tin người dùng -->
-    <!-- User fields -->
+    <!-- UserEntity fields -->
     <string name="user_id">ID</string>
     <string name="user_email">Email</string>
     <string name="user_full_name">Họ và tên</string>
@@ -50,7 +50,7 @@
     <string name="user_avatar">Ảnh đại diện</string>
     <string name="not_available">Không có thông tin</string>
 
-    <!-- User status -->
+    <!-- UserEntity status -->
     <string name="user_status_pending">Chờ xử lý</string>
     <string name="user_status_expired">Hết hạn</string>
     <string name="user_status_terminated">Đã chấm dứt</string>

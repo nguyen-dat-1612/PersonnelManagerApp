@@ -2,17 +2,15 @@ package com.managerapp.personnelmanagerapp.ui.fragments;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentSalaryDetailBinding;
 
 
-public class SalaryDetailFragment extends Fragment {
+public class SalaryDetailFragment extends BaseFragment {
 
     private FragmentSalaryDetailBinding binding;
     private String id;

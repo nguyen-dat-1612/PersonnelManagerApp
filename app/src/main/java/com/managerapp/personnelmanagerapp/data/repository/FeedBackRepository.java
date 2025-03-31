@@ -25,7 +25,7 @@ public class FeedBackRepository {
         return feedbackApiService.sendFeedback(feedbackRequest)
                 .subscribeOn(Schedulers.io())
                 .map(response -> {
-                    return "success".equalsIgnoreCase(response.body().getStatus()); // Nếu "success" -> true
+                    return "success".equalsIgnoreCase(response.body().getData()); // Nếu "success" -> true
                 })
                 .doOnError(throwable -> {
                     Log.e(TAG, "Lỗi khi gửi phản hồi: ", throwable); // In lỗi ra Logcat

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -15,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentForgotPasswordBinding;
 import com.managerapp.personnelmanagerapp.ui.activities.LoginActivity;
 import com.managerapp.personnelmanagerapp.ui.state.ForgotPasswordState;
@@ -23,7 +24,7 @@ import com.managerapp.personnelmanagerapp.ui.viewmodel.ForgotPasswordViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ForgotPasswordFragment extends Fragment {
+public class ForgotPasswordFragment extends BaseFragment {
     private FragmentForgotPasswordBinding binding;
     private ForgotPasswordViewModel viewModel;
 

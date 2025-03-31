@@ -3,18 +3,15 @@ package com.managerapp.personnelmanagerapp.ui.activities;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.tabs.TabLayout;
+import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityRewardDisciplineBinding;
 
-public class RewardDisciplineActivity extends AppCompatActivity {
+public class RewardDisciplineActivity extends BaseActivity {
 
     private ActivityRewardDisciplineBinding binding;
     private NavController navController;
@@ -37,9 +34,9 @@ public class RewardDisciplineActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
-                    navController.navigate(R.id.rewardFragment);
+                    navController.navigate(R.id.rewardListFragment);
                 } else if (tab.getPosition() == 1) {
-                    navController.navigate(R.id.disciplineFragment);
+                    navController.navigate(R.id.disciplineListFragment);
                 }
             }
 

@@ -34,7 +34,7 @@ public class AuthRepository {
 
     public Single<LoginResponse> login(String email, String password) {
         LoginRequest request = new LoginRequest(email, password);
-        return authApiService.login(request)
+        return authApiService.login(request, "mobile")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(response -> {

@@ -1,17 +1,20 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
+import static androidx.databinding.DataBindingUtil.setContentView;
+
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityMainBinding;
 
@@ -26,7 +29,7 @@ import java.net.URL;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
     private static final String SERVER_URL = "http://192.168.179.165:8080/save-token"; // Đồng bộ với server

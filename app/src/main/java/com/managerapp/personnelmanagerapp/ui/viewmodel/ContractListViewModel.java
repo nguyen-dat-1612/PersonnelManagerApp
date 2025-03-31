@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel;
 import com.managerapp.personnelmanagerapp.domain.usecase.GetAllContractsUseCase;
 import com.managerapp.personnelmanagerapp.ui.state.ContractListState;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -30,6 +32,7 @@ public class ContractListViewModel extends ViewModel {
         contractState.postValue(new ContractListState.Loading());
         disposables.add(
                 getAllContractsUseCase.execute(userId)
+                        .timeout(10, TimeUnit.SECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe( contracts -> {
@@ -38,9 +41,10 @@ public class ContractListViewModel extends ViewModel {
                             } else {
                                 contractState.postValue(new ContractListState.Success(contracts));
                             }
-                        },
-                                throwable -> new ContractListState.Error(throwable.getMessage())
-                        )
+                        },throwable -> {
+                            contractState.postValue(new ContractListState.Error(throwable.getMessage())); // Cập nhật LiveData với trạng thái lỗi
+                        }
+                )
         );
     }
 

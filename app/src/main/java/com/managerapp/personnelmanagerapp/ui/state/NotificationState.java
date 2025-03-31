@@ -1,15 +1,16 @@
 package com.managerapp.personnelmanagerapp.ui.state;
 
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
+import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
 
 import java.util.List;
 
 public sealed interface NotificationState {
     final class Loading implements NotificationState {}
     final class Success implements NotificationState {
-        public final List<Notification> notifications;
+        public final List<NotificationRecipient> notifications;
 
-        public Success(List<Notification> notifications) {
+        public Success(List<NotificationRecipient> notifications) {
             this.notifications = notifications;
         }
     }

@@ -1,11 +1,13 @@
 package com.managerapp.personnelmanagerapp.ui.viewmodel;
 
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.managerapp.personnelmanagerapp.domain.usecase.GetAllNotificationsUseCase;
+import com.managerapp.personnelmanagerapp.domain.usecase.GetAllUserNotificationsUseCase;
 import com.managerapp.personnelmanagerapp.ui.state.NotificationState;
 
 import javax.inject.Inject;
@@ -16,7 +18,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class NotificationViewModel extends ViewModel {
-    private final GetAllNotificationsUseCase getAllNotificationsUseCase;
+    private final GetAllUserNotificationsUseCase getAllNotificationsUseCase;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     private final MutableLiveData<NotificationState> notificationState = new MutableLiveData<>();
@@ -25,7 +27,7 @@ public class NotificationViewModel extends ViewModel {
         return notificationState;
     }
     @Inject
-    public NotificationViewModel(GetAllNotificationsUseCase getAllNotificationsUseCase) {
+    public NotificationViewModel(GetAllUserNotificationsUseCase getAllNotificationsUseCase) {
         this.getAllNotificationsUseCase = getAllNotificationsUseCase;
     }
 
@@ -38,16 +40,23 @@ public class NotificationViewModel extends ViewModel {
                         .subscribe(
                                 notifications -> {
                                     if (notifications.isEmpty()) {
+                                        Log.d(TAG, "Danh sách thông báo trống");
                                         notificationState.postValue(new NotificationState.Empty());
                                     } else {
                                         notificationState.postValue(new NotificationState.Success(notifications));
+                                        Log.d(TAG, "Danh sách thông báo đầy đủ");
                                     }
                                 },
-                                throwable -> notificationState.postValue(
-                                        new NotificationState.Error(throwable.getMessage()))
+                                throwable ->  {
+                                    Log.e(TAG, "Đã có lỗi xảy ra: " + throwable.getMessage());
+                                    notificationState.postValue(new NotificationState.Error(throwable.getMessage()));
+
+                                }
                         )
         );
     }
+
+    private static String TAG = "NotificationViewModel";
     @Override
     protected void onCleared() {
         super.onCleared();

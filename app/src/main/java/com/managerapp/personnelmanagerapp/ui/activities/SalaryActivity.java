@@ -4,17 +4,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivitySalaryBinding;
 
-public class SalaryActivity extends AppCompatActivity {
+public class SalaryActivity extends BaseActivity {
     private NavController navController;
     private ActivitySalaryBinding binding;
     private final String TAG = "SalaryActivity";

@@ -14,7 +14,7 @@ public class ChangePasswordUseCase {
         this.userRepository = userRepository;
     }
 
-    public Single<Boolean> excute(int userId, String oldPass, String newPass) {
-        return userRepository.changePasswordUser(userId, oldPass, newPass);
+    public Single<Boolean> excute(String oldPass, String newPass) {
+        return userRepository.changePasswordUser(oldPass, newPass);
     }
 }

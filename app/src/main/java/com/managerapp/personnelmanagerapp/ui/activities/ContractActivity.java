@@ -1,20 +1,21 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
+import static androidx.databinding.DataBindingUtil.setContentView;
+
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityContractBinding;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ContractActivity extends AppCompatActivity {
+public class ContractActivity extends BaseActivity {
 
     private final String TAG = "ContractActivity";
     private ActivityContractBinding binding;

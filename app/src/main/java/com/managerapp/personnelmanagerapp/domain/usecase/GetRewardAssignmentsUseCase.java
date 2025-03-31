@@ -17,7 +17,7 @@ public class GetRewardAssignmentsUseCase {
         this.repository = repository;
     }
 
-    Single<List<RewardAssignment>> excute(int userId) {
+    public Single<List<RewardAssignment>> execute(int userId) {
         return repository.getRewardAssignments(userId);
     }
 }

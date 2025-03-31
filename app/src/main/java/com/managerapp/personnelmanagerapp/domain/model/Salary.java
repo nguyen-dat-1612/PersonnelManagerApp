@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Salary {
     private String id;                  // Mã lương (Salary ID)
-    private String userId;              // Mã người dùng (User ID)
+    private String userId;              // Mã người dùng (UserEntity ID)
     private String contractId;          // Mã hợp đồng (Contract ID)
     private String salaryMonth;         // Tháng tính lương (Salary month)
     private double totalAllowances;     // Tổng số tiền trợ cấp (Total allowances)
@@ -73,7 +73,7 @@ public class Salary {
 
     public void setUserId(String userId) {
         if (userId == null || userId.trim().isEmpty()) {
-            throw new IllegalArgumentException("User ID cannot be null or empty");
+            throw new IllegalArgumentException("UserEntity ID cannot be null or empty");
         }
         this.userId = userId.trim();
     }

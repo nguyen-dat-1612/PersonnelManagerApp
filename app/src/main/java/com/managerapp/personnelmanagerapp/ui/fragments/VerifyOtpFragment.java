@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -17,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentVerifyOtpBinding;
 import com.managerapp.personnelmanagerapp.ui.state.ForgotPasswordState;
 import com.managerapp.personnelmanagerapp.ui.viewmodel.ForgotPasswordViewModel;
@@ -24,7 +25,7 @@ import com.managerapp.personnelmanagerapp.ui.viewmodel.ForgotPasswordViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class VerifyOtpFragment extends Fragment {
+public class VerifyOtpFragment extends BaseFragment {
     private FragmentVerifyOtpBinding binding;
     private ForgotPasswordViewModel viewModel;
     private String email;

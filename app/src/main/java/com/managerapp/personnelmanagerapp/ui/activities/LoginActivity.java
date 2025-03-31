@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityLoginBinding;
 import com.managerapp.personnelmanagerapp.ui.state.LoginState;
@@ -18,7 +18,7 @@ import com.managerapp.personnelmanagerapp.ui.viewmodel.LoginViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint  // Nếu bạn dùng Hilt để Inject ViewModel
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
