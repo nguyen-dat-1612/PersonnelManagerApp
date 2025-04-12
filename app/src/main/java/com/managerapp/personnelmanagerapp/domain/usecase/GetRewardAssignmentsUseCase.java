@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.domain.usecase;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.AssignmentResponse;
 import com.managerapp.personnelmanagerapp.data.repository.RewardAssignmentRepository;
 import com.managerapp.personnelmanagerapp.domain.model.RewardAssignment;
 
@@ -17,7 +18,7 @@ public class GetRewardAssignmentsUseCase {
         this.repository = repository;
     }
 
-    public Single<List<RewardAssignment>> execute(int userId) {
+    public Single<List<AssignmentResponse>> execute(int userId) {
         return repository.getRewardAssignments(userId);
     }
 }

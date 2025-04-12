@@ -5,19 +5,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.snackbar.Snackbar;
-import com.managerapp.personnelmanagerapp.ui.viewmodel.MainViewModel;
+import com.managerapp.personnelmanagerapp.ui.viewmodel.BaseViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public abstract class BaseActivity extends AppCompatActivity {
-    private MainViewModel viewModel;
+    private BaseViewModel viewModel;
     private Snackbar snackbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        viewModel = new ViewModelProvider(this).get(BaseViewModel.class);
         observeNetworkStatus();
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.NewRequestFragment">
+    tools:context=".ui.fragments.NewLeaveAppFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -57,171 +57,245 @@
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:scrollbars="none"
-            app:layout_constraintTop_toBottomOf="@+id/header"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <LinearLayout
-                android:id="@+id/detailActivity"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <TextView
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nghỉ phép"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    />
-                <Spinner
-                    android:id="@+id/spinnerReasons"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="15dp"
-                    android:popupBackground="#F5F5F5"
-
-                    android:background="@drawable/button_background_3"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nghỉ từ"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="15dp"
-                    />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/startDayBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/button_background_3"
-                    app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
+                    android:fillViewport="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:scrollbars="none"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:background="@drawable/schedule"
-                        android:layout_marginStart="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
+                    <LinearLayout
+                        android:id="@+id/detailActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nghỉ phép"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            />
+                        <Spinner
+                            android:id="@+id/spinnerReasons"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="15dp"
+                            android:popupBackground="#F5F5F5"
+
+                            android:background="@drawable/button_background_3"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nghỉ từ"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="15dp"
+                            />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/startDayBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/button_background_3"
+                            app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:background="@drawable/schedule"
+                                android:layout_marginStart="20dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+
+                            <TextView
+                                android:id="@+id/textStartDay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="16/03/2025"
+                                android:gravity="center"
+                                android:textSize="16sp"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="15dp" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/endDateBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/button_background_3"
+                            app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                            <ImageView
+                                android:id="@+id/imageView"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginStart="20dp"
+                                android:background="@drawable/schedule"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textEndDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:text="17/03/2025"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Lý do"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="15dp" />
+
+                        <EditText
+                            android:id="@+id/edtReason"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp"
+                            android:hint="Nhập lý do..."
+                            android:inputType="textMultiLine"
+                            android:layout_marginTop="20dp"
+                            android:minLines="3"
+                            android:padding="15dp"
+                            android:gravity="top|start"
+                            android:background="@drawable/button_background_3"/>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnSend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/button_background"
+                            app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:textColor="@color/white"
+                            android:text="Gửi"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textAllCaps="false"/>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"/>
+                    </LinearLayout>
+
+                </ScrollView>
+
+                <!-- Empty View -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/emptyView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/emptyAnimation"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/error_animation"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
-                        android:id="@+id/textStartDay"
+                        android:id="@+id/emptyText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="16/03/2025"
-                        android:gravity="center"
+                        android:text="Đã có lỗi xảy ra. Vui lòng thử lại"
                         android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:textColor="#666666"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/emptyAnimation"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="15dp" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/endDateBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/button_background_3"
-                    app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="20dp"
-                        android:background="@drawable/schedule"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textEndDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="17/03/2025"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Lý do"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="15dp" />
-
-                <EditText
-                    android:id="@+id/edtReason"
-                    android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:hint="Nhập lý do..."
-                    android:inputType="textMultiLine"
-                    android:layout_marginTop="20dp"
-                    android:minLines="3"
-                    android:padding="15dp"
-                    android:gravity="top|start"
-                    android:background="@drawable/button_background_3"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnSend"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/button_background"
-                    app:layout_constraintTop_toBottomOf="@id/btnForgotPassword"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@color/white"
-                    android:text="Gửi"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textAllCaps="false"/>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"/>
-            </LinearLayout>
-
-        </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/progressOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:alpha="0.6"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/red"/>
+    </FrameLayout>
+
 
 </FrameLayout>

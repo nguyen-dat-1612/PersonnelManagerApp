@@ -76,7 +76,7 @@
                     android:id="@+id/recyclerViewHistory"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_margin="20dp"
+                    android:layout_margin="16dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -122,19 +122,18 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabNewRequest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/red"
-            app:srcCompat="@android:drawable/ic_input_add"
+            android:src="@drawable/ic_send"
+            app:shapeAppearanceOverlay="@style/RoundedSquareFAB"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="contract"
-            type="com.managerapp.personnelmanagerapp.domain.model.Contract"/>
+            type="com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse"/>
     </data>
 
     <FrameLayout
@@ -92,7 +92,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:cardCornerRadius="12dp"
-                            app:cardElevation="6dp">
+                            >
 
                             <TableLayout
                                 android:layout_width="match_parent"
@@ -124,16 +124,19 @@
                                 <TableRow
                                     android:paddingVertical="12dp">
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="Mã hợp đồng:"
+                                        android:layout_weight="1"
                                         android:textSize="16sp"
                                         android:textStyle="bold"
                                         android:textColor="#555555"/>
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:id="@+id/txMaHopDong"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="@{contract != null ? contract.id : `Chưa có dữ liệu`}"
+                                        android:layout_weight="2"
+                                        android:text='@{String.valueOf(contract.getId())}'
                                         android:textSize="16sp"
                                         android:textColor="#333333"
                                         android:gravity="end"/>
@@ -150,16 +153,45 @@
                                 <TableRow
                                     android:paddingVertical="12dp">
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="Mã nhân viên:"
+                                        android:layout_weight="1"
                                         android:textSize="16sp"
                                         android:textStyle="bold"
                                         android:textColor="#555555"/>
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text='@{contract != null ? (contract.userId + "" ): `Chưa có dữ liệu`}'
+                                        android:layout_weight="2"
+                                        android:text='@{contract.user.id + ""}'
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
+
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
+                                <!-- Mã nhân viên -->
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="Tên nhân viên:"
+                                        android:layout_weight="1"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="2"
+                                        android:text='@{contract.user.fullName}'
                                         android:textSize="16sp"
                                         android:gravity="end"
                                         android:textColor="#333333"/>
@@ -176,16 +208,18 @@
                                 <TableRow
                                     android:paddingVertical="12dp">
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="Loại hợp đồng:"
+                                        android:layout_weight="1"
                                         android:textSize="16sp"
                                         android:textStyle="bold"
                                         android:textColor="#555555"/>
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="@{contract != null ? contract.contractTypeId : `Chưa có dữ liệu`}"
+                                        android:layout_weight="2"
+                                        android:text='@{contract.contractTypeName}'
                                         android:textSize="16sp"
                                         android:gravity="end"
                                         android:textColor="#333333"/>
@@ -202,15 +236,17 @@
                                 <TableRow
                                     android:paddingVertical="12dp">
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="Thời gian:"
                                         android:textSize="16sp"
+                                        android:layout_weight="1"
                                         android:textStyle="bold"
                                         android:textColor="#555555"/>
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
+                                        android:layout_weight="2"
                                         android:text='@{contract != null ? (contract.startDate.toString() + " - " + contract.endDate.toString()) : "Chưa có dữ liệu"}'
                                         android:textSize="16sp"
                                         android:gravity="end"
@@ -228,17 +264,20 @@
                                 <TableRow
                                     android:paddingVertical="12dp">
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="Trạng thái:"
+                                        android:layout_weight="1"
                                         android:textSize="16sp"
                                         android:textStyle="bold"
                                         android:textColor="#555555"/>
                                     <!--                                android:text="@{contract != null ? (contract.isActive ? `Còn hiệu lực` : `Hết hạn`) : `Chưa có dữ liệu`}"-->
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:id="@+id/txStatus"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Chưa có dữ liệu"
+                                        android:layout_weight="2"
+                                        android:text='@{contract.getContractStatusEnum()}'
                                         android:textSize="16sp"
                                         android:gravity="end"
                                         android:textColor="#333333"/>
@@ -255,17 +294,19 @@
                                 <TableRow
                                     android:paddingVertical="12dp">
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="Lương cơ bản:"
+                                        android:layout_weight="1"
                                         android:textSize="16sp"
                                         android:textStyle="bold"
                                         android:textColor="#555555"/>
                                     <!--                           android:text="@{contract != null ? String.valueOf(contract.baseSalary) + ` VNĐ` : `Chưa có dữ liệu`}"-->
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Chưa có dữ liệu"
+                                        android:layout_weight="2"
+                                        android:text='@{contract.basicSalary + " VND"}'
                                         android:textSize="16sp"
                                         android:gravity="end"
                                         android:textColor="#333333"/>
@@ -282,18 +323,19 @@
                                 <TableRow
                                     android:paddingVertical="12dp">
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Phụ cấp chức vụ:"
+                                        android:text="Chức vụ:"
                                         android:textSize="16sp"
+                                        android:layout_weight="1"
                                         android:textStyle="bold"
                                         android:textColor="#555555"/>
-                                    <!--                                android:text="@{contract != null ? String.valueOf(contract.positionAllowance) + ` VNĐ` : `Chưa có dữ liệu`}"-->
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Chưa có dữ liệu"
+                                        android:text='@{contract.positionName}'
                                         android:textSize="16sp"
+                                        android:layout_weight="2"
                                         android:gravity="end"
                                         android:textColor="#333333"/>
                                 </TableRow>
@@ -309,17 +351,19 @@
                                 <TableRow
                                     android:paddingVertical="12dp">
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Phụ cấp thâm niên:"
+                                        android:text="Cấp bậc:"
+                                        android:layout_weight="1"
                                         android:textSize="16sp"
                                         android:textStyle="bold"
                                         android:textColor="#555555"/>
                                     <!--                                android:text="@{contract != null ? String.valueOf(contract.seniorityAllowance) + ` VNĐ` : `Chưa có dữ liệu`}"-->
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Chưa có dữ liệu"
+                                        android:text='@{contract.jobGradeName}'
+                                        android:layout_weight="2"
                                         android:textSize="16sp"
                                         android:gravity="end"
                                         android:textColor="#333333"/>
@@ -336,17 +380,19 @@
                                 <TableRow
                                     android:paddingVertical="12dp">
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Bậc lương:"
+                                        android:text="Điều khoản"
                                         android:textSize="16sp"
+                                        android:layout_weight="1"
                                         android:textStyle="bold"
                                         android:textColor="#555555"/>
                                     <!--android:text="@{contract != null ? contract.currentJobGrade : `Chưa có dữ liệu`}"-->
                                     <TextView
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Chưa có dữ liệu"
+                                        android:text='@{contract.clause}'
+                                        android:layout_weight="2"
                                         android:textSize="16sp"
                                         android:gravity="end"
                                         android:textColor="#333333"/>

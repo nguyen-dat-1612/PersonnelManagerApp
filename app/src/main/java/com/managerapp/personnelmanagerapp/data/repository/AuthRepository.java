@@ -2,13 +2,11 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 
-import com.managerapp.personnelmanagerapp.data.local.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.data.manager.SecureTokenManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
-import com.managerapp.personnelmanagerapp.data.remote.request.TokenRefreshRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.LoginResponse;
-import com.managerapp.personnelmanagerapp.data.remote.response.TokenRefreshResponse;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -34,7 +32,7 @@ public class AuthRepository {
 
     public Single<LoginResponse> login(String email, String password) {
         LoginRequest request = new LoginRequest(email, password);
-        return authApiService.login(request, "mobile")
+        return authApiService.login(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(response -> {

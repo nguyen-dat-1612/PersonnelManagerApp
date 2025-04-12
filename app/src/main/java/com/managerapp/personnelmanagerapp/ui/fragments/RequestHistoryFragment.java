@@ -9,12 +9,15 @@ import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
 import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.FragmentRequestHistoryBinding;
@@ -24,6 +27,7 @@ import com.managerapp.personnelmanagerapp.ui.adapters.LeaveApplicationAdapter;
 import com.managerapp.personnelmanagerapp.ui.state.LeaveApplicationState;
 import com.managerapp.personnelmanagerapp.ui.viewmodel.LeaveApplicationViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -33,29 +37,28 @@ public class RequestHistoryFragment extends BaseFragment {
 
     private static final String TAG = "RequestHistoryFragment";
     private FragmentRequestHistoryBinding binding;
-    private List<LeaveApplication> leaveApplications;
+    private List<LeaveApplicationResponse> leaveApplications = new ArrayList<>();
+
     private LeaveApplicationAdapter adapter;
     private LeaveApplicationViewModel viewModel;
+    private long userId;
     public RequestHistoryFragment() {
 
     }
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentRequestHistoryBinding.inflate(inflater, container, false);
-
+        userId = requireActivity().getIntent().getLongExtra("userId", -1);
+        if (userId <= 0) {
+            Log.e(TAG, "Không nhận được userId từ intent");
+        }
         viewModel = new ViewModelProvider(this).get(LeaveApplicationViewModel.class);
 
         adapter = new LeaveApplicationAdapter(leaveApplications, leaveApplication -> {
-            Toast.makeText(requireContext(),leaveApplication.getLeaveApplicationId() + " ", Toast.LENGTH_LONG ).show();
+            Toast.makeText(requireContext(),leaveApplication.getId() + " ", Toast.LENGTH_LONG ).show();
         });
 
         loadLeaveApplication();
@@ -90,8 +93,8 @@ public class RequestHistoryFragment extends BaseFragment {
             } else if (state instanceof LeaveApplicationState.Success) {
                 leaveApplications.clear();
                 leaveApplications.addAll(((LeaveApplicationState.Success) state).leaveApplications);
-                adapter.notifyDataSetChanged();
-
+                binding.recyclerViewHistory.setLayoutManager(new LinearLayoutManager(getContext()));
+                binding.recyclerViewHistory.setAdapter(adapter);
                 binding.emptyView.setVisibility(GONE);
                 binding.recyclerViewHistory.setVisibility(VISIBLE);
             } else if (state instanceof LeaveApplicationState.Error) {
@@ -102,7 +105,8 @@ public class RequestHistoryFragment extends BaseFragment {
                 binding.recyclerViewHistory.setVisibility(GONE);
             }
         });
-        viewModel.loadLeaveAppliations();
+        adapter.notifyDataSetChanged();
+        viewModel.loadLeaveAppliations((int) userId);
     }
     @Override
     public void onDestroyView() {

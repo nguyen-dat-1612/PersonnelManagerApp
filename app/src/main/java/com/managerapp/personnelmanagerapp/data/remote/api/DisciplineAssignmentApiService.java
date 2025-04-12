@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.remote.api;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.AssignmentResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.domain.model.DisciplineAssignment;
 import com.managerapp.personnelmanagerapp.domain.model.RewardAssignment;
@@ -13,8 +14,10 @@ import retrofit2.http.Path;
 
 public interface DisciplineAssignmentApiService {
 
-    @GET("DisciplineAssignment/{id}")
-    Single<Response<BaseResponse<List<DisciplineAssignment>>>> getDisciplineAssignments(@Path("id") int userId);
+    @GET("discipline-assignments/{id}")
+    Single<Response<BaseResponse<List<AssignmentResponse>>>> getDisciplineAssignments(@Path("id") int userId);
+
+
 
     @GET("DisciplineAssignment/{userId}/{disciplineId}")
     Single<Response<BaseResponse<DisciplineAssignment>>> getDisciplineAssignmentById(

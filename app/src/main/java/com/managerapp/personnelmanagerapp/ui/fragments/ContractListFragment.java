@@ -16,10 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
+import com.managerapp.personnelmanagerapp.domain.model.User;
+import com.managerapp.personnelmanagerapp.ui.activities.ContractActivity;
 import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.FragmentContractListBinding;
-import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import com.managerapp.personnelmanagerapp.ui.activities.MainActivity;
 import com.managerapp.personnelmanagerapp.ui.adapters.ContractAdapter;
 import com.managerapp.personnelmanagerapp.ui.state.ContractListState;
@@ -37,7 +39,7 @@ public class ContractListFragment extends BaseFragment {
     private ContractListViewModel viewModel;
     private FragmentContractListBinding binding;
     private NavController navController;
-    private List<Contract> contractList = new ArrayList<>();
+    private List<ContractResponse> contractList = new ArrayList<>();
     private ContractAdapter adapter;
 
     public ContractListFragment() {
@@ -59,7 +61,7 @@ public class ContractListFragment extends BaseFragment {
         viewModel = new ViewModelProvider(this).get(ContractListViewModel.class);
         adapter = new ContractAdapter(contractList, requireContext(), contractId -> {
             Bundle bundle = new Bundle();
-            bundle.putString("contractId", contractId);
+            bundle.putInt("contractId", contractId);
             navController.navigate(R.id.action_contractListFragment_to_contractDetailFragment, bundle);
         });
 
@@ -100,7 +102,7 @@ public class ContractListFragment extends BaseFragment {
                 binding.recyclerViewContact.setVisibility(GONE);
             }
         });
-        viewModel.loadAllContracts(1);
+        viewModel.loadAllContracts(((ContractActivity) requireActivity()).getUserId());
     }
     @Override
     public void onDestroyView() {

@@ -1,5 +1,9 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -71,24 +75,26 @@ public class ProfileInfoActivity extends BaseActivity {
     }
 
     private void loadUserInfo() {
-        viewModel.loadUser(); // Giả sử method này trong ViewModel
-
         viewModel.getProfileInfoState().observe(this, state -> {
             binding.swipeRefresh.setRefreshing(false);
 
             if (state instanceof ProfileInfoState.Loading) {
                 binding.swipeRefresh.setRefreshing(true);
+                binding.content.setVisibility(INVISIBLE);
             }
             else if (state instanceof ProfileInfoState.Success) {
                 User user = ((ProfileInfoState.Success) state).getUser();
                 updateUIWithUserData(user);
+                binding.content.setVisibility(VISIBLE);
             }
             else if (state instanceof ProfileInfoState.Error) {
                 String errorMsg = ((ProfileInfoState.Error) state).getMessage();
                 Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "Error loading profile: " + errorMsg);
+                binding.content.setVisibility(INVISIBLE);
             }
         });
+        viewModel.loadUser();
     }
 
     private void updateUIWithUserData(User user) {
@@ -108,7 +114,7 @@ public class ProfileInfoActivity extends BaseActivity {
                     .circleCrop() // Cắt thành hình tròn
                     .into(binding.imageUser);
 
-            binding.imageUser.setVisibility(View.VISIBLE);
+            binding.imageUser.setVisibility(VISIBLE);
         } else {
             // Nếu không có avatar, hiển thị ảnh mặc định
             Glide.with(this)

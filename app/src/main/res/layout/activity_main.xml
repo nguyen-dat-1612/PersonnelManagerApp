@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.managerapp.personnelmanagerapp.ui.activities.MainActivity">
 
+
     <!-- Navigation Fragment -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_fragment"
@@ -30,5 +31,25 @@
         app:cnb_menuResource="@menu/bottom_nav_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:cnb_textAppearance="@style/BottomNavTextStyle" />
+    <!-- Layout loading logo toàn màn hình -->
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:visibility="visible"
+        android:elevation="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:background="@drawable/logo_ptit"/>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -78,7 +78,6 @@ public class LoginActivity extends BaseActivity {
             if (loginState instanceof LoginState.Loading) {
                 binding.progressOverlay.setVisibility(View.VISIBLE); // Hiển thị tiến trình
             } else if (loginState instanceof LoginState.Success) {
-                binding.progressOverlay.setVisibility(View.INVISIBLE);
                 Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                 // Chuyển sang màn hình chính hoặc màn hình khác
                 Intent intent = new Intent(this, MainActivity.class);

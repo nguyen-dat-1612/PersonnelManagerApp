@@ -1,25 +1,45 @@
 package com.managerapp.personnelmanagerapp.ui.state;
 
-import com.managerapp.personnelmanagerapp.domain.model.Notification;
-import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
+import androidx.annotation.NonNull;
 
-import java.util.List;
+import com.managerapp.personnelmanagerapp.domain.model.Notification;
 
 public sealed interface NotificationState {
-    final class Loading implements NotificationState {}
+    final class Loading implements NotificationState {
+        private static final NotificationState.Loading INSTANCE = new NotificationState.Loading();
+
+        private Loading() {};
+
+        public static NotificationState.Loading getInstance() {
+            return INSTANCE;
+        }
+    }
+
     final class Success implements NotificationState {
-        public final List<NotificationRecipient> notifications;
+        @NonNull
+        private final Notification notification;
 
-        public Success(List<NotificationRecipient> notifications) {
-            this.notifications = notifications;
+        public Success(@NonNull Notification notification) {
+            this.notification = notification;
+        }
+
+        @NonNull
+        public Notification getNotification() {
+            return notification;
         }
     }
+
     final class Error implements NotificationState {
-        public final String message;
+        @NonNull
+        private final String errorMessage;
 
-        public Error(String message) {
-            this.message = message;
+        public Error(@NonNull String errorMessage) {
+            this.errorMessage = errorMessage;
+        }
+
+        @NonNull
+        public String getErrorMessage() {
+            return errorMessage;
         }
     }
-    final class Empty implements NotificationState {}
 }

@@ -2,6 +2,7 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 import com.managerapp.personnelmanagerapp.data.remote.api.RewardAssignmentApiService;
+import com.managerapp.personnelmanagerapp.data.remote.response.AssignmentResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.domain.model.RewardAssignment;
 import java.util.List;
@@ -19,19 +20,31 @@ public class RewardAssignmentRepository {
         this.rewardAssignmentApiService = rewardAssignmentApiService;
     }
 
-    public Single<List<RewardAssignment>> getRewardAssignments(int userId) {
+    public Single<List<AssignmentResponse>> getRewardAssignments(int userId) {
+
         return rewardAssignmentApiService.getRewardAssignments(userId)
                 .flatMap(response -> {
                     if (response.isSuccessful() && response.body() != null) {
+                        Log.d(TAG, userId + "");
+                        Log.d(TAG, "Lấy danh sách khen thưởng của người dùng");
+                        Log.d(TAG, response.body().getData().toString());
                         return Single.just(response.body().getData());
                     } else {
-                        return Single.error(new Exception("Lỗi lấy danh sách khen thưởng: " + response.body().getMessage()));
+                        String errorMessage = "Lấy dữ liệu thất bại: " + response.code();
+                        if (response.errorBody() != null) {
+                            try {
+                                errorMessage = response.errorBody().string();
+                            } catch (Exception e) {
+                                Log.e(TAG, "Không thể đọc lỗi từ phản hồi", e);
+                            }
+                        }
+                        Log.d(TAG, "Đăng nhập thất bại: " + errorMessage);
+                        return Single.error(new Exception(errorMessage));
                     }
-                })
-                .doOnError(throwable -> Log.e(TAG, "Lỗi khi lấy danh sách khen thưởng: ", throwable));
+                });
     }
 
-    public Single<RewardAssignment> getRewardAssignmentById(int userId, int rewardId) {
+    public Single<AssignmentResponse> getRewardAssignmentById(int userId, int rewardId) {
         return rewardAssignmentApiService.getRewardAssignmentById(userId, rewardId)
                 .flatMap(response -> {
                     if (response.isSuccessful() && response.body() != null) {

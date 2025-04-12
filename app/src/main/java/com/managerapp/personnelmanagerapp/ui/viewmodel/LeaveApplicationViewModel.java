@@ -30,10 +30,10 @@ public class LeaveApplicationViewModel extends ViewModel {
         return leaveApplicationState;
     }
 
-    public void loadLeaveAppliations(){
+    public void loadLeaveAppliations(int userId){
         leaveApplicationState.postValue(new LeaveApplicationState.Loading());
         compositeDisposable.add(
-                getLeaveApplications.excute()
+                getLeaveApplications.excute(userId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(

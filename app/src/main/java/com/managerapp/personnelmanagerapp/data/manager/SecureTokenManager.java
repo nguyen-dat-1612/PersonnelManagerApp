@@ -1,4 +1,4 @@
-package com.managerapp.personnelmanagerapp.data.local;
+package com.managerapp.personnelmanagerapp.data.manager;
 
 import android.content.SharedPreferences;
 import android.util.Log;

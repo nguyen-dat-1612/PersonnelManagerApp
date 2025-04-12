@@ -1,6 +1,7 @@
 package com.managerapp.personnelmanagerapp.ui.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.navigation.NavController;
@@ -11,10 +12,15 @@ import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityRewardDisciplineBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class RewardDisciplineActivity extends BaseActivity {
 
     private ActivityRewardDisciplineBinding binding;
     private NavController navController;
+    private final String TAG = "RewardDisciplineActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,7 @@ public class RewardDisciplineActivity extends BaseActivity {
                 if (tab.getPosition() == 0) {
                     navController.navigate(R.id.rewardListFragment);
                 } else if (tab.getPosition() == 1) {
+
                     navController.navigate(R.id.disciplineListFragment);
                 }
             }
@@ -55,4 +62,5 @@ public class RewardDisciplineActivity extends BaseActivity {
             android.widget.Toast.makeText(this, "Hướng dẫn sử dụng", android.widget.Toast.LENGTH_SHORT).show();
         });
     }
+
 }

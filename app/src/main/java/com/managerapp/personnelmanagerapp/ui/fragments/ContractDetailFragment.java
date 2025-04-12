@@ -1,6 +1,7 @@
 package com.managerapp.personnelmanagerapp.ui.fragments;
 
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 import android.os.Bundle;
@@ -9,11 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
 import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentContractDetailBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Contract;
@@ -28,7 +32,8 @@ public class ContractDetailFragment extends BaseFragment {
     private static final String ARG_CONTRACT_ID = "contractId";
     private FragmentContractDetailBinding binding;
     private ContractDetailViewModel viewModel;
-    private String contractId;
+    private final String TAG = "ContractDetailFragment";
+    private int contractId = -1;
 
     public ContractDetailFragment() {}
 
@@ -44,9 +49,11 @@ public class ContractDetailFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(ContractDetailViewModel.class);
-        contractId = getArguments() != null ? getArguments().getString(ARG_CONTRACT_ID) : null;
 
-        if (contractId == null) {
+        if (getArguments() != null) {
+            contractId = getArguments().getInt(ARG_CONTRACT_ID, -1); // Giá trị mặc định nếu không có
+        }
+        if (contractId == -1) {
             showErrorAndFinish("Không tìm thấy hợp đồng!");
             return;
         }
@@ -71,18 +78,20 @@ public class ContractDetailFragment extends BaseFragment {
 
     private void observeViewModel() {
         viewModel.getContractDetailState().observe(getViewLifecycleOwner(), state -> {
-            binding.swipeRefresh.setRefreshing(state instanceof ContractDetailState.Loading);
-
-            if (state instanceof ContractDetailState.Success) {
-                Contract contract = ((ContractDetailState.Success) state).getContract();
+            if (state instanceof  ContractDetailState.Loading) {
+                binding.swipeRefresh.setRefreshing(true);
+                binding.view.setVisibility(INVISIBLE);
+            } else if (state instanceof ContractDetailState.Success) {
+                binding.swipeRefresh.setRefreshing(false);
+                ContractResponse contract = ((ContractDetailState.Success) state).getContract();
+                Log.d(TAG, contract.toString());
                 binding.setContract(contract);
-//                binding.emptyView.setVisibility(GONE);
+                binding.txMaHopDong.setText(contract.getId() + "");
                 binding.view.setVisibility(VISIBLE);
             } else if (state instanceof ContractDetailState.Error) {
                 String errorMessage = ((ContractDetailState.Error) state).getMessage();
                 showError(errorMessage);
-//                binding.emptyView.setVisibility(VISIBLE);
-                binding.view.setVisibility(GONE);
+                binding.view.setVisibility(INVISIBLE);
             }
         });
     }

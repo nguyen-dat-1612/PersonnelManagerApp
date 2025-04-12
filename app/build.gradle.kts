@@ -3,6 +3,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs") version "2.7.7"
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -36,99 +37,75 @@ android {
         viewBinding = true
         dataBinding = true
     }
+    kotlinOptions {
+        jvmTarget = "18"
+    }
 }
 
 dependencies {
+    // Core Android (from libs)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.transport.api)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 
-    // **Core thư viện Android**
-    implementation ("androidx.appcompat:appcompat:1.6.1")
-    implementation ("androidx.core:core-ktx:1.12.0")
-    implementation ("androidx.lifecycle:lifecycle-livedata:2.6.2")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    // AndroidX & Lifecycle
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.security:security-crypto:1.0.0")  // Stable version
+    implementation("androidx.biometric:biometric:1.1.0")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
-    // **Material Design**
-    implementation ("com.google.android.material:material:1.11.0")
+    // Navigation Component
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
-    // **Retrofit & OkHttp (Gọi API)**
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    // Retrofit & Network
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
-    // **Room Database (Lưu trữ dữ liệu)**
-    implementation ("androidx.room:room-runtime:2.6.1")
-    annotationProcessor ("androidx.room:room-compiler:2.6.1")
+    // Room Database
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.core.ktx)  // For Kotlin extensions
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")  // Use 'annotationProcessor' for Java
 
-    // **Gson (Chuyển đổi JSON)**
-    implementation ("com.google.code.gson:gson:2.10.1")
+    // Glide (Image Loading)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")  // Use 'annotationProcessor' for Java
 
-    // **Navigation Component (Chuyển màn hình)**
-    implementation ("androidx.navigation:navigation-fragment:2.7.7")
-    implementation ("androidx.navigation:navigation-ui:2.7.7")
+    // Hilt (Dependency Injection)
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    annotationProcessor ("com.google.dagger:hilt-android-compiler:2.51.1")  // Use 'annotationProcessor' for Java
 
-    // **Glide (Load ảnh)**
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+    // RxJava3 support for Room
+    implementation ("androidx.room:room-rxjava3:2.6.1")
+    // RxJava 3
+    implementation("io.reactivex.rxjava3:rxjava:3.1.6")
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
 
-    // **RecyclerView**
-    implementation ("androidx.recyclerview:recyclerview:1.3.2")
-
-    // **SharedPreferences (DataStore - thay thế SharedPreferences)**
-    implementation ("androidx.datastore:datastore-preferences:1.0.0")
-
-    // Mã hóa SharedPreferences
-    implementation ("androidx.security:security-crypto:1.1.0-alpha03")
-
-    // Thư viện JWT để giải mã token
-    implementation ("com.auth0:java-jwt:3.19.2")
-
-    // **Lottie (Animation đẹp)**
-    implementation ("com.airbnb.android:lottie:6.1.0")
-
-    // **WorkManager (Chạy tác vụ nền)**
-    implementation ("androidx.work:work-runtime:2.9.0")
-
-    // **Unit Test**
-    testImplementation ("junit:junit:4.13.2")
-    androidTestImplementation ("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
-
-    //SmoothBottomBar
-    implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
-    implementation ("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
-
-    // **Hilt (Dependency Injection)**
-    implementation ("com.google.dagger:hilt-android:2.51.1")
-    annotationProcessor ("com.google.dagger:hilt-android-compiler:2.51.1") // Dùng annotationProcessor thay cho kapt
-
-    // RxJava Core
-    implementation ("io.reactivex.rxjava3:rxjava:3.1.6")
-
-    // RxAndroid để chạy trên UI Thread
-    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
-
-    // Adapter RxJava cho Retrofit
-    implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
-
-    //Firebase
+    // Firebase (using BOM)
     implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation ("com.google.firebase:firebase-messaging:23.0.0")
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-messaging-ktx")
 
-    //Biometric
-    implementation ("androidx.biometric:biometric:1.1.0")
+    // UI Libraries
+     implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
 
-    //SwipeRefreshLayout
-    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    // Lottie Animation
+    implementation("com.airbnb.android:lottie:6.1.0")
 
-    // Room RxJava3
-    implementation("androidx.room:room-rxjava3:2.6.1")
+    // JWT
+    implementation("com.auth0:java-jwt:3.19.2")
+
+    // Testing
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

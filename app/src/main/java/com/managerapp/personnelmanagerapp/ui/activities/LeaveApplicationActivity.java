@@ -15,7 +15,7 @@ import com.managerapp.personnelmanagerapp.databinding.ActivityRequestBinding;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class RequestActivity extends BaseActivity {
+public class LeaveApplicationActivity extends BaseActivity {
     private ActivityRequestBinding binding;
     private NavController navController;
 

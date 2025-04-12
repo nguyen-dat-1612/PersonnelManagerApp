@@ -6,32 +6,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.domain.model.User;
+import com.managerapp.personnelmanagerapp.ui.activities.LeaveApplicationActivity;
+import com.managerapp.personnelmanagerapp.ui.activities.MainActivity;
 import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentHomeBinding;
 import com.managerapp.personnelmanagerapp.ui.activities.ContractActivity;
 import com.managerapp.personnelmanagerapp.ui.activities.FeedBackActivity;
 import com.managerapp.personnelmanagerapp.ui.activities.LoginActivity;
-import com.managerapp.personnelmanagerapp.ui.activities.RequestActivity;
 import com.managerapp.personnelmanagerapp.ui.activities.RewardDisciplineActivity;
 import com.managerapp.personnelmanagerapp.ui.activities.SalaryActivity;
-import com.managerapp.personnelmanagerapp.ui.state.HomeState;
-import com.managerapp.personnelmanagerapp.ui.state.ProfileInfoState;
-import com.managerapp.personnelmanagerapp.ui.viewmodel.HomeViewModel;
+import com.managerapp.personnelmanagerapp.ui.state.MainState;
+import com.managerapp.personnelmanagerapp.ui.viewmodel.MainViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class HomeFragment extends BaseFragment {
 
+    private MainViewModel mainViewModel;
     private FragmentHomeBinding binding;
-    private HomeViewModel viewModel;
     public HomeFragment() {
 
     }
@@ -44,10 +43,8 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
 
-        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
         loadUserInfo();
         binding.logoutBtn.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), LoginActivity.class);
@@ -59,7 +56,9 @@ public class HomeFragment extends BaseFragment {
         // Request Button - Chỉ mở RequestActivity bình thường
         binding.YeucauBtn.setOnClickListener(v -> {
             if (getView() != null && getActivity() != null) {
-                Intent intent = new Intent(requireActivity(), RequestActivity.class);
+                Intent intent = new Intent(requireActivity(), LeaveApplicationActivity.class);
+                User currentUser = ((MainActivity) requireActivity()).getCurrentUser();
+                intent.putExtra("userId", currentUser.getId());
                 startActivity(intent);
             }
         });
@@ -68,6 +67,8 @@ public class HomeFragment extends BaseFragment {
         binding.btnFeedBack.setOnClickListener(v -> {
             if (getView() != null && getActivity() != null) {
                 Intent intent = new Intent(requireContext(), FeedBackActivity.class);
+                User currentUser = ((MainActivity) requireActivity()).getCurrentUser();
+                intent.putExtra("userId", currentUser.getId());
                 startActivity(intent);
             }
         });
@@ -76,6 +77,8 @@ public class HomeFragment extends BaseFragment {
         binding.btnContracts.setOnClickListener(v -> {
             if (getView() != null && getActivity() != null) {
                 Intent intent = new Intent(requireContext(), ContractActivity.class);
+                User currentUser = ((MainActivity) requireActivity()).getCurrentUser();
+                intent.putExtra("userId", currentUser.getId());
                 startActivity(intent);
             }
         });
@@ -83,6 +86,8 @@ public class HomeFragment extends BaseFragment {
         binding.btnRewardAndDiscipline.setOnClickListener(v -> {
             if (getView() != null && getActivity() != null) {
                 Intent intent = new Intent(requireContext(), RewardDisciplineActivity.class);
+                User currentUser = ((MainActivity) requireActivity()).getCurrentUser();
+                intent.putExtra("userId", currentUser.getId()); // Dùng lại userId đã kiểm tra
                 startActivity(intent);
             }
         });
@@ -95,24 +100,41 @@ public class HomeFragment extends BaseFragment {
         });
         return binding.getRoot();
     }
+
     private void loadUserInfo() {
-        viewModel.loadUser(); // Giả sử method này trong ViewModel
+        User user = ((MainActivity) requireActivity()).getCurrentUser();
+        if (user == null) {
+            mainViewModel.loadUser(); // Giả sử method này trong ViewModel
 
-        viewModel.getHomeState().observe(getViewLifecycleOwner(), state -> {
+            mainViewModel.getMainState().observe(getViewLifecycleOwner(), state -> {
 
-            if (state instanceof HomeState.Loading) {
-            }
-            else if (state instanceof HomeState.Success) {
-                User user = ((HomeState.Success) state).getUser();
-                binding.textWelcome.setText("Xin chào, \n" + user.getFullName());
-            }
-            else if (state instanceof HomeState.Error) {
-                String errorMsg = ((HomeState.Error) state).getMessage();
-                Log.e(TAG, "Error loading profile: " + errorMsg);
-            }
-        });
+                if (state instanceof MainState.Loading) {
+
+                }
+                else if (state instanceof MainState.Success) {
+                    User newUser = ((MainState.Success) state).getUser();
+                    ((MainActivity) requireActivity()).setUser(newUser);
+
+                    Glide.with(requireContext())
+                            .load(newUser.getAvatar())
+                            .placeholder(R.drawable.ic_default_avatar)
+                            .error(R.drawable.ic_broken_image)
+                            .into(binding.imageUser);
+                }
+                else if (state instanceof MainState.Error) {
+                    String errorMsg = ((MainState.Error) state).getMessage();
+                    Log.e(TAG, "Error loading profile: " + errorMsg);
+                }
+            });
+        } else {
+            Glide.with(requireContext())
+                    .load(user.getAvatar())
+                    .placeholder(R.drawable.ic_default_avatar) // Ảnh mặc định khi đang tải
+                    .error(R.drawable.ic_broken_image)
+                    .into(binding.imageUser);
+        }
+
     }
-
 
     @Override
     public void onDestroyView() {

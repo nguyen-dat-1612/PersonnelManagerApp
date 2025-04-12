@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
 import com.managerapp.personnelmanagerapp.databinding.ItemContractBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Contract;
 
@@ -15,11 +16,11 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.ContractViewHolder> {
-    private List<Contract> contractList;
+    private List<ContractResponse> contractList;
     private Context context;
-    private Consumer<String> consumer;
+    private Consumer<Integer> consumer;
 
-    public ContractAdapter(List<Contract> contractList, Context context, Consumer<String> consumer) {
+    public ContractAdapter(List<ContractResponse> contractList, Context context, Consumer<Integer> consumer) {
         this.contractList = contractList;
         this.context = context;
         this.consumer = consumer;
@@ -38,7 +39,7 @@ public class ContractAdapter extends RecyclerView.Adapter<ContractAdapter.Contra
 
     @Override
     public void onBindViewHolder(@NonNull ContractViewHolder holder, int position) {
-        Contract contract = contractList.get(position);
+        ContractResponse contract = contractList.get(position);
         holder.binding.setContract(contract);
         holder.itemView.setOnClickListener(v -> {
             consumer.accept(contract.getId());

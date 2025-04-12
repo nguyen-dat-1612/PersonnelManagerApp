@@ -2,6 +2,7 @@ package com.managerapp.personnelmanagerapp.data.di;
 
 import androidx.annotation.NonNull;
 
+import com.managerapp.personnelmanagerapp.data.manager.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.LeaveApplicationApiService;
 import com.managerapp.personnelmanagerapp.data.repository.LeaveApplicationRepository;
 
@@ -26,7 +27,7 @@ public class LeaveApplicationModule {
 
     @Provides
     @Singleton
-    public static LeaveApplicationRepository leaveApplicationRepository( LeaveApplicationApiService leaveApplicationApiService) {
-        return new LeaveApplicationRepository(leaveApplicationApiService);
+    public static LeaveApplicationRepository leaveApplicationRepository( LeaveApplicationApiService leaveApplicationApiService, LocalDataManager localDataManager) {
+        return new LeaveApplicationRepository(leaveApplicationApiService, localDataManager);
     }
 }

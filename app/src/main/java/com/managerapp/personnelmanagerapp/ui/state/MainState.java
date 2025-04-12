@@ -4,16 +4,16 @@ import androidx.annotation.NonNull;
 
 import com.managerapp.personnelmanagerapp.domain.model.User;
 
-public sealed interface HomeState {
-    final class Loading implements HomeState {
-        private static final HomeState.Loading INSTANCE = new HomeState.Loading();
+public sealed interface MainState {
+    final class Loading implements MainState {
+        private static final MainState.Loading INSTANCE = new MainState.Loading();
         private Loading() {}
 
-        public static HomeState.Loading getInstance() {
+        public static MainState.Loading getInstance() {
             return INSTANCE;
         }
     }
-    final class Success implements HomeState {
+    final class Success implements MainState {
         @NonNull
         public final User user;
 
@@ -26,7 +26,7 @@ public sealed interface HomeState {
             return user;
         }
     }
-    final class Error implements HomeState {
+    final class Error implements MainState {
         @NonNull
         public final String message;
 

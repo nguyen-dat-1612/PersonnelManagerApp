@@ -2,7 +2,10 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 
+import com.managerapp.personnelmanagerapp.data.manager.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.LeaveApplicationApiService;
+import com.managerapp.personnelmanagerapp.data.remote.request.LeaveApplicationRequest;
+import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
 import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 
 import java.util.List;
@@ -16,14 +19,19 @@ import io.reactivex.rxjava3.core.Single;
 public class LeaveApplicationRepository {
     private final LeaveApplicationApiService leaveApplicationApiService;
     private final String TAG = "LeaveApplicationRepository";
+    private final LocalDataManager localDataManager;
 
     @Inject
-    public LeaveApplicationRepository(LeaveApplicationApiService leaveApplicationApiService) {
+    public LeaveApplicationRepository(
+            LeaveApplicationApiService leaveApplicationApiService,
+            LocalDataManager localDataManager
+    ) {
         this.leaveApplicationApiService = leaveApplicationApiService;
+        this.localDataManager = localDataManager;
     }
 
-    public Single<List<LeaveApplication>> getLeaveApplications() {
-        return leaveApplicationApiService.getLeaveApplications()
+    public Single<List<LeaveApplicationResponse>> getLeaveApplications(int userId) {
+        return leaveApplicationApiService.getLeaveApplications(userId)
                 .flatMap(response-> {
                     if (response.isSuccessful() && response.body() != null) {
                         Log.d(TAG, "Lấy dữ liệu thành công");
@@ -59,6 +67,31 @@ public class LeaveApplicationRepository {
                             }
                         }
                         Log.d(TAG, "Lấy dữ liệu thất bại: " + errorMessage);
+                        return Single.error(new Exception(errorMessage));
+                    }
+                });
+    }
+
+    public Single<LeaveApplicationResponse> createLeaveApplication(LeaveApplicationRequest leaveApplicationRequest) {
+        long userId = Long.parseLong(localDataManager.getUserId());
+        Log.d(TAG, "UserId: " + userId);
+        leaveApplicationRequest.setUserId(userId);
+        Log.d(TAG, leaveApplicationRequest.toString());
+        return leaveApplicationApiService.createLeaveApplication(leaveApplicationRequest)
+                .flatMap(response -> {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Log.d(TAG, "Tạo yêu cầu nghỉ phép thành công");
+                        return Single.just(response.body().getData());
+                    } else {
+                        String errorMessage = "Gửi yêu cầu xin nghỉ phép thất bại: " + response.code();
+                        if (response.errorBody() != null) {
+                            try {
+                                errorMessage = response.errorBody().string();
+                            } catch (Exception e) {
+                                Log.e(TAG, "Không thể đọc lỗi từ phản hồi", e);
+                            }
+                        }
+                        Log.d(TAG, "Gửi yêu cầu xin nghỉ phép thất bại: " + errorMessage);
                         return Single.error(new Exception(errorMessage));
                     }
                 });

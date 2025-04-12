@@ -2,6 +2,7 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 import com.managerapp.personnelmanagerapp.data.remote.api.DisciplineAssignmentApiService;
+import com.managerapp.personnelmanagerapp.data.remote.response.AssignmentResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.domain.model.DisciplineAssignment;
 import java.util.List;
@@ -19,7 +20,7 @@ public class DisciplineAssignmentRepository {
         this.disciplineAssignmentApiService = disciplineAssignmentApiService;
     }
 
-    public Single<List<DisciplineAssignment>> getDisciplineAssignments(int userId) {
+    public Single<List<AssignmentResponse>> getDisciplineAssignments(int userId) {
         return disciplineAssignmentApiService.getDisciplineAssignments(userId)
                 .flatMap(response -> {
                     if (response.isSuccessful() && response.body() != null) {

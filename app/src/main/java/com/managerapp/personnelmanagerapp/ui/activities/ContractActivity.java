@@ -9,6 +9,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.managerapp.personnelmanagerapp.domain.model.User;
 import com.managerapp.personnelmanagerapp.ui.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityContractBinding;
@@ -20,6 +21,8 @@ public class ContractActivity extends BaseActivity {
     private final String TAG = "ContractActivity";
     private ActivityContractBinding binding;
     private NavController navController;
+    private long userId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,10 @@ public class ContractActivity extends BaseActivity {
         binding = ActivityContractBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        userId = getIntent().getLongExtra("userId", -1);
+        if (userId == -1) {
+            Log.e(TAG, "Không nhận được userId");
+        }
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contract_fragment);
 
@@ -38,6 +45,13 @@ public class ContractActivity extends BaseActivity {
         }
     }
 
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
     public boolean onSupportNavigateUp() {
         boolean result = navController != null && (navController.navigateUp() || super.onSupportNavigateUp());
         Log.d(TAG, "onSupportNavigateUp: Result = " + result);

@@ -39,7 +39,6 @@ public class RewardViewModel extends ViewModel {
 
     public void loadAllRewards(int userId) {
         rewardState.postValue(new RewardState.Loading());
-
         disposables.add(
                 getRewardAssignmentsUseCase.execute(userId)
                         .timeout(10, TimeUnit.SECONDS)
@@ -57,32 +56,6 @@ public class RewardViewModel extends ViewModel {
                                 }
                         )
 
-        );
-
-    }
-
-    public void loadRewardAssignment(int userId, int rewardId) {
-        rewardState.postValue(new RewardState.Loading());
-
-        disposables.add(
-          getRewardAssignmentByIdUseCase.execute(userId, rewardId)
-                  .timeout(10, TimeUnit.SECONDS)
-                  .subscribeOn(Schedulers.io())
-                  .observeOn(AndroidSchedulers.mainThread())
-                  .subscribe( rewardAssignment -> {
-                      if (rewardAssignment == null) {
-                          rewardState.postValue(new RewardState.Error("Không tồn tại khen thưởng này"));
-                          Log.e(TAG, "Không tồn tại khen thưởng");
-                      } else {
-                          rewardState.postValue(new RewardState.DetailSuccess(rewardAssignment));
-                          Log.d(TAG, "Lấy khen thưởng thành công");
-                      }
-                  },
-                          throwable -> {
-                            rewardState.postValue(new RewardState.Error("Đã có lỗi xảy ra: " + throwable.getMessage()));
-                            Log.e(TAG, "Đã có lỗi xảy ra: " + throwable.getMessage());
-                          }
-                  )
         );
 
     }

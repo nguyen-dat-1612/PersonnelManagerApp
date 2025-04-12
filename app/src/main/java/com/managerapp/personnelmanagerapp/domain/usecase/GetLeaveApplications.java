@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.domain.usecase;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
 import com.managerapp.personnelmanagerapp.data.repository.LeaveApplicationRepository;
 import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 
@@ -16,7 +17,7 @@ public class GetLeaveApplications {
         this.repository = repository;
     }
 
-    public Single<List<LeaveApplication>> excute() {
-        return repository.getLeaveApplications();
+    public Single<List<LeaveApplicationResponse>> excute(int userId) {
+        return repository.getLeaveApplications(userId);
     }
 }

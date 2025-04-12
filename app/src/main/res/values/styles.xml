@@ -8,4 +8,8 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@drawable/tab_text_color</item>
     </style>
+    <style name="RoundedSquareFAB" parent="">
+        <!-- Bo góc lớn (tùy ý bạn chỉnh) -->
+        <item name="cornerSize">20dp</item>
+    </style>
 </resources>

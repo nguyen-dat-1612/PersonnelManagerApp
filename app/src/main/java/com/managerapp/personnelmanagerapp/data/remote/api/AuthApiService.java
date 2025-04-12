@@ -17,11 +17,9 @@ import com.managerapp.personnelmanagerapp.data.remote.response.TokenRefreshRespo
 
 public interface AuthApiService {
 
-
     @Headers("No-Authentication: true")
     @POST("auth/login")
-    Single<Response<LoginResponse>> login(@Body LoginRequest request,
-                                          @Header("X-Client-Type") String clientType);
+    Single<Response<LoginResponse>> login(@Body LoginRequest request);
 
     @POST("auth/refresh-token")
     Single<Response<TokenRefreshResponse>> refreshToken(@Body TokenRefreshRequest request);
@@ -38,7 +36,7 @@ public interface AuthApiService {
     @POST("auth/resetPassword")
     Single<Response<BaseResponse<String>>> resetPassword(@Query("newPass") String newPass, @Query("email") String email);
 
-//    @GET("/change-password")
-//    Single<Response<BaseResponse>>
+    @POST("auth/logout")
+    Single<Response<BaseResponse<Void>>> logout(@Body String token);
 }
 

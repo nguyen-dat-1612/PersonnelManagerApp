@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.ui.state;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
 import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,14 +17,14 @@ public sealed interface ContractDetailState permits ContractDetailState.Loading,
 
     final class Success implements ContractDetailState {
         @NonNull
-        private final Contract contract;
+        private final ContractResponse contract;
 
-        public Success(@NonNull Contract contract) {
+        public Success(@NonNull ContractResponse contract) {
             this.contract = contract;
         }
 
         @NonNull
-        public Contract getContract() {
+        public ContractResponse getContract() {
             return contract;
         }
     }

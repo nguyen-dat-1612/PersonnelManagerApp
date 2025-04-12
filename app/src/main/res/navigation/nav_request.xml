@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/newRequestFragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.NewRequestFragment"
+        android:name="com.managerapp.personnelmanagerapp.ui.fragments.NewLeaveAppFragment"
         android:label="New Request"
         tools:layout="@layout/fragment_new_request">
         <action

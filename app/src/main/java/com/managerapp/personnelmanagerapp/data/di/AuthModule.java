@@ -1,6 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.di;
 
-import com.managerapp.personnelmanagerapp.data.local.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.data.manager.SecureTokenManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.repository.AuthRepository;
 

@@ -6,16 +6,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.snackbar.Snackbar;
-import com.managerapp.personnelmanagerapp.ui.viewmodel.MainViewModel;
+import com.managerapp.personnelmanagerapp.ui.viewmodel.BaseViewModel;
 
 public abstract class BaseFragment extends Fragment {
-    protected MainViewModel viewModel;
+    protected BaseViewModel viewModel;
     private Snackbar snackbar;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(BaseViewModel.class);
         observeNetworkStatus(view);
     }
 

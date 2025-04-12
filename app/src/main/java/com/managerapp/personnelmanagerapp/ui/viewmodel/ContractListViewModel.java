@@ -28,7 +28,7 @@ public class ContractListViewModel extends ViewModel {
         return contractState;
     }
 
-    public void loadAllContracts(int userId) {
+    public void loadAllContracts(long userId) {
         contractState.postValue(new ContractListState.Loading());
         disposables.add(
                 getAllContractsUseCase.execute(userId)

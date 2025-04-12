@@ -1,11 +1,8 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.managerapp.personnelmanagerapp.data.local.LocalDataManager;
+import com.managerapp.personnelmanagerapp.data.manager.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.ChangePasswordRequest;
 import com.managerapp.personnelmanagerapp.domain.model.User;

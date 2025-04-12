@@ -25,6 +25,6 @@
         tools:layout="@layout/fragment_contract_detail">
         <argument
             android:name="contractId"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
 </navigation>

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.managerapp.personnelmanagerapp.data.local.NotificationRecipientEntity;
 import com.managerapp.personnelmanagerapp.databinding.ItemNotificationBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
 import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
@@ -15,10 +16,10 @@ import java.util.function.Consumer;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
 
-    private List<NotificationRecipient> notificationList;
-    private Consumer<NotificationRecipient> onItemClick;
+    private List<NotificationRecipientEntity> notificationList;
+    private Consumer<NotificationRecipientEntity> onItemClick;
 
-    public NotificationAdapter(List<NotificationRecipient> notificationList,Consumer<NotificationRecipient> onItemClick ) {
+    public NotificationAdapter(List<NotificationRecipientEntity> notificationList,Consumer<NotificationRecipientEntity> onItemClick ) {
         this.notificationList = notificationList;
         this.onItemClick = onItemClick;
     }
@@ -36,7 +37,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NotificationAdapter.NotificationViewHolder holder, int position) {
-        NotificationRecipient notification = notificationList.get(position);
+        NotificationRecipientEntity notification = notificationList.get(position);
 
         holder.binding.setNotification(notification);
         // Gán sự kiện click bằng lambda

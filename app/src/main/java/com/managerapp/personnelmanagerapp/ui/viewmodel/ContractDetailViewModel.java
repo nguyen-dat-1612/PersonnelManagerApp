@@ -1,5 +1,7 @@
 package com.managerapp.personnelmanagerapp.ui.viewmodel;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,6 +20,7 @@ public class ContractDetailViewModel extends ViewModel {
     private final GetContractByIdUseCase getContractByIdUseCase;
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final MutableLiveData<ContractDetailState> contractDetailState = new MutableLiveData<>();
+    private final String TAG = "ContractDetailViewModel";
 
     @Inject
     public ContractDetailViewModel(GetContractByIdUseCase getContractByIdUseCase) {
@@ -29,7 +32,7 @@ public class ContractDetailViewModel extends ViewModel {
         return contractDetailState;
     }
 
-    public void loadContractById(@NonNull String contractId) {
+    public void loadContractById(@NonNull int contractId) {
         contractDetailState.postValue(ContractDetailState.Loading.getInstance());
 
         disposables.add(
@@ -39,6 +42,7 @@ public class ContractDetailViewModel extends ViewModel {
                         .subscribe(
                                 contract -> {
                                     if (contract != null) {
+                                        Log.d(TAG, contract.toString());
                                         contractDetailState.postValue(new ContractDetailState.Success(contract));
                                     } else {
                                         contractDetailState.postValue(new ContractDetailState.Error("Contract not found"));

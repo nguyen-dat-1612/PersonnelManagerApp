@@ -1,12 +1,11 @@
 package com.managerapp.personnelmanagerapp.data.di;
 
 
-import com.managerapp.personnelmanagerapp.data.local.AuthInterceptor;
-import com.managerapp.personnelmanagerapp.data.local.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.data.manager.AuthInterceptor;
+import com.managerapp.personnelmanagerapp.data.manager.SecureTokenManager;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -22,9 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
-    // Địa chỉ base URL -
-    private static final String BASE_URL = "http://192.168.1.61:8080/api/";
 
+    private static final String BASE_URL = "http://10.242.0.146:8080/api/";
 
     @Provides
     @Singleton

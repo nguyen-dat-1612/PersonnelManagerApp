@@ -1,8 +1,10 @@
 package com.managerapp.personnelmanagerapp.ui.fragments;
 
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -14,13 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.managerapp.personnelmanagerapp.data.local.NotificationRecipientEntity;
 import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
+import com.managerapp.personnelmanagerapp.ui.activities.NotificationActivity;
 import com.managerapp.personnelmanagerapp.ui.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentNotificationsBinding;
-import com.managerapp.personnelmanagerapp.domain.model.Notification;
 import com.managerapp.personnelmanagerapp.ui.adapters.NotificationAdapter;
-import com.managerapp.personnelmanagerapp.ui.state.NotificationState;
-import com.managerapp.personnelmanagerapp.ui.viewmodel.NotificationViewModel;
+import com.managerapp.personnelmanagerapp.ui.state.NotificationRecipientState;
+import com.managerapp.personnelmanagerapp.ui.viewmodel.NotificationRecipientViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +35,9 @@ public class NotificationsFragment extends BaseFragment {
 
     private static final String TAG = "NotificationsFragment";
     private FragmentNotificationsBinding binding;
-    private List<NotificationRecipient> notificationList = new ArrayList<>();
+    private List<NotificationRecipientEntity> notificationList = new ArrayList<>();
     private NotificationAdapter adapter;
-    private NotificationViewModel viewModel;
+    private NotificationRecipientViewModel viewModel;
 
     public NotificationsFragment() {
         // Required empty public constructor
@@ -50,10 +53,15 @@ public class NotificationsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        viewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(NotificationRecipientViewModel.class);
 
         adapter = new NotificationAdapter(notificationList, notification -> {
-            Toast.makeText(requireContext(), "Clicked: " + notification.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Clicked: " + notification.getId(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(requireContext(), NotificationActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", notification.getId());
+            intent.putExtras(bundle);
+            startActivity(intent);
         });
         binding.notificationList.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.notificationList.setAdapter(adapter);
@@ -72,26 +80,26 @@ public class NotificationsFragment extends BaseFragment {
     private void loadNotifications() {
         viewModel.getNotificationState().observe(getViewLifecycleOwner(), state -> {
             binding.swipeRefresh.setRefreshing(false);
-
-            if (state instanceof NotificationState.Loading) {
+            if (state instanceof NotificationRecipientState.Loading) {
                 binding.swipeRefresh.setRefreshing(true);
-            } else if (state instanceof NotificationState.Success) {
+                binding.notificationList.setVisibility(INVISIBLE);
+            } else if (state instanceof NotificationRecipientState.Success) {
                 notificationList.clear();
-                List<NotificationRecipient> newNotifications = ((NotificationState.Success) state).notifications;
+                List<NotificationRecipientEntity> newNotifications = ((NotificationRecipientState.Success) state).getNotifications();
                 notificationList.addAll(newNotifications);
 
                 adapter.notifyDataSetChanged();
                 binding.emptyView.setVisibility(GONE);
                 binding.notificationList.setVisibility(VISIBLE);
-            } else if (state instanceof NotificationState.Error) {
-                String errorMsg = ((NotificationState.Error) state).message;
+            } else if (state instanceof NotificationRecipientState.Error) {
+                String errorMsg = ((NotificationRecipientState.Error) state).message;
                 Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "Lỗi khi tải thông báo: " + errorMsg);
                 binding.emptyView.setVisibility(VISIBLE);
-            } else if (state instanceof NotificationState.Empty) {
+            } else if (state instanceof NotificationRecipientState.Empty) {
                 Log.d(TAG, "Danh sách thông báo trống");
                 binding.emptyView.setVisibility(VISIBLE);
-                binding.notificationList.setVisibility(GONE);
+                binding.notificationList.setVisibility(INVISIBLE);
             }
         });
 

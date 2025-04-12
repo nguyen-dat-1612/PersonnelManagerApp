@@ -1,6 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.di;
 
-import com.managerapp.personnelmanagerapp.data.local.LocalDataManager;
+import com.managerapp.personnelmanagerapp.data.manager.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.data.repository.UserRepository;
 

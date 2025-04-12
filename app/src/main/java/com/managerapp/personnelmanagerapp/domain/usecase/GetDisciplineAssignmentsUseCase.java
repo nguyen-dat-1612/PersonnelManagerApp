@@ -1,7 +1,7 @@
 package com.managerapp.personnelmanagerapp.domain.usecase;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.AssignmentResponse;
 import com.managerapp.personnelmanagerapp.data.repository.DisciplineAssignmentRepository;
-import com.managerapp.personnelmanagerapp.domain.model.DisciplineAssignment;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class GetDisciplineAssignmentsUseCase {
         this.repository = repository;
     }
 
-    Single<List<DisciplineAssignment>> excute(int userId) {
+    public Single<List<AssignmentResponse>> execute(int userId) {
         return repository.getDisciplineAssignments(userId);
     }
 

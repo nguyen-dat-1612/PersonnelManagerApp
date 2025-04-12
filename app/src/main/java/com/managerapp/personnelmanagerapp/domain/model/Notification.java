@@ -3,29 +3,38 @@ package com.managerapp.personnelmanagerapp.domain.model;
 import java.time.LocalDateTime;
 
 public class Notification {
-    private String id;          // Primary key (e.g., TB001, TB002,...)
+    private long id;          // Primary key (e.g., TB001, TB002,...)
     private String title;       // Notification title (not null, max 255 chars)
     private String content;     // Notification content (not null)
     private String attached;
-    private LocalDateTime sendDate; // Date and time when notification was sent (not null)
+    private String sendDate; // Date and time when notification was sent (not null)
 
     // Constructors
     public Notification() {
     }
 
-    public Notification(String id, String title, String content, LocalDateTime sendDate) {
+    public String getAttached() {
+        return attached;
+    }
+
+    public void setAttached(String attached) {
+        this.attached = attached;
+    }
+
+    public Notification(long id, String title, String content, String attached, String sendDate) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.attached = attached;
         this.sendDate = sendDate;
     }
 
     // Getters and Setters
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -54,11 +63,11 @@ public class Notification {
         this.content = content;
     }
 
-    public LocalDateTime getSendDate() {
+    public String getSendDate() {
         return sendDate;
     }
 
-    public void setSendDate(LocalDateTime sendDate) {
+    public void setSendDate(String sendDate) {
         if (sendDate == null) {
             throw new IllegalArgumentException("Send date cannot be null");
         }

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.PersonnelManagerApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.NotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.OtpVerificationActivity"
             android:exported="false" />
         <activity
@@ -52,7 +55,7 @@
             android:name=".ui.activities.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.RequestActivity"
+            android:name=".ui.activities.LeaveApplicationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.MainActivity"

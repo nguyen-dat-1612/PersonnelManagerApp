@@ -2,8 +2,8 @@ package com.managerapp.personnelmanagerapp.data.di;
 
 import android.content.SharedPreferences;
 
-import com.managerapp.personnelmanagerapp.data.local.EncryptionManager;
-import com.managerapp.personnelmanagerapp.data.local.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.data.manager.EncryptionManager;
+import com.managerapp.personnelmanagerapp.data.manager.SecureTokenManager;
 
 import javax.inject.Singleton;
 
