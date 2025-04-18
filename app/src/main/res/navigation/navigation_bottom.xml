@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.HomeFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.HomeFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/notifications_fragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.NotificationsFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.NotificationsFragment"
         android:label="Leaderboard"
         tools:layout="@layout/fragment_notifications" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/schedule_fragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.ScheduleFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.ScheduleFragment"
         android:label="Store"
         tools:layout="@layout/fragment_schedule" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/profile_fragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.ProfileFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

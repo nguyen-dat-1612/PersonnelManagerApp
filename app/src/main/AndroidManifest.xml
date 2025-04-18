@@ -19,49 +19,49 @@
         android:theme="@style/Theme.PersonnelManagerApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.NotificationActivity"
+            android:name=".presentation.activities.CollaborateActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.OtpVerificationActivity"
+            android:name=".presentation.activities.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.SalaryActivity"
+            android:name=".presentation.activities.SalaryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.ForgotPasswordActivity"
+            android:name=".presentation.activities.ForgotPasswordActivity"
             android:exported="false"
             android:theme="@style/Theme.PersonnelManagerApp" />
         <activity
-            android:name=".ui.activities.RewardDisciplineActivity"
+            android:name=".presentation.activities.RewardDisciplineActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.ChangePasswordActivity"
+            android:name=".presentation.activities.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.ContractActivity"
+            android:name=".presentation.activities.ContractActivity"
             android:exported="false"
             android:theme="@style/Theme.PersonnelManagerApp" />
         <activity
-            android:name=".ui.activities.SettingsActivity"
+            android:name=".presentation.activities.SettingsActivity"
             android:exported="false"
             android:theme="@style/Theme.PersonnelManagerApp" />
         <activity
-            android:name=".ui.activities.FeedBackActivity"
+            android:name=".presentation.activities.FeedBackActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.ProfileInfoActivity"
+            android:name=".presentation.activities.ProfileInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name=".presentation.activities.SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.LeaveApplicationActivity"
+            android:name=".presentation.activities.LeaveApplicationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".presentation.activities.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.LoginActivity"
+            android:name=".presentation.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

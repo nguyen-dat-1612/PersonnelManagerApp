@@ -1,0 +1,70 @@
+package com.managerapp.personnelmanagerapp.presentation.viewmodel;
+
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
+import com.managerapp.personnelmanagerapp.domain.usecase.GetContractByIdUseCase;
+import com.managerapp.personnelmanagerapp.presentation.state.UiState;
+
+import javax.inject.Inject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+@HiltViewModel
+public class ContractDetailViewModel extends ViewModel {
+
+    private final GetContractByIdUseCase getContractByIdUseCase;
+    private final CompositeDisposable disposables = new CompositeDisposable();
+    private final MutableLiveData<UiState<ContractResponse>> uiState = new MutableLiveData<>();
+    private final String TAG = "ContractDetailViewModel";
+
+    @Inject
+    public ContractDetailViewModel(GetContractByIdUseCase getContractByIdUseCase) {
+        this.getContractByIdUseCase = getContractByIdUseCase;
+    }
+
+    public LiveData<UiState<ContractResponse>> getUiState() {
+        return uiState;
+    }
+
+    public void loadContractById(@NonNull int contractId) {
+        uiState.setValue(UiState.Loading.getInstance());
+
+        disposables.add(
+                getContractByIdUseCase.execute(contractId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                contract -> {
+                                    if (contract != null) {
+                                        Log.d(TAG, contract.toString());
+                                        uiState.postValue(new UiState.Success(contract));
+                                    } else {
+                                        uiState.postValue(new UiState.Error("Contract not found"));
+                                    }
+                                },
+                                throwable -> {
+                                    String errorMessage = throwable.getMessage() != null
+                                            ? throwable.getMessage()
+                                            : "An unknown error occurred";
+                                    uiState.postValue(new UiState.Error(errorMessage));
+                                }
+                        )
+        );
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        if (!disposables.isDisposed()) {
+            disposables.dispose();
+        }
+    }
+}

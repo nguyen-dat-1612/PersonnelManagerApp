@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.managerapp.personnelmanagerapp.data.local.NotificationRecipientDao;
 import com.managerapp.personnelmanagerapp.data.local.NotificationRecipientEntity;
-import com.managerapp.personnelmanagerapp.data.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.utils.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.NotificationApiService;
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
 
@@ -12,7 +12,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;

@@ -7,14 +7,14 @@
 
     <fragment
         android:id="@+id/disciplineListFragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.DisciplineListFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.DisciplineListFragment"
         android:label="fragment_discipline"
         tools:layout="@layout/fragment_discipline_list" >
 
     </fragment>
     <fragment
         android:id="@+id/rewardListFragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.RewardListFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.RewardListFragment"
         android:label="fragment_reward"
         tools:layout="@layout/fragment_reward_list" >
 

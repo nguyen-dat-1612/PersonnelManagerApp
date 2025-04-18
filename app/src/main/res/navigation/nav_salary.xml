@@ -6,7 +6,7 @@
     app:startDestination="@id/salaryListFragment">
     <fragment
         android:id="@+id/salaryListFragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.SalaryListFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.SalaryListFragment"
         android:label="Lương"
         tools:layout="@layout/fragment_salary_list">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/salaryDetailFragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.SalaryDetailFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.SalaryDetailFragment"
         android:label="Chi tiết lương"
         tools:layout="@layout/fragment_salary_detail">
         <argument

@@ -7,13 +7,14 @@
             name="salary"
             type="com.managerapp.personnelmanagerapp.domain.model.Salary" />
     </data>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewSalary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         app:cardCornerRadius="12dp"
-        app:cardElevation="2dp"
+        app:cardElevation="4dp"
+        android:layout_margin="16dp"
         app:cardBackgroundColor="#FFFFFF">
 
         <androidx.constraintlayout.widget.ConstraintLayout

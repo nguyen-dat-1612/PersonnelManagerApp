@@ -2,7 +2,7 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 
-import com.managerapp.personnelmanagerapp.data.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.utils.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.ChangePasswordRequest;
 import com.managerapp.personnelmanagerapp.domain.model.User;

@@ -70,20 +70,21 @@ public class LeaveApplicationResponse {
         this.reason = reason;
     }
 
-    public String getFormStatusEnum() {
+    public String getFormStatusEnumColor() {
         if (formStatusEnum == null) return "";
         switch (formStatusEnum) {
             case "PENDING":
                 return "🔵 Đang chờ";
-            case "EXPIRED":
-                return "⚫ Hết hạn";
-            case "TERMINATED":
-                return "🔴 Đã hủy";
-            case "RENEWED":
-                return "🟢 Đã gia hạn";
+            case "REJECTED":
+                return "🔴 Từ chối";
+            case "APPROVED":
+                return "🟢 Đã duyệt";
             default:
-                return "";
+                return "Không có";
         }
+    }
+    public String getFormStatusEnum() {
+        return formStatusEnum;
     }
 
     public void setFormStatusEnum(String formStatusEnum) {

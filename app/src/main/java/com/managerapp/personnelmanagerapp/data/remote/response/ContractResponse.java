@@ -112,6 +112,10 @@ public class ContractResponse {
                 return "🔴 Đã hủy";
             case "RENEWED":
                 return "🟢 Đã gia hạn";
+            case "SIGNED_PENDING_EFFECTIVE":
+                return "🟡 Đã ký";
+            case "ACTIVE":
+                return "🟢 Đang hiệu lực";
             default:
                 return "";
         }

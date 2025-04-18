@@ -30,4 +30,7 @@
     <color name="unread_notification_bg">#E3F2FD</color>
     <color name="read_notification_text">#333333</color>
     <color name="unread_notification_text">#1976D2</color>
+
+    <color name="green">#4CAF50</color>
+    <color name="orange">#FF9800</color>
 </resources>

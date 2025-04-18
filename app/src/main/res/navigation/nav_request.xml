@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/requestHistoryFragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.RequestHistoryFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.RequestHistoryFragment"
         android:label="Request History"
         tools:layout="@layout/fragment_request_history">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/newRequestFragment"
-        android:name="com.managerapp.personnelmanagerapp.ui.fragments.NewLeaveAppFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.NewLeaveAppFragment"
         android:label="New Request"
         tools:layout="@layout/fragment_new_request">
         <action

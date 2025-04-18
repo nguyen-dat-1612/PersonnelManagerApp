@@ -23,7 +23,7 @@
     <item
         android:id="@+id/schedule_fragment"
         android:icon="@drawable/ic_schedule"
-        android:title="Lịch giảng"
+        android:title="Phúc lợi"
         app:cnb_backgroundColor="#FFCDD2"
         app:cnb_iconColor="#FF0000"
         app:cnb_textColor="#FF0000"/>

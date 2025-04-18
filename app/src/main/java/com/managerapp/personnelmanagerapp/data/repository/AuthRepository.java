@@ -2,7 +2,7 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 
-import com.managerapp.personnelmanagerapp.data.manager.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.utils.SecureTokenManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;

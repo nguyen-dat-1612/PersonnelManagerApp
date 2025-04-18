@@ -2,7 +2,7 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 
-import com.managerapp.personnelmanagerapp.data.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.utils.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.LeaveApplicationApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.LeaveApplicationRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
