@@ -1,40 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PM-Box PTIT\nHCM</string>
-    <string name="text_login">Log in with your personnel account of \n PTIT HCM</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="login_google">Log in with Google</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Login Activity -->
+    <string name="login_title">Login</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="instruction_text">Use your PTITHCM HR account</string>
+    <string name="login_button">Login</string>
 
+
+    <!-- Change Password Activity -->
+    <string name="change_password">Change Password</string>
+    <string name="old_password_hint">Old Password</string>
+    <string name="new_password_hint">New Password</string>
+    <string name="confirm_password_hint">Confirm New Password</string>
+    <string name="save_changes">Save Changes</string>
+
+    <!-- Collaborate Activity -->
+    <string name="collaboration_title">Work Process</string>
+
+
+    <!-- Feedback Activity -->
+    <string name="feedback_title">Feedback / Questions <font color="#FF0000"><b>*</b></font></string>
+    <string name="feedback_label_title">Title <font color="#FF0000"><b>*</b></font></string>
+    <string name="feedback_hint_title">Enter a title...</string>
+    <string name="feedback_hint_message">Enter your question or feedback...</string>
+    <string name="feedback_button_send">Send</string>
+
+    <!-- Leave App Request Activity -->
+    <string name="leave_app_request_title">Leave App Request</string>
+
+    <!-- Notification Activity -->
+    <string name="notification_title">Notification Content</string>
+    <string name="label_title">Title: </string>
+    <string name="label_send_date">Send date: </string>
+    <string name="label_sender">Sender: </string>
+    <string name="label_content">Content: </string>
+    <string name="label_attachment">Attachment:</string>
+
+    <!-- Profile Info Activity -->
+    <string name="profile_info_title">Profile Information</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_title">Settings</string>
+    <string name="language_label">Language</string>
+    <string name="notifications_label">Notifications</string>
+
+    <!-- Detail Contract Fragment -->
+    <string name="contract_detail_title">Contract Details</string>
+    <string name="contract_and_salary_details">Contract and Salary Details</string>
+    <string name="contract_id">Contract ID:</string>
+    <string name="employee_id">Employee ID:</string>
+    <string name="employee_name">Employee Name:</string>
+    <string name="contract_type">Contract Type:</string>
+    <string name="duration">Duration:</string>
+    <string name="status">Status:</string>
+    <string name="basic_salary">Basic Salary:</string>
+    <string name="position">Position:</string>
+    <string name="job_grade">Job Grade:</string>
+    <string name="clause">Clause</string>
+    <string name="request_upgrade">Request Upgrade</string>
+
+
+    <!-- Forgot Password Fragment -->
+    <string name="forgot_password_title">Forgot Password</string>
+    <string name="instruction_forgot_text">Enter your email to receive a password reset link</string>
+    <string name="send_request_button">Send Request</string>
+    <string name="send_request_description">Send password reset request</string>
+    <string name="back_to_login">Back to Login</string>
+
+    <!-- Home Fragment -->
+    <string name="functions_title">Functions</string>
+    <string name="collaborate">Collaboration</string>
+    <string name="decision">Decision</string>
+    <string name="leave_request">Leave Request</string>
+    <string name="upgrade_request">Upgrade Request</string>
+    <string name="feedback">Feedback</string>
+    <string name="salary">Salary</string>
+    <string name="contract">Contract</string>
+    <string name="approve">Approve</string>
+    <string name="workplace">Workplace</string>
+    <string name="workplace_info">Workplace: Posts and Telecommunications Institute of Technology</string>
+    <string name="position_info">Position: Deputy Dean of Information Technology</string>
+    <string name="service_duration">Years of Service</string>
+    <string name="rewards">Rewards</string>
+    <string name="disciplines">Disciplines</string>
+
+
+    <!-- Bottom Detail Leave Fragment -->
+
+    <!-- New Request Fragment -->
+    <string name="leave_application_title">Leave Application</string>
+    <string name="leave_type_label">Leave Type <font color="#FF0000"><b>*</b></font></string>
+    <string name="start_date_label">From <font color="#FF0000"><b>*</b></font></string>
+    <string name="end_date_label">To <font color="#FF0000"><b>*</b></font></string>
+    <string name="reason_label">Reason <font color="#FF0000"><b>*</b></font></string>
+    <string name="reason_hint">Enter reason...</string>
+    <string name="send_button">Submit</string>
+    <string name="error_message">An error occurred. Please try again</string>
+
+
+    <!-- Notification Fragment -->
+    <string name="notifications_title">Notifications</string>
+    <string name="empty_notifications">Notification list is empty</string>
     <string-array name="select_type_notification">
         <item>All</item>
-        <item>Today</item>
+        <item>Unread</item>
+        <item>Read</item>
     </string-array>
 
-    <string-array name="select_form">
-        <item>Leave Request Form</item>
-        <item>Business Trip Request Form</item>
-    </string-array>
+    <!-- Profile Fragment -->
+    <string name="profile_info">Personal Information</string>
+    <string name="app_info">App Information</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+
+    <!-- History Request Fragment -->
+    <string name="leave_history">Leave History</string>
+    <string name="stats_title">Leave Request Statistics</string>
+    <string name="approved">Approved</string>
+    <string name="pending">Pending</string>
+    <string name="rejected">Rejected</string>
+    <string name="leave_list_title">Leave Request List</string>
+    <string name="empty_leave_history">Leave history is empty</string>
+
+    <!-- Reset Password Fragment -->
+    <string name="reset_password_title">Create New Password</string>
+    <string name="reset_confirm_password_hint">Confirm Password</string>
+    <string name="confirm_button">Confirm</string>
+
+    <!-- Seniority Fragment -->
+    <string name="seniority_title">Seniority and Benefits</string>
+    <string name="seniority_leave">Seniority Leave Days</string>
+    <string name="seniority_allowance">Seniority Allowance</string>
+    <string name="tip_message">🎯 Tip: Accumulate leave days if not fully used!</string>
+
+    <!-- Verify otp Fragment -->
+    <string name="verify_otp_title">Verify OTP</string>
+    <string name="otp_instruction">Enter the 6-digit code sent to your email</string>
+    <string name="verify_button">Confirm</string>
+    <string name="no_otp_received">Didn\'t receive the code?</string>
+    <string name="resend_otp">Resend</string>
+
+    <string name="app_name">PM-Box PTIT\nHCM</string>
+    <string name="forgot_password">Forgot password?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
 
     <string-array name="select_language">
         <item>Vietnamese</item>
         <item>English</item>
     </string-array>
 
+    <string-array name="language_codes">
+        <item>vi</item>
+        <item>en</item>
+        <item>zh</item>
+    </string-array>
+
     <!--Account-->
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="change_password">Change password</string>
-    <string name="school_account_login">Login with school account</string>
     <!-- Profile -->
-    <string name="profile_info">Profile Information</string>
-    <string name="msgv">Employee Code: </string>
-    <string name="faculty">Faculty: </string>
 
     <!-- UserEntity fields -->
-    <string name="user_id">ID</string>
     <string name="user_email">Email</string>
-    <string name="user_full_name">Full name</string>
     <string name="user_number_cccd">ID number</string>
     <string name="user_phone_number">Phone number</string>
     <string name="user_dob">Date of birth</string>
@@ -45,7 +172,6 @@
     <string name="user_tax_code">Tax code</string>
     <string name="user_degree">Degree</string>
     <string name="user_status">Status</string>
-    <string name="user_avatar">Avatar</string>
     <string name="not_available">Not available</string>
 
     <!-- UserEntity status -->
@@ -57,23 +183,10 @@
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="gender_other">Other</string>
-    <string name="loading_error">Failed to load user information!</string>
-    <string name="back">Back</string>
-
-    <!-- Nghỉ phép-->
-    <string name="leave_history">Leave list</string>
 
     <!-- Khen thưởng và kỹ luật-->
-    <string name="reward_and_discipline">Reward and discipline</string>
 
-    <string name="otp_verification_title">OTP Verification</string>
-    <string name="otp_verification_description">Enter the 4-digit code sent to\n+84 ••• ••• 1234</string>
-    <string name="verify">Verify</string>
-    <string name="did_not_receive_code">Didn\'t receive the code?</string>
-    <string name="resend_otp">Resend</string>
-    <string name="otp_verification_icon">OTP Verification Icon</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

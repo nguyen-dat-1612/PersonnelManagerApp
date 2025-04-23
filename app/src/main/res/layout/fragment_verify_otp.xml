@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragments.VerifyOtpFragment">
+    tools:context=".presentation.forgetpass.VerifyOtpFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xác nhận mã OTP"
+            android:text="@string/verify_otp_title"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nhập mã 6 chữ số đã gửi đến email của bạn"
+            android:text="@string/otp_instruction"
             android:textSize="16sp"
             android:textColor="@android:color/darker_gray"
             android:layout_marginBottom="32dp"
@@ -124,10 +124,10 @@
 
         <!-- Nút xác nhận -->
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/verify_button"
+            android:id="@+id/verifyButton"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Xác nhận"
+            android:text="@string/verify_button"
             android:textAllCaps="false"
             android:textSize="16sp"
             app:cornerRadius="24dp"
@@ -145,15 +145,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Không nhận được mã?"
+                android:text="@string/no_otp_received"
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray"/>
 
             <TextView
-                android:id="@+id/resend_otp"
+                android:id="@+id/resendOtp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gửi lại"
+                android:text="@string/resend_otp"
                 android:textSize="14sp"
                 android:textColor="@color/red_dark"
                 android:layout_marginStart="4dp"

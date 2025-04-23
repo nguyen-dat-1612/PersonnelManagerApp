@@ -13,6 +13,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface LeaveApplicationApiService {
     @GET("leave-applications/user/{userId}")
@@ -23,4 +24,14 @@ public interface LeaveApplicationApiService {
 
     @POST("leave-applications/create")
     Single<Response<BaseResponse<LeaveApplicationResponse>>> createLeaveApplication(@Body LeaveApplicationRequest leaveApplicationRequest);
+
+    @GET("leave-applications")
+    Single<Response<BaseResponse<List<LeaveApplicationResponse>>>> getApplicationIsPending(@Query("formStatusEnum") String formStatusEnum);
+
+    @POST("leave-applications/confirm/{applicationId}")
+    Single<Response<BaseResponse<LeaveApplicationResponse>>> confirmApplication(
+        @Path("applicationId") long applicationId,
+        @Query("formStatusEnum") String formStatusEnum
+    );
+
 }

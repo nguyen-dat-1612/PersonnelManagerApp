@@ -47,7 +47,7 @@ public class ContractRepository {
                 .flatMap(response -> {
                     if (response.isSuccessful() && response.body() != null) {
                         Log.d(TAG, "Lấy dữ liệu hợp đồng thành công");
-                        Log.d(TAG, response.body().getData().toString() + "");
+                        Log.d(TAG, response.body().getData().toString());
 
                         return Single.just(response.body().getData()); // ✅ Lấy contract đầu tiên
                     } else {

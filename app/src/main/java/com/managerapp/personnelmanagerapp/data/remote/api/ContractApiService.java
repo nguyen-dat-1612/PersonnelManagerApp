@@ -19,5 +19,4 @@ public interface ContractApiService {
     @GET("contracts/{contractId}")
     Single<Response<BaseResponse<ContractResponse>>> getContractById(@Path("contractId") int contractId);
 
-
 }

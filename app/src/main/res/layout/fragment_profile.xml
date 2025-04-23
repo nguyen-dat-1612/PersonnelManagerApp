@@ -3,11 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.managerapp.personnelmanagerapp.presentation.fragments.ProfileFragment">
+    tools:context=".presentation.main.ProfileFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +20,6 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
-                android:id="@+id/backgroundImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
@@ -43,12 +40,16 @@
             app:layout_constraintBottom_toBottomOf="@id/header"
             android:translationY="20dp"> <!-- Kéo CardView lên 1 nửa chiều cao của nó -->
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageUser"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="2dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/user_logo" />
+                android:src="@drawable/user_logo"
+                app:shapeAppearanceOverlay="@style/CircleImageView"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/white" />
 
         </androidx.cardview.widget.CardView>
 
@@ -57,7 +58,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Tên giảng viên"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,30 +68,29 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/userNameText">
 
-<!--            <TextView-->
-<!--                android:id="@+id/magvtext"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="24dp"-->
-<!--                android:text="MSGV: N21DCCN"-->
-<!--                android:layout_weight="1"-->
-<!--                android:paddingEnd="16dp"-->
-<!--                android:textSize="14sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:gravity="end" />-->
+            <TextView
+                android:id="@+id/magvtext"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
 
-<!--            <TextView-->
-<!--                android:id="@+id/khoagvtext"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="24dp"-->
-<!--                android:text="Khoa: Công nghệ thông tin 2"-->
-<!--                android:layout_weight="1"-->
-<!--                android:textSize="14sp"-->
-<!--                android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/khoagvtext"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                />
 
         </LinearLayout>
 
@@ -126,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Thông tin cá nhân"
+                    android:text="@string/profile_info"
                     android:textColor="#1A1A1A"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -177,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Đổi mật khẩu"
+                    android:text="@string/change_password"
                     android:textColor="#1A1A1A"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -227,7 +226,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Thông tin ứng dụng"
+                    android:text="@string/app_info"
                     android:textColor="#1A1A1A"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -277,7 +276,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Cài đặt"
+                    android:text="@string/settings"
                     android:textColor="#1A1A1A"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -327,7 +326,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Đăng xuất"
+                    android:text="@string/logout"
                     android:textColor="#FF4444"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"

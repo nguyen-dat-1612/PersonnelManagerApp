@@ -1,23 +1,52 @@
 package com.managerapp.personnelmanagerapp.presentation.base;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.google.android.material.snackbar.Snackbar;
-import com.managerapp.personnelmanagerapp.presentation.viewmodel.BaseViewModel;
 
 public abstract class BaseFragment extends Fragment {
     protected BaseViewModel viewModel;
     private Snackbar snackbar;
+    private static final String TAG = "BaseFragment";
+    protected SharedPreferences sharedPreferences;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
+        viewModel = new ViewModelProvider(requireActivity()).get(BaseViewModel.class);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(requireActivity()).get(BaseViewModel.class);
+        Log.d(TAG, "onViewCreated");
         observeNetworkStatus(view);
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        sharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
+    }
+
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView");
+        hideNoInternetSnackbar(); // Dọn dẹp nếu fragment bị destroy view
+    }
+
 
     private void observeNetworkStatus(View view) {
         viewModel.getNetworkStatus().observe(getViewLifecycleOwner(), isConnected -> {
@@ -44,11 +73,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     private void reloadFragment() {
-        getParentFragmentManager()
-                .beginTransaction()
-                .detach(this)
-                .attach(this)
-                .commit();
+        if (isAdded()) {
+            getParentFragmentManager()
+                    .beginTransaction()
+                    .detach(this)
+                    .attach(this)
+                    .commit();
+        }
     }
 }
-

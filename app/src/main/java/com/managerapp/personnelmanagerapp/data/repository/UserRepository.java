@@ -2,10 +2,15 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
+import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
+import com.managerapp.personnelmanagerapp.data.remote.response.WorkLogResponse;
 import com.managerapp.personnelmanagerapp.utils.LocalDataManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.ChangePasswordRequest;
 import com.managerapp.personnelmanagerapp.domain.model.User;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -26,12 +31,11 @@ public class UserRepository {
         this.localDataManager = localDataManager;
     }
 
-    // Lấy thông tin người đăng nhập
-    public Single<User> getUser() {
+    public Single<UserProfileResponse> getUser() {
         return apiService.getUser()
                 .flatMap( response -> {
                     if (response.isSuccessful() && response.body() != null) {
-                        User user = response.body().getData();
+                        UserProfileResponse user = response.body().getData();
                         localDataManager.saveUserId(String.valueOf(user.getId()));
                         return Single.just(response.body().getData());
                     } else {
@@ -69,7 +73,6 @@ public class UserRepository {
                 .map(response -> {
                     Log.d(TAG, "Nhận phản hồi từ API | Code: " + response.code());
 
-                    // Xử lý response thành công
                     if (response.isSuccessful() && response.body() != null) {
                         String serverMessage = response.body().getMessage();
                         boolean isSuccess = SUCCESS_MESSAGE.equalsIgnoreCase(serverMessage);
@@ -106,4 +109,27 @@ public class UserRepository {
                 );
     }
 
+    public Single<List<WorkLogResponse>> getWorkLog(long userId) {
+        return apiService.getWorkLog(userId)
+                .flatMap( response -> {
+                    Log.d(TAG, "Mã phản hồi HTTP: " + response.body());
+                    if (response.isSuccessful() && response.body() != null && response.body().getCode() == 200) {
+                        Log.d(TAG, "Lấy dữ liệu thành công: " + response.body().getData().toString());
+                        return Single.just(response.body().getData());
+                    } else {
+                        String errorMessage = "Lấy quá trình công tác thất bại: " + response.body().getMessage();
+                        if (response.errorBody() != null) {
+                            try {
+                                errorMessage = response.errorBody().string();
+                                Log.e(TAG, "Chi tiết lỗi từ errorBody: " + errorMessage);
+                            } catch (Exception e) {
+                                Log.e(TAG, "Không thể đọc lỗi từ phản hồi", e);
+                            }
+                        }
+                        Log.d(TAG, "Lấy dữ liệu thất bại: " + errorMessage);
+                        return Single.error(new Exception(errorMessage));
+                    }
+                })
+                .doOnError(error -> Log.e(TAG, "Lỗi trong quá trình lấy dữ liệu: " + error.getMessage(), error));
+    }
 }

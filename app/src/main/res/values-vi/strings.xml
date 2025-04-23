@@ -1,42 +1,164 @@
 <resources>
-    <string name="app_name">PM-Box PTIT\nHCM</string>
-    <string name="text_login">Đăng nhập bằng tài khoản nhân sự của \n PTIT HCM</string>
-    <string name="forgot_password">Quên mật khẩu ?</string>
-    <string name="login_google">Đăng nhập với Google</string>
+    <!-- Login Activity -->
+    <string name="login_title">Đăng nhập</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Mật khẩu</string>
+    <string name="instruction_text">Sử dụng tài khoản nhân sự của PTITHCM</string>
+    <string name="login_button">Đăng nhập</string>
+
+    <!-- Change Password Activity -->
+    <string name="change_password">Đổi mật khẩu</string>
+    <string name="old_password_hint">Mật khẩu cũ</string>
+    <string name="new_password_hint">Mật khẩu mới</string>
+    <string name="confirm_password_hint">Xác nhận mật khẩu mới</string>
+    <string name="save_changes">Lưu thay đổi</string>
+
+    <!-- Collaborate Activity -->
+    <string name="collaboration_title">Quá trình công tác</string>
 
 
+    <!-- Feedback Activity -->
+    <string name="feedback_title">Thắc mắc/phản hồi <font color="#FF0000"><b>*</b></font></string>
+    <string name="feedback_label_title">Tiêu đề <font color="#FF0000"><b>*</b></font></string>
+    <string name="feedback_hint_title">Nhập tiêu đề...</string>
+    <string name="feedback_hint_message">Nhập thắc mắc của bạn...</string>
+    <string name="feedback_button_send">Gửi</string>
+
+    <!-- Leave App Request Activity -->
+    <string name="leave_app_request_title">Yêu cầu nghỉ phép</string>
+
+    <!-- Notification Activity -->
+    <string name="notification_title">Nội dung thông báo</string>
+    <string name="label_title">Tiêu đề: </string>
+    <string name="label_send_date">Ngày gửi: </string>
+    <string name="label_sender">Người gửi: </string>
+    <string name="label_content">Nội dung: </string>
+    <string name="label_attachment">File đính kèm:</string>
+
+    <!-- Profile Info Activity -->
+    <string name="profile_info_title">Thông tin hồ sơ</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_title">Cài đặt</string>
+    <string name="language_label">Ngôn ngữ</string>
+    <string name="notifications_label">Thông báo</string>
+
+    <!-- Detail Contract Fragment -->
+    <string name="contract_detail_title">Chi tiết hợp đồng</string>
+    <string name="contract_and_salary_details">Chi tiết hợp đồng và lương</string>
+    <string name="contract_id">Mã hợp đồng:</string>
+    <string name="employee_id">Mã nhân viên:</string>
+    <string name="employee_name">Tên nhân viên:</string>
+    <string name="contract_type">Loại hợp đồng:</string>
+    <string name="duration">Thời gian:</string>
+    <string name="status">Trạng thái:</string>
+    <string name="basic_salary">Lương cơ bản:</string>
+    <string name="position">Chức vụ:</string>
+    <string name="job_grade">Cấp bậc:</string>
+    <string name="clause">Điều khoản</string>
+    <string name="request_upgrade">Xin nâng ngạch</string>
+
+    <!-- Forgot Password Fragment -->
+    <string name="forgot_password_title">Quên mật khẩu</string>
+    <string name="instruction_forgot_text">Nhập email của bạn để nhận liên kết đặt lại mật khẩu</string>
+    <string name="send_request_button">Gửi yêu cầu</string>
+    <string name="send_request_description">Gửi yêu cầu đặt lại mật khẩu</string>
+    <string name="back_to_login">Quay lại đăng nhập</string>
+
+    <!-- Home Fragment -->
+    <string name="functions_title">Chức năng</string>
+    <string name="collaborate">Công tác</string>
+    <string name="decision">Quyết định</string>
+    <string name="leave_request">Nghỉ phép</string>
+    <string name="upgrade_request">Nâng ngạch</string>
+    <string name="feedback">Thắc mắc</string>
+    <string name="salary">Lương</string>
+    <string name="contract">Hợp Đồng</string>
+    <string name="approve">Duyệt</string>
+    <string name="workplace">Công tác</string>
+    <string name="workplace_info">Nơi làm việc : Học viện Công nghệ Bưu chính Viễn Thông</string>
+    <string name="position_info">Chức vụ: Phó khoa Công nghệ thông tin</string>
+    <string name="service_duration">Đã làm việc</string>
+    <string name="rewards">Khen thưởng</string>
+    <string name="disciplines">Kỉ luật</string>
+
+    <!-- Bottom Detail Leave Fragment -->
+
+    <!-- New Request Fragment -->
+    <string name="leave_application_title">Nghỉ phép</string>
+    <string name="leave_type_label">Nghỉ phép <font color="#FF0000"><b>*</b></font></string>
+    <string name="start_date_label">Nghỉ từ <font color="#FF0000"><b>*</b></font></string>
+    <string name="end_date_label">Đến <font color="#FF0000"><b>*</b></font></string>
+    <string name="reason_label">Lý do <font color="#FF0000"><b>*</b></font></string>
+    <string name="reason_hint">Nhập lý do...</string>
+    <string name="send_button">Gửi</string>
+    <string name="error_message">Đã có lỗi xảy ra. Vui lòng thử lại</string>
+
+    <!-- Notification Fragment -->
+    <string name="notifications_title">Thông báo</string>
+    <string name="empty_notifications">Danh sách thông báo trống</string>
     <string-array name="select_type_notification">
         <item>Tất cả</item>
-        <item>Hôm nay</item>
+        <item>Chưa đọc</item>
+        <item>Đã đọc</item>
     </string-array>
 
-    <string-array name="select_form">
-        <item>Đơn xin nghỉ phép</item>
-        <item>Đơn xin công tác</item>
-    </string-array>
+    <!-- Profile Fragment -->
+    <string name="profile_info">Thông tin cá nhân</string>
+    <string name="app_info">Thông tin ứng dụng</string>
+    <string name="settings">Cài đặt</string>
+    <string name="logout">Đăng xuất</string>
+    <!-- History Request Fragment -->
+    <string name="leave_history">Lịch sử nghỉ phép</string>
+    <string name="stats_title">Thống kê đơn nghỉ phép</string>
+    <string name="approved">Đã duyệt</string>
+    <string name="pending">Chờ duyệt</string>
+    <string name="rejected">Từ chối</string>
+    <string name="leave_list_title">Danh sách nghỉ phép</string>
+    <string name="empty_leave_history">Lịch sử nghỉ phép trống</string>
+
+    <!-- Reset Password Fragment -->
+    <string name="reset_password_title">Tạo mật khẩu mới</string>
+    <string name="reset_confirm_password_hint">Nhập lại mật khẩu</string>
+    <string name="confirm_button">Xác nhận</string>
+
+
+    <!-- Seniority Fragment -->
+    <string name="seniority_title">Thâm niên và phục lợi</string>
+    <string name="seniority_leave">Ngày nghỉ thâm niên</string>
+    <string name="seniority_allowance">Trợ cấp thâm niên</string>
+    <string name="tip_message">🎯 Mẹo: Tích lũy ngày nghỉ nếu chưa sử dụng hết!</string>
+
+
+    <!-- Verify otp Fragment -->
+    <string name="verify_otp_title">Xác nhận mã OTP</string>
+    <string name="otp_instruction">Nhập mã 6 chữ số đã gửi đến email của bạn</string>
+    <string name="verify_button">Xác nhận</string>
+    <string name="no_otp_received">Không nhận được mã?</string>
+    <string name="resend_otp">Gửi lại</string>
+
+    <string name="app_name">PM-Box PTIT\nHCM</string>
+    <string name="forgot_password">Quên mật khẩu ?</string>
+
 
     <string-array name="select_language">
         <item>Tiếng Việt</item>
         <item>Tiếng Anh</item>
     </string-array>
 
+    <string-array name="language_codes">
+        <item>vi</item>
+        <item>en</item>
+        <item>zh</item>
+    </string-array>
 
     <!--Account-->
-    <string name="email">Email</string>
-    <string name="password">Mật khẩu</string>
-    <string name="change_password">Đổi mật khẩu</string>
-    <string name="school_account_login">Đăng nhập với tài khoản trường</string>
 
     <!--Profile-->
-    <string name="profile_info">Thông tin hồ sơ</string>
-    <string name="msgv">MSGV: </string>
-    <string name="faculty">Khoa: </string>
 
     <!-- Thông tin người dùng -->
     <!-- UserEntity fields -->
-    <string name="user_id">ID</string>
     <string name="user_email">Email</string>
-    <string name="user_full_name">Họ và tên</string>
     <string name="user_number_cccd">Số CCCD</string>
     <string name="user_phone_number">Số điện thoại</string>
     <string name="user_dob">Ngày sinh</string>
@@ -47,11 +169,10 @@
     <string name="user_tax_code">Mã số thuế</string>
     <string name="user_degree">Trình độ</string>
     <string name="user_status">Trạng thái</string>
-    <string name="user_avatar">Ảnh đại diện</string>
     <string name="not_available">Không có thông tin</string>
 
     <!-- UserEntity status -->
-    <string name="user_status_pending">Chờ xử lý</string>
+    <string name="user_status_pending">Đang làm việc</string>
     <string name="user_status_expired">Hết hạn</string>
     <string name="user_status_terminated">Đã chấm dứt</string>
 
@@ -60,20 +181,8 @@
     <string name="gender_female">Nữ</string>
     <string name="gender_other">Khác</string>
 
-    <string name="loading_error">Lỗi tải thông tin người dùng!</string>
-    <string name="back">Quay lại</string>
-    
-    <!-- Nghỉ phép-->
-    <string name="leave_history">Lịch sử nghỉ phép</string>
 
     <!-- Khen thưởng và kỹ luật-->
-    <string name="reward_and_discipline">Khen thưởng và kỷ luật</string>
 
 
-    <string name="otp_verification_title">Xác nhận mã OTP</string>
-    <string name="otp_verification_description">Nhập mã 4 chữ số đã gửi đến\n+84 ••• ••• 1234</string>
-    <string name="verify">Xác nhận</string>
-    <string name="did_not_receive_code">Không nhận được mã?</string>
-    <string name="resend_otp">Gửi lại</string>
-    <string name="otp_verification_icon">Icon xác thực OTP</string>
 </resources>

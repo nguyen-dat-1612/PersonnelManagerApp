@@ -24,4 +24,13 @@ public class BaseResponse<T>{
     public T getData() {
         return data;
     }
+
+    @Override
+    public String toString() {
+        return "BaseResponse{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

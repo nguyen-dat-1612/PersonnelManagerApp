@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activities.SettingsActivity">
+    tools:context=".presentation.settings.SettingsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cài đặt"
+            android:text="@string/settings_title"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -56,7 +56,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ngôn ngữ"
+                android:text="@string/language_label"
                 android:textSize="18sp"
                 android:textColor="#424242"
                 app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <Spinner
-                android:id="@+id/language_spinner"
+                android:id="@+id/languageSpinner"
                 android:layout_width="150dp"
                 android:layout_height="48dp"
                 android:padding="8dp"
@@ -77,18 +77,15 @@
 
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/notifications_switch"
+            android:id="@+id/notificationsSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="Thông báo"
+            android:text="@string/notifications_label"
             app:showText="false"
             android:thumb="@drawable/thumb_selector"
             app:track="@drawable/track_selector" />
 
-
-
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

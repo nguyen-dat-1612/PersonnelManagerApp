@@ -28,15 +28,15 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_18
         targetCompatibility = JavaVersion.VERSION_18
     }
 
-    buildFeatures {
-        viewBinding = true
-        dataBinding = true
-    }
     kotlinOptions {
         jvmTarget = "18"
     }

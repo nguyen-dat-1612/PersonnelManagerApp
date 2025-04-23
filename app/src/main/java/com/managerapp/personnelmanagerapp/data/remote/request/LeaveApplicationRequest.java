@@ -5,15 +5,23 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 
 public class LeaveApplicationRequest {
-    private String startDate;
-    private String endDate;
-    private String reason;
+    private final String startDate;
+    private final String endDate;
+    private final String reason;
     private Long userId;
-    private Integer leaveTypeId;
+    private final Integer leaveTypeId;
 
     public LeaveApplicationRequest(String startDate, String endDate, String reason, Integer leaveTypeId) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.reason = reason;
+        this.leaveTypeId = leaveTypeId;
+    }
+
+    public LeaveApplicationRequest(String startDate, String endDate, Long userId, String reason, Integer leaveTypeId) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.userId = userId;
         this.reason = reason;
         this.leaveTypeId = leaveTypeId;
     }

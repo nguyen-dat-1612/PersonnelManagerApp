@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -82,7 +83,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 JSONObject jsonBody = new JSONObject();
                 jsonBody.put("user_id", userId);
                 jsonBody.put("fcm_token", token);
-                Log.d(TAG, "SendTokenTask: JSON payload = " + jsonBody.toString());
+                Log.d(TAG, "SendTokenTask: JSON payload = " + jsonBody);
 
                 URL url = new URL(SERVER_URL);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -94,7 +95,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 Log.d(TAG, "SendTokenTask: Connection configured");
 
                 OutputStream os = conn.getOutputStream();
-                os.write(jsonBody.toString().getBytes("UTF-8"));
+                os.write(jsonBody.toString().getBytes(StandardCharsets.UTF_8));
                 os.flush();
                 os.close();
                 Log.d(TAG, "SendTokenTask: Data sent to server");
@@ -120,7 +121,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         errorResponse.append(errorLine);
                     }
                     errorReader.close();
-                    result = "Error: " + responseCode + " - " + errorResponse.toString();
+                    result = "Error: " + responseCode + " - " + errorResponse;
                     Log.e(TAG, "SendTokenTask: Error response = " + result);
                 }
                 conn.disconnect();

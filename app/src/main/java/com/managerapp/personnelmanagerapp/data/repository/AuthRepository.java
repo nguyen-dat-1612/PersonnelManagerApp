@@ -7,6 +7,7 @@ import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.LoginResponse;
+import com.managerapp.personnelmanagerapp.utils.SessionManager;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,14 +24,16 @@ public class AuthRepository {
 
     private final AuthApiService authApiService;
     private final SecureTokenManager secureTokenManager;
+    private final SessionManager sessionManager;
 
     @Inject
-    public AuthRepository(AuthApiService authApiService, SecureTokenManager secureTokenManager) {
+    public AuthRepository(AuthApiService authApiService, SecureTokenManager secureTokenManager, SessionManager sessionManager) {
         this.authApiService = authApiService;
         this.secureTokenManager = secureTokenManager;
+        this.sessionManager = sessionManager;
     }
 
-    public Single<LoginResponse> login(String email, String password) {
+    public Single<BaseResponse<String>> login(String email, String password) {
         LoginRequest request = new LoginRequest(email, password);
         return authApiService.login(request)
                 .subscribeOn(Schedulers.io())
@@ -38,8 +41,8 @@ public class AuthRepository {
                 .flatMap(response -> {
                     if (response.isSuccessful() && response.body() != null) {
                         Log.d(TAG, "Đăng nhập thành công");
-                        Log.d(TAG, response.body().getToken());
-                        secureTokenManager.saveAccessToken(response.body().getToken());
+                        Log.d(TAG, response.body().getData());
+                        secureTokenManager.saveAccessToken(response.body().getData());
 //                        secureTokenManager.saveRefreshToken(response.refreshToken);
 //                        secureTokenManager.setTokenExpiry(response.expiryTime);
                         return Single.just(response.body());
@@ -113,9 +116,9 @@ public class AuthRepository {
                         // Lưu token nhận được từ API reset password
                         String newToken = response.body().getData();
                         secureTokenManager.saveAccessToken(newToken);
-                        return true; // Thành công
+                        return true;
                     }
-                    return false; // Thất bại
+                    return false;
                 })
                 .doOnError(throwable -> {
                     Log.e(TAG, "Lỗi khi reset password: ", throwable);
@@ -123,6 +126,29 @@ public class AuthRepository {
                 .onErrorReturnItem(false);
     }
 
+    public Single<BaseResponse<String>> getRole() {
+        return authApiService.getRole(secureTokenManager.getAccessToken())
+                .flatMap(response -> {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Log.d(TAG, "Lấy role thành công: " + response.body().getData());
+                        sessionManager.saveRole(response.body().getData());
+                        return Single.just(response.body());
+                    } else {
+                        String errorMessage = "Lỗi khi lấy role: Mã lỗi " + response.code();
+                        if (response.errorBody() != null) {
+                            try {
+                                errorMessage = response.errorBody().string();
+                            } catch (Exception e) {
+                                Log.e(TAG, "Không đọc được errorBody", e);
+                            }
+                        }
+                        return Single.error(new Exception(errorMessage));
+                    }
+                })
+                .doOnError(throwable -> {
+                    Log.e(TAG, "Lỗi khi lấy role: ", throwable);
+                });
+    }
 
 
 //    public Single<TokenRefreshResponse> refreshToken() {

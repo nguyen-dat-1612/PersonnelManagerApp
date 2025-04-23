@@ -9,8 +9,12 @@ import io.reactivex.rxjava3.core.Single;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface DecisionApiService {
-    @GET("decisions")
-    Single<Response<BaseResponse<List<DecisionResponse>>>> getDecisions(@Path("userId") long userId);
+    @GET("decisions/{id}")
+    Single<Response<BaseResponse<DecisionResponse>>> getDecisionById(@Path("id") String id);
+
+    @GET("decisions/user/{userId}")
+    Single<Response<BaseResponse<List<DecisionResponse>>>> getAllDecisionsByUserId(@Path("userId") Long userId);
 }

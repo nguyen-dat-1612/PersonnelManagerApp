@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activities.FeedBackActivity">
+    tools:context=".presentation.feedback.FeedBackActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Thắc mắc/phản hồi"
+            android:text="@string/feedback_title"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -51,7 +52,6 @@
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <LinearLayout
         android:id="@+id/detailActivity"
         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tiêu đề"
+            android:text="@string/feedback_label_title"
             android:textSize="16sp"
             android:textColor="@color/black"
             />
@@ -74,7 +74,7 @@
             android:id="@+id/edtTitle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Nhập tiêu đề..."
+            android:hint="@string/feedback_hint_title"
             android:inputType="textMultiLine"
             android:layout_marginTop="20dp"
             android:minLines="1"
@@ -87,7 +87,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Thắc mắc/phản hồi"
+            android:text="@string/feedback_title"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginTop="15dp" />
@@ -96,7 +96,7 @@
             android:id="@+id/edtReason"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:hint="Nhập thắc mắc của bạn..."
+            android:hint="@string/feedback_hint_message"
             android:inputType="textMultiLine"
             android:layout_marginTop="20dp"
             android:minLines="3"
@@ -114,11 +114,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/white"
-            android:text="Gửi"
+            android:text="@string/feedback_button_send"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textAllCaps="false"/>
         </LinearLayout>
 
+    <include
+        layout="@layout/progress_overlay"
+        android:id="@+id/progressOverlay"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <include
+        layout="@layout/view_send_success"
+        android:id="@+id/viewSendSuccess"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

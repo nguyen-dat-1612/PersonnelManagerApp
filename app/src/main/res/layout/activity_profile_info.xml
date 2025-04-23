@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activities.ProfileInfoActivity">
-
+    tools:context=".presentation.profileInfo.ProfileInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
@@ -29,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thông tin hồ sơ "
+            android:text="@string/profile_info_title"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -64,11 +63,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"> <!-- Kéo CardView lên 1 nửa chiều cao của nó -->
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/imageUser"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/user_logo"
+                    app:shapeAppearanceOverlay="@style/CircleImageView"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/white" />
 
             </androidx.cardview.widget.CardView>
 
@@ -125,6 +129,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
+            <include
+                android:id="@id/errorView"
+                layout="@layout/view_error_state"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

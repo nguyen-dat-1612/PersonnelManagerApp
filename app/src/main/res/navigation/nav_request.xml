@@ -6,12 +6,14 @@
 
     <fragment
         android:id="@+id/requestHistoryFragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.RequestHistoryFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.leaveapp.RequestHistoryFragment"
         android:label="Request History"
         tools:layout="@layout/fragment_request_history">
         <action
             android:id="@+id/action_requestHistoryFragment_to_newRequestFragment"
             app:destination="@id/newRequestFragment"
+            app:popUpTo="@id/newRequestFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -20,13 +22,9 @@
 
     <fragment
         android:id="@+id/newRequestFragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.NewLeaveAppFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.leaveapp.NewLeaveAppFragment"
         android:label="New Request"
         tools:layout="@layout/fragment_new_request">
-        <action
-            android:id="@+id/action_newRequestFragment_to_requestHistoryFragment"
-            app:destination="@id/requestHistoryFragment"
-            app:popUpTo="@id/requestHistoryFragment"
-            app:popUpToInclusive="false"/>
+
     </fragment>
 </navigation>

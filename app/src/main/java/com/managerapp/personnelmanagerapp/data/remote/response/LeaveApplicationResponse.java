@@ -1,10 +1,11 @@
 package com.managerapp.personnelmanagerapp.data.remote.response;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class LeaveApplicationResponse {
+public class LeaveApplicationResponse implements Serializable {
     private long id;
     private Date startDate;
     private Date endDate;
@@ -12,6 +13,7 @@ public class LeaveApplicationResponse {
     private String formStatusEnum;
     private User user;
     private String leaveTypeName;
+
 
     public static class User {
         private long id;
@@ -84,6 +86,17 @@ public class LeaveApplicationResponse {
         }
     }
     public String getFormStatusEnum() {
+//        if (formStatusEnum == null) return "";
+//        switch (formStatusEnum) {
+//            case "PENDING":
+//                return "Đang chờ";
+//            case "REJECTED":
+//                return "Từ chối";
+//            case "APPROVED":
+//                return "Đã duyệt";
+//            default:
+//                return "Không có";
+//        }
         return formStatusEnum;
     }
 

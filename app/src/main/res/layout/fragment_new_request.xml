@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.NewLeaveAppFragment">
+    tools:context=".presentation.leaveapp.NewLeaveAppFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Nghỉ phép"
+                android:text="@string/leave_application_title"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -89,7 +89,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Nghỉ phép"
+                            android:text="@string/leave_type_label"
                             android:textSize="16sp"
                             android:textColor="@color/black"
                             />
@@ -105,7 +105,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Nghỉ từ"
+                            android:text="@string/start_date_label"
                             android:textSize="16sp"
                             android:textColor="@color/black"
                             android:layout_marginTop="15dp"
@@ -150,7 +150,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:text="@string/end_date_label"
                             android:textColor="@color/black"
                             android:layout_marginTop="15dp" />
 
@@ -166,7 +166,6 @@
                             app:layout_constraintEnd_toEndOf="parent">
 
                             <ImageView
-                                android:id="@+id/imageView"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:layout_marginStart="20dp"
@@ -194,7 +193,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Lý do"
+                            android:text="@string/reason_label"
                             android:textSize="16sp"
                             android:textColor="@color/black"
                             android:layout_marginTop="15dp" />
@@ -203,7 +202,7 @@
                             android:id="@+id/edtReason"
                             android:layout_width="match_parent"
                             android:layout_height="240dp"
-                            android:hint="Nhập lý do..."
+                            android:hint="@string/reason_hint"
                             android:inputType="textMultiLine"
                             android:layout_marginTop="20dp"
                             android:minLines="3"
@@ -221,7 +220,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:textColor="@color/white"
-                            android:text="Gửi"
+                            android:text="@string/send_button"
                             android:textStyle="bold"
                             android:textSize="16sp"
                             android:textAllCaps="false"/>
@@ -258,10 +257,9 @@
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
-                        android:id="@+id/emptyText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Đã có lỗi xảy ra. Vui lòng thử lại"
+                        android:text="@string/error_message"
                         android:textSize="16sp"
                         android:textColor="#666666"
                         android:layout_marginTop="16dp"
@@ -276,26 +274,23 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
+    <include
+        layout="@layout/progress_overlay"
         android:id="@+id/progressOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000"
-        android:alpha="0.6"
-        android:visibility="gone"
-        android:clickable="true"
-        android:focusable="true"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-        <ProgressBar
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/red"/>
-    </FrameLayout>
+    <include
+        layout="@layout/view_send_success"
+        android:id="@+id/viewSendSuccess"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </FrameLayout>

@@ -2,12 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
     app:startDestination="@id/home_fragment">
 
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.HomeFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.main.HomeFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/notifications_fragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.NotificationsFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.main.NotificationsFragment"
         android:label="Leaderboard"
         tools:layout="@layout/fragment_notifications" >
         <action
@@ -25,16 +24,16 @@
     </fragment>
     <fragment
         android:id="@+id/schedule_fragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.ScheduleFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.main.SeniorityFragment"
         android:label="Store"
-        tools:layout="@layout/fragment_schedule" >
+        tools:layout="@layout/fragment_seniority" >
         <action
             android:id="@+id/action_scheduleFragment_to_profileFragment"
             app:destination="@id/profile_fragment" />
     </fragment>
     <fragment
         android:id="@+id/profile_fragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.ProfileFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.main.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

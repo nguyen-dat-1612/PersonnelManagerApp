@@ -3,16 +3,15 @@ package com.managerapp.personnelmanagerapp.di;
 
 import androidx.annotation.NonNull;
 
+import com.managerapp.personnelmanagerapp.data.remote.api.DecisionApiService;
 import com.managerapp.personnelmanagerapp.utils.AuthInterceptor;
 import com.managerapp.personnelmanagerapp.utils.SecureTokenManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.ContractApiService;
-import com.managerapp.personnelmanagerapp.data.remote.api.DisciplineAssignmentApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.FeedbackApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.LeaveApplicationApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.LeaveTypeApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.NotificationApiService;
-import com.managerapp.personnelmanagerapp.data.remote.api.RewardAssignmentApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 
 import java.util.concurrent.TimeUnit;
@@ -33,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
 
-    private static final String BASE_URL = "http://192.168.29.164:8080/api/";
+    private static final String BASE_URL = "http://10.251.4.5:8080/api/";
 
     @Provides
     @Singleton
@@ -106,15 +105,10 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public static RewardAssignmentApiService provideRewardApiService(Retrofit retrofit) {
-        return retrofit.create(RewardAssignmentApiService.class);
+    public static DecisionApiService provideDecisionApiService(Retrofit retrofit) {
+        return retrofit.create(DecisionApiService.class);
     }
 
-    @Provides
-    @Singleton
-    public static DisciplineAssignmentApiService provideDisciplineApiService(Retrofit retrofit) {
-        return retrofit.create(DisciplineAssignmentApiService.class);
-    }
 
     @Provides
     @Singleton

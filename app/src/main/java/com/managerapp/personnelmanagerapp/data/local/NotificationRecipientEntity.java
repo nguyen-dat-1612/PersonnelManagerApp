@@ -3,12 +3,18 @@ package com.managerapp.personnelmanagerapp.data.local;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity(tableName = "notification_recipients")
 public class NotificationRecipientEntity {
     @PrimaryKey
+    @SerializedName("id")
     private long id;
+    @SerializedName("readStatus")
     private boolean readStatus;
+    @SerializedName("title")
     private String title;
+    @SerializedName("sendDate")
     private String sendDate;
 
     public NotificationRecipientEntity(long id, boolean readStatus, String title, String sendDate) {
@@ -49,5 +55,15 @@ public class NotificationRecipientEntity {
 
     public void setSendDate(String sendDate) {
         this.sendDate = sendDate;
+    }
+
+    @Override
+    public String toString() {
+        return "NotificationRecipientEntity{" +
+                "id=" + id +
+                ", readStatus=" + readStatus +
+                ", title='" + title + '\'' +
+                ", sendDate='" + sendDate + '\'' +
+                '}';
     }
 }

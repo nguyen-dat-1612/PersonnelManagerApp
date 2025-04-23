@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/contractListFragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.ContractListFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.contract.ContractListFragment"
         android:label="Danh sách hợp đồng"
         tools:layout="@layout/fragment_contract_list">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/contractDetailFragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.ContractDetailFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.contract.ContractDetailFragment"
         android:label="Chi tiết hợp đồng"
         tools:layout="@layout/fragment_contract_detail">
         <argument

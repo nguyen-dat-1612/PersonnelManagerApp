@@ -10,7 +10,7 @@ public class ContractResponse {
     private Date endDate;
     private double basicSalary;
     private String clause;
-    private String contractStatusEnum;
+    private final String contractStatusEnum;
     private String contractTypeName ;
     private User user;
     private User signer;

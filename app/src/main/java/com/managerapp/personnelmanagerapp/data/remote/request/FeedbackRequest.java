@@ -3,28 +3,30 @@ package com.managerapp.personnelmanagerapp.data.remote.request;
 import java.util.Date;
 
 public class FeedbackRequest {
-    private int userId;      // Mã người dùng phản hồi
     private String title;    // Tiêu đề phản hồi
-    private String content;  // Nội dung phản hồi
-    private Date sendDate;   // Thời gian phản hồi
+    private String content;
+    private long userId;
 
     // Constructors
     public FeedbackRequest() {
     }
 
-    public FeedbackRequest(int userId, String title, String content, Date sendDate) {
-        setUserId(userId);
+    public FeedbackRequest(String title, String content) {
         setTitle(title);
         setContent(content);
-        setSendDate(sendDate);
+    }
+    public FeedbackRequest(String title, String content, long userId) {
+        setTitle(title);
+        setContent(content);
+        setUserId(userId);
     }
 
     // Getters and Setters
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         if (userId <= 0) {
             throw new IllegalArgumentException("UserEntity ID must be positive");
         }
@@ -53,16 +55,6 @@ public class FeedbackRequest {
         this.content = content.trim();
     }
 
-    public Date getSendDate() {
-        return sendDate;
-    }
-
-    public void setSendDate(Date sendDate) {
-        if (sendDate == null) {
-            throw new IllegalArgumentException("Send date cannot be null");
-        }
-        this.sendDate = sendDate;
-    }
 
     // toString for debugging/logging
     @Override
@@ -71,7 +63,6 @@ public class FeedbackRequest {
                 "userId=" + userId +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", sendDate=" + sendDate +
                 '}';
     }
 }

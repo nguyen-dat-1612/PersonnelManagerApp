@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 
 public class ChangePasswordRequest {
     @NonNull
-    private long userId;
+    private final long userId;
     @NonNull
-    private String oldPass;
+    private final String oldPass;
     @NonNull
-    private String newPass;
+    private final String newPass;
 
     public ChangePasswordRequest(@NonNull long userId, @NonNull String oldPass, @NonNull String newPass) {
         this.userId = userId;

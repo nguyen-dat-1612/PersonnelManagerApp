@@ -14,15 +14,17 @@ import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.LoginResponse;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.TokenRefreshResponse;
+import com.managerapp.personnelmanagerapp.data.remote.response.WorkLogResponse;
+
+import java.util.List;
 
 public interface AuthApiService {
-
     @Headers("No-Authentication: true")
     @POST("auth/login")
-    Single<Response<LoginResponse>> login(@Body LoginRequest request);
+    Single<Response<BaseResponse<String>>> login(@Body LoginRequest request);
 
-    @POST("auth/refresh-token")
-    Single<Response<TokenRefreshResponse>> refreshToken(@Body TokenRefreshRequest request);
+//    @POST("auth/refresh-token")
+//    Single<Response<TokenRefreshResponse>> refreshToken(@Body TokenRefreshRequest request);
 
     @Headers("No-Authentication: true")
     @GET("auth/forgotPassword")
@@ -38,5 +40,10 @@ public interface AuthApiService {
 
     @POST("auth/logout")
     Single<Response<BaseResponse<Void>>> logout(@Body String token);
+
+
+    @GET("auth/role")
+    Single<Response<BaseResponse<String>>> getRole(@Query("token") String token);
+
 }
 

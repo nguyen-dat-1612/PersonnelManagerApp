@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.managerapp.personnelmanagerapp.utils.EncryptionManager;
 import com.managerapp.personnelmanagerapp.utils.SecureTokenManager;
 import com.managerapp.personnelmanagerapp.data.remote.request.TokenRefreshRequest;
+import com.managerapp.personnelmanagerapp.utils.SessionManager;
 
 import javax.inject.Singleton;
 
@@ -41,5 +42,11 @@ public class StorageModule {
     @Singleton
     public static TokenRefreshRequest provideTokenRefreshRequest() {
         return new TokenRefreshRequest();
+    }
+
+    @Provides
+    @Singleton
+    public static SessionManager provideSessionManager(@ApplicationContext Context context) {
+        return new SessionManager(context);
     }
 }

@@ -2,12 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_forgot"
     app:startDestination="@id/forgotPasswordFragment">
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.ForgotPasswordFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.forgetpass.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" >
         <action
@@ -16,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/verifyOtpFragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.VerifyOtpFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.forgetpass.VerifyOtpFragment"
         android:label="fragment_verify_otp"
         tools:layout="@layout/fragment_verify_otp" >
         <action
@@ -28,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment"
-        android:name="com.managerapp.personnelmanagerapp.presentation.fragments.ResetPasswordFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.forgetpass.ResetPasswordFragment"
         android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password" >
         <argument

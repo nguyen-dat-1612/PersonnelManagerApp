@@ -19,7 +19,6 @@ import retrofit2.HttpException;
 
 @Singleton
 public class NotificationRepository {
-    private final LocalDataManager localDataManager;
     private final NotificationApiService notificationApiService;
     private final NotificationRecipientDao dao;
     private static final String TAG = "NotificationRepository";
@@ -27,16 +26,13 @@ public class NotificationRepository {
 
     @Inject
     public NotificationRepository(NotificationApiService notificationApiService,
-                                  LocalDataManager localDataManager,
                                   NotificationRecipientDao dao) {
-        this.localDataManager = localDataManager;
         this.notificationApiService = notificationApiService;
         this.dao = dao;
     }
 
-    public Flowable<List<NotificationRecipientEntity>> getNotifications() {
-        userId = Long.parseLong(localDataManager.getUserId());
-        return notificationApiService.getAllUserNotifications(this.userId)
+    public Flowable<List<NotificationRecipientEntity>> getNotifications(long userId) {
+        return notificationApiService.getAllUserNotifications(userId)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(d -> Log.d(TAG, "🛜 Đang gọi API..."))
                 .flatMap(response -> {
@@ -47,26 +43,31 @@ public class NotificationRepository {
                         return dao.deleteAll()
                                 .andThen(dao.insertAll(apiData))
                                 .doOnComplete(() -> Log.d(TAG, "💾 Đã cập nhật Room"))
-                                .andThen(dao.getAllNotifications()); // ✅ Đã bỏ .toFlowable() vì dao.getAllNotifications() đã là Flowable
+                                .andThen(dao.getAllNotifications());
                     }
                     return Flowable.error(new HttpException(response));
                 })
                 .onErrorResumeNext(error -> {
                     Log.e(TAG, "❌ Lỗi API, hiển thị dữ liệu từ Room", error);
-                    return dao.getAllNotifications(); // ✅ Đã bỏ .toFlowable()
+                    return dao.getAllNotifications();
                 })
                 .doOnNext(data -> Log.d(TAG, "📦 Hiển thị: " + data.size() + " items"));
     }
 
-    public Single<Notification> getNotification(long notificationId) {
-        return notificationApiService.getNotification(notificationId)
+    public Single<Notification> getNotification(long userId, long notificationId) {
+        return notificationApiService.getNotification(userId)
                 .subscribeOn(Schedulers.io())
                 .flatMap(response -> {
-                    if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
+                    if (response.isSuccessful() && response.body() != null && response.body().getCode() == 200) {
+                        Log.d(TAG, "✅ Nhận thông báo từ API : " + response.body().getData());
+
                         // Backend đã đánh dấu đọc rồi, chỉ cần cập nhật local DB
                         return dao.markAsRead(notificationId)
+                                .doOnComplete(() -> Log.d(TAG, "✅ Đánh dấu đã đọc thành công trong Room cho notificationId: " + notificationId))
+                                .doOnError(error -> Log.e(TAG, "❌ Lỗi khi đánh dấu đã đọc trong Room", error))
                                 .andThen(Single.just(response.body().getData()));
                     }
+                    Log.e(TAG, "❌ Lỗi API, hiển thị thông báo từ Room");
                     return Single.error(new Exception("Invalid API response: " + response.code()));
                 })
                 .doOnError(error -> Log.e(TAG, "Error fetching notification", error));

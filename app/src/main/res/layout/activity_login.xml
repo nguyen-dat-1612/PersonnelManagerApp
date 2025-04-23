@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presentation.activities.LoginActivity">
+    tools:context=".presentation.login.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đăng nhập"
+            android:text="@string/login_title"
             android:textColor="@color/red"
             android:layout_marginTop="40dp"
             android:gravity="center"
@@ -45,7 +45,7 @@
             android:id="@+id/instructionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sử dụng tài khoản nhân sự của PTITHCM "
+            android:text="@string/instruction_text"
             android:textColor="@android:color/black"
             android:layout_marginTop="16dp"
             android:gravity="center"
@@ -58,7 +58,7 @@
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="Email"
+            android:hint="@string/email_hint"
             android:inputType="textEmailAddress"
             android:background="@drawable/edittext_background"
             android:padding="12dp"
@@ -81,7 +81,7 @@
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="Mật khẩu"
+                android:hint="@string/password_hint"
                 android:inputType="textPassword"
                 android:textSize="14sp"
                 android:background="@drawable/edittext_background"
@@ -119,7 +119,7 @@
             android:background="@drawable/button_background"
             android:foreground="?attr/selectableItemBackground"
             android:textColor="@color/white"
-            android:text="Đăng nhập"
+            android:text="@string/login_button"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textAllCaps="false"
@@ -141,24 +141,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
+    <include
+        layout="@layout/progress_overlay"
         android:id="@+id/progressOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000"
-        android:alpha="0.6"
-        android:visibility="gone"
-        android:clickable="true"
-        android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-        <ProgressBar
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/red"/>
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

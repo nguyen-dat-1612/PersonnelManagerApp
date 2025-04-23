@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.leaveapp.LeaveDetailBottomSheetFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:clipToPadding="false">
+
+        <!-- Tên nhân viên và trạng thái -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:text="Nguyễn Văn A"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:text="ĐANG CHỜ DUYỆT"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/orange"
+                android:background="@drawable/bg_status_orange"
+                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- Loại nghỉ -->
+        <TextView
+            android:text="Loại nghỉ:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvLeaveType"
+            android:text="Nghỉ phép năm"
+            android:textSize="16sp"
+            android:textColor="#616161"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Thời gian nghỉ -->
+        <TextView
+            android:text="Thời gian nghỉ:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:text="01/05/2025 - 03/05/2025"
+            android:textSize="16sp"
+            android:textColor="#616161"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Lý do nghỉ -->
+        <TextView
+            android:text="Lý do nghỉ:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvReason"
+            android:text="Về quê thăm gia đình"
+            android:textSize="16sp"
+            android:textColor="#616161"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Nút Duyệt và Từ chối -->
+        <LinearLayout
+            android:id="@+id/buttonContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnReject"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="Từ chối"
+                app:cornerRadius="12dp"
+                android:textColor="@color/red"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="1dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnApprove"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="Duyệt"
+                app:cornerRadius="12dp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/green"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
