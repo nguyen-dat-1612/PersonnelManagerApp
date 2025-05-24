@@ -5,6 +5,8 @@
         <variable
             name="leaveRequest"
             type="com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse" />
+
+        <import type="android.view.View"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -96,7 +98,7 @@
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:visibility="visible">
+                android:visibility='@{leaveRequest.formStatusEnum.equals("PENDING") ? View.VISIBLE : View.GONE}'>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReject"

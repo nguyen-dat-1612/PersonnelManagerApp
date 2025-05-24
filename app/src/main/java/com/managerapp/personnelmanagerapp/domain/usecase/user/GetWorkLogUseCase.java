@@ -17,7 +17,7 @@ public class GetWorkLogUseCase {
         this.userRepository = userRepository;
     }
 
-    public Single<List<WorkLogResponse>> getWorkLogs(long userId) {
-        return userRepository.getWorkLog(userId);
+    public Single<List<WorkLogResponse>> getWorkLogs() {
+        return userRepository.getWorkLog();
     }
 }

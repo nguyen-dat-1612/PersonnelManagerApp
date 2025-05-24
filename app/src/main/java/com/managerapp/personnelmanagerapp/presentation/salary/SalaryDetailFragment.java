@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import com.managerapp.personnelmanagerapp.presentation.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentSalaryDetailBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class SalaryDetailFragment extends BaseFragment {
 
     private FragmentSalaryDetailBinding binding;

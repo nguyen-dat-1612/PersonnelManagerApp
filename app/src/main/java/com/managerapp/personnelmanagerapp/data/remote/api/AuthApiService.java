@@ -21,29 +21,29 @@ import java.util.List;
 public interface AuthApiService {
     @Headers("No-Authentication: true")
     @POST("auth/login")
-    Single<Response<BaseResponse<String>>> login(@Body LoginRequest request);
+    Single<BaseResponse<String>> login(@Body LoginRequest request);
 
 //    @POST("auth/refresh-token")
 //    Single<Response<TokenRefreshResponse>> refreshToken(@Body TokenRefreshRequest request);
 
     @Headers("No-Authentication: true")
     @GET("auth/forgotPassword")
-    Single<Response<BaseResponse>> forgotPassword(@Query("email") String email);
+    Single<BaseResponse> forgotPassword(@Query("email") String email);
 
     @Headers("No-Authentication: true")
     @GET("auth/verifyOTP")
-    Single<Response<BaseResponse<Boolean>>> verifyOTP(@Query("email") String email, @Query("otp") String otp);
+    Single<BaseResponse<Boolean>> verifyOTP(@Query("email") String email, @Query("otp") String otp);
 
     @Headers("No-Authentication: true")
     @POST("auth/resetPassword")
-    Single<Response<BaseResponse<String>>> resetPassword(@Query("newPass") String newPass, @Query("email") String email);
+    Single<BaseResponse<String>> resetPassword(@Query("newPass") String newPass, @Query("email") String email);
 
     @POST("auth/logout")
-    Single<Response<BaseResponse<Void>>> logout(@Body String token);
+    Single<BaseResponse<Void>> logout(@Body String token);
 
 
     @GET("auth/role")
-    Single<Response<BaseResponse<String>>> getRole(@Query("token") String token);
+    Single<BaseResponse<String>> getRole(@Query("token") String token);
 
 }
 

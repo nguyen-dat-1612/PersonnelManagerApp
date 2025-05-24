@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.sendNotification.ui.SendNotificationFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="?android:colorPrimary"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/ic_arrow_back"
+                app:tint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/send_notification"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/backBtn"
+                app:layout_constraintEnd_toStartOf="@+id/historyBtn" />
+
+            <ImageButton
+                android:id="@+id/historyBtn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/ic_history"
+                app:tint="@color/white"
+                android:backgroundTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="24dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="20dp">
+
+                <!-- Notification Type Selector -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chọn kiểu gửi"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginBottom="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/notificationTypeRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/individualRadio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Cá nhân"
+                        android:textColor="@color/dark_gray"
+                        android:buttonTint="@color/red" />
+
+                    <RadioButton
+                        android:id="@+id/departmentRadio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Phòng ban"
+                        android:textColor="@color/dark_gray"
+                        android:buttonTint="@color/red" />
+
+                    <RadioButton
+                        android:id="@+id/allUsersRadio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Toàn bộ"
+                        android:textColor="@color/dark_gray"
+                        android:buttonTint="@color/red" />
+                </RadioGroup>
+
+                <!-- Individual Selection (visible when individualRadio is selected) -->
+                <LinearLayout
+                    android:id="@+id/individualSelectionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <!-- Search Section -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tìm kiếm người nhận"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_gray"
+                        android:layout_marginBottom="8dp"/>
+
+                    <EditText
+                        android:id="@+id/searchUserEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Nhập tên nhân viên"
+                        android:inputType="text"
+                        android:drawableStart="@drawable/ic_search"
+                        android:drawableTint="@color/dark_gray"
+                        android:drawablePadding="10dp"
+                        android:padding="12dp"
+                        android:textSize="16sp"
+                        android:background="@drawable/edittext_background"
+                        android:layout_marginBottom="8dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/searchResultRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:maxHeight="300dp"/>
+
+                    <!-- Selected Users Section -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Người nhận đã chọn"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/dark_gray"/>
+
+                        <TextView
+                            android:id="@+id/selectedCountTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="(0)"
+                            android:textSize="14sp"
+                            android:textColor="@color/dark_gray"
+                            android:layout_marginStart="8dp"/>
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/selectedUsersRecyclerView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:minHeight="48dp" />
+                </LinearLayout>
+
+                <!-- Department Selection (visible when departmentRadio is selected) -->
+                <LinearLayout
+                    android:id="@+id/departmentSelectionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chọn phòng ban"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_gray"
+                        android:layout_marginBottom="8dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/departmentRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_background_3"
+                        android:layout_marginBottom="16dp" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tiêu đề thông báo"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/notificationTitleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Nhập tiêu đề thông báo"
+                    android:inputType="text"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:background="@drawable/button_background_3"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Notification Content -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nội dung thông báo"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/notificationContentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:hint="Nhập nội dung thông báo"
+                    android:inputType="textMultiLine"
+                    android:minLines="5"
+                    android:gravity="top"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:background="@drawable/button_background_3"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- File Upload Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tệp đính kèm"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/button_background_3"
+                    android:layout_marginBottom="16dp"
+                    android:padding="8dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/uploadFileButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Chọn Tệp"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="?android:colorPrimary"
+                        android:textAllCaps="false"
+                        android:background="@drawable/button_background"
+                        android:textColor="#FFFFFF"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/selectedFileTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="12dp"
+                        android:text="Chưa chọn file"
+                        android:textSize="14sp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/dark_gray"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+
+
+
+                <!-- Send Notification Button -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/sendNotificationButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Gửi thông báo"
+                    android:backgroundTint="?android:colorPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_background"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>

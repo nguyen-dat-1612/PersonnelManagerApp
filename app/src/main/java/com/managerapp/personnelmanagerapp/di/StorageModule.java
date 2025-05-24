@@ -3,10 +3,11 @@ package com.managerapp.personnelmanagerapp.di;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.managerapp.personnelmanagerapp.utils.EncryptionManager;
-import com.managerapp.personnelmanagerapp.utils.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.utils.manager.EncryptionManager;
+import com.managerapp.personnelmanagerapp.utils.manager.SecureTokenManager;
 import com.managerapp.personnelmanagerapp.data.remote.request.TokenRefreshRequest;
-import com.managerapp.personnelmanagerapp.utils.SessionManager;
+import com.managerapp.personnelmanagerapp.utils.manager.SessionManager;
+import com.managerapp.personnelmanagerapp.utils.manager.SettingsManager;
 
 import javax.inject.Singleton;
 
@@ -48,5 +49,11 @@ public class StorageModule {
     @Singleton
     public static SessionManager provideSessionManager(@ApplicationContext Context context) {
         return new SessionManager(context);
+    }
+
+    @Provides
+    @Singleton
+    public static SettingsManager provideSettingsManager(@ApplicationContext Context context) {
+        return new SettingsManager(context);
     }
 }

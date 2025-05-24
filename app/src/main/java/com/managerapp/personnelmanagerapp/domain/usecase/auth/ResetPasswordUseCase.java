@@ -14,7 +14,7 @@ public class ResetPasswordUseCase {
         this.authRepository = authRepository;
     }
 
-    public Single<Boolean> excute(String newPassword, String email) {
+    public Single<String> excute(String newPassword, String email) {
         return authRepository.resetPassword(newPassword, email);
     }
 

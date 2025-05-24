@@ -16,7 +16,7 @@ public class ConfirmApplicationUseCase {
         this.leaveApplicationRepository = leaveApplicationRepository;
     }
 
-    public Single<BaseResponse<LeaveApplicationResponse>> execute(long applicationId, String formStatusEnum) {
+    public Single<LeaveApplicationResponse> execute(long applicationId, String formStatusEnum) {
         return leaveApplicationRepository.confirmApplication(applicationId, formStatusEnum);
     }
 }

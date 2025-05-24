@@ -2,7 +2,9 @@ package com.managerapp.personnelmanagerapp.data.remote.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class BaseResponse<T>{
+import retrofit2.Response;
+
+public class BaseResponse<T>  {
     @SerializedName("code")
     private int code;
 

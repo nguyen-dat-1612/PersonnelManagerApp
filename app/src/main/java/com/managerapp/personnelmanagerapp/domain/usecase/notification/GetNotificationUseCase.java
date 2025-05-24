@@ -17,7 +17,7 @@ public class GetNotificationUseCase {
         this.repository = repository;
     }
 
-    public Single<Notification> execute(@NonNull long userId, long notificationId){
-        return repository.getNotification(userId, notificationId);
+    public Single<Notification> execute(long notificationId){
+        return repository.getNotification( notificationId);
     }
 }

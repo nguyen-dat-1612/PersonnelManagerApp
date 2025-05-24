@@ -1,12 +1,12 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.notification;
 
-import com.managerapp.personnelmanagerapp.data.local.NotificationRecipientEntity;
 import com.managerapp.personnelmanagerapp.data.repository.NotificationRepository;
+import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
+import com.managerapp.personnelmanagerapp.domain.model.PagedModel;
 
-import java.util.List;
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Observable;
 
 public class GetAllUserNotificationsUseCase {
     private final NotificationRepository notificationRepository;
@@ -15,7 +15,9 @@ public class GetAllUserNotificationsUseCase {
     public GetAllUserNotificationsUseCase(NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;
     }
-    public Flowable<List<NotificationRecipientEntity>> execute(long userId) {
-        return notificationRepository.getNotifications(userId);
+
+    public Observable<PagedModel<NotificationRecipient>> execute(long userId, int page) {
+        return notificationRepository.getNotifications(userId, page, 10)
+                .toObservable();
     }
 }

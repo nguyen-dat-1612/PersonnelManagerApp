@@ -3,7 +3,7 @@ package com.managerapp.personnelmanagerapp.data.remote.response;
 import java.util.List;
 
 public class UserProfileResponse {
-    private int id;
+    private long id;
     private String email;
     private String fullName;
     private String numberCCCD;
@@ -28,9 +28,8 @@ public class UserProfileResponse {
     private int seniorityLeaveDay;
     private int carriedOverDay;
     private int usedLeaveDay;
-    private List<Object> recipientResponse;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -128,9 +127,5 @@ public class UserProfileResponse {
 
     public int getUsedLeaveDay() {
         return usedLeaveDay;
-    }
-
-    public List<Object> getRecipientResponse() {
-        return recipientResponse;
     }
 }

@@ -1,10 +1,13 @@
 package com.managerapp.personnelmanagerapp.di;
 
-import com.managerapp.personnelmanagerapp.data.local.NotificationRecipientDao;
 import com.managerapp.personnelmanagerapp.data.remote.api.DecisionApiService;
+import com.managerapp.personnelmanagerapp.data.remote.api.DepartmentApiService;
+import com.managerapp.personnelmanagerapp.data.remote.api.FileApiService;
 import com.managerapp.personnelmanagerapp.data.repository.DecisionRepository;
-import com.managerapp.personnelmanagerapp.utils.LocalDataManager;
-import com.managerapp.personnelmanagerapp.utils.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.data.repository.DepartmentRepository;
+import com.managerapp.personnelmanagerapp.data.repository.FileRepository;
+import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.utils.manager.SecureTokenManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.ContractApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.FeedbackApiService;
@@ -19,7 +22,7 @@ import com.managerapp.personnelmanagerapp.data.repository.LeaveApplicationReposi
 import com.managerapp.personnelmanagerapp.data.repository.LeaveTypeRepository;
 import com.managerapp.personnelmanagerapp.data.repository.NotificationRepository;
 import com.managerapp.personnelmanagerapp.data.repository.UserRepository;
-import com.managerapp.personnelmanagerapp.utils.SessionManager;
+import com.managerapp.personnelmanagerapp.utils.manager.SessionManager;
 
 import javax.inject.Singleton;
 
@@ -46,8 +49,8 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public static NotificationRepository provideNotificationRepository(NotificationApiService notificationApiService, NotificationRecipientDao notificationRecipientDao) {
-        return new NotificationRepository(notificationApiService, notificationRecipientDao);
+    public static NotificationRepository provideNotificationRepository(NotificationApiService notificationApiService, LocalDataManager localDataManager) {
+        return new NotificationRepository(notificationApiService, localDataManager);
     }
 
     @Provides
@@ -58,8 +61,8 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public static LeaveApplicationRepository leaveApplicationRepository(LeaveApplicationApiService leaveApplicationApiService) {
-        return new LeaveApplicationRepository(leaveApplicationApiService);
+    public static LeaveApplicationRepository leaveApplicationRepository(LeaveApplicationApiService leaveApplicationApiService, LocalDataManager localDataManager) {
+        return new LeaveApplicationRepository(leaveApplicationApiService, localDataManager);
     }
 
     @Provides
@@ -70,13 +73,23 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public static DecisionRepository provideDecisionRepository(DecisionApiService decisionApiService) {
-        return new DecisionRepository(decisionApiService);
+    public static DecisionRepository provideDecisionRepository(DecisionApiService decisionApiService, LocalDataManager localDataManager) {
+        return new DecisionRepository(decisionApiService, localDataManager);
     }
 
     @Provides
     @Singleton
     public static ContractRepository provideContractRepository(ContractApiService contractApi) {
         return new ContractRepository(contractApi);
+    }
+
+    @Provides
+    public static FileRepository provideFileRepository(FileApiService fileApiService) {
+        return new FileRepository(fileApiService);
+    }
+
+    @Provides
+    public static DepartmentRepository provideDepartmentRepository(DepartmentApiService departmentApiService, LocalDataManager localDataManager) {
+        return new DepartmentRepository(departmentApiService, localDataManager);
     }
 }

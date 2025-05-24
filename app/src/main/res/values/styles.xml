@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BottomNavTextStyle">
-        <item name="android:textSize">12sp</item> <!-- Giảm kích thước chữ -->
+    <style name="BottomNavTextStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item> <!-- Chữ in đậm -->
     </style>
 
     <style name="RoundedSquareFAB" parent="">
-        <!-- Bo góc lớn (tùy ý bạn chỉnh) -->
         <item name="cornerSize">20dp</item>
     </style>
     <style name="CircleImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item> <!-- Bo góc 50% để thành hình tròn -->
     </style>
+
 </resources>

@@ -1,7 +1,10 @@
 package com.managerapp.personnelmanagerapp.presentation.base;
 
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -10,9 +13,11 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.managerapp.personnelmanagerapp.utils.LocaleHelper;
 
 import java.util.Locale;
 
@@ -41,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         // Áp dụng ngôn ngữ trước khi attach context
-        sharedPreferences = newBase.getSharedPreferences("AppSettings", MODE_PRIVATE);
+        sharedPreferences = newBase.getSharedPreferences("app_settings", MODE_PRIVATE);
         String language = sharedPreferences.getString("language", "vi");
         super.attachBaseContext(updateBaseContextLocale(newBase, language));
     }
@@ -107,6 +112,37 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (snackbar != null && snackbar.isShown()) {
             snackbar.dismiss();
         }
+    }
+
+    private final BroadcastReceiver forceLogoutReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "Token hết hạn, đăng xuất người dùng...");
+
+            // Xoá session
+            sharedPreferences.edit().clear().apply();
+
+//            // Chuyển về LoginActivity và xoá toàn bộ backstack
+//            Intent loginIntent = new Intent(BaseActivity.this, LoginActivity.class);
+//            loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(loginIntent);
+//            finish();
+        }
+    };
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this)
+                .registerReceiver(forceLogoutReceiver, new IntentFilter("force_logout"));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this)
+                .unregisterReceiver(forceLogoutReceiver);
     }
     @Override
     protected void onDestroy() {

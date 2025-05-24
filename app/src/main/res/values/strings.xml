@@ -30,7 +30,6 @@
     <string name="leave_app_request_title">Leave App Request</string>
 
     <!-- Notification Activity -->
-    <string name="notification_title">Notification Content</string>
     <string name="label_title">Title: </string>
     <string name="label_send_date">Send date: </string>
     <string name="label_sender">Sender: </string>
@@ -93,8 +92,8 @@
     <string name="leave_type_label">Leave Type <font color="#FF0000"><b>*</b></font></string>
     <string name="start_date_label">From <font color="#FF0000"><b>*</b></font></string>
     <string name="end_date_label">To <font color="#FF0000"><b>*</b></font></string>
-    <string name="reason_label">Reason <font color="#FF0000"><b>*</b></font></string>
-    <string name="reason_hint">Enter reason...</string>
+    <string name="reason_label">Content <font color="#FF0000"><b>*</b></font></string>
+    <string name="reason_hint">Enter content...</string>
     <string name="send_button">Submit</string>
     <string name="error_message">An error occurred. Please try again</string>
 
@@ -106,6 +105,18 @@
         <item>All</item>
         <item>Unread</item>
         <item>Read</item>
+    </string-array>
+
+    <string-array name="select_type_status">
+        <item>PENDING</item>
+        <item>APPROVED</item>
+        <item>REJECTED</item>
+    </string-array>
+
+    <string-array name="select_type_notification_history">
+        <item>ALL</item>
+        <item>DEPARTMENT</item>
+        <item>SINGLE</item>
     </string-array>
 
     <!-- Profile Fragment -->
@@ -184,9 +195,34 @@
     <string name="gender_female">Female</string>
     <string name="gender_other">Other</string>
 
-    <!-- Khen thưởng và kỹ luật-->
+    <string name="error_old_password_empty">Please enter your old password</string>
+    <string name="error_new_password_empty">Please enter a new password</string>
+    <string name="error_confirm_password_empty">Please confirm your password</string>
+    <string name="error_password_not_match">Passwords do not match</string>
+    <string name="error_new_password_same_as_old">New password cannot be the same as old password</string>
+    <string name="error_password_weak">Password must be at least 8 characters long and contain numbers and special characters</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="error_feedback_title_empty">Please enter a title for your feedback</string>
+    <string name="error_feedback_title_too_long">Title is too long (max 100 characters)</string>
+    <string name="error_feedback_reason_empty">Please describe your feedback</string>
+    <string name="error_feedback_reason_too_short">Description is too short (min 20 characters)</string>
+    <string name="error_feedback_reason_too_long">Description is too long (max 1000 characters)</string>
+    <string name="darkModeLabel">Dark Mode</string>
+    <string name="downloading_contract">Download Contract\n</string>
+    <string name="back_button_description">Back</string>
+
+    <string name="download_attachment">Download attachment</string>
+    <string name="send_notification">Send Notification</string>
+    <string name="search_recipient">Search for Recipients</string>
+    <string name="selected_recipients">Selected Recipients</string>
+    <string name="notification_title">Notification Title</string>
+    <string name="notification_content">Notification Content</string>
+    <string name="attachment">Attachment</string>
+    <string name="no_file_selected">No File Selected</string>
+    <string name="choose_file">Choose File</string>
+    <string name="send_notification_button">SEND NOTIFICATION</string>
+    <string name="history_notifications">History Notifications</string>
 
 
 </resources>

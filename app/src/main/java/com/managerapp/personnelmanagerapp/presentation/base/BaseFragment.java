@@ -18,6 +18,7 @@ public abstract class BaseFragment extends Fragment {
     private Snackbar snackbar;
     private static final String TAG = "BaseFragment";
     protected SharedPreferences sharedPreferences;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,15 +39,11 @@ public abstract class BaseFragment extends Fragment {
         sharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE);
     }
 
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d(TAG, "onDestroyView");
-        hideNoInternetSnackbar(); // Dọn dẹp nếu fragment bị destroy view
+        hideNoInternetSnackbar();
     }
-
 
     private void observeNetworkStatus(View view) {
         viewModel.getNetworkStatus().observe(getViewLifecycleOwner(), isConnected -> {

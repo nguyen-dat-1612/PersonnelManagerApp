@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.main.HomeFragment">
+    tools:context=".presentation.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -289,9 +289,9 @@
                     </androidx.cardview.widget.CardView>
 
 
-                    <!-- Chức năng 7: Lịch Sử Lương -->
+                    <!-- Chức năng 7: Gửi thông báo -->
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/btnSalary"
+                        android:id="@+id/btnSendNotification"
                         android:layout_width="0dp"
                         android:layout_height="130dp"
                         android:layout_columnWeight="1"
@@ -312,14 +312,14 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/salary" />
+                                android:background="@drawable/ic_send_notification" />
                         </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/salary"
+                            android:text="@string/send_notification"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:layout_gravity="center_horizontal"
@@ -370,6 +370,7 @@
                         android:layout_height="130dp"
                         android:layout_columnWeight="1"
                         android:padding="8dp"
+                        android:visibility="gone"
                         app:cardElevation="1dp"
                         app:cardCornerRadius="12dp">
 
@@ -433,7 +434,6 @@
                         android:id="@+id/departmentNameText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text= "@string/workplace_info"
                         android:textSize="14sp"
                         android:textColor="@color/black"/>
 
@@ -442,7 +442,6 @@
                         android:id="@+id/positionNameText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/position_info"
                         android:textSize="14sp"
                         android:textColor="@color/black"
                         android:layout_marginTop="8dp"/>

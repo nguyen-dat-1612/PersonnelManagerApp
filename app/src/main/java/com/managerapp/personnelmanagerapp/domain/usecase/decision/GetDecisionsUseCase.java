@@ -15,8 +15,8 @@ public class GetDecisionsUseCase {
         this.decisionRepository = decisionRepository;
     }
 
-    public Single<List<DecisionResponse>> execute(long userId) {
-        return decisionRepository.getDecisions(userId);
+    public Single<List<DecisionResponse>> execute() {
+        return decisionRepository.getDecisions();
     }
 
 }

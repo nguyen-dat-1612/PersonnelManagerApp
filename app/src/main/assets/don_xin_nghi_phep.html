@@ -1,0 +1,79 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=0.7, user-scalable=no">
+    <title>Đơn xin nghỉ phép</title>
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+            padding: 48px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+        }
+        .title {
+            margin-top: 24px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .right-align {
+            text-align: right;
+            margin-top: 40px;
+        }
+        .signature-container {
+            margin-top: 10px;
+            float: right;
+            text-align: center;
+            width: 250px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br>
+    Độc lập - Tự do - Hạnh phúc
+    <hr style="width: 200px; margin-top: 4px;">
+</div>
+
+<div class="title">
+    ĐƠN XIN NGHỈ PHÉP
+</div>
+
+<div class="section">
+    Kính gửi: Ban Chủ nhiệm {{department}}
+</div>
+
+<div class="section">
+    Tôi tên là: <b>{{name}}</b><br>
+    Chức vụ: <b>{{position}}</b><br>
+    Phòng ban: <b>{{department}}</b><br><br>
+
+    Nay tôi làm đơn này kính xin Ban Chủ nhiệm {{department}} cho phép tôi được nghỉ phép từ ngày <b>{{from}}</b> đến ngày <b>{{to}}</b>.<br><br>
+
+    Lý do xin nghỉ phép: <b>{{reason}}</b><br><br>
+
+    Trong thời gian nghỉ phép, tôi xin cam kết bàn giao công việc đầy đủ để không ảnh hưởng đến hoạt động chung của đơn vị.<br><br>
+
+    Kính mong Ban Chủ nhiệm xem xét và chấp thuận.
+</div>
+
+<div class="right-align">
+    Ngày {{day}} tháng {{month}} năm {{year}}
+</div>
+
+<div class="signature-container">
+    Người làm đơn<br><br>
+    <b>{{name}}</b>
+</div>
+
+</body>
+</html>

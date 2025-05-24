@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SalaryListFragment extends BaseFragment {
     private static final String TAG = "SalaryListFragment";
     private FragmentSalaryListBinding binding;
@@ -80,9 +83,9 @@ public class SalaryListFragment extends BaseFragment {
 
         binding.recyclerViewSalary.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewSalary.setAdapter(new SalaryAdapter(salaryList,id -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("id",id);
-            navController.navigate(R.id.action_salaryListFragment_to_salaryDetailFragment, bundle);
+//            Bundle bundle = new Bundle();
+//            bundle.putString("id",id);
+//            navController.navigate(R.id.action_salaryListFragment_to_salaryDetailFragment, bundle);
         }));
         return view;
     }

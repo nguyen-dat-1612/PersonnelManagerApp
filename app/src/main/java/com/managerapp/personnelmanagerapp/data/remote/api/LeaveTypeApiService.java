@@ -11,5 +11,5 @@ import retrofit2.http.GET;
 
 public interface LeaveTypeApiService {
     @GET("leave-types")
-    Single<Response<BaseResponse<List<LeaveType>>>> getAllLeaveTypes();
+    Single<BaseResponse<List<LeaveType>>> getAllLeaveTypes();
 }

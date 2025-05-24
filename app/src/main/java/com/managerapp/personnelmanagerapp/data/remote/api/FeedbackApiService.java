@@ -11,5 +11,5 @@ import retrofit2.http.POST;
 
 public interface FeedbackApiService {
     @POST("feedbacks/create")
-    Single<Response<BaseResponse<FeedbackResponse>>> sendFeedback(@Body FeedbackRequest feedbackRequest);
+    Single<BaseResponse<FeedbackResponse>> sendFeedback(@Body FeedbackRequest feedbackRequest);
 }

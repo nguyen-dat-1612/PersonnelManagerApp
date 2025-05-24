@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.managerapp.personnelmanagerapp" />
+                  <option name="mobileSdkAppId" value="1:400712073962:android:c73e5668b2afad75c14d93" />
+                  <option name="projectId" value="personnelmanagerapp" />
+                  <option name="projectNumber" value="400712073962" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

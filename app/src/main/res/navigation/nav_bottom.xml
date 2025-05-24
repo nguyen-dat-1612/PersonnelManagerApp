@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_bottom"
+    app:startDestination="@id/home_fragment">
+
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/notifications_fragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.notification.ui.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.profile.ui.AccountFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/seniority_fragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.seniority.ui.SeniorityFragment"
+        android:label="fragment_seniority"
+        tools:layout="@layout/fragment_seniority" />
+</navigation>

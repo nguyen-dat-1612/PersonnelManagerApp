@@ -7,38 +7,39 @@
         <variable
             name="decision"
             type="com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse" />
+        <import type="com.managerapp.personnelmanagerapp.utils.DateTimeUtils"/>
+        <import type="android.view.View"/>
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".presentation.decision.DecisionDetailFragment">
+        tools:context=".presentation.decision.ui.DecisionDetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- Header -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:background="@color/red"
-                app:layout_constraintTop_toTopOf="parent">
+                android:background="?attr/colorPrimary"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="0dp">
 
                 <ImageButton
                     android:id="@+id/backBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_back"
-                    android:layout_marginTop="30dp"
                     android:layout_marginStart="15dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/ic_arrow_back"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -57,17 +58,14 @@
                     android:id="@+id/helpBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_help"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/ic_help"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            <!-- SwipeRefreshLayout -->
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefresh"
                 android:layout_width="match_parent"
@@ -80,7 +78,8 @@
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fillViewport="true">
+                    android:fillViewport="true"
+                    android:scrollbars="none">
 
                     <LinearLayout
                         android:id="@+id/mainContent"
@@ -88,6 +87,20 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_margin="14dp">
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Thông tin quyết định"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_marginTop="16dp"
+                            android:textColor="@color/black" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="16dp"/>
 
                         <!-- Decision Info Card -->
                         <androidx.cardview.widget.CardView
@@ -145,7 +158,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    android:text="@{decision.displayType}"
+                                    android:text="@{decision.type.toString()}"
                                     android:textColor="#666666"
                                     android:textSize="16sp"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -220,7 +233,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    android:text="@{decision.date}"
+                                    android:text="@{DateTimeUtils.formatSendDate(decision.date)}"
                                     android:textColor="#666666"
                                     android:textSize="16sp"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -229,10 +242,19 @@
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.cardview.widget.CardView>
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Thông tin người kí quyết định"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_marginTop="16dp"
+                            android:textColor="@color/black" />
+
                         <Space
                             android:layout_width="match_parent"
                             android:layout_height="16dp"/>
-                        <!-- Signer and User Card -->
+                        <!-- Signer Card -->
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -246,17 +268,42 @@
                                 android:layout_height="wrap_content"
                                 android:padding="16dp">
 
-                                <!-- Signer -->
+                                <!-- Signer ID -->
                                 <TextView
-                                    android:id="@+id/tvSignerLabel"
+                                    android:id="@+id/tvSignerIdLabel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Người ký:"
+                                    android:text="Mã người ký:"
                                     android:textColor="#333333"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/tvSignerId"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.signer != null ? String.valueOf(decision.signer.id) : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSignerIdLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSignerIdLabel" />
+
+                                <!-- Signer Full Name -->
+                                <TextView
+                                    android:id="@+id/tvSignerLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Tên người ký:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSignerIdLabel" />
 
                                 <TextView
                                     android:id="@+id/tvSigner"
@@ -270,18 +317,222 @@
                                     app:layout_constraintStart_toEndOf="@id/tvSignerLabel"
                                     app:layout_constraintTop_toTopOf="@id/tvSignerLabel" />
 
-                                <!-- User -->
+                                <!-- Signer CCCD -->
                                 <TextView
-                                    android:id="@+id/tvUserLabel"
+                                    android:id="@+id/tvSignerCCCDLabel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="12dp"
-                                    android:text="Nhân viên:"
+                                    android:text="Số CCCD:"
                                     android:textColor="#333333"
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/tvSignerLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvSignerCCCD"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.signer != null ? decision.signer.numberCCCD : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSignerCCCDLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSignerCCCDLabel" />
+
+                                <!-- Signer Date of Birth -->
+                                <TextView
+                                    android:id="@+id/tvSignerDobLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Ngày sinh:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSignerCCCDLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvSignerDob"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.signer != null ? decision.signer.dob : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSignerDobLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSignerDobLabel" />
+
+                                <!-- Signer Phone Number -->
+                                <TextView
+                                    android:id="@+id/tvSignerPhoneLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Số điện thoại:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSignerDobLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvSignerPhone"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.signer != null ? decision.signer.phoneNumber : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSignerPhoneLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSignerPhoneLabel" />
+
+                                <!-- Signer Nationality -->
+                                <TextView
+                                    android:id="@+id/tvSignerNationalityLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Quốc tịch:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSignerPhoneLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvSignerNationality"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.signer != null ? decision.signer.nationality : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSignerNationalityLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSignerNationalityLabel" />
+
+                                <!-- Signer Email -->
+                                <TextView
+                                    android:id="@+id/tvSignerEmailLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Email:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSignerNationalityLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvSignerEmail"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.signer != null ? decision.signer.email : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSignerEmailLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSignerEmailLabel" />
+
+                                <!-- Signer Address -->
+                                <TextView
+                                    android:id="@+id/tvSignerAddressLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Địa chỉ:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSignerEmailLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvSignerAddress"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.signer != null ? decision.signer.address : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSignerAddressLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSignerAddressLabel" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Thông tin người nhận quyết định"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_marginTop="16dp"
+                            android:textColor="@color/black" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="16dp"/>
+
+
+                        <!-- User Card -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/white">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="16dp">
+
+                                <!-- User ID -->
+                                <TextView
+                                    android:id="@+id/tvUserIdLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mã nhân viên:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/tvUserId"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.user != null ? String.valueOf(decision.user.id) : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvUserIdLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvUserIdLabel" />
+
+                                <!-- User Full Name -->
+                                <TextView
+                                    android:id="@+id/tvUserLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Tên nhân viên:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvUserIdLabel" />
 
                                 <TextView
                                     android:id="@+id/tvUser"
@@ -294,6 +545,156 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@id/tvUserLabel"
                                     app:layout_constraintTop_toTopOf="@id/tvUserLabel" />
+
+                                <!-- User CCCD -->
+                                <TextView
+                                    android:id="@+id/tvUserCCCDLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Số CCCD:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvUserLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvUserCCCD"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.user != null ? decision.user.numberCCCD : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvUserCCCDLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvUserCCCDLabel" />
+
+                                <!-- User Date of Birth -->
+                                <TextView
+                                    android:id="@+id/tvUserDobLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Ngày sinh:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvUserCCCDLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvUserDob"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.user != null ? decision.user.dob : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvUserDobLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvUserDobLabel" />
+
+                                <!-- User Phone Number -->
+                                <TextView
+                                    android:id="@+id/tvUserPhoneLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Số điện thoại:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvUserDobLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvUserPhone"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.user != null ? decision.user.phoneNumber : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvUserPhoneLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvUserPhoneLabel" />
+
+                                <!-- User Nationality -->
+                                <TextView
+                                    android:id="@+id/tvUserNationalityLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Quốc tịch:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvUserPhoneLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvUserNationality"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.user != null ? decision.user.nationality : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvUserNationalityLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvUserNationalityLabel" />
+
+                                <!-- User Email -->
+                                <TextView
+                                    android:id="@+id/tvUserEmailLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Email:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvUserNationalityLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvUserEmail"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.user != null ? decision.user.email : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvUserEmailLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvUserEmailLabel" />
+
+                                <!-- User Address -->
+                                <TextView
+                                    android:id="@+id/tvUserAddressLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Địa chỉ:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvUserEmailLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvUserAddress"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.user != null ? decision.user.address : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvUserAddressLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvUserAddressLabel" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.cardview.widget.CardView>
 
@@ -303,6 +704,7 @@
 
                         <!-- Position Card -->
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/positionCard"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dp"
@@ -357,7 +759,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    android:text="@{decision.position.department.name}"
+                                    android:text="@{decision.position.department.toString()}"
                                     android:textColor="#666666"
                                     android:textSize="16sp"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -382,210 +784,22 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    android:text="@{decision.position.role.description}"
+                                    android:text="@{decision.position.role.toString()}"
                                     android:textColor="#666666"
                                     android:textSize="16sp"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@id/tvRoleLabel"
                                     app:layout_constraintTop_toTopOf="@id/tvRoleLabel" />
+
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.cardview.widget.CardView>
-
-<!--                        &lt;!&ndash; Seniority Allowance Card &ndash;&gt;-->
-<!--                        <androidx.cardview.widget.CardView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginBottom="16dp"-->
-<!--                            app:cardCornerRadius="12dp"-->
-<!--                            app:cardElevation="4dp"-->
-<!--                            app:cardBackgroundColor="@color/white">-->
-
-<!--                            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:padding="16dp">-->
-
-<!--                                &lt;!&ndash; Seniority Allowance Rule &ndash;&gt;-->
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityRuleLabel"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:text="Quy tắc phụ cấp thâm niên:"-->
-<!--                                    android:textColor="#333333"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    android:textStyle="bold"-->
-<!--                                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                                    app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityRule"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginTop="8dp"-->
-<!--                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.description : ``}"-->
-<!--                                    android:textColor="#666666"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityRuleLabel" />-->
-
-<!--                                &lt;!&ndash; Seniority Min Service &ndash;&gt;-->
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityMinServiceLabel"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginTop="12dp"-->
-<!--                                    android:text="Thâm niên tối thiểu:"-->
-<!--                                    android:textColor="#333333"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    android:textStyle="bold"-->
-<!--                                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityRule" />-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityMinService"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="8dp"-->
-<!--                                    android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.minService) : ``}"-->
-<!--                                    android:textColor="#666666"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                    app:layout_constraintStart_toEndOf="@id/tvSeniorityMinServiceLabel"-->
-<!--                                    app:layout_constraintTop_toTopOf="@id/tvSeniorityMinServiceLabel" />-->
-
-<!--                                &lt;!&ndash; Seniority Percentage &ndash;&gt;-->
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityPercentageLabel"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginTop="12dp"-->
-<!--                                    android:text="Phần trăm thâm niên:"-->
-<!--                                    android:textColor="#333333"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    android:textStyle="bold"-->
-<!--                                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityMinServiceLabel" />-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityPercentage"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="8dp"-->
-<!--                                    android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.seniorityPercentage) : ``}"-->
-<!--                                    android:textColor="#666666"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                    app:layout_constraintStart_toEndOf="@id/tvSeniorityPercentageLabel"-->
-<!--                                    app:layout_constraintTop_toTopOf="@id/tvSeniorityPercentageLabel" />-->
-
-<!--                                &lt;!&ndash; Seniority Leave Day &ndash;&gt;-->
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityLeaveDayLabel"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginTop="12dp"-->
-<!--                                    android:text="Ngày nghỉ thâm niên:"-->
-<!--                                    android:textColor="#333333"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    android:textStyle="bold"-->
-<!--                                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityPercentageLabel" />-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityLeaveDay"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="8dp"-->
-<!--                                    android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.seniorityLeaveDay) : ``}"-->
-<!--                                    android:textColor="#666666"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                    app:layout_constraintStart_toEndOf="@id/tvSeniorityLeaveDayLabel"-->
-<!--                                    app:layout_constraintTop_toTopOf="@id/tvSeniorityLeaveDayLabel" />-->
-
-<!--                                &lt;!&ndash; Seniority Effective Date &ndash;&gt;-->
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityEffectiveDateLabel"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginTop="12dp"-->
-<!--                                    android:text="Ngày hiệu lực:"-->
-<!--                                    android:textColor="#333333"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    android:textStyle="bold"-->
-<!--                                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityLeaveDayLabel" />-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityEffectiveDate"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="8dp"-->
-<!--                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.effectiveDate : ``}"-->
-<!--                                    android:textColor="#666666"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                    app:layout_constraintStart_toEndOf="@id/tvSeniorityEffectiveDateLabel"-->
-<!--                                    app:layout_constraintTop_toTopOf="@id/tvSeniorityEffectiveDateLabel" />-->
-
-<!--                                &lt;!&ndash; Seniority Expiry Date &ndash;&gt;-->
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityExpiryDateLabel"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginTop="12dp"-->
-<!--                                    android:text="Ngày hết hiệu lực:"-->
-<!--                                    android:textColor="#333333"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    android:textStyle="bold"-->
-<!--                                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityEffectiveDateLabel" />-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSeniorityExpiryDate"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="8dp"-->
-<!--                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.expiryDate : ``}"-->
-<!--                                    android:textColor="#666666"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                    app:layout_constraintStart_toEndOf="@id/tvSeniorityExpiryDateLabel"-->
-<!--                                    app:layout_constraintTop_toTopOf="@id/tvSeniorityExpiryDateLabel" />-->
-
-<!--                                &lt;!&ndash; Seniority Signer &ndash;&gt;-->
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSenioritySignerLabel"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginTop="12dp"-->
-<!--                                    android:text="Người ký quy tắc:"-->
-<!--                                    android:textColor="#333333"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    android:textStyle="bold"-->
-<!--                                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityExpiryDateLabel" />-->
-
-<!--                                <TextView-->
-<!--                                    android:id="@+id/tvSenioritySigner"-->
-<!--                                    android:layout_width="0dp"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_marginStart="8dp"-->
-<!--                                    android:text="@{decision.seniorityAllowanceRule.signer.fullName}"-->
-<!--                                    android:textColor="#666666"-->
-<!--                                    android:textSize="16sp"-->
-<!--                                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                    app:layout_constraintStart_toEndOf="@id/tvSenioritySignerLabel"-->
-<!--                                    app:layout_constraintTop_toTopOf="@id/tvSenioritySignerLabel" />-->
-<!--                            </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--                        </androidx.cardview.widget.CardView>-->
 
                         <Space
                             android:layout_width="match_parent"
                             android:layout_height="16dp"/>
                         <!-- Attachment Card -->
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/attachmentCard"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="2dp"
@@ -625,25 +839,618 @@
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.cardview.widget.CardView>
 
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="16dp"/>
+
+
+                        <!-- Salary Promotion Card -->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/salaryPromotionLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/white">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:id="@+id/tvSalaryPromotionLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Thông tin tăng lương:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <!-- Current Job Grade -->
+                                <TextView
+                                    android:id="@+id/tvCurrentJobGradeLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Ngạch hiện tại:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSalaryPromotionLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvCurrentJobGrade"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.currentJobGradeName : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvCurrentJobGradeLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvCurrentJobGradeLabel" />
+
+                                <!-- Request Job Grade -->
+                                <TextView
+                                    android:id="@+id/tvRequestJobGradeLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Ngạch yêu cầu:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvCurrentJobGradeLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRequestJobGrade"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.requestJobGradeName : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRequestJobGradeLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRequestJobGradeLabel" />
+
+                                <!-- Request Job Grade Value -->
+                                <TextView
+                                    android:id="@+id/tvRequestJobGradeValueLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Giá trị ngạch yêu cầu:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvRequestJobGradeLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRequestJobGradeValue"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.salaryPromotion != null ? String.valueOf(decision.salaryPromotion.requestJobGradeValue) : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRequestJobGradeValueLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRequestJobGradeValueLabel" />
+
+                                <!-- Status -->
+                                <TextView
+                                    android:id="@+id/tvStatusLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Trạng thái:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvRequestJobGradeValueLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvStatus"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.status : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvStatusLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvStatusLabel" />
+
+                                <!-- Reason -->
+                                <TextView
+                                    android:id="@+id/tvReasonLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Lý do:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvStatusLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvReason"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.reason : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvReasonLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvReasonLabel" />
+
+                                <!-- Note -->
+                                <TextView
+                                    android:id="@+id/tvNoteLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Ghi chú:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvReasonLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvNote"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.note : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvNoteLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvNoteLabel" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="16dp"/>
+
+                        <!-- Seniority Allowance Rule Card -->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/senitoryAllowanceRuleCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="2dp"
+                            app:cardBackgroundColor="@color/white"
+                            android:visibility="@{decision.seniorityAllowanceRule != null ? View.VISIBLE : View.GONE}">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="16dp">
+
+                                <!-- Seniority Allowance Rule Title -->
+                                <TextView
+                                    android:id="@+id/tvSeniorityAllowanceLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Quy định phụ cấp thâm niên:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <!-- Rule ID -->
+                                <TextView
+                                    android:id="@+id/tvSeniorityIdLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Mã quy định:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityAllowanceLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvSeniorityId"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.id) : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSeniorityIdLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSeniorityIdLabel" />
+
+                                <!-- Minimum Service -->
+                                <TextView
+                                    android:id="@+id/tvMinServiceLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Thâm niên tối thiểu:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityIdLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvMinService"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.minService) : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvMinServiceLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvMinServiceLabel" />
+
+                                <!-- Seniority Percentage -->
+                                <TextView
+                                    android:id="@+id/tvSeniorityPercentageLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Phần trăm thâm niên:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvMinServiceLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvSeniorityPercentage"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.seniorityPercentage) : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSeniorityPercentageLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSeniorityPercentageLabel" />
+
+                                <!-- Seniority Leave Day -->
+                                <TextView
+                                    android:id="@+id/tvSeniorityLeaveDayLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Ngày nghỉ thâm niên:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityPercentageLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvSeniorityLeaveDay"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.seniorityLeaveDay) : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvSeniorityLeaveDayLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvSeniorityLeaveDayLabel" />
+
+                                <!-- Effective Date -->
+                                <TextView
+                                    android:id="@+id/tvEffectiveDateLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Ngày hiệu lực:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvSeniorityLeaveDayLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvEffectiveDate"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.effectiveDate : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvEffectiveDateLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvEffectiveDateLabel" />
+
+                                <!-- Expiry Date -->
+                                <TextView
+                                    android:id="@+id/tvExpiryDateLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Ngày hết hiệu lực:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvEffectiveDateLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvExpiryDate"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.expiryDate : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvExpiryDateLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvExpiryDateLabel" />
+
+                                <!-- Description -->
+                                <TextView
+                                    android:id="@+id/tvDescriptionLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Mô tả:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvExpiryDateLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvDescription"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.description : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvDescriptionLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvDescriptionLabel" />
+
+                                <!-- Rule Signer ID -->
+                                <TextView
+                                    android:id="@+id/tvRuleSignerIdLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Mã người ký quy định:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRuleSignerId"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.signer.id) : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRuleSignerIdLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRuleSignerIdLabel" />
+
+                                <!-- Rule Signer Full Name -->
+                                <TextView
+                                    android:id="@+id/tvRuleSignerLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Tên người ký quy định:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvRuleSignerIdLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRuleSigner"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.fullName : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRuleSignerLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRuleSignerLabel" />
+
+                                <!-- Rule Signer CCCD -->
+                                <TextView
+                                    android:id="@+id/tvRuleSignerCCCDLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Số CCCD người ký:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvRuleSignerLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRuleSignerCCCD"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null  ? decision.seniorityAllowanceRule.signer.numberCCCD : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRuleSignerCCCDLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRuleSignerCCCDLabel" />
+
+                                <!-- Rule Signer Date of Birth -->
+                                <TextView
+                                    android:id="@+id/tvRuleSignerDobLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Ngày sinh người ký:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvRuleSignerCCCDLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRuleSignerDob"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.dob : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRuleSignerDobLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRuleSignerDobLabel" />
+
+                                <!-- Rule Signer Phone Number -->
+                                <TextView
+                                    android:id="@+id/tvRuleSignerPhoneLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Số điện thoại người ký:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvRuleSignerDobLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRuleSignerPhone"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null? decision.seniorityAllowanceRule.signer.phoneNumber : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRuleSignerPhoneLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRuleSignerPhoneLabel" />
+
+                                <!-- Rule Signer Nationality -->
+                                <TextView
+                                    android:id="@+id/tvRuleSignerNationalityLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Quốc tịch người ký:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvRuleSignerPhoneLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRuleSignerNationality"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.nationality : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRuleSignerNationalityLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRuleSignerNationalityLabel" />
+
+                                <!-- Rule Signer Email -->
+                                <TextView
+                                    android:id="@+id/tvRuleSignerEmailLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Email người ký:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvRuleSignerNationalityLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRuleSignerEmail"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.email : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRuleSignerEmailLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRuleSignerEmailLabel" />
+
+                                <!-- Rule Signer Address -->
+                                <TextView
+                                    android:id="@+id/tvRuleSignerAddressLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:text="Địa chỉ người ký:"
+                                    android:textColor="#333333"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tvRuleSignerEmailLabel" />
+
+                                <TextView
+                                    android:id="@+id/tvRuleSignerAddress"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:text="@{decision.seniorityAllowanceRule != null  ? decision.seniorityAllowanceRule.signer.address : ``}"
+                                    android:textColor="#666666"
+                                    android:textSize="16sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/tvRuleSignerAddressLabel"
+                                    app:layout_constraintTop_toTopOf="@id/tvRuleSignerAddressLabel" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.cardview.widget.CardView>
                     </LinearLayout>
                 </ScrollView>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <!-- Empty View -->
             <FrameLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/header"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header">
 
                 <include
                     android:id="@id/errorView"
                     layout="@layout/view_error_state"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
+
+                <include
+                    android:id="@+id/progressOverlay"
+                    layout="@layout/progress_overlay_white" />
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

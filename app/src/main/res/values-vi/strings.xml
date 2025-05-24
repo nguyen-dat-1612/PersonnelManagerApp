@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Login Activity -->
     <string name="login_title">Đăng nhập</string>
@@ -28,7 +29,6 @@
     <string name="leave_app_request_title">Yêu cầu nghỉ phép</string>
 
     <!-- Notification Activity -->
-    <string name="notification_title">Nội dung thông báo</string>
     <string name="label_title">Tiêu đề: </string>
     <string name="label_send_date">Ngày gửi: </string>
     <string name="label_sender">Người gửi: </string>
@@ -89,8 +89,8 @@
     <string name="leave_type_label">Nghỉ phép <font color="#FF0000"><b>*</b></font></string>
     <string name="start_date_label">Nghỉ từ <font color="#FF0000"><b>*</b></font></string>
     <string name="end_date_label">Đến <font color="#FF0000"><b>*</b></font></string>
-    <string name="reason_label">Lý do <font color="#FF0000"><b>*</b></font></string>
-    <string name="reason_hint">Nhập lý do...</string>
+    <string name="reason_label">Nội dung <font color="#FF0000"><b>*</b></font></string>
+    <string name="reason_hint">Nhập nội dung...</string>
     <string name="send_button">Gửi</string>
     <string name="error_message">Đã có lỗi xảy ra. Vui lòng thử lại</string>
 
@@ -182,7 +182,48 @@
     <string name="gender_other">Khác</string>
 
 
-    <!-- Khen thưởng và kỹ luật-->
+    <string name="error_old_password_empty">Vui lòng nhập mật khẩu cũ</string>
+    <string name="error_new_password_empty">Vui lòng nhập mật khẩu mới</string>
+    <string name="error_confirm_password_empty">Vui lòng xác nhận mật khẩu</string>
+    <string name="error_password_not_match">Mật khẩu xác nhận không khớp</string>
+    <string name="error_new_password_same_as_old">Mật khẩu mới không được trùng mật khẩu cũ</string>
+    <string name="error_password_weak">Mật khẩu phải có ít nhất 8 ký tự, bao gồm số và ký tự đặc biệt</string>
 
 
+    <!-- Feedback Validation Messages - Vietnamese -->
+    <string name="error_feedback_title_empty">Vui lòng nhập tiêu đề phản hồi</string>
+    <string name="error_feedback_title_too_long">Tiêu đề quá dài (tối đa 100 ký tự)</string>
+    <string name="error_feedback_reason_empty">Vui lòng mô tả phản hồi của bạn</string>
+    <string name="error_feedback_reason_too_short">Mô tả quá ngắn (tối thiểu 20 ký tự)</string>
+    <string name="error_feedback_reason_too_long">Mô tả quá dài (tối đa 1000 ký tự)</string>
+
+    <string name="darkModeLabel">Chế độ tối</string>
+
+    <string name="downloading_contract">Tải xuống Hợp đồng\n</string>
+
+    <string name="back_button_description">Quay lại</string>
+    <string name="download_attachment">Tải xuống tệp đính kèm</string>
+    <string name="send_notification">Gửi thông báo</string>
+    <string name="search_recipient">Tìm kiếm người nhận</string>
+    <string name="selected_recipients">Người nhận đã chọn</string>
+    <string name="notification_title">Tiêu đề thông báo</string>
+    <string name="notification_content">Nội dung thông báo</string>
+    <string name="attachment">Tệp đính kèm</string>
+    <string name="no_file_selected">Chưa chọn file</string>
+    <string name="choose_file">Chọn Tệp</string>
+    <string name="send_notification_button">GỬI THÔNG BÁO</string>
+    <string name="history_notifications">Lịch sử thông báo</string>
+
+    <string-array name="select_type_notification_history">
+        <item>ALL</item>
+        <item>DEPARTMENT</item>
+        <item>SINGLE</item>
+    </string-array>
+
+
+    <string-array name="select_type_status">
+        <item>PENDING</item>
+        <item>APPROVED</item>
+        <item>REJECTED</item>
+    </string-array>
 </resources>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    tools:context=".presentation.decision.DecisionListFragment">
+    tools:context=".presentation.decision.ui.DecisionListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -16,7 +16,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:background="@color/red"
+            android:background="?attr/colorPrimary"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
@@ -318,7 +318,6 @@
                     android:id="@+id/recyclerViewDecision"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:clipToPadding="false"
                     android:overScrollMode="never"
@@ -349,6 +348,10 @@
                         android:id="@id/errorView"
                         layout="@layout/view_error_state"
                         android:visibility="invisible"/>
+
+                    <include
+                        layout="@layout/progress_overlay_white"
+                        android:id="@+id/progressOverlay"/>
 
                 </FrameLayout>
 

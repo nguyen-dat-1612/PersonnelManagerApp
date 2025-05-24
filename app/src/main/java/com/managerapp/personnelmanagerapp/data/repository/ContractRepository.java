@@ -2,66 +2,39 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.managerapp.personnelmanagerapp.data.remote.api.ContractApiService;
+import com.managerapp.personnelmanagerapp.data.remote.api.RxResultHandler;
+import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
+import com.managerapp.personnelmanagerapp.data.remote.response.ContractListResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
-import com.managerapp.personnelmanagerapp.domain.model.Contract;
+
+import java.io.IOException;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @Singleton
 public class ContractRepository {
-    private final ContractApiService contractApiService;
-    private final String TAG = "ContractRepository";
+    private final ContractApiService apiService;
+    private final Gson gson = new Gson();
+    private static final String TAG = "ContractRepository";
 
     @Inject
-    public ContractRepository(ContractApiService contractApiService) {
-        this.contractApiService = contractApiService;
+    public ContractRepository(ContractApiService apiService) {
+        this.apiService = apiService;
     }
 
     public Single<List<ContractResponse>> getContracts(long userId) {
-        return contractApiService.getContracts(userId)
-                .flatMap(response -> {
-                    if (response.isSuccessful() && response.body() != null) {
-                        Log.d(TAG, "Lấy dữ liệu danh sách hợp đồng  thành công");
-                        return Single.just(response.body().getData());
-                    } else {
-                        String errorMessage = "Lấy dữ liệu thất bại: " + response.code();
-                        if (response.errorBody() != null) {
-                            try {
-                                errorMessage = response.errorBody().string();
-                            } catch (Exception e) {
-                                Log.e(TAG, "Không thể đọc lỗi từ phản hồi", e);
-                            }
-                        }
-                        Log.d(TAG, "Lấy dữ liệu thất bại: " + errorMessage);
-                        return Single.error(new Exception(errorMessage));
-                    }
-                });
+        return RxResultHandler.handle(apiService.getContracts(userId))
+                .map(response -> response.getContent());
     }
 
     public Single<ContractResponse> getContractByID(int contractId) {
-        return contractApiService.getContractById(contractId)
-                .flatMap(response -> {
-                    if (response.isSuccessful() && response.body() != null) {
-                        Log.d(TAG, "Lấy dữ liệu hợp đồng thành công");
-                        Log.d(TAG, response.body().getData().toString());
-
-                        return Single.just(response.body().getData()); // ✅ Lấy contract đầu tiên
-                    } else {
-                        String errorMessage = "Lấy dữ liệu thất bại: " + response.code();
-                        if (response.errorBody() != null) {
-                            try {
-                                errorMessage = response.errorBody().string();
-                            } catch (Exception e) {
-                                Log.e(TAG, "Không thể đọc lỗi từ phản hồi", e);
-                            }
-                        }
-                        Log.d(TAG, "Lấy dữ liệu thất bại: " + errorMessage);
-                        return Single.error(new Exception(errorMessage));
-                    }
-                });
+        return RxResultHandler.handle(apiService.getContractById(contractId));
     }
 }

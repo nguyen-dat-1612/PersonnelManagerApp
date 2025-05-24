@@ -13,8 +13,8 @@ import retrofit2.http.Query;
 
 public interface DecisionApiService {
     @GET("decisions/{id}")
-    Single<Response<BaseResponse<DecisionResponse>>> getDecisionById(@Path("id") String id);
+    Single<BaseResponse<DecisionResponse>> getDecisionById(@Path("id") String id);
 
     @GET("decisions/user/{userId}")
-    Single<Response<BaseResponse<List<DecisionResponse>>>> getAllDecisionsByUserId(@Path("userId") Long userId);
+    Single<BaseResponse<List<DecisionResponse>>> getAllDecisionsByUserId(@Path("userId") Long userId);
 }

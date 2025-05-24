@@ -1,45 +1,97 @@
 package com.managerapp.personnelmanagerapp.data.remote.response;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class ContractResponse {
+    @SerializedName("id")
     private int id;
+    @SerializedName("startDate")
     private Date startDate;
+    @SerializedName("endDate")
     private Date endDate;
+    @SerializedName("basicSalary")
     private double basicSalary;
+    @SerializedName("clause")
     private String clause;
+    @SerializedName("contractStatusEnum")
     private final String contractStatusEnum;
+    @SerializedName("contractTypeName")
     private String contractTypeName ;
+    @SerializedName("user")
     private User user;
+    @SerializedName("signer")
     private User signer;
+    @SerializedName("positionName")
     private String positionName;
+    @SerializedName("jobGradeName")
     private String jobGradeName;
 
-    public static class User {
-        private long id;
-        private String fullName;
+    @SerializedName("jobGradeCoefficient")
+    private double jobGradeCoefficient;
 
-        public User(long id, String fullName) {
+    public static class User {
+        @SerializedName("id")
+        private long id;
+        @SerializedName("fullName")
+        private String fullName;
+        @SerializedName("numberCCCD")
+        private String numberCCCD;
+        @SerializedName("dob")
+        private String dateOfBirth;
+        @SerializedName("phoneNumber")
+        private String phoneNumber;
+        @SerializedName("nationality")
+        private String nationality;
+        @SerializedName("email")
+        private String email;
+        @SerializedName("address")
+        private String address;
+
+        public User(long id, String fullName, String numberCCCD, String dateOfBirth, String phoneNumber, String nationality, String email, String address) {
             this.id = id;
             this.fullName = fullName;
+            this.numberCCCD = numberCCCD;
+            this.dateOfBirth = dateOfBirth;
+            this.phoneNumber = phoneNumber;
+            this.nationality = nationality;
+            this.email = email;
+            this.address = address;
         }
 
         public long getId() {
             return id;
         }
 
-        public void setId(long id) {
-            this.id = id;
-        }
-
         public String getFullName() {
             return fullName;
         }
 
-        public void setFullName(String fullName) {
-            this.fullName = fullName;
+        public String getNumberCCCD() {
+            return numberCCCD;
+        }
+
+        public String getDateOfBirth() {
+            return dateOfBirth;
+        }
+
+        public String getPhoneNumber() {
+            return phoneNumber;
+        }
+
+        public String getNationality() {
+            return nationality;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getAddress() {
+            return address;
         }
     }
 
@@ -141,26 +193,17 @@ public class ContractResponse {
         return signer;
     }
 
-    public void setSigner(User signer) {
-        this.signer = signer;
-    }
-
     public String getPositionName() {
         return positionName;
-    }
-
-    public void setPositionName(String positionName) {
-        this.positionName = positionName;
     }
 
     public String getJobGradeName() {
         return jobGradeName;
     }
 
-    public void setJobGradeName(String jobGradeName) {
-        this.jobGradeName = jobGradeName;
+    public double getJobGradeCoefficient() {
+        return jobGradeCoefficient;
     }
-
     @Override
     public String toString() {
         return "ContractResponse{" +

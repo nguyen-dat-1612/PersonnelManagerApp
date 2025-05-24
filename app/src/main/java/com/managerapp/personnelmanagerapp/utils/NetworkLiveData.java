@@ -19,12 +19,12 @@ public class NetworkLiveData extends LiveData<Boolean> {
         networkCallback = new ConnectivityManager.NetworkCallback() {
             @Override
             public void onAvailable(Network network) {
-                postValue(true);  // Có mạng
+                postValue(true);
             }
 
             @Override
             public void onLost(Network network) {
-                postValue(false); // Mất mạng
+                postValue(false);
             }
         };
     }

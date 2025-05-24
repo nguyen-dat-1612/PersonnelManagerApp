@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class LeaveApplicationResponse implements Serializable {
     private long id;
@@ -86,17 +87,6 @@ public class LeaveApplicationResponse implements Serializable {
         }
     }
     public String getFormStatusEnum() {
-//        if (formStatusEnum == null) return "";
-//        switch (formStatusEnum) {
-//            case "PENDING":
-//                return "Đang chờ";
-//            case "REJECTED":
-//                return "Từ chối";
-//            case "APPROVED":
-//                return "Đã duyệt";
-//            default:
-//                return "Không có";
-//        }
         return formStatusEnum;
     }
 
@@ -131,5 +121,17 @@ public class LeaveApplicationResponse implements Serializable {
                 ", user=" + user +
                 ", leaveTypeName='" + leaveTypeName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        LeaveApplicationResponse that = (LeaveApplicationResponse) o;
+        return id == that.id && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) && Objects.equals(reason, that.reason) && Objects.equals(formStatusEnum, that.formStatusEnum) && Objects.equals(user, that.user) && Objects.equals(leaveTypeName, that.leaveTypeName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, startDate, endDate, reason, formStatusEnum, user, leaveTypeName);
     }
 }

@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.auth.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.auth.ui.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_verifyOtpFragment"
+            app:destination="@id/verifyOtpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+
+            <argument
+                android:name="email"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/verifyOtpFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.auth.ui.VerifyOtpFragment"
+        android:label="fragment_verify_otp"
+        tools:layout="@layout/fragment_verify_otp" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_verifyOtpFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="email"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.auth.ui.ResetPasswordFragment"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.main.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+
+        <action
+            android:id="@+id/action_mainFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_contractListFragment"
+            app:destination="@id/contractListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_decisionListFragment"
+            app:destination="@id/decisionListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_feedBackFragment"
+            app:destination="@id/feedBackFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_requestHistoryFragment"
+            app:destination="@id/requestHistoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_detailNotificationFragment"
+            app:destination="@id/detailNotificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="notificationId"
+                app:argType="long"/>
+
+            <argument
+                android:name="isReadStatus"
+                app:argType="boolean"/>
+
+        </action>
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_workLogFragment"
+            app:destination="@id/workLogFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_leaveAppRequestFragment"
+            app:destination="@id/leaveAppRequestFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_sendNotificationFragment"
+            app:destination="@id/sendNotificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.changepass.ui.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/contractDetailFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.contract.ui.ContractDetailFragment"
+        android:label="ContractDetailFragment">
+        <argument
+            android:name="contractId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_contractDetailFragment_to_contractListFragment"
+            app:destination="@id/contractListFragment"
+            app:popUpTo="@id/contractListFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/contractListFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.contract.ui.ContractListFragment"
+        android:label="fragment_contract_list"
+        tools:layout="@layout/fragment_contract_list" >
+        <action
+            android:id="@+id/action_contractListFragment_to_contractDetailFragment"
+            app:destination="@id/contractDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            >
+
+            <argument
+                android:name="contractId"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/action_contractListFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/decisionDetailFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.decision.ui.DecisionDetailFragment"
+        android:label="DecisionDetailFragment">
+        <argument
+            android:name="decisionId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_decisionDetailFragment_to_decisionListFragment"
+            app:destination="@id/decisionListFragment"
+            app:popUpTo="@id/decisionListFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/decisionListFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.decision.ui.DecisionListFragment"
+        android:label="fragment_decision_list"
+        tools:layout="@layout/fragment_decision_list" >
+        <action
+            android:id="@+id/action_decisionListFragment_to_decisionDetailFragment"
+            app:destination="@id/decisionDetailFragment">
+            <argument
+                android:name="decisionId"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_decisionListFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/feedBackFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.feedback.ui.FeedBackFragment"
+        android:label="fragment_feed_back"
+        tools:layout="@layout/fragment_feed_back" >
+        <action
+            android:id="@+id/action_feedBackFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/requestHistoryFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.leaveapp.ui.LeaveHistoryFragment"
+        android:label="fragment_request_history"
+        tools:layout="@layout/fragment_request_history" >
+        <action
+            android:id="@+id/action_requestHistoryFragment_to_newLeaveAppFragment"
+            app:destination="@id/newLeaveAppFragment" />
+        <action
+            android:id="@+id/action_requestHistoryFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/newLeaveAppFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.leaveapp.ui.NewLeaveAppFragment"
+        android:label="fragment_new_request"
+        tools:layout="@layout/fragment_new_request" >
+        <action
+            android:id="@+id/action_newLeaveAppFragment_to_requestHistoryFragment"
+            app:destination="@id/requestHistoryFragment"
+            app:popUpTo="@id/requestHistoryFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailNotificationFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.notification.ui.DetailNotificationFragment"
+        android:label="DetailNotificationFragment">
+        <argument
+            android:name="notificationId"
+            app:argType="long"/>
+
+        <argument
+            android:name="isReadStatus"
+            app:argType="boolean"/>
+
+        <action
+            android:id="@+id/action_detailNotificationFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.profile.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.settings.ui.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/workLogFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.worklog.ui.WorkLogFragment"
+        android:label="fragment_work_log"
+        tools:layout="@layout/fragment_work_log" >
+        <action
+            android:id="@+id/action_workLogFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/leaveAppRequestFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.leaveapp.ui.LeaveAppRequestFragment"
+        android:label="fragment_leave_app_request"
+        tools:layout="@layout/fragment_leave_app_request" >
+        <action
+            android:id="@+id/action_leaveAppRequestFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/sendNotificationFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.sendNotification.ui.SendNotificationFragment"
+        android:label="fragment_send_notification"
+        tools:layout="@layout/fragment_send_notification" >
+        <action
+            android:id="@+id/action_sendNotificationFragment_to_historyNotificationFragment"
+            app:destination="@id/historyNotificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/historyNotificationFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.notification.ui.HistoryNotificationFragment"
+        android:label="fragment_history_notification"
+        tools:layout="@layout/fragment_history_notification" >
+        <action
+            android:id="@+id/action_historyNotificationFragment_to_detailNotificationFragment"
+            app:destination="@id/detailNotificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="notificationId"
+                app:argType="long"/>
+
+            <argument
+                android:name="isReadStatus"
+                app:argType="boolean"
+                android:defaultValue="true"/>
+        </action>
+    </fragment>
+</navigation>

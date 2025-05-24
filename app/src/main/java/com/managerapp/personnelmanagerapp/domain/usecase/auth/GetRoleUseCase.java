@@ -15,7 +15,7 @@ public class GetRoleUseCase {
         this.authRepository = authRepository;
     }
 
-    public Single<BaseResponse<String>> execute() {
+    public Single<String> execute() {
         return authRepository.getRole();
     }
 }

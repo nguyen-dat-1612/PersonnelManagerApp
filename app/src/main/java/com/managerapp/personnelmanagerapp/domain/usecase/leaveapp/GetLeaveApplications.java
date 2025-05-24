@@ -16,7 +16,7 @@ public class GetLeaveApplications {
         this.repository = repository;
     }
 
-    public Single<List<LeaveApplicationResponse>> execute(int userId) {
-        return repository.getLeaveApplications(userId);
+    public Single<List<LeaveApplicationResponse>> execute() {
+        return repository.getLeaveApplications();
     }
 }

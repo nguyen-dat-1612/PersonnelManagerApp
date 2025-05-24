@@ -16,7 +16,7 @@ public class GetApplicationIsPendingUseCase {
     public GetApplicationIsPendingUseCase(LeaveApplicationRepository leaveApplicationRepository) {
         this.leaveApplicationRepository = leaveApplicationRepository;
     }
-    public Single<List<LeaveApplicationResponse>> execute() {
-        return leaveApplicationRepository.getApplicationIsPending();
+    public Single<List<LeaveApplicationResponse>> execute(String formStatusEnum, String departmentId) {
+        return leaveApplicationRepository.getApplicationIsPending(formStatusEnum, departmentId);
     }
 }

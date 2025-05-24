@@ -26,19 +26,9 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/tvFullName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text= '@{decision.user.fullName}'
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="#000000" />
-
-            <TextView
                 android:id="@+id/tvType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{decision.getDisplayType()}'
                 android:textSize="14sp"
                 android:textColor="#444444"
                 android:layout_marginTop="4dp" />
@@ -47,7 +37,6 @@
                 android:id="@+id/tvContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text = '@{decision.content}'
                 android:textSize="14sp"
                 android:textColor="#555555"
                 android:layout_marginTop="4dp" />
@@ -56,7 +45,6 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text = '@{decision.getDate()}'
                 android:textSize="12sp"
                 android:textColor="#888888"
                 android:layout_marginTop="4dp" />

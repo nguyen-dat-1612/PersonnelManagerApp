@@ -1,77 +1,78 @@
 package com.managerapp.personnelmanagerapp.domain.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Notification {
-    private long id;          // Primary key (e.g., TB001, TB002,...)
-    private String title;       // Notification title (not null, max 255 chars)
-    private String content;     // Notification content (not null)
-    private String attached;
-    private String sendDate; // Date and time when notification was sent (not null)
+    @SerializedName("id")
+    private long id;
+    @SerializedName("title")
+    private String title;
+    @SerializedName("content")
+    private String content;
+    @SerializedName("attached")
+    private List<String> attached;
+    @SerializedName("sendDate")
+    private String sendDate;
 
-    // Constructors
-    public Notification() {
+    @SerializedName("sender")
+    private Sender sender;
+
+    public class Sender {
+        @SerializedName("id")
+        private int id;
+        @SerializedName("fullName")
+        private String fullName;
+
+        public Sender(int id, String fullName) {
+            this.id = id;
+            this.fullName = fullName;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getFullName() {
+            return fullName;
+        }
     }
 
-    public String getAttached() {
-        return attached;
-    }
 
-    public void setAttached(String attached) {
-        this.attached = attached;
-    }
-
-    public Notification(long id, String title, String content, String attached, String sendDate) {
+    public Notification(long id, String title, String content, List<String> attached, String sendDate, Sender sender) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.attached = attached;
         this.sendDate = sendDate;
+        this.sender = sender;
     }
 
-    // Getters and Setters
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        if (title == null || title.trim().isEmpty()) {
-            throw new IllegalArgumentException("Title cannot be null or empty");
-        }
-        if (title.length() > 255) {
-            throw new IllegalArgumentException("Title cannot exceed 255 characters");
-        }
-        this.title = title;
+    public List<String> getAttached() {
+        return attached;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        if (content == null || content.trim().isEmpty()) {
-            throw new IllegalArgumentException("Content cannot be null or empty");
-        }
-        this.content = content;
-    }
-
     public String getSendDate() {
         return sendDate;
     }
 
-    public void setSendDate(String sendDate) {
-        if (sendDate == null) {
-            throw new IllegalArgumentException("Send date cannot be null");
-        }
-        this.sendDate = sendDate;
+    public Sender getSender() {
+        return sender;
     }
 
     // toString method for debugging/logging

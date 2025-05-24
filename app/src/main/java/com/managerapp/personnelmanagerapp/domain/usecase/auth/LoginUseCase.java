@@ -16,7 +16,7 @@ public class LoginUseCase {
         this.authRepository = authRepository;
     }
 
-    public Single<BaseResponse<String>> execute(String email, String password) {
+    public Single<String> execute(String email, String password) {
         return authRepository.login(email, password);
     }
 }
