@@ -14,6 +14,7 @@ import com.managerapp.personnelmanagerapp.domain.usecase.department.GetAllDepart
 import com.managerapp.personnelmanagerapp.domain.usecase.file.UploadPdfUseCase;
 import com.managerapp.personnelmanagerapp.domain.usecase.notification.CreateNotificationUseCase;
 import com.managerapp.personnelmanagerapp.domain.usecase.user.SearchUserUseCase;
+import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.presentation.sendNotification.ui.SendNotificationUiState;
 
 import java.util.ArrayList;
@@ -38,14 +39,12 @@ public class SendNotificationViewModel extends ViewModel {
     private final String TAG = "SendNotificationViewModel";
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final SearchUserUseCase searchUserUseCase;
-
     private final GetAllDepartmentsUseCase getAllDepartmentsUseCase;
     private final UploadPdfUseCase uploadPdfUseCase;
     private final MutableLiveData<SendNotificationUiState> uiState = new MutableLiveData<>();
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final MutableLiveData<List<UserSummary>> selectedUsers = new MutableLiveData<>(new ArrayList<>());
-    private final MutableLiveData<String> uploadResult = new MutableLiveData<>();
-
+    private final MutableLiveData<UiState<String>> uploadResult = new MutableLiveData<>();
     private final CreateNotificationUseCase createNotificationUseCase;
     private final MutableLiveData<Boolean> sendNotification = new MutableLiveData<>();
 
@@ -85,7 +84,7 @@ public class SendNotificationViewModel extends ViewModel {
         }
         return idList;
     }
-    public LiveData<String> getUploadResult() {
+    public LiveData<UiState<String>> getUploadResult() {
         return uploadResult;
     }
 
@@ -146,12 +145,13 @@ public class SendNotificationViewModel extends ViewModel {
     }
 
     public void uploadFile(MultipartBody.Part file) {
+        uploadResult.setValue(UiState.Loading.getInstance());
         disposables.add(
                 uploadPdfUseCase.execute(file)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                link -> uploadResult.setValue(link),
-                                error -> Log.e("Upload", "Fail", error)
+                                link -> uploadResult.setValue(new UiState.Success(link)),
+                                error -> uploadResult.setValue(new UiState.Error(error.getMessage()))
                         )
         );
     }
@@ -164,19 +164,23 @@ public class SendNotificationViewModel extends ViewModel {
                                   List<String> positionIds,
                                   List<String> departmentIds) {
         disposables.add(createNotificationUseCase.execute(
-                title, content, recipientText, attached,
-                receiverIds, positionIds, departmentIds)
+                        title, content, recipientText, attached,
+                        receiverIds, positionIds, departmentIds)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        response -> {
-                            boolean value = response;
-                            sendNotification.setValue(value);
+                        value -> {
+                            sendNotification.setValue(true);
                         },
                         throwable -> {
+                            Log.d(TAG, "sendNotification: " + throwable.getMessage());
+                            sendNotification.setValue(false);
+                        },
+                        () -> {
+                            Log.d("sendNotification", "Không có giá trị trả về từ createNotificationUseCase");
                             sendNotification.setValue(false);
                         }
-                )
-        );
+                ));
 
     }
 

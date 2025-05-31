@@ -1,7 +1,8 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.decision;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
-import com.managerapp.personnelmanagerapp.data.repository.DecisionRepository;
+import com.managerapp.personnelmanagerapp.data.repository.DecisionRepositoryImpl;
+import com.managerapp.personnelmanagerapp.domain.repository.DecisionRepository;
 
 import javax.inject.Inject;
 

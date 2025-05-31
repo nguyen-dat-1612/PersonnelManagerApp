@@ -1,12 +1,13 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
-import com.managerapp.personnelmanagerapp.data.remote.api.RxResultHandler;
+import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.ChangePasswordRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.UserSummaryResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.WorkLogResponse;
 import com.managerapp.personnelmanagerapp.domain.model.UserSummary;
+import com.managerapp.personnelmanagerapp.domain.repository.UserRepository;
 import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,13 +22,13 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @Singleton
-public class UserRepository {
+public class UserRepositoryImpl implements UserRepository {
     private final UserApiService apiService;
     private final LocalDataManager localDataManager;
     private final Map<String, List<UserSummary>> cache = new HashMap<>();
 
     @Inject
-    public UserRepository(UserApiService apiService, LocalDataManager localDataManager) {
+    public UserRepositoryImpl(UserApiService apiService, LocalDataManager localDataManager) {
         this.apiService = apiService;
         this.localDataManager = localDataManager;
     }

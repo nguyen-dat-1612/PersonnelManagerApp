@@ -1,6 +1,8 @@
 package com.managerapp.personnelmanagerapp.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class DateUtils {
 
@@ -25,9 +27,24 @@ public class DateUtils {
         int year = calendar.get(Calendar.YEAR);
         return new DateComponents(day, month, year);
     }
+    // Lấy ngày hiện tại dưới dạng String "dd/MM/yyyy"
+    public static String getCurrentDateAsString() {
+        DateComponents date = getCurrentDateComponents();
+        return String.format("%02d/%02d/%04d", date.day, date.month, date.year);
+    }
 
     // Định dạng ngày
     public static String formatDate(int day, int month, int year) {
         return day + "/" + month + "/" + year;
+    }
+
+    public static String convertToApiDateFormat(String inputDate) {
+        try {
+            SimpleDateFormat fromUser = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat toApi = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            return toApi.format(fromUser.parse(inputDate));
+        } catch (Exception e) {
+            return inputDate;
+        }
     }
 }

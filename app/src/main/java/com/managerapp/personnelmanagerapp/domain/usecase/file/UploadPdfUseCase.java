@@ -1,6 +1,7 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.file;
 
-import com.managerapp.personnelmanagerapp.data.repository.FileRepository;
+import com.managerapp.personnelmanagerapp.data.repository.FileRepositoryImpl;
+import com.managerapp.personnelmanagerapp.domain.repository.FileRepository;
 
 import javax.inject.Inject;
 

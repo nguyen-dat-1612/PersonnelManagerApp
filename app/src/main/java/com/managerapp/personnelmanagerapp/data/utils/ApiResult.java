@@ -1,4 +1,4 @@
-package com.managerapp.personnelmanagerapp.data.remote.api;
+package com.managerapp.personnelmanagerapp.data.utils;
 
 public class ApiResult<T> {
     public final T data;

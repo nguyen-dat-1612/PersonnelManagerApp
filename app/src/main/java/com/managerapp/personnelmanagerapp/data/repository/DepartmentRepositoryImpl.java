@@ -2,30 +2,26 @@ package com.managerapp.personnelmanagerapp.data.repository;
 
 import com.managerapp.personnelmanagerapp.data.mapper.DepartmentMapper;
 import com.managerapp.personnelmanagerapp.data.remote.api.DepartmentApiService;
-import com.managerapp.personnelmanagerapp.data.remote.api.RxResultHandler;
-import com.managerapp.personnelmanagerapp.data.remote.response.DepartmentResponse;
-import com.managerapp.personnelmanagerapp.data.remote.response.UserSummaryResponse;
+import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.domain.model.Department;
-import com.managerapp.personnelmanagerapp.domain.model.UserSummary;
+import com.managerapp.personnelmanagerapp.domain.repository.DepartmentRepository;
 import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class DepartmentRepository {
+public class DepartmentRepositoryImpl implements DepartmentRepository {
 
     private final DepartmentApiService apiService;
 
     private final LocalDataManager localDataManager;
 
     @Inject
-    public DepartmentRepository(DepartmentApiService apiService, LocalDataManager localDataManager) {
+    public DepartmentRepositoryImpl(DepartmentApiService apiService, LocalDataManager localDataManager) {
         this.apiService = apiService;
         this.localDataManager = localDataManager;
     }

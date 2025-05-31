@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +16,13 @@ import com.managerapp.personnelmanagerapp.presentation.notification.adapter.Atta
 import com.managerapp.personnelmanagerapp.presentation.notification.viewmodel.NotificationViewModel;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.utils.PdfUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class DetailNotificationFragment extends Fragment {
-
     private static final String TAG = "DetailNotificationFragment";
-
     private NotificationViewModel notificationViewModel;
     private FragmentDetailNotificationBinding binding;
     private long notificationId;
@@ -73,10 +71,7 @@ public class DetailNotificationFragment extends Fragment {
                 binding.tvNotificationContent.setText(notification.getContent());
                 binding.rvAttachments.setLayoutManager(new LinearLayoutManager(getContext()));
                 AttachmentAdapter adapter = new AttachmentAdapter(
-                        notification.getAttached(),
-                        attachment -> {
-
-                        }
+                        notification.getAttached(), requireContext()
                 );
                 binding.rvAttachments.setAdapter(adapter);
             } else if (state instanceof  UiState.Error) {

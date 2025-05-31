@@ -8,8 +8,9 @@ import com.managerapp.personnelmanagerapp.domain.model.PagedModel;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Response;
+import kotlin.Unit;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -20,6 +21,9 @@ import retrofit2.http.Query;
 public interface NotificationApiService {
 
     @GET("notifications/{id}/read")
+    Single<BaseResponse<Notification>> getNotificationRecipient(@Path("id") long id);
+
+    @GET("notifications/{id}")
     Single<BaseResponse<Notification>> getNotification(@Path("id") long id);
 
     @GET("notifications/user/{id}")
@@ -33,8 +37,7 @@ public interface NotificationApiService {
     Single<BaseResponse<Boolean>> markNotificationsAsSeen(@Body List<Integer> notificationIds);
 
     @POST("notifications/create")
-    Single<BaseResponse<Boolean>> createNotification (@Body NotificationRequest notificationRequest);
-
+    Maybe<BaseResponse<Unit>> createNotification (@Body NotificationRequest notificationRequest);
 
     @GET("notifications/sender/{id}")
     Single<BaseResponse<PagedModel<NotificationRecipient>>> getAllSenderNotifications(

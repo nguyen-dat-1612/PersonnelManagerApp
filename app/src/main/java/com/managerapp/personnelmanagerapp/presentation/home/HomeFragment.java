@@ -89,6 +89,10 @@ public class HomeFragment extends BaseFragment {
             navController.navigate(R.id.action_mainFragment_to_leaveAppRequestFragment)
         );
 
+        binding.reportBtn.setOnClickListener(v ->
+            navController.navigate(R.id.action_mainFragment_to_listReportFragment)
+        );
+
     }
 
 

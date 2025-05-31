@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Báo Cáo Lương - {{DATE_RANGE}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #FF8A99;
+            margin-bottom: 20px;
+        }
+        .date-range {
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            table-layout: fixed;
+            word-break: break-word;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
+        th {
+            background-color: #FF8A99;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature {
+            text-align: center;
+            width: 200px;
+        }
+        .signature p {
+            margin-top: 80px;
+        }
+        @media print {
+            /* Tắt button nếu có (trong trường hợp) */
+            button {
+                display: none;
+            }
+            body {
+                margin: 10mm 10mm 10mm 10mm;
+                font-size: 10pt;
+            }
+            tr {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Báo Cáo Lương Nhân Viên</h1>
+<div class="date-range">
+    <strong>Khoảng thời gian:</strong> {{DATE_RANGE}}
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Mã nhân viên</th>
+        <th>Nhân viên</th>
+        <th>Lương cơ bản</th>
+        <th>Lương thâm niên</th>
+        <th>Số ngày làm việc</th>
+        <th>Số ngày làm việc thực tế</th>
+        <th>Số ngày nghỉ không lương</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{TABLE_BODY}}
+    </tbody>
+</table>
+
+<div class="footer">
+    <div class="signature">
+        <p>Người lập báo cáo</p>
+    </div>
+    <div class="signature">
+        <p>Kế toán trưởng</p>
+    </div>
+    <div class="signature">
+        <p>Giám đốc</p>
+    </div>
+</div>
+</body>
+</html>

@@ -41,7 +41,6 @@ public class LeaveAppRequestFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(LeaveRequestViewModel.class);
-        viewModel.getApplicationIsPending("PENDING");
     }
 
     @Override
@@ -56,6 +55,7 @@ public class LeaveAppRequestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        viewModel.getApplicationIsPending("PENDING");
         setOnListener();
         loadLeaveRequest();
         observeConfirmResult();
@@ -107,14 +107,16 @@ public class LeaveAppRequestFragment extends Fragment {
                 binding.progressOverlay.getRoot().setVisibility(VISIBLE);
             } else if (state instanceof UiState.Success) {
                 leaveRequests = ((UiState.Success<List<LeaveApplicationResponse>>) state).getData();
-                if (leaveRequests.isEmpty()) {
-                    binding.viewEmpty.getRoot().setVisibility(VISIBLE);
-                    adapter.submitList(Collections.emptyList());
-                } else {
-                    binding.viewEmpty.getRoot().setVisibility(GONE);
-                    adapter.submitList(leaveRequests);
-                }
-                binding.progressOverlay.getRoot().setVisibility(GONE);
+                binding.rvLeaveRequests.postDelayed(() -> {
+                    if (leaveRequests.isEmpty()) {
+                        binding.viewEmpty.getRoot().setVisibility(VISIBLE);
+                        adapter.submitList(Collections.emptyList());
+                    } else {
+                        binding.viewEmpty.getRoot().setVisibility(GONE);
+                        adapter.submitList(leaveRequests);
+                    }
+                    binding.progressOverlay.getRoot().setVisibility(GONE);
+                }, 300);
             } else if (state instanceof UiState.Error) {
                 binding.progressOverlay.getRoot().setVisibility(GONE);
                 Log.e(TAG, ((UiState.Error) state).getErrorMessage());

@@ -54,9 +54,8 @@ public class LeaveRequestViewModel extends ViewModel {
         uiStateLoad.setValue(UiState.Loading.getInstance());
 
         disposables.add(getDepartmentByUserIdUseCase.execute()
+                        .flatMap(department ->  getApplicationIsPendingUseCase.execute(formStatusEnum, department.getId()))
                         .subscribeOn(Schedulers.io())
-                        .flatMap(department -> { return getApplicationIsPendingUseCase.execute(formStatusEnum, department.getId());
-                        })
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 leaveApplicationResponses -> {
@@ -105,5 +104,11 @@ public class LeaveRequestViewModel extends ViewModel {
             }
             uiStateLoad.postValue(new UiState.Success<>(updatedList));
         }
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        disposables.dispose();
     }
 }

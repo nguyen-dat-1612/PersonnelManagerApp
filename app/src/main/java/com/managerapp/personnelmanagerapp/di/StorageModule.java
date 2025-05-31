@@ -17,6 +17,31 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
 
+// <editor-fold desc="📌 NOTE CHO TEAM - Giải thích StorageModule (quản lý lưu trữ, session, token...)">
+/*
+📦 StorageModule cung cấp các dependency liên quan đến lưu trữ cục bộ, token, và session cho toàn bộ ứng dụng.
+
+🔐 Thành phần chính:
+- `SharedPreferences`: dùng để lưu local data.
+- `EncryptionManager`: dùng để mã hóa/giải mã dữ liệu (ví dụ token).
+- `SecureTokenManager`: quản lý token có mã hóa.
+- `SessionManager`: quản lý session đăng nhập và trạng thái người dùng.
+- `SettingsManager`: quản lý cài đặt ứng dụng (tùy chỉnh UI, v.v).
+- `TokenRefreshRequest`: object mẫu dùng cho việc refresh token khi cần.
+
+🧩 Lưu ý:
+- Tất cả đều được đánh dấu `@Singleton` → giữ một instance duy nhất trong suốt vòng đời ứng dụng.
+- SharedPreferences được đặt tên là `"app_prefs"` – nếu muốn tách biệt giữa các module, có thể đổi tên riêng cho từng phần.
+
+📌 Mở rộng:
+- Nếu muốn thêm lớp quản lý cấu hình nào mới (ví dụ: AppThemeManager), có thể thêm tương tự như `SettingsManager`.
+- Tránh logic nặng trong các lớp manager – nên tách riêng nếu phức tạp.
+
+📁 Vị trí liên quan:
+- Các class được inject từ module này thường nằm trong `utils/manager` hoặc được gọi từ Repository/ViewModel.
+*/
+// </editor-fold>
+
 @Module
 @InstallIn(SingletonComponent.class)
 public class StorageModule {

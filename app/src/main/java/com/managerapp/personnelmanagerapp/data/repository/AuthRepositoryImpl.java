@@ -1,18 +1,12 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.managerapp.personnelmanagerapp.data.remote.api.RxResultHandler;
-import com.managerapp.personnelmanagerapp.domain.exceptions.ApiException;
+import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
-import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
+import com.managerapp.personnelmanagerapp.domain.repository.AuthRepository;
 import com.managerapp.personnelmanagerapp.utils.manager.SecureTokenManager;
 import com.managerapp.personnelmanagerapp.utils.manager.SessionManager;
-
-import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -21,7 +15,7 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @Singleton
-public class AuthRepository {
+public class AuthRepositoryImpl implements AuthRepository {
     private static final String TAG = "AuthRepository";
 
     private final AuthApiService authApiService;
@@ -30,11 +24,12 @@ public class AuthRepository {
     private final Gson gson = new Gson();
 
     @Inject
-    public AuthRepository(AuthApiService authApiService, SecureTokenManager secureTokenManager, SessionManager sessionManager) {
+    public AuthRepositoryImpl(AuthApiService authApiService, SecureTokenManager secureTokenManager, SessionManager sessionManager) {
         this.authApiService = authApiService;
         this.secureTokenManager = secureTokenManager;
         this.sessionManager = sessionManager;
     }
+
 
     public Single<String> login(String email, String password) {
         return RxResultHandler.handle(authApiService.login(new LoginRequest(email, password))
@@ -42,7 +37,6 @@ public class AuthRepository {
                         secureTokenManager.saveAccessToken(response.getData()))
         );
     }
-
     public Single<Boolean> forgotPassword(String email) {
         return authApiService.forgotPassword(email)
                 .subscribeOn(Schedulers.io())

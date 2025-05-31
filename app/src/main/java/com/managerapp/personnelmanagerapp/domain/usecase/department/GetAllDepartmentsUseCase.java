@@ -1,7 +1,8 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.department;
 
-import com.managerapp.personnelmanagerapp.data.repository.DepartmentRepository;
+import com.managerapp.personnelmanagerapp.data.repository.DepartmentRepositoryImpl;
 import com.managerapp.personnelmanagerapp.domain.model.Department;
+import com.managerapp.personnelmanagerapp.domain.repository.DepartmentRepository;
 
 import java.util.List;
 

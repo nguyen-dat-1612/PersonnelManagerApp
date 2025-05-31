@@ -1,31 +1,26 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.managerapp.personnelmanagerapp.data.remote.api.ContractApiService;
-import com.managerapp.personnelmanagerapp.data.remote.api.RxResultHandler;
-import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
-import com.managerapp.personnelmanagerapp.data.remote.response.ContractListResponse;
+import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
+import com.managerapp.personnelmanagerapp.domain.repository.ContractRepository;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @Singleton
-public class ContractRepository {
+public class ContractRepositoryImpl implements ContractRepository {
     private final ContractApiService apiService;
     private final Gson gson = new Gson();
     private static final String TAG = "ContractRepository";
 
     @Inject
-    public ContractRepository(ContractApiService apiService) {
+    public ContractRepositoryImpl(ContractApiService apiService) {
         this.apiService = apiService;
     }
 

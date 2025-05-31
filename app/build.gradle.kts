@@ -55,10 +55,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.security:security-crypto:1.0.0")
-    implementation("androidx.biometric:biometric:1.1.0")
-    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     // Navigation Component
     implementation("androidx.navigation:navigation-fragment:2.7.7")
@@ -70,12 +67,6 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
-    // Room Database
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    implementation(libs.core.ktx)  // For Kotlin extensions
-    annotationProcessor ("androidx.room:room-compiler:2.6.1")  // Use 'annotationProcessor' for Java
-
     // Glide (Image Loading)
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")  // Use 'annotationProcessor' for Java
@@ -84,8 +75,6 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     annotationProcessor ("com.google.dagger:hilt-android-compiler:2.51.1")  // Use 'annotationProcessor' for Java
 
-    // RxJava3 support for Room
-    implementation ("androidx.room:room-rxjava3:2.6.1")
     // RxJava 3
     implementation("io.reactivex.rxjava3:rxjava:3.1.6")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
@@ -96,17 +85,19 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
 
-    // UI Libraries
+    // Bottom Navigation UI
      implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
 
     // Lottie Animation
     implementation("com.airbnb.android:lottie:6.1.0")
 
-    // JWT
-    implementation("com.auth0:java-jwt:3.19.2")
-
-    // Testing
+    // Unit test (src/test/)
     testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.mockito:mockito-core:5.2.0")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
+
+    // Instrumentation test (src/androidTest/)
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
@@ -121,7 +112,17 @@ dependencies {
     implementation ("com.github.NaikSoftware:StompProtocolAndroid:1.6.6")
     implementation ("com.google.code.gson:gson:2.10.1")
 
-    //
+    // FlexboxLayout
     implementation ("com.google.android.flexbox:flexbox:3.0.0")
+
+    // Table View
+    implementation ("com.github.evrencoskun:TableView:v0.8.9.4")
+
+    // Apache POI (Xuất Excel)
+    implementation ("org.apache.poi:poi:5.2.3")
+    implementation ("org.apache.poi:poi-ooxml:5.2.3")
+
+    // iText (HTML convert PDF)
+    implementation ("com.itextpdf:html2pdf:4.0.4")
 
 }

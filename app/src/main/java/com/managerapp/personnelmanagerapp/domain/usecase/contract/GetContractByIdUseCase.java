@@ -1,7 +1,8 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.contract;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
-import com.managerapp.personnelmanagerapp.data.repository.ContractRepository;
+import com.managerapp.personnelmanagerapp.data.repository.ContractRepositoryImpl;
+import com.managerapp.personnelmanagerapp.domain.repository.ContractRepository;
 
 import javax.inject.Inject;
 

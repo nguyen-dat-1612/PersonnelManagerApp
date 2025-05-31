@@ -1,4 +1,7 @@
 package com.managerapp.personnelmanagerapp.presentation.notification.adapter;
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,19 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.utils.PdfUtils;
+
 import java.util.List;
 
 public class AttachmentAdapter extends RecyclerView.Adapter<AttachmentAdapter.ViewHolder> {
     private final List<String> attachments;
-    private final OnAttachmentClickListener onAttachmentClickListener;
-
+    private final Context context;
     public interface OnAttachmentClickListener {
         void onAttachmentClick(String attachment);
     }
 
-    public AttachmentAdapter(List<String> attachments, OnAttachmentClickListener listener) {
+    public AttachmentAdapter(List<String> attachments, Context context) {
         this.attachments = attachments;
-        this.onAttachmentClickListener = listener;
+        this.context = context;
     }
 
     @NonNull
@@ -34,10 +38,8 @@ public class AttachmentAdapter extends RecyclerView.Adapter<AttachmentAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String attachment = attachments.get(position);
         holder.tvAttachmentName.setText(attachment);
-        holder.itemView.setOnClickListener(v -> {
-            if (onAttachmentClickListener != null) {
-                onAttachmentClickListener.onAttachmentClick(attachment);
-            }
+        holder.ivDownload.setOnClickListener(v -> {
+                        PdfUtils.setupDownloadButton(context,holder.ivDownload,attachment, attachment);
         });
     }
 

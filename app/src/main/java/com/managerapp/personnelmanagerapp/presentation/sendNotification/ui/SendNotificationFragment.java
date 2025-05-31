@@ -28,18 +28,16 @@ import com.google.android.flexbox.JustifyContent;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.FragmentSendNotificationBinding;
 import com.managerapp.personnelmanagerapp.domain.model.UserSummary;
+import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.presentation.sendNotification.adapter.DepartmentAdapter;
 import com.managerapp.personnelmanagerapp.presentation.sendNotification.adapter.SelectedUsersAdapter;
 import com.managerapp.personnelmanagerapp.presentation.sendNotification.adapter.UserSearchRecyclerAdapter;
 import com.managerapp.personnelmanagerapp.presentation.sendNotification.viewmodel.SendNotificationViewModel;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
@@ -60,6 +58,8 @@ public class SendNotificationFragment extends Fragment {
     private UserSearchRecyclerAdapter searchRecyclerAdapter;
     private ActivityResultLauncher<Intent> filePickerLauncher;
     private NavController navController;
+
+    private boolean isUploading = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,22 +97,20 @@ public class SendNotificationFragment extends Fragment {
     }
     private void uploadPdfToServer(Uri pdfUri) {
         try {
+            isUploading = true; // bắt đầu upload
             InputStream inputStream = requireContext().getContentResolver().openInputStream(pdfUri);
             byte[] bytes = new byte[inputStream.available()];
             inputStream.read(bytes);
             inputStream.close();
 
             RequestBody requestBody = RequestBody.create(bytes, MediaType.parse("application/pdf"));
-            MultipartBody.Part filePart = MultipartBody.Part.createFormData(
-                    "file",
-                    "document.pdf",
-                    requestBody
-            );
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", "document.pdf", requestBody);
 
-            viewModel.uploadFile(filePart);  // ViewModel xử lý upload
+            viewModel.uploadFile(filePart);
 
         } catch (IOException e) {
             e.printStackTrace();
+            isUploading = false;
             Toast.makeText(getContext(), "Lỗi khi đọc file", Toast.LENGTH_SHORT).show();
         }
     }
@@ -179,6 +177,34 @@ public class SendNotificationFragment extends Fragment {
         binding.historyBtn.setOnClickListener(v -> {
             navController.navigate(R.id.action_sendNotificationFragment_to_historyNotificationFragment);
         });
+
+        binding.sendNotificationButton.setOnClickListener(v -> {
+            if (isUploading) {
+                Toast.makeText(getContext(), "Vui lòng chờ file tải lên hoàn tất", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            binding.progressBar.getRoot().setVisibility(View.VISIBLE);
+            binding.sendNotificationButton.setEnabled(false);
+
+            String title = binding.notificationTitleEditText.getText().toString();
+            String content = binding.notificationContentEditText.getText().toString();
+            List<String> attached = new ArrayList<>();
+            List<Long> receiverIds = new ArrayList<>();
+            List<String> positionIds = new ArrayList<>();
+            List<String> departmentIds = new ArrayList<>();
+
+            if (viewModel.getUploadResult().getValue() != null) {
+                attached.add(((UiState.Success<String>) viewModel.getUploadResult().getValue()).getData());
+            }
+
+            if (binding.notificationTypeRadioGroup.getCheckedRadioButtonId() == R.id.individualRadio) {
+                receiverIds = viewModel.getSelectedUserIds();
+            } else if (binding.notificationTypeRadioGroup.getCheckedRadioButtonId() == R.id.departmentRadio) {
+                departmentIds = viewModel.getSelectedDepartments();
+            }
+
+            viewModel.sendNotification(title, content, "", attached, receiverIds, positionIds, departmentIds);
+        });
     }
 
     private void observeViewModel() {
@@ -205,31 +231,30 @@ public class SendNotificationFragment extends Fragment {
             updateSelectedCount(selectedList.size());
         });
 
-        viewModel.getUploadResult().observe(getViewLifecycleOwner(), link -> {
-            Log.d("PDF", "Uploaded: " + link);
-            binding.selectedFileTextView.setText(link);
+        viewModel.getUploadResult().observe(getViewLifecycleOwner(), state -> {
+            if (state instanceof UiState.Loading) {
+                binding.progressBar.getRoot().setVisibility(View.VISIBLE);
+            }
+            else if (state instanceof UiState.Success<String>) {
+                binding.selectedFileTextView.setText(((UiState.Success<String>) state).getData());
+                isUploading = false;
+                binding.progressBar.getRoot().setVisibility(View.GONE);
+            } else if (state instanceof UiState.Error) {
+                binding.progressBar.getRoot().setVisibility(View.GONE);
+                Toast.makeText(getContext(), "Lỗi khi tải lên file", Toast.LENGTH_SHORT).show();
+            }
         });
 
-        binding.sendNotificationButton.setOnClickListener(v -> {
+        viewModel.getSendNotification().observe(getViewLifecycleOwner(), success -> {
+            binding.progressBar.getRoot().setVisibility(View.GONE);
+            binding.sendNotificationButton.setEnabled(true);
 
-            String title = binding.notificationTitleEditText.getText().toString();
-            String content = binding.notificationContentEditText.getText().toString();
-            String recipientText = "";
-            List<String> attached = new ArrayList<>();
-            List<Long> receiverIds = new ArrayList<>();
-            List<String> positionIds = new ArrayList<>();
-            List<String> departmentIds = new ArrayList<>();
-
-            if (viewModel.getUploadResult().getValue() != null) {
-                attached.add(viewModel.getUploadResult().getValue());
+            if (success) {
+                Toast.makeText(getContext(), "Gửi thông báo thành công!", Toast.LENGTH_SHORT).show();
+                resetUI();
+            } else {
+                Toast.makeText(getContext(), "Gửi thất bại, vui lòng thử lại!", Toast.LENGTH_SHORT).show();
             }
-
-            if (binding.notificationTypeRadioGroup.getCheckedRadioButtonId() == R.id.individualRadio) {
-                receiverIds = viewModel.getSelectedUserIds();
-            } else if (binding.notificationTypeRadioGroup.getCheckedRadioButtonId() == R.id.departmentRadio) {
-                departmentIds = viewModel.getSelectedDepartments();
-            }
-            viewModel.sendNotification(title,content,recipientText,attached,receiverIds,positionIds,departmentIds);
         });
 
     }
@@ -257,6 +282,14 @@ public class SendNotificationFragment extends Fragment {
         viewModel.getDepartment().observe(getViewLifecycleOwner(), departments -> {
             adapter.setDepartments(departments);
         });
+    }
+
+    private void resetUI() {
+        binding.notificationTitleEditText.setText("");
+        binding.notificationContentEditText.setText("");
+        binding.selectedFileTextView.setText("");
+        binding.notificationTypeRadioGroup.check(R.id.individualRadio);
+        viewModel.clearSelectedUsers();  // cần thêm hàm này trong ViewModel
     }
 
     @Override

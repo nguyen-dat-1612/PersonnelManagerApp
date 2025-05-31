@@ -1,7 +1,7 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.auth;
 
-import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
-import com.managerapp.personnelmanagerapp.data.repository.AuthRepository;
+import com.managerapp.personnelmanagerapp.data.repository.AuthRepositoryImpl;
+import com.managerapp.personnelmanagerapp.domain.repository.AuthRepository;
 
 import javax.inject.Inject;
 

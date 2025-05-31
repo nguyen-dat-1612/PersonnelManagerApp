@@ -25,7 +25,6 @@ public class HistoryViewModel extends ViewModel {
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isLastPage = new MutableLiveData<>(false);
 
-
     private final PublishSubject<Integer> pageTrigger = PublishSubject.create();
     private int pageSize = 10;
 
@@ -59,7 +58,6 @@ public class HistoryViewModel extends ViewModel {
                                 },
                                 error -> {
                                     isLoading.setValue(false);
-                                    // Handle error if needed
                                 }
                         )
         );
@@ -90,6 +88,4 @@ public class HistoryViewModel extends ViewModel {
         disposables.clear();
         super.onCleared();
     }
-
-
 }

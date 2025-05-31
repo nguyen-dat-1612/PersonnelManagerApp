@@ -1,7 +1,8 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.leaveapp;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
-import com.managerapp.personnelmanagerapp.data.repository.LeaveApplicationRepository;
+import com.managerapp.personnelmanagerapp.data.repository.LeaveApplicationRepositoryImpl;
+import com.managerapp.personnelmanagerapp.domain.repository.LeaveApplicationRepository;
 
 import java.util.List;
 

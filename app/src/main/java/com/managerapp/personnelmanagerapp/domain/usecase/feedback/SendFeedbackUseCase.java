@@ -1,9 +1,9 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.feedback;
 
 import com.managerapp.personnelmanagerapp.data.remote.request.FeedbackRequest;
-import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.FeedbackResponse;
-import com.managerapp.personnelmanagerapp.data.repository.FeedBackRepository;
+import com.managerapp.personnelmanagerapp.data.repository.FeedBackRepositoryImpl;
+import com.managerapp.personnelmanagerapp.domain.repository.FeedBackRepository;
 
 import javax.inject.Inject;
 

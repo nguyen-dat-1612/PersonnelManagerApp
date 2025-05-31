@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="#FFFFFF"
+    android:elevation="2dp">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/employeeId"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="Mã NV" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/employeeName"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:text="Tên nhân viên" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/basicSalary"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="Lương cơ bản" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/senioritySalary"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="Lương thâm niên" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/workDays"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="Ngày làm" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/actualDays"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="Ngày thực tế" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:id="@+id/unpaidDays"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="Nghỉ KP" />
+</LinearLayout>

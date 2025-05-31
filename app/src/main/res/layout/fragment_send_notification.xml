@@ -324,4 +324,10 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
+    <include
+        layout="@layout/progress_overlay"
+        android:id="@+id/progressBar"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 </FrameLayout>

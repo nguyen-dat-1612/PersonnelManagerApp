@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/contractIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/contract"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/contractTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Báo cáo hạn hợp đồng"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/contractIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/contractArrow" />
+
+        <TextView
+            android:id="@+id/contractSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Xem thời hạn hợp đồng nhân viên"
+            android:textSize="14sp"
+            android:textColor="@color/dark_gray"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/contractIcon"
+            app:layout_constraintTop_toBottomOf="@id/contractTitle"
+            app:layout_constraintEnd_toStartOf="@+id/contractArrow" />
+
+        <ImageView
+            android:id="@+id/contractArrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_right"
+            app:tint="@color/dark_gray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

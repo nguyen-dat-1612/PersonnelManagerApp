@@ -15,6 +15,15 @@ public class LeaveApplicationResponse implements Serializable {
     private User user;
     private String leaveTypeName;
 
+    public LeaveApplicationResponse(long id, Date startDate, Date endDate, String reason, String formStatusEnum, User user, String leaveTypeName) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reason = reason;
+        this.formStatusEnum = formStatusEnum;
+        this.user = user;
+        this.leaveTypeName = leaveTypeName;
+    }
 
     public static class User {
         private long id;

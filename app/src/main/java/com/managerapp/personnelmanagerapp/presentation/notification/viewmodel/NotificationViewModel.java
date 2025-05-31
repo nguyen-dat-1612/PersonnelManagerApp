@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
-import com.managerapp.personnelmanagerapp.domain.usecase.notification.GetNotificationUseCase;
+import com.managerapp.personnelmanagerapp.domain.usecase.notification.GetNotificationRecipientUseCase;
 import com.managerapp.personnelmanagerapp.domain.usecase.notification.MarkNotificationUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
@@ -19,20 +19,19 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class NotificationViewModel extends ViewModel {
     private static final String TAG = "NotificationViewModel";
-    private final GetNotificationUseCase getNotificationUseCase;
+    private final GetNotificationRecipientUseCase getNotificationUseCase;
     private final MarkNotificationUseCase markAsReadUseCase;
     private final CompositeDisposable disposable = new CompositeDisposable();
     private final MutableLiveData<UiState<Notification>> uiState = new MutableLiveData<>();
     private final LocalDataManager localDataManager;
     @Inject
-    public NotificationViewModel(GetNotificationUseCase getNotificationUseCase, LocalDataManager localDataManager, MarkNotificationUseCase markAsReadUseCase) {
+    public NotificationViewModel(GetNotificationRecipientUseCase getNotificationUseCase, LocalDataManager localDataManager, MarkNotificationUseCase markAsReadUseCase) {
         this.getNotificationUseCase = getNotificationUseCase;
         this.localDataManager = localDataManager;
         this.markAsReadUseCase = markAsReadUseCase;

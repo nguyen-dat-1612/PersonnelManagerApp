@@ -1,8 +1,9 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
 import com.managerapp.personnelmanagerapp.data.remote.api.DecisionApiService;
-import com.managerapp.personnelmanagerapp.data.remote.api.RxResultHandler;
+import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
+import com.managerapp.personnelmanagerapp.domain.repository.DecisionRepository;
 import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
 
 import java.util.List;
@@ -13,12 +14,12 @@ import javax.inject.Singleton;
 import io.reactivex.rxjava3.core.Single;
 
 @Singleton
-public class DecisionRepository {
+public class DecisionRepositoryImpl implements DecisionRepository {
     private final DecisionApiService apiService;
     private final LocalDataManager localDataManager;
 
     @Inject
-    public DecisionRepository(DecisionApiService apiService, LocalDataManager localDataManager) {
+    public DecisionRepositoryImpl(DecisionApiService apiService, LocalDataManager localDataManager) {
         this.apiService = apiService;
         this.localDataManager = localDataManager;
     }

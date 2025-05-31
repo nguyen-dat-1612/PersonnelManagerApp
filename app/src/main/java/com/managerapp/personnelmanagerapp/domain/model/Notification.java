@@ -41,6 +41,11 @@ public class Notification {
         }
     }
 
+    public Notification(long id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
 
     public Notification(long id, String title, String content, List<String> attached, String sendDate, Sender sender) {
         this.id = id;

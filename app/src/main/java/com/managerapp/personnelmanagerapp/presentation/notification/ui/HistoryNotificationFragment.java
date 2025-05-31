@@ -44,8 +44,8 @@ public class HistoryNotificationFragment extends Fragment {
     private void setupRecyclerView() {
         adapter = new HistoryNotificationAdapter(notification -> {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_main);
-            HistoryNotificationFragmentDirections.ActionHistoryNotificationFragmentToDetailNotificationFragment action =
-                    HistoryNotificationFragmentDirections.actionHistoryNotificationFragmentToDetailNotificationFragment(notification.getId());
+            HistoryNotificationFragmentDirections.ActionHistoryNotificationFragmentToDetailHistoryNotiFragment action =
+                    HistoryNotificationFragmentDirections.actionHistoryNotificationFragmentToDetailHistoryNotiFragment(notification.getId());
             navController.navigate(action);
         });
 

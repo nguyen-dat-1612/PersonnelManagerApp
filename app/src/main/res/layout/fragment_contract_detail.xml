@@ -382,17 +382,6 @@
                             android:layout_marginTop="16dp"
                             android:layout_gravity="center"/>
 
-                        <!-- Button: Xin nâng ngạch -->
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/requestUpgradeButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/button_height"
-                            android:layout_marginTop="24dp"
-                            android:text="@string/request_upgrade"
-                            android:background="@drawable/button_background"
-                            android:textSize="16sp"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white" />
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
 

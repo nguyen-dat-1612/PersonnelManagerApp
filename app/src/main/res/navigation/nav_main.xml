@@ -187,6 +187,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_listReportFragment"
+            app:destination="@id/listReportFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
@@ -419,20 +426,49 @@
         android:label="fragment_history_notification"
         tools:layout="@layout/fragment_history_notification" >
         <action
-            android:id="@+id/action_historyNotificationFragment_to_detailNotificationFragment"
-            app:destination="@id/detailNotificationFragment"
+            android:id="@+id/action_historyNotificationFragment_to_detailHistoryNotiFragment"
+            app:destination="@id/detailHistoryNotiFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out">
-            <argument
-                android:name="notificationId"
-                app:argType="long"/>
-
-            <argument
-                android:name="isReadStatus"
-                app:argType="boolean"
-                android:defaultValue="true"/>
-        </action>
+            app:popExitAnim="@anim/fade_out"/>
     </fragment>
+    <fragment
+        android:id="@+id/detailHistoryNotiFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.notification.ui.DetailHistoryNotiFragment"
+        android:label="DetailHistoryNotiFragment">
+        <argument
+            android:name="notificationId"
+            app:argType="long"/>
+    </fragment>
+    <fragment
+        android:id="@+id/listReportFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.report.ui.ListReportFragment"
+        android:label="fragment_list_report"
+        tools:layout="@layout/fragment_list_report" >
+        <action
+            android:id="@+id/action_listReportFragment_to_payrollMonthlyFragment"
+            app:destination="@id/payrollMonthlyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_listReportFragment_to_contractExpireFragment"
+            app:destination="@id/contractExpireFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/payrollMonthlyFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.report.ui.PayrollMonthlyFragment"
+        android:label="fragment_payroll_monthly"
+        tools:layout="@layout/fragment_payroll_monthly" />
+    <fragment
+        android:id="@+id/contractExpireFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.report.ui.ContractExpireFragment"
+        android:label="fragment_contract_expire"
+        tools:layout="@layout/fragment_contract_expire" />
 </navigation>

@@ -215,8 +215,9 @@
                             android:layout_marginTop="76dp" />
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Chức năng 4: Nâng ngạch -->
+                    <!-- Chức năng 4: Báo cáo -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/reportBtn"
                         android:layout_width="0dp"
                         android:layout_height="130dp"
                         android:layout_columnWeight="1"
@@ -244,7 +245,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/upgrade_request"
+                            android:text="Báo cáo"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:layout_gravity="center_horizontal"
