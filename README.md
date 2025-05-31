@@ -2,6 +2,133 @@
 
 Ứng dụng Android hỗ trợ quản lý nhân sự cho Khoa Công nghệ Thông tin, Trường Đại học X. Phục vụ cán bộ và nhân viên trong việc theo dõi thông tin cá nhân, quá trình công tác, gửi/duyệt đơn từ, nhận thông báo, và nhiều tính năng hỗ trợ quản lý khác.
 
+Dưới đây là phiên bản có **đường dẫn đầy đủ dạng markdown** cho từng ảnh trong thư mục `screenshot/`, bạn chỉ cần sửa lại phần đường dẫn theo vị trí thực tế (nếu ảnh không nằm trong thư mục `screenshot/` hoặc bạn cần dùng đường dẫn tuyệt đối từ GitHub):
+
+---
+
+## 📱 Giao diện người dùng
+
+### 🔐 Xác thực
+
+<table>
+  <tr>
+    <td align="center"><strong>Xác thực OTP</strong></td>
+    <td align="center"><strong>Quên mật khẩu</strong></td>
+    <td align="center"><strong>Đăng nhập</strong></td>
+    <td align="center"><strong>Đổi mật khẩu</strong></td>
+    <td align="center"><strong>Đặt lại mật khẩu</strong></td>
+  </tr>
+  <tr>
+    <td><img src="./screenshot/verifyOtp.png" width="200"/></td>
+    <td><img src="./screenshot/forgotpassword.png" width="200"/></td>
+    <td><img src="./screenshot/login.png" width="200"/></td>
+    <td><img src="./screenshot/changepassword.png" width="200"/></td>
+    <td><img src="./screenshot/resetpassword.png" width="200"/></td>
+  </tr>
+</table>
+
+---
+
+### 🏠 Trang chủ & Điều hướng
+
+<table>
+  <tr>
+    <td align="center"><strong>Trang chủ</strong></td>
+    <td align="center"><strong>Thông báo</strong></td>
+    <td align="center"><strong>Thâm niên & Phúc lợi</strong></td>
+    <td align="center"><strong>Tài khoản</strong></td>
+    <td align="center"><strong>Cài đặt</strong></td>
+  </tr>
+  <tr>
+    <td><img src="./screenshot/home.png" width="200"/></td>
+    <td><img src="./screenshot/notification.png" width="200"/></td>
+    <td><img src="./screenshot/senitory.png" width="200"/></td>
+    <td><img src="./screenshot/account.png" width="200"/></td>
+    <td><img src="./screenshot/settings.png" width="200"/></td>
+  </tr>
+</table>
+
+---
+
+### 📄 Yêu cầu nghỉ phép
+
+<table>
+  <tr>
+    <td align="center"><strong>Gửi yêu cầu</strong></td>
+    <td align="center"><strong>Lịch sử yêu cầu</strong></td>
+    <td align="center"><strong>Duyệt yêu cầu</strong></td>
+  </tr>
+  <tr>
+    <td><img src="./screenshot/addrequest.png" width="200"/></td>
+    <td><img src="./screenshot/requesthistory.png" width="200"/></td>
+    <td><img src="./screenshot/requesthistory3.png" width="200"/></td>
+  </tr>
+</table>
+
+---
+
+### 👤 Thông tin cá nhân & Quá trình công tác
+
+<table>
+  <tr>
+    <td align="center"><strong>Thông tin cá nhân</strong></td>
+    <td align="center"><strong>Quá trình công tác</strong></td>
+  </tr>
+  <tr>
+     <td><img src="./screenshot/profile.png" width="200"/></td>
+    <td><img src="./screenshot/worklog.png" width="200"/></td>
+  </tr>
+</table>
+
+---
+
+### 📑 Hợp đồng
+
+<table>
+  <tr>
+    <td align="center"><strong>Danh sách hợp đồng</strong></td>
+    <td align="center"><strong>Chi tiết hợp đồng</strong></td>
+  </tr>
+  <tr>
+    <td><img src="./screenshot/listcontract.png" width="200"/></td>
+    <td><img src="./screenshot/detailcontract.png" width="200"/></td>
+  </tr>
+</table>
+
+---
+
+### 📊 Báo cáo
+
+<table>
+  <tr>
+    <td align="center"><strong>Báo cáo lương hàng tháng</strong></td>
+    <td align="center"><strong>Báo cáo hợp đồng sắp hết hạn</strong></td>
+  </tr>
+  <tr>
+    <td><img src="./screenshot/bao_cao_luong_hang_thang.png" width="200"/></td>
+    <td><img src="./screenshot/bao_cao_hop_dong_sap_het_han.png" width="200"/></td>
+  </tr>
+</table>
+
+---
+
+### 📢 Gửi thông báo & Góp ý
+
+<table>
+  <tr>
+    <td align="center"><strong>Gửi cá nhân</strong></td>
+    <td align="center"><strong>Gửi phòng ban</strong></td>
+    <td align="center"><strong>Góp ý</strong></td>
+  </tr>
+  <tr>
+    <td><img src="./screenshot/gui_thong_bao_ca_nhan.png" width="200"/></td>
+    <td><img src="./screenshot/gui_thong_bao_phong_ban.png" width="200"/></td>
+    <td><img src="./screenshot/feedback.png" width="200"/></td>
+  </tr>
+</table>
+
+---
+
 ## 🧩 Kiến trúc
 
 - **Clean Architecture**
