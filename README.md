@@ -2,8 +2,6 @@
 
 Ứng dụng Android hỗ trợ quản lý nhân sự cho Khoa Công nghệ Thông tin, Trường Đại học X. Phục vụ cán bộ và nhân viên trong việc theo dõi thông tin cá nhân, quá trình công tác, gửi/duyệt đơn từ, nhận thông báo, và nhiều tính năng hỗ trợ quản lý khác.
 
-Dưới đây là phiên bản có **đường dẫn đầy đủ dạng markdown** cho từng ảnh trong thư mục `screenshot/`, bạn chỉ cần sửa lại phần đường dẫn theo vị trí thực tế (nếu ảnh không nằm trong thư mục `screenshot/` hoặc bạn cần dùng đường dẫn tuyệt đối từ GitHub):
-
 ---
 
 ## 📱 Giao diện người dùng
@@ -177,6 +175,7 @@ Dưới đây là phiên bản có **đường dẫn đầy đủ dạng markdow
 - Nhận và xem thông báo đã được gửi đến
 - Gửi **thắc mắc, phản hồi, góp ý**
 
+---
 
 ## 📦 Các thư viện sử dụng
 
@@ -230,6 +229,7 @@ Dưới đây là phiên bản có **đường dẫn đầy đủ dạng markdow
 * **Apache POI** – Tạo file Excel (.xls, .xlsx).
 * **iText HTML to PDF** – Convert HTML sang PDF.
 
+---
 
 ## 🚀 Hướng dẫn chạy app
 
@@ -238,6 +238,7 @@ Dưới đây là phiên bản có **đường dẫn đầy đủ dạng markdow
 3. Sync Gradle
 4. Build và chạy app trên thiết bị thật hoặc AVD Android 8.0+
 
+---
 
 ## 🛠️ Môi trường phát triển
 
@@ -245,6 +246,8 @@ Dưới đây là phiên bản có **đường dẫn đầy đủ dạng markdow
 - Ngôn ngữ: **Java**, một phần Kotlin DSL trong Gradle
 - Min SDK: **26** (Android 8.0)
 - Target SDK: **35**
+
+---
 
 ## 📌 Ghi chú
 
