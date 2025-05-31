@@ -1,105 +1,126 @@
-# Personnel Manager App - Android Java
+# 📱 Personnel Manager App – Quản lý nhân sự khoa CNTT
 
-Dự án quản lý nhân sự sử dụng **Android Java + XML**, tuân thủ Clean Architecture và MVVM.
+Ứng dụng Android hỗ trợ quản lý nhân sự cho Khoa Công nghệ Thông tin, Trường Đại học X. Phục vụ cán bộ và nhân viên trong việc theo dõi thông tin cá nhân, quá trình công tác, gửi/duyệt đơn từ, nhận thông báo, và nhiều tính năng hỗ trợ quản lý khác.
 
-## 📁 Cấu Trúc Dự Án
-```plaintext
-app/
-├── src/
-│   ├── main/
-│   │   ├── java/com/managerapp/personnelmanagerapp/
-│   │   │   ├── data/
-│   │   │   │   ├── di/            # Hilt Modules (Dependency Injection)
-│   │   │   │   ├── remote/        # Retrofit + API Service, DTOs
-│   │   │   │   ├── local/         # Room Database, SharedPreferences
-│   │   │   │   ├── repository/    # Repository pattern
-│   │   │   ├── domain/            # Pure Java (Không phụ thuộc Android)
-│   │   │   │   ├── model/         # Entities
-│   │   │   │   ├── usecase/       # Business Logic (Clean Architecture)
-│   │   │   ├── ui/                # UI Layer (MVVM)
-│   │   │   │   ├── activities/    # Activity classes
-│   │   │   │   ├── fragments/     # Fragment classes
-│   │   │   │   ├── viewmodel/     # ViewModel + LiveData
-│   │   │   │   ├── state/         # Sealed Interface/Class cho UI State
-│   │   │   │   ├── adapters/      # RecyclerView.Adapter
-│   │   │   ├── utils/             # Helper classes, Extensions
-│   │   │   ├── service/           # Background Services
-│   │   ├── res/
-│   │   │   ├── layout/            # XML layouts (activity_*, fragment_*)
-│   │   │   ├── values/            # strings.xml, colors.xml, styles.xml
-│   │   │   ├── drawable/          # Icons, selectors, shapes
-│   │   │   ├── navigation/        # NavGraph (Navigation Component)
-│   │   │   ├── anim/              # Chứa các file animation định nghĩa bằng XML
-│   │   │   ├── raw/               # Chứa file dữ liệu thô (không bị biên dịch)
-│   ├── test/                      # JUnit tests (Domain/Data Layer)
-│   ├── androidTest/               # Espresso tests (UI Layer)
-```
-## 🛠 Công Nghệ Sử Dụng
+## 🧩 Kiến trúc
 
-### **1. Kiến Trúc**
-- **Clean Architecture** (Data - Domain - UI Layers)
-- **MVVM** với ViewModel + LiveData
-- **Sealed Interface** cho UI State Management
+- **Clean Architecture**
+- **MVVM (Model - View - ViewModel)**
+- **Repository Pattern**
+- **Single Activity – Multiple Fragment**
+- **Dependency Injection với Hilt**
 
-### **2. Thư Viện Chính**
-## 📚 Danh Mục Thư Viện
 
-#### **1. Core Android**
-| Thư Viện | Phiên Bản | Mục Đích |
-|----------|----------|----------|
-| `androidx.appcompat` | 1.6.1 | Hỗ trợ backward compatibility |
-| `androidx.core:core-ktx` | 1.12.0 | Extension functions cho Kotlin |
-| `androidx.lifecycle` | 2.6.2 | ViewModel & LiveData |
-| `androidx.constraintlayout` | 2.1.4 | Layout nâng cao |
-| `com.google.android.material` | 1.11.0 | Material Design Components |
+## ⚙️ Tính năng nổi bật
 
-#### **2. Networking**
-| Thư Viện | Phiên Bản | Mục Đích |
-|----------|----------|----------|
-| `Retrofit` | 2.9.0 | REST API Client |
-| `Gson Converter` | 2.9.0 | Chuyển đổi JSON ↔ Object |
-| `OkHttp Logging` | 4.11.0 | Debug API requests |
+### 🧑‍💼 Cá nhân
+- Đăng nhập / Đăng xuất
+- Quên mật khẩu
+- Xem thông tin cá nhân (hồ sơ)
+- Đổi mật khẩu
+- Cài đặt:
+  - Đổi ngôn ngữ (Tiếng Việt / English)
+  - Bật/tắt thông báo
+  - Giao diện sáng / tối
 
-#### **3. Database & Local Storage**
-| Thư Viện | Phiên Bản | Mục Đích |
-|----------|----------|----------|
-| `SharedPreferences` | 1.0.0 | SharedPreferences |
-| `Security Crypto` | 1.1.0-alpha03 | Mã hóa dữ liệu nhạy cảm |
+### 📄 Hồ sơ & Quyết định
+- Xem **quá trình công tác**
+- Xem **các quyết định**:
+  - Kỷ luật
+  - Khen thưởng
+  - Tăng lương
+- Xem **hợp đồng lao động**
+- Xem **thâm niên – phúc lợi**
 
-#### **4. Dependency Injection**
-| Thư Viện | Phiên Bản | Mục Đích |
-|----------|----------|----------|
-| `Hilt` | 2.51.1 | DI cho Android |
+### 📆 Nghỉ phép
+- Gửi **đơn nghỉ phép**
+- Xem **lịch sử nghỉ phép**
+- **Duyệt đơn nghỉ phép** (dành cho `Manager`)
 
-#### **5. UI & Animation**
-| Thư Viện | Phiên Bản | Mục Đích |
-|----------|----------|----------|
-| `Navigation Component` | 2.7.7 | Điều hướng giữa màn hình |
-| `Glide` | 4.16.0 | Load và cache ảnh |
-| `Lottie` | 6.1.0 | Animation chất lượng cao |
-| `SmoothBottomBar` | 1.7.9 | Bottom Navigation đẹp |
-| `SwipeRefreshLayout` | 1.1.0 | Pull-to-refresh |
+### 📊 Báo cáo
+- Thống kê **lương nhân viên** (quyền: `Staff`, `Admin`)
+- Theo dõi **thời hạn hợp đồng** sắp hết hạn (quyền: `Manager`, `Staff`, `Admin`)
 
-#### **6. Reactive Programming**
-| Thư Viện | Phiên Bản | Mục Đích |
-|----------|----------|----------|
-| `RxJava 3` | 3.1.6 | Reactive Extensions |
-| `RxAndroid` | 3.0.2 | RxJava trên UI Thread |
-| `Retrofit RxJava Adapter` | 2.9.0 | Kết hợp Retrofit + RxJava |
+### 📣 Thông báo & Phản hồi
+- Gửi thông báo:
+  - Gửi cho **cá nhân**
+  - Gửi cho **nhóm người**
+  - Gửi cho **phòng ban**
+  - Gửi cho **toàn bộ nhân sự** (quyền: `Manager`, `Staff`, `Admin`)
+- Nhận và xem thông báo đã được gửi đến
+- Gửi **thắc mắc, phản hồi, góp ý**
 
-#### **7. Firebase**
-| Thư Viện | Phiên Bản | Mục Đích |
-|----------|----------|----------|
-| `Firebase BOM` | 33.10.0 | Quản lý phiên bản tự động |
-| `Firebase Messaging` | 23.0.0 | Push Notification |
 
-#### **8. Security & Authentication**
-| Thư Viện | Phiên Bản | Mục Đích |
-|----------|----------|----------|
-| `Java JWT` | 3.19.2 | Giải mã token |
-| `Biometric` | 1.1.0 | Xác thực vân tay/khuôn mặt |
-### **3. UI Components**
-- **XML Layouts**: Activity/Fragment layouts
-- **RecyclerView**: Hiển thị danh sách
-- **DataBinding**: Binding dữ liệu vào View 
+## 📦 Các thư viện sử dụng
+
+### 🧱 Core Android
+
+* **AppCompat**, **Material Design**, **ConstraintLayout**, **Activity KTX** – Cấu trúc UI và tương thích ngược.
+
+### 🔄 AndroidX & Lifecycle
+
+* **Lifecycle (LiveData, ViewModel)** – Quản lý vòng đời và dữ liệu UI.
+* **RecyclerView**, **SwipeRefreshLayout** – Hiển thị danh sách và làm mới dữ liệu.
+* **Security Crypto** – Mã hóa dữ liệu an toàn.
+* **FlexboxLayout** – Giao diện linh hoạt như CSS Flexbox.
+
+### 🧭 Navigation
+
+* **Navigation Component** – Điều hướng Fragment an toàn, hỗ trợ Safe Args.
+
+### 🌐 Mạng và API
+
+* **Retrofit + Gson Converter** – Gọi REST API, parse JSON.
+* **OkHttp + Logging Interceptor** – HTTP client và ghi log request/response.
+* **Retrofit RxJava3 Adapter** – Tích hợp RxJava với Retrofit.
+
+### 📷 Tải ảnh
+
+* **Glide** – Tải ảnh hiệu suất cao, cache thông minh.
+
+### 🧩 Dependency Injection
+
+* **Hilt (Dagger)** – Tiêm dependency tự động, đơn giản hóa quản lý lớp phụ thuộc.
+
+### 🔁 Bất đồng bộ
+
+* **RxJava 3 + RxAndroid** – Xử lý luồng dữ liệu và bất đồng bộ trên Android.
+
+### 🔥 Firebase
+
+* **Firebase Analytics**, **Firebase Cloud Messaging** – Theo dõi hành vi người dùng và push notification.
+
+### 🎨 UI nâng cao
+
+* **Chip Navigation Bar** – Thanh điều hướng đáy dạng chip hiện đại.
+* **Lottie** – Animation đẹp mượt, file JSON.
+* **MPAndroidChart** – Vẽ biểu đồ (line, bar, pie...).
+* **TimelineView** – Hiển thị tiến trình theo dòng thời gian.
+* **TableView** – Hiển thị bảng dữ liệu dạng Excel.
+
+### 📤 Xuất báo cáo
+
+* **Apache POI** – Tạo file Excel (.xls, .xlsx).
+* **iText HTML to PDF** – Convert HTML sang PDF.
+
+
+## 🚀 Hướng dẫn chạy app
+
+1. Clone project
+2. Thêm file `google-services.json` vào thư mục `app/`
+3. Sync Gradle
+4. Build và chạy app trên thiết bị thật hoặc AVD Android 8.0+
+
+
+## 🛠️ Môi trường phát triển
+
+- IDE: **Android Studio Hedgehog**
+- Ngôn ngữ: **Java**, một phần Kotlin DSL trong Gradle
+- Min SDK: **26** (Android 8.0)
+- Target SDK: **35**
+
+## 📌 Ghi chú
+
+App hỗ trợ đa quyền (`User`, `Manager`, `Staff`, `Admin`) với giao diện và tính năng tùy theo phân quyền. Có khả năng mở rộng dễ dàng do sử dụng Clean Architecture và DI bằng Hilt.
+
 
