@@ -10,7 +10,7 @@ import com.managerapp.personnelmanagerapp.domain.model.Notification;
 import com.managerapp.personnelmanagerapp.domain.usecase.notification.GetNotificationRecipientUseCase;
 import com.managerapp.personnelmanagerapp.domain.usecase.notification.MarkNotificationUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
-import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

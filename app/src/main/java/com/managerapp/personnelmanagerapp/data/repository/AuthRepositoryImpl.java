@@ -5,16 +5,14 @@ import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
 import com.managerapp.personnelmanagerapp.domain.repository.AuthRepository;
-import com.managerapp.personnelmanagerapp.utils.manager.SecureTokenManager;
-import com.managerapp.personnelmanagerapp.utils.manager.SessionManager;
+import com.managerapp.personnelmanagerapp.manager.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.manager.SessionManager;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-@Singleton
 public class AuthRepositoryImpl implements AuthRepository {
     private static final String TAG = "AuthRepository";
 

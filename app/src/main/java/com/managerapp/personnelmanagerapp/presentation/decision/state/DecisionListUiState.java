@@ -8,9 +8,9 @@ public class DecisionListUiState {
     private final boolean isLoading;
     private final List<DecisionResponse> decisions;
     private final String errorMessage;
-    private final DecisionStats stats;
+    private final DecisionState stats;
 
-    public DecisionListUiState(boolean isLoading, List<DecisionResponse> decisions, String errorMessage, DecisionStats stats) {
+    public DecisionListUiState(boolean isLoading, List<DecisionResponse> decisions, String errorMessage, DecisionState stats) {
         this.isLoading = isLoading;
         this.decisions = decisions;
         this.errorMessage = errorMessage;
@@ -22,7 +22,7 @@ public class DecisionListUiState {
     }
 
     public static DecisionListUiState success(List<DecisionResponse> decisions) {
-        return new DecisionListUiState(false, decisions, null, DecisionStats.from(decisions));
+        return new DecisionListUiState(false, decisions, null, DecisionState.from(decisions));
     }
 
     public static DecisionListUiState error(String errorMessage) {
@@ -41,7 +41,7 @@ public class DecisionListUiState {
         return errorMessage;
     }
 
-    public DecisionStats getStats() {
+    public DecisionState getStats() {
         return stats;
     }
 }

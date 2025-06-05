@@ -29,8 +29,8 @@ public interface NotificationApiService {
     @GET("notifications/user/{id}")
     Single<BaseResponse<PagedModel<NotificationRecipient>>> getAllUserNotifications(
             @Path("id") long userId,
-            @Query("page") int page,
-            @Query("size") int size
+            @Query("pageNumber") int page,
+            @Query("pageSize") int size
     );
 
     @PUT("notifications/seen")

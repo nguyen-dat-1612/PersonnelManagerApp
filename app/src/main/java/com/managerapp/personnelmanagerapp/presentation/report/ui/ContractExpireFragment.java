@@ -179,7 +179,7 @@ public class ContractExpireFragment extends Fragment {
             row.add(new Cell(String.valueOf(c.getDepartmentName())));
             row.add(new Cell(String.valueOf(c.getPositionName())));
             row.add(new Cell(String.valueOf(c.getContractTypeName())));
-            row.add(new Cell(String.valueOf(c.getEndDate())));
+            row.add(new Cell(String.valueOf(DateUtils.convertToDayMonthYearFormat(c.getEndDate()))));
             row.add(new Cell(String.valueOf(c.getRemainingDays())));
             row.add(new Cell(String.valueOf(c.getContractStatus())));
             cells.add(row);

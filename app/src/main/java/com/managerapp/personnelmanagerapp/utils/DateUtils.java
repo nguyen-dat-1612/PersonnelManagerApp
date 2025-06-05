@@ -2,6 +2,7 @@ package com.managerapp.personnelmanagerapp.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class DateUtils {
@@ -46,5 +47,32 @@ public class DateUtils {
         } catch (Exception e) {
             return inputDate;
         }
+    }
+
+    public static String convertToDayMonthYearFormat(String inputDate) {
+        try {
+            // Tạo định dạng đầu vào (nhận cả yyyy-M-d và yyyy-MM-dd)
+            SimpleDateFormat fromInput = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+            Date date = fromInput.parse(inputDate);
+
+            // Tạo định dạng đầu ra với đầy đủ 2 chữ số cho ngày và tháng
+            SimpleDateFormat toOutput = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            return toOutput.format(date);
+        } catch (Exception e) {
+            return inputDate; // Trả về nguyên bản nếu có lỗi
+        }
+    }
+
+    /**
+     * Chuyển đổi từ DateComponents sang định dạng "dd-MM-yyyy"
+     *
+     * @param dateComponents Đối tượng DateComponents
+     * @return Chuỗi ngày tháng định dạng "dd-MM-yyyy"
+     */
+    public static String formatDateToDayMonthYear(DateComponents dateComponents) {
+        return String.format("%02d-%02d-%04d",
+                dateComponents.day,
+                dateComponents.month,
+                dateComponents.year);
     }
 }

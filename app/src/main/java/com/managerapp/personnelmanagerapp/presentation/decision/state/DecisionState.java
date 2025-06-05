@@ -5,7 +5,7 @@ import com.managerapp.personnelmanagerapp.domain.model.DecisionEnum;
 
 import java.util.List;
 
-public class DecisionStats {
+public class DecisionState {
     public final int awardCount;
     public final int disciplineCount;
     public final int promotionCount;
@@ -13,7 +13,7 @@ public class DecisionStats {
     public final int seniorityCount;
     public final int terminationCount;
 
-    private DecisionStats(int awardCount, int disciplineCount, int promotionCount,
+    private DecisionState(int awardCount, int disciplineCount, int promotionCount,
                           int salaryIncreaseCount, int seniorityCount, int terminationCount) {
         this.awardCount = awardCount;
         this.disciplineCount = disciplineCount;
@@ -23,7 +23,7 @@ public class DecisionStats {
         this.terminationCount = terminationCount;
     }
 
-    public static DecisionStats from(List<DecisionResponse> decisions) {
+    public static DecisionState from(List<DecisionResponse> decisions) {
         int award = 0, discipline = 0, promo = 0, salary = 0, seniority = 0, termination = 0;
 
         for (DecisionResponse d : decisions) {
@@ -37,6 +37,6 @@ public class DecisionStats {
             }
         }
 
-        return new DecisionStats(award, discipline, promo, salary, seniority, termination);
+        return new DecisionState(award, discipline, promo, salary, seniority, termination);
     }
 }

@@ -194,6 +194,27 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_createDecisionFragment"
+            app:destination="@id/createDecisionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_approveDecisionFragment"
+            app:destination="@id/approveDecisionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+        <action
+            android:id="@+id/action_mainFragment_to_salaryPromotionApproveFragment"
+            app:destination="@id/salaryPromotionApproveFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
@@ -223,6 +244,13 @@
             app:popUpToInclusive="false"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_contractDetailFragment_to_requestUpgradeFragment"
+            app:destination="@id/requestUpgradeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
 
     </fragment>
     <fragment
@@ -471,4 +499,57 @@
         android:name="com.managerapp.personnelmanagerapp.presentation.report.ui.ContractExpireFragment"
         android:label="fragment_contract_expire"
         tools:layout="@layout/fragment_contract_expire" />
+    <fragment
+        android:id="@+id/createDecisionFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.decision.ui.CreateDecisionFragment"
+        android:label="fragment_create_decision"
+        tools:layout="@layout/fragment_create_decision" />
+    <fragment
+        android:id="@+id/approveDecisionFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.decision.ui.ApproveDecisionFragment"
+        android:label="fragment_approve_decision"
+        tools:layout="@layout/fragment_approve_decision" >
+        <action
+            android:id="@+id/action_approveDecisionFragment_to_detailApproveFragment"
+            app:destination="@id/detailApproveFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out">
+            <argument
+                android:name="decisionId"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailApproveFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.decision.ui.DetailApproveFragment"
+        android:label="DetailApproveFragment">
+        <argument
+            android:name="decisionId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/requestUpgradeFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.contract.ui.RequestUpgradeFragment"
+        android:label="fragment_request_upgrade"
+        tools:layout="@layout/fragment_request_upgrade" />
+    <fragment
+        android:id="@+id/salaryPromotionApproveFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.contract.ui.SalaryPromotionApproveFragment"
+        android:label="fragment_salary_promotion_approve"
+        tools:layout="@layout/fragment_salary_promotion_approve" >
+        <action
+            android:id="@+id/action_salaryPromotionApproveFragment_to_historyApproveFragment"
+            app:destination="@id/historyApproveFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/historyApproveFragment"
+        android:name="com.managerapp.personnelmanagerapp.presentation.contract.ui.HistoryApproveFragment"
+        android:label="fragment_history_approve"
+        tools:layout="@layout/fragment_history_approve" />
 </navigation>

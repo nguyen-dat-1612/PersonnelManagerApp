@@ -26,6 +26,7 @@ import com.managerapp.personnelmanagerapp.domain.model.RowHeader;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.presentation.report.adapter.MyTableAdapter;
 import com.managerapp.personnelmanagerapp.presentation.report.viewmodel.PayrollViewModel;
+import com.managerapp.personnelmanagerapp.utils.CurrencyUtils;
 import com.managerapp.personnelmanagerapp.utils.DateUtils;
 import com.managerapp.personnelmanagerapp.utils.ExcelUtils;
 import com.managerapp.personnelmanagerapp.utils.PdfUtils;
@@ -171,11 +172,11 @@ public class PayrollMonthlyFragment extends Fragment {
             List<Cell> row = new ArrayList<>();
             row.add(new Cell(String.valueOf(p.getUserId())));
             row.add(new Cell(p.getFullName()));
-            row.add(new Cell(String.valueOf(p.getSalary())));
+            row.add(new Cell(CurrencyUtils.formatToVNDSimple(p.getSalary())));
             row.add(new Cell(String.valueOf(p.getSeniority())));
             row.add(new Cell(String.valueOf(p.getWorkDays())));
-            row.add(new Cell(String.valueOf(p.getActualWorkDays())));
-            row.add(new Cell(String.valueOf(p.getUnpaidLeaveDays())));
+            row.add(new Cell(String.valueOf(CurrencyUtils.doubleToInt(p.getActualWorkDays()))));
+            row.add(new Cell(String.valueOf(CurrencyUtils.doubleToInt(p.getUnpaidLeaveDays()))));
             cells.add(row);
         }
         return cells;

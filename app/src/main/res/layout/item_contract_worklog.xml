@@ -5,6 +5,7 @@
         <variable
             name="worklog"
             type="com.managerapp.personnelmanagerapp.data.remote.response.ContractWorkLog" />
+        <import type="com.managerapp.personnelmanagerapp.utils.CurrencyUtils"/>
     </data>
 
     <LinearLayout
@@ -67,7 +68,7 @@
                 android:id="@+id/tvSalary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{worklog.contractResponse.basicSalary + ""}'
+                android:text='@{CurrencyUtils.formatToVNDSimple(worklog.contractResponse.basicSalary) + ""}'
                 android:textSize="13sp"
                 android:textColor="#666666"
                 android:layout_marginBottom="2dp"/>

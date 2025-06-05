@@ -29,12 +29,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainFragment extends Fragment {
-
     private static final String TAG = "MainFragment";
     private NavController navController;
     private FragmentMainBinding binding;
     private MainViewModel mainViewModel;
-    private UserProfileResponse user;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,17 +46,14 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentMainBinding.inflate(inflater, container, false);
-
         NavHostFragment navHostFragment =
                 (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.nav_host_bottom);
-
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
             Log.d(TAG, "NavController initialized");
         } else {
             Log.e(TAG, "NavHostFragment is null");
         }
-
         setupBottomNavigation(savedInstanceState);
         loadUserInfo();
 
@@ -75,8 +70,7 @@ public class MainFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                // Thoát hẳn khỏi app
-                requireActivity().finishAffinity(); // hoặc System.exit(0);
+                requireActivity().finishAffinity();
             }
         });
     }
@@ -111,20 +105,20 @@ public class MainFragment extends Fragment {
 
 
     private void loadUserInfo() {
-        mainViewModel.getUiState().observe(getViewLifecycleOwner(), state -> {
+        mainViewModel.getRoleUiState().observe(getViewLifecycleOwner(), state -> {
             if (state instanceof UiState.Success) {
-                user = ((UiState.Success<UserProfileResponse>) state).getData();
-
-                if (!mainViewModel.isDataLoaded()) {
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        binding.loadingLayout.setVisibility(VISIBLE);
-                        binding.main.setVisibility(VISIBLE);
-                        binding.loadingLayout.animate()
-                                .translationX(-binding.loadingLayout.getWidth())
-                                .setDuration(400)
-                                .start();
-                    }, 500);
-                }
+//                if (mainViewModel.isDataLoaded()) {
+//                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                        binding.loadingLayout.setVisibility(VISIBLE);
+//                        binding.main.setVisibility(VISIBLE);
+//                        binding.loadingLayout.animate()
+//                                .translationX(-binding.loadingLayout.getWidth())
+//                                .setDuration(400)
+//                                .start();
+//                    }, 500);
+//                }
+            } else if (state instanceof UiState.Error) {
+                Log.e(TAG, "Error loading profile: " + ((UiState.Error) state).getErrorMessage());
             }
         });
     }

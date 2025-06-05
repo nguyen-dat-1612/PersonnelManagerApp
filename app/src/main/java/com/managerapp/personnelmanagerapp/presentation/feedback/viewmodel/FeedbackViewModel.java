@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.managerapp.personnelmanagerapp.data.remote.request.FeedbackRequest;
 import com.managerapp.personnelmanagerapp.domain.usecase.feedback.SendFeedbackUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
-import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 
 import java.util.concurrent.TimeUnit;
 

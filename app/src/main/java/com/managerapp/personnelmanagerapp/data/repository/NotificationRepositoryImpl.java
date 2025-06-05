@@ -7,19 +7,17 @@ import com.managerapp.personnelmanagerapp.domain.model.PagedModel;
 import com.managerapp.personnelmanagerapp.data.remote.api.NotificationApiService;
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
 import com.managerapp.personnelmanagerapp.domain.repository.NotificationRepository;
-import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
-@Singleton
 public class NotificationRepositoryImpl implements NotificationRepository {
     private final NotificationApiService apiService;
     private final LocalDataManager localDataManager;

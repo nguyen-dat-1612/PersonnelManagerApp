@@ -1,6 +1,7 @@
 package com.managerapp.personnelmanagerapp.data.remote.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.managerapp.personnelmanagerapp.domain.model.ContractStatusEnum;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +19,7 @@ public class ContractResponse {
     @SerializedName("clause")
     private String clause;
     @SerializedName("contractStatusEnum")
-    private final String contractStatusEnum;
+    private ContractStatusEnum contractStatusEnum;
     @SerializedName("contractTypeName")
     private String contractTypeName ;
     @SerializedName("user")
@@ -27,8 +28,8 @@ public class ContractResponse {
     private User signer;
     @SerializedName("positionName")
     private String positionName;
-    @SerializedName("jobGradeName")
-    private String jobGradeName;
+    @SerializedName("departmentName")
+    private String departmentName;
 
     @SerializedName("jobGradeCoefficient")
     private double jobGradeCoefficient;
@@ -95,9 +96,9 @@ public class ContractResponse {
         }
     }
 
-    public ContractResponse(int id, String jobGradeName, String positionName, User signer, User user, String contractTypeName, String contractStatusEnum, String clause, double basicSalary, Date endDate, Date startDate) {
+    public ContractResponse(int id, String jobGradeName, String positionName, User signer, User user, String contractTypeName, ContractStatusEnum contractStatusEnum, String clause, double basicSalary, Date endDate, Date startDate) {
         this.id = id;
-        this.jobGradeName = jobGradeName;
+        this.departmentName = jobGradeName;
         this.positionName = positionName;
         this.signer = signer;
         this.user = user;
@@ -153,24 +154,28 @@ public class ContractResponse {
         this.clause = clause;
     }
 
-    public String getContractStatusEnum() {
+    public String getContractStatusEnumUI() {
         if (contractStatusEnum == null) return "";
         switch (contractStatusEnum) {
-            case "PENDING":
+            case PENDING:
                 return "🔵 Đang chờ";
-            case "EXPIRED":
+            case EXPIRED:
                 return "⚫ Hết hạn";
-            case "TERMINATED":
+            case TERMINATED:
                 return "🔴 Đã hủy";
-            case "RENEWED":
+            case RENEWED:
                 return "🟢 Đã gia hạn";
-            case "SIGNED_PENDING_EFFECTIVE":
+            case SIGNED_PENDING_EFFECTIVE:
                 return "🟡 Đã ký";
-            case "ACTIVE":
+            case ACTIVE:
                 return "🟢 Đang hiệu lực";
             default:
                 return "";
         }
+    }
+
+    public ContractStatusEnum getContractStatusEnum() {
+        return contractStatusEnum;
     }
 
     public String getContractTypeName() {
@@ -197,8 +202,8 @@ public class ContractResponse {
         return positionName;
     }
 
-    public String getJobGradeName() {
-        return jobGradeName;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
     public double getJobGradeCoefficient() {
@@ -217,7 +222,7 @@ public class ContractResponse {
                 ", user=" + user +
                 ", signer=" + signer +
                 ", positionName='" + positionName + '\'' +
-                ", jobGradeName='" + jobGradeName + '\'' +
+                ", jobGradeName='" + departmentName + '\'' +
                 '}';
     }
 }

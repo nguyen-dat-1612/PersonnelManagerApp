@@ -3,30 +3,25 @@ package com.managerapp.personnelmanagerapp.presentation.home;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
+import com.managerapp.personnelmanagerapp.domain.model.FeatureItem;
 import com.managerapp.personnelmanagerapp.presentation.main.viewmodel.MainViewModel;
 import com.managerapp.personnelmanagerapp.presentation.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentHomeBinding;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.domain.model.Role;
+import com.managerapp.personnelmanagerapp.utils.ImageLoaderUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -36,12 +31,12 @@ public class HomeFragment extends BaseFragment {
     private MainViewModel mainViewModel;
     private FragmentHomeBinding binding;
     private NavController navController;
+    private Role role;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
-        mainViewModel.loadUserAndRole();
     }
 
     @Override
@@ -85,24 +80,79 @@ public class HomeFragment extends BaseFragment {
         binding.btnCongTac.setOnClickListener(v -> {
             navController.navigate(R.id.action_mainFragment_to_workLogFragment);
         });
-        binding.DuyetCardView.setOnClickListener(v ->
-            navController.navigate(R.id.action_mainFragment_to_leaveAppRequestFragment)
-        );
-
+        binding.DuyetCardView.setOnClickListener(v -> {
+            if (Role.STAFF.equals(role)) {
+                navController.navigate(R.id.action_mainFragment_to_createDecisionFragment);
+            } else {
+                navController.navigate(R.id.action_mainFragment_to_leaveAppRequestFragment);
+            }
+        });
         binding.reportBtn.setOnClickListener(v ->
             navController.navigate(R.id.action_mainFragment_to_listReportFragment)
         );
 
+        binding.btnDuyet.setOnClickListener(v -> {
+            // Den trang duyet quyet dinh
+
+            navController.navigate(R.id.action_mainFragment_to_approveDecisionFragment);
+        });
+
+        binding.btnTaoQuyetDinh.setOnClickListener(v -> {
+            navController.navigate(R.id.action_mainFragment_to_createDecisionFragment);
+        });
+
+        binding.btnSendNotification2.setOnClickListener(v -> {
+            navController.navigate(R.id.action_mainFragment_to_sendNotificationFragment);
+        });
+
+        binding.btnContracts2.setOnClickListener(v -> {
+            navController.navigate(R.id.action_mainFragment_to_contractListFragment);
+        });
+
+        binding.btnTangLuong.setOnClickListener(v -> {
+            navController.navigate(R.id.action_mainFragment_to_salaryPromotionApproveFragment);
+        });
     }
 
 
     private void loadUserInfo() {
         mainViewModel.getUiState().observe(getViewLifecycleOwner(), state -> {
             if (state instanceof UiState.Success) {
+
                 UserProfileResponse newUser = ((UiState.Success<UserProfileResponse>) state).getData();
-                updateUI(newUser);
+                if (newUser != null) {
+                    updateUI(newUser);
+                }
             } else if (state instanceof UiState.Error) {
                 Log.e(TAG, "Error loading profile: " + ((UiState.Error) state).getErrorMessage());
+            }
+        });
+
+        mainViewModel.getRoleUiState().observe(getViewLifecycleOwner(), state -> {
+            if (state instanceof UiState.Success) {
+                String roleStr = ((UiState.Success<String>) state).getData();
+                role = Role.fromString(roleStr);
+                binding.gridlayoutAdmin.setVisibility(GONE);
+                if (Role.USER.equals(role)) {
+                    binding.gridlayout.setVisibility(VISIBLE);
+                    binding.DuyetCardView.setVisibility(GONE);
+                    binding.reportBtn.setVisibility(GONE);
+                    binding.btnSendNotification.setVisibility(GONE);
+                } else if (Role.MANAGER.equals(role)){
+                    binding.gridlayout.setVisibility(VISIBLE);
+                    binding.DuyetCardView.setVisibility(VISIBLE);
+                    binding.reportBtn.setVisibility(GONE);
+                } else if (Role.STAFF.equals(role)) {
+                    binding.gridlayout.setVisibility(VISIBLE);
+
+                    binding.DuyetCardView.setVisibility(VISIBLE);
+                    binding.textDuyet.setText("Tạo quyết định");
+                    binding.reportBtn.setVisibility(VISIBLE);
+                    binding.textSendNotification.setText("Gửi thông báo");
+                } else if (Role.ADMIN.equals(role)) {
+                    binding.gridlayout.setVisibility(GONE);
+                    binding.gridlayoutAdmin.setVisibility(VISIBLE);
+                }
             }
         });
     }
@@ -113,52 +163,11 @@ public class HomeFragment extends BaseFragment {
         binding.positionNameText.setText("Chức vụ: " + user.getPositionName());
         binding.departmentNameText.setText("Nơi làm việc : " + user.getDepartmentName());
         binding.serviceDurationText.setText(String.valueOf(user.getServiceDuration()));
-        loadAvatar(user);
-
-        String roleStr = mainViewModel.getRole(); // VD: "MANAGER"
-        Role role = Role.fromString(roleStr);
-
-        if (Role.MANAGER.equals(role)) {
-            binding.DuyetCardView.setVisibility(VISIBLE);
-        } else {
-            binding.DuyetCardView.setVisibility(GONE);
-        }
-    }
-    private void loadAvatar(UserProfileResponse user) {
-        Log.d("AVATAR_URL", "Avatar URL:" + user.getAvatar() +".end");
-
-        Glide.with(requireContext())
-                .load(user.getAvatar())
-                .placeholder(R.drawable.ic_default_avatar)
-                .error(R.drawable.ic_broken_image)
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        // Log lỗi chi tiết
-                        if (e != null) {
-                            Log.e("Glide", "Error loading image: " + e.getMessage());
-                        }
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        return false;
-                    }
-                })
-                .into(binding.imageUser);
+        ImageLoaderUtils.loadAvatar(requireContext(), user.getAvatar(), binding.imageUser);
     }
 
     @Override
     public void onDestroyView() {
-        binding.logoutBtn.setOnClickListener(null);
-        binding.YeucauBtn.setOnClickListener(null);
-        binding.btnFeedBack.setOnClickListener(null);
-        binding.btnContracts.setOnClickListener(null);
-        binding.btnRewardAndDiscipline.setOnClickListener(null);
-        binding.btnSendNotification.setOnClickListener(null);
-        binding.cardViewCollaborate.setOnClickListener(null);
-
         binding = null;
         super.onDestroyView();
     }

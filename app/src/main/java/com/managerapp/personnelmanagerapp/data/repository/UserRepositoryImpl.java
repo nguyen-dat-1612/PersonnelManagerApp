@@ -1,5 +1,7 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
+import android.util.Log;
+
 import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.ChangePasswordRequest;
@@ -8,20 +10,19 @@ import com.managerapp.personnelmanagerapp.data.remote.response.UserSummaryRespon
 import com.managerapp.personnelmanagerapp.data.remote.response.WorkLogResponse;
 import com.managerapp.personnelmanagerapp.domain.model.UserSummary;
 import com.managerapp.personnelmanagerapp.domain.repository.UserRepository;
-import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-@Singleton
+//@Singleton
 public class UserRepositoryImpl implements UserRepository {
     private final UserApiService apiService;
     private final LocalDataManager localDataManager;
@@ -36,7 +37,6 @@ public class UserRepositoryImpl implements UserRepository {
     public Single<UserProfileResponse> getUser() {
         return RxResultHandler.handle(apiService.getUser())
                 .doOnSuccess(userProfileResponse -> {
-                    localDataManager.saveUserInfo(userProfileResponse);
                     if (userProfileResponse != null) {
                         localDataManager.saveUserId(userProfileResponse.getId());
                     }

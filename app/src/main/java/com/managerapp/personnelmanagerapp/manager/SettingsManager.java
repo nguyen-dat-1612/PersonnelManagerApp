@@ -1,4 +1,4 @@
-package com.managerapp.personnelmanagerapp.utils.manager;
+package com.managerapp.personnelmanagerapp.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;

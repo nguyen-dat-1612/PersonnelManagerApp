@@ -71,6 +71,7 @@ public class DecisionAdapter extends ListAdapter<DecisionResponse, DecisionAdapt
             binding.tvType.setText("Quyết định: " + decisionResponse.getType());
             binding.tvContent.setText("Nội dung: " + decisionResponse.getContent());
             binding.tvDate.setText("Thời gian: " + DateTimeUtils.formatSendDate(decisionResponse.getDate()));
+            binding.tvUser.setText("Người nhận quyết định: " + decisionResponse.getUser().getFullName());
             binding.executePendingBindings();
         }
     }

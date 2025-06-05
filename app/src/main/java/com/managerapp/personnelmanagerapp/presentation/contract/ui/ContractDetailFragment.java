@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -99,6 +100,11 @@ public class ContractDetailFragment extends BaseFragment {
                 binding.mainView.setVisibility(INVISIBLE);
                 binding.swipeRefresh.setRefreshing(false);
             }
+        });
+
+        binding.btnRequestUpgrade.setOnClickListener(v-> {
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_contractDetailFragment_to_requestUpgradeFragment);
         });
     }
 

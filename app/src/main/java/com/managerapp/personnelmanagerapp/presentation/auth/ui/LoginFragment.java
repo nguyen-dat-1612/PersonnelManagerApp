@@ -10,6 +10,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +29,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class LoginFragment extends Fragment {
-
     private LoginViewModel loginViewModel;
     private FragmentLoginBinding binding;
     private boolean isPasswordVisible = false;
-    private static final String TAG = "LoginActivityLifecycle";
     private NavController navController;
     private MainViewModel mainViewModel;
 
@@ -115,12 +115,14 @@ public class LoginFragment extends Fragment {
 
     private void handleLoginSuccess() {
         showToast("Đăng nhập thành công!");
-        mainViewModel.setDataLoaded(false);
+        mainViewModel.loadUserAndRole();
         NavOptions navOptions = new NavOptions.Builder()
                 .setPopUpTo(R.id.nav_main, true)
                 .build();
 
-        navController.navigate(R.id.action_loginFragment_to_mainFragment, null, navOptions);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            navController.navigate(R.id.action_loginFragment_to_mainFragment, null, navOptions);
+        }, 500);
     }
 
     private void handleLoginError(String errorMessage) {

@@ -1,11 +1,11 @@
-package com.managerapp.personnelmanagerapp.utils;
+package com.managerapp.personnelmanagerapp.network;
 
 import android.content.Context;
 import android.content.Intent;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.managerapp.personnelmanagerapp.utils.manager.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.manager.SecureTokenManager;
 
 import java.io.IOException;
 
@@ -15,7 +15,6 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-// Tách interceptor thành một class riêng
 public class AuthInterceptor implements Interceptor {
     private final SecureTokenManager secureTokenManager;
     private final Context context;

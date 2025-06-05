@@ -1,10 +1,7 @@
 package com.managerapp.personnelmanagerapp.presentation.settings.ui;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.os.LocaleListCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -20,7 +17,7 @@ import com.managerapp.personnelmanagerapp.databinding.FragmentSettingsBinding;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.presentation.settings.viewmodel.SettingsViewModel;
 import com.managerapp.personnelmanagerapp.utils.LocaleHelper;
-import com.managerapp.personnelmanagerapp.utils.manager.SettingsManager;
+import com.managerapp.personnelmanagerapp.manager.SettingsManager;
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 

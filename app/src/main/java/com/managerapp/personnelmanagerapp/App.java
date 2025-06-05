@@ -1,14 +1,11 @@
 package com.managerapp.personnelmanagerapp;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.res.Configuration;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
 
-import com.managerapp.personnelmanagerapp.utils.LocaleHelper;
-import com.managerapp.personnelmanagerapp.utils.manager.SettingsManager;
+import com.managerapp.personnelmanagerapp.manager.SettingsManager;
 import dagger.hilt.EntryPoint;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.EntryPointAccessors;

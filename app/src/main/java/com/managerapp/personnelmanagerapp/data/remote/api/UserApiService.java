@@ -45,4 +45,6 @@ public interface UserApiService {
 
     @PUT("users/remove-device/{id}")
     Maybe<BaseResponse> removeDevice(@Path("id") long id);
+
+
 }

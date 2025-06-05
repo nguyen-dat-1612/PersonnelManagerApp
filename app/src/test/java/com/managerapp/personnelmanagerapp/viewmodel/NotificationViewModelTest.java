@@ -2,9 +2,7 @@ package com.managerapp.personnelmanagerapp.viewmodel;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
 
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
@@ -12,20 +10,17 @@ import com.managerapp.personnelmanagerapp.domain.usecase.notification.GetNotific
 import com.managerapp.personnelmanagerapp.domain.usecase.notification.MarkNotificationUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.presentation.notification.viewmodel.NotificationViewModel;
-import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.OngoingStubbing;
 
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class NotificationViewModelTest {
     @Mock

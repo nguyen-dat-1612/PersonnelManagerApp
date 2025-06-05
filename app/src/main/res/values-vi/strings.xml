@@ -54,8 +54,9 @@
     <string name="status">Trạng thái:</string>
     <string name="basic_salary">Lương cơ bản:</string>
     <string name="position">Chức vụ:</string>
-    <string name="job_grade">Cấp bậc:</string>
+    <string name="department_Name">Phòng ban:</string>
     <string name="clause">Điều khoản</string>
+    <string name="coefficient">Hệ số bậc</string>
     <string name="request_upgrade">Xin nâng ngạch</string>
 
     <!-- Forgot Password Fragment -->
@@ -223,6 +224,33 @@
 
     <string-array name="select_type_status">
         <item>PENDING</item>
+        <item>APPROVED</item>
+        <item>REJECTED</item>
+    </string-array>
+
+    <string name="decision_award">Khen thưởng</string>
+    <string name="decision_discipline">Kỷ luật</string>
+    <string name="decision_promotion">Thăng chức</string>
+    <string name="decision_increase_salary">Tăng lương</string>
+    <string name="decision_seniority_allowance">Trợ cấp thâm niên</string>
+    <string name="decision_termination">Chấm dứt hợp đồng</string>
+
+    <string-array name="select_type_decision">
+        <item>AWARD</item>
+        <item>DISCIPLINE</item>
+        <item>PROMOTION</item>
+        <item>INCREASE_SALARY</item>
+        <item>SENIORITY_ALLOWANCE</item>
+        <item>TERMINATION</item>
+    </string-array>
+
+
+    <string-array name="select_type_decision_status">
+        <item>Unsigned</item>
+        <item>Signed</item>
+    </string-array>
+
+    <string-array name="select_type_salary_promotion">
         <item>APPROVED</item>
         <item>REJECTED</item>
     </string-array>

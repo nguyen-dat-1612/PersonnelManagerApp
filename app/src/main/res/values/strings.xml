@@ -55,8 +55,9 @@
     <string name="status">Status:</string>
     <string name="basic_salary">Basic Salary:</string>
     <string name="position">Position:</string>
-    <string name="job_grade">Job Grade:</string>
+    <string name="department_Name">Department:</string>
     <string name="clause">Clause</string>
+    <string name="coefficient">Coefficient</string>
     <string name="request_upgrade">Request Upgrade</string>
 
 
@@ -223,8 +224,31 @@
     <string name="choose_file">Choose File</string>
     <string name="send_notification_button">SEND NOTIFICATION</string>
     <string name="history_notifications">History Notifications</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <string name="decision_award">Award</string>
+    <string name="decision_discipline">Discipline</string>
+    <string name="decision_promotion">Promotion</string>
+    <string name="decision_increase_salary">Salary Increase</string>
+    <string name="decision_seniority_allowance">Seniority Allowance</string>
+    <string name="decision_termination">Termination</string>
+
+    <string-array name="select_type_decision">
+        <item>AWARD</item>
+        <item>DISCIPLINE</item>
+        <item>PROMOTION</item>
+        <item>INCREASE_SALARY</item>
+        <item>SENIORITY_ALLOWANCE</item>
+        <item>TERMINATION</item>
+    </string-array>
+
+    <string-array name="select_type_decision_status">
+        <item>Unsigned</item>
+        <item>Signed</item>
+    </string-array>
+
+    <string-array name="select_type_salary_promotion">
+        <item>APPROVED</item>
+        <item>REJECTED</item>
+    </string-array>
 </resources>

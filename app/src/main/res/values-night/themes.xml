@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.PersonnelManagerApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/black</item>
-        <item name="colorSecondary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/white</item>
     </style>
 </resources>

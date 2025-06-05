@@ -15,7 +15,7 @@ android {
         minSdk = 26
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -69,6 +69,8 @@ dependencies {
 
     // Glide (Image Loading)
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")  // Use 'annotationProcessor' for Java
 
     // Hilt (Dependency Injection)

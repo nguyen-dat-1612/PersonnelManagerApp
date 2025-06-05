@@ -13,7 +13,6 @@ import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Single;
 
-@Singleton
 public class ContractRepositoryImpl implements ContractRepository {
     private final ContractApiService apiService;
     private final Gson gson = new Gson();

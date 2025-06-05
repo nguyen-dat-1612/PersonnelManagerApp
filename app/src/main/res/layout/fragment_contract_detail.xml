@@ -7,6 +7,9 @@
         <variable
             name="contract"
             type="com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse"/>
+        <import type="com.managerapp.personnelmanagerapp.utils.CurrencyUtils"/>
+        <import type="android.view.View"/>
+        <import type="com.managerapp.personnelmanagerapp.domain.model.ContractStatusEnum"/>
     </data>
 
     <FrameLayout
@@ -279,7 +282,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="2"
-                                        android:text='@{contract.getContractStatusEnum()}'
+                                        android:text="@{contract.getContractStatusEnumUI()}"
                                         android:textSize="16sp"
                                         android:gravity="end"
                                         android:textColor="#333333"/>
@@ -308,7 +311,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="2"
-                                        android:text='@{contract.basicSalary + " VND"}'
+                                        android:text='@{CurrencyUtils.formatToVNDSimple(contract.basicSalary)}'
                                         android:textSize="16sp"
                                         android:gravity="end"
                                         android:textColor="#333333"/>
@@ -355,7 +358,7 @@
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="@string/job_grade"
+                                        android:text="@string/department_Name"
                                         android:layout_weight="1"
                                         android:textSize="16sp"
                                         android:textStyle="bold"
@@ -364,7 +367,28 @@
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text='@{contract.jobGradeName}'
+                                        android:text="@{contract.departmentName}"
+                                        android:layout_weight="2"
+                                        android:textSize="16sp"
+                                        android:gravity="end"
+                                        android:textColor="#333333"/>
+                                </TableRow>
+
+                                <TableRow
+                                    android:paddingVertical="12dp">
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/coefficient"
+                                        android:layout_weight="1"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold"
+                                        android:textColor="#555555"/>
+                                    <!--                                android:text="@{contract != null ? String.valueOf(contract.seniorityAllowance) + ` VNĐ` : `Chưa có dữ liệu`}"-->
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="@{String.valueOf(contract.jobGradeCoefficient)}"
                                         android:layout_weight="2"
                                         android:textSize="16sp"
                                         android:gravity="end"
@@ -381,6 +405,23 @@
                             android:layout_height="600dp"
                             android:layout_marginTop="16dp"
                             android:layout_gravity="center"/>
+
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnRequestUpgrade"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:text="@string/request_upgrade"
+                            android:textAllCaps="false"
+                            android:visibility="@{contract.contractStatusEnum == ContractStatusEnum.ACTIVE ? View.VISIBLE : View.GONE}"
+                            android:textColor="@color/white"
+                            android:textSize="16dp"
+                            android:background="@drawable/button_background"
+                            android:backgroundTint="?attr/colorPrimary"
+                            android:layout_marginTop="16dp"/>
+
+
+
 
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>

@@ -2,6 +2,8 @@ package com.managerapp.personnelmanagerapp.presentation.profile.viewmodel;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -44,6 +46,7 @@ public class UserViewModel extends ViewModel {
     }
 
     public void loadUser(Context context) {
+        Log.d("API Hashcode Use Case", String.valueOf(getUserUseCase.hashCode()));
         uiState.setValue(UiState.Loading.getInstance());
         disposables.add(
                 getUserUseCase.execute()

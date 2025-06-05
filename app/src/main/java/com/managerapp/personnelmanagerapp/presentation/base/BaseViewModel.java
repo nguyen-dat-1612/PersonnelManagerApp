@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.managerapp.personnelmanagerapp.utils.NetworkLiveData;
+import com.managerapp.personnelmanagerapp.network.NetworkLiveData;
 
 import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;

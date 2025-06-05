@@ -35,7 +35,6 @@ import okhttp3.MultipartBody;
 
 @HiltViewModel
 public class SendNotificationViewModel extends ViewModel {
-
     private final String TAG = "SendNotificationViewModel";
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final SearchUserUseCase searchUserUseCase;

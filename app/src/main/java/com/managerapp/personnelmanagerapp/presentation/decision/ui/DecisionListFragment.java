@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
 import com.managerapp.personnelmanagerapp.databinding.FragmentDecisionListBinding;
-import com.managerapp.personnelmanagerapp.presentation.decision.state.DecisionStats;
+import com.managerapp.personnelmanagerapp.presentation.decision.state.DecisionState;
 import com.managerapp.personnelmanagerapp.presentation.decision.viewmodel.DecisionListViewModel;
 import com.managerapp.personnelmanagerapp.presentation.decision.adapter.DecisionAdapter;
 
@@ -96,7 +96,7 @@ public class DecisionListFragment extends Fragment {
         });
     }
 
-    private void updateStats(DecisionStats stats) {
+    private void updateStats(DecisionState stats) {
         binding.awardCount.setText(String.valueOf(stats.awardCount));
         binding.disciplineCount.setText(String.valueOf(stats.disciplineCount));
         binding.promotionCount.setText(String.valueOf(stats.promotionCount));

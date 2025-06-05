@@ -9,7 +9,7 @@ import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
 import com.managerapp.personnelmanagerapp.domain.model.PagedModel;
 import com.managerapp.personnelmanagerapp.domain.usecase.notification.GetAllUserNotificationsUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
-import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;

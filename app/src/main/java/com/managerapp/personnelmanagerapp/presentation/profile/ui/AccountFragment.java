@@ -68,7 +68,7 @@ public class AccountFragment extends BaseFragment {
                     .setExitAnim(R.anim.slide_out_left)
                     .setPopEnterAnim(R.anim.fade_in)
                     .setPopExitAnim(R.anim.fade_out)
-                    .setPopUpTo(R.id.nav_main, true)  // Xóa hết back stack
+                    .setPopUpTo(R.id.nav_main, true)
                     .build();
 
             navController.navigate(
@@ -76,6 +76,7 @@ public class AccountFragment extends BaseFragment {
                     null,
                     navOptions
             );
+            mainViewModel.logout();
         });
     }
 
@@ -86,15 +87,17 @@ public class AccountFragment extends BaseFragment {
             }
             else if (state instanceof UiState.Success) {
                 UserProfileResponse newUser = ((UiState.Success<UserProfileResponse>) state).getData();
-                Glide.with(requireContext())
-                        .load(newUser.getAvatar())
-                        .placeholder(R.drawable.ic_default_avatar)
-                        .error(R.drawable.ic_broken_image)
-                        .into(binding.imageUser);
-                binding.magvtext.setText("Mã giảng viên: " + newUser.getId());
-                binding.khoagvtext.setText("Khoa: " + newUser.getDepartmentName());
-                binding.userNameText.setText(newUser.getFullName());
-                binding.main.setVisibility(View.VISIBLE);
+                if (newUser != null) {
+                    Glide.with(requireContext())
+                            .load(newUser.getAvatar())
+                            .placeholder(R.drawable.ic_default_avatar)
+                            .error(R.drawable.ic_broken_image)
+                            .into(binding.imageUser);
+                    binding.magvtext.setText("Mã giảng viên: " + newUser.getId());
+                    binding.khoagvtext.setText("Khoa: " + newUser.getDepartmentName());
+                    binding.userNameText.setText(newUser.getFullName());
+                    binding.main.setVisibility(View.VISIBLE);
+                }
             }
             else if (state instanceof UiState.Error) {
                 String errorMsg = ((UiState.Error) state).getErrorMessage();

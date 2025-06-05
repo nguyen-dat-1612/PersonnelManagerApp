@@ -1,14 +1,19 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.user;
 
+import android.util.Log;
+
 import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
 import com.managerapp.personnelmanagerapp.data.repository.UserRepositoryImpl;
 import com.managerapp.personnelmanagerapp.domain.repository.UserRepository;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+import dagger.hilt.android.scopes.ViewModelScoped;
 import io.reactivex.rxjava3.core.Single;
 
 
+@ViewModelScoped
 public class GetUserUseCase {
     private final UserRepository userRepository;
 
@@ -18,6 +23,7 @@ public class GetUserUseCase {
     }
 
     public Single<UserProfileResponse> execute() {
+        Log.d("API Hashcode", String.valueOf(userRepository.hashCode()));
         return userRepository.getUser();
     }
 

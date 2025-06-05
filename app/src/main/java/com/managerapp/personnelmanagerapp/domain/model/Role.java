@@ -10,8 +10,8 @@ public enum Role {
     public static Role fromString(String value) {
         try {
             return Role.valueOf(value.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return null;
+        } catch (Exception e) {
+            return Role.USER; // default fallback
         }
     }
 }

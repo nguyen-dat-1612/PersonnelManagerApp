@@ -1,5 +1,7 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.user;
 
+import android.util.Log;
+
 import com.managerapp.personnelmanagerapp.data.remote.response.WorkLogResponse;
 import com.managerapp.personnelmanagerapp.data.repository.UserRepositoryImpl;
 import com.managerapp.personnelmanagerapp.domain.repository.UserRepository;
@@ -19,6 +21,7 @@ public class GetWorkLogUseCase {
     }
 
     public Single<List<WorkLogResponse>> getWorkLogs() {
+        Log.d("API Hashcode",String.valueOf(userRepository.hashCode()));
         return userRepository.getWorkLog();
     }
 }

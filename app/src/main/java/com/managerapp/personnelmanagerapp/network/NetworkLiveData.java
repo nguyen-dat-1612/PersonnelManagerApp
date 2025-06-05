@@ -1,4 +1,4 @@
-package com.managerapp.personnelmanagerapp.utils;
+package com.managerapp.personnelmanagerapp.network;
 
 import android.app.Application;
 import android.content.Context;

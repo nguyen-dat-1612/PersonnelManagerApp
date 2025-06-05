@@ -22,9 +22,13 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ActivityMainBinding;
+import com.managerapp.personnelmanagerapp.domain.repository.UserRepository;
+import com.managerapp.personnelmanagerapp.domain.usecase.user.GetUserUseCase;
 import com.managerapp.personnelmanagerapp.presentation.base.BaseActivity;
 import com.managerapp.personnelmanagerapp.service.RxWebSocketClient;
 import com.managerapp.personnelmanagerapp.utils.LocaleHelper;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -33,11 +37,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
 public class MainActivity extends BaseActivity {
-
     private NavController navController;
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
-
     private RxWebSocketClient webSocketClient;
     private Disposable messageDisposable;
 
@@ -49,6 +51,7 @@ public class MainActivity extends BaseActivity {
         EdgeToEdge.enable(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission("android.permission.POST_NOTIFICATIONS") != PackageManager.PERMISSION_GRANTED) {

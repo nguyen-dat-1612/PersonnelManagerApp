@@ -5,7 +5,7 @@ import com.managerapp.personnelmanagerapp.data.remote.api.DepartmentApiService;
 import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.domain.model.Department;
 import com.managerapp.personnelmanagerapp.domain.repository.DepartmentRepository;
-import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,11 +15,8 @@ import javax.inject.Inject;
 import io.reactivex.rxjava3.core.Single;
 
 public class DepartmentRepositoryImpl implements DepartmentRepository {
-
     private final DepartmentApiService apiService;
-
     private final LocalDataManager localDataManager;
-
     @Inject
     public DepartmentRepositoryImpl(DepartmentApiService apiService, LocalDataManager localDataManager) {
         this.apiService = apiService;

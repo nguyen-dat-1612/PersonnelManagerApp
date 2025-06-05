@@ -9,6 +9,7 @@
             type="com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse" />
         <import type="com.managerapp.personnelmanagerapp.utils.DateTimeUtils"/>
         <import type="android.view.View"/>
+        <import type="com.managerapp.personnelmanagerapp.utils.CurrencyUtils"/>
     </data>
 
     <FrameLayout
@@ -208,7 +209,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    android:text="@{String.valueOf(decision.value)}"
+                                    android:text='@{CurrencyUtils.formatToVNDSimple(decision.value) + ""}'
                                     android:textColor="#666666"
                                     android:textSize="16sp"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -784,7 +785,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
-                                    android:text="@{decision.position.role.toString()}"
+                                    android:text="@{decision.position.roleEnum.toString()}"
                                     android:textColor="#666666"
                                     android:textSize="16sp"
                                     app:layout_constraintEnd_toEndOf="parent"

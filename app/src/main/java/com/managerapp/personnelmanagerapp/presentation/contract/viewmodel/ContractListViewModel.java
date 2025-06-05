@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
 import com.managerapp.personnelmanagerapp.domain.usecase.contract.GetAllContractsUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
-import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

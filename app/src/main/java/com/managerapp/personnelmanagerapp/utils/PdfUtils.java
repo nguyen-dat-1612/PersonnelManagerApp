@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -45,11 +44,11 @@ public class PdfUtils {
                 tableBody.append("<tr>")
                         .append("<td>").append(item.getUserId()).append("</td>")
                         .append("<td>").append(item.getFullName() != null ? item.getFullName() : "").append("</td>")
-                        .append("<td>").append(formatCurrency(item.getSalary())).append("</td>")
+                        .append("<td>").append(CurrencyUtils.formatToVNDSimple(item.getSalary())).append("</td>")
                         .append("<td>").append(formatCurrency(item.getSeniority())).append("</td>")
                         .append("<td>").append(item.getWorkDays()).append("</td>")
-                        .append("<td>").append(item.getActualWorkDays()).append("</td>")
-                        .append("<td>").append(item.getUnpaidLeaveDays()).append("</td>")
+                        .append("<td>").append(CurrencyUtils.doubleToInt(item.getActualWorkDays())).append("</td>")
+                        .append("<td>").append(CurrencyUtils.doubleToInt(item.getUnpaidLeaveDays())).append("</td>")
                         .append("</tr>");
             }
 
@@ -92,7 +91,7 @@ public class PdfUtils {
                         .append("<td>").append(item.getDepartmentName()).append("</td>")
                         .append("<td>").append(item.getPositionName()).append("</td>")
                         .append("<td>").append(item.getContractTypeName()).append("</td>")
-                        .append("<td>").append(item.getEndDate()).append("</td>")
+                        .append("<td>").append(DateUtils.convertToDayMonthYearFormat(item.getEndDate())).append("</td>")
                         .append("<td>").append(item.getRemainingDays()).append("</td>")
                         .append("<td>").append(item.getContractStatus()).append("</td>")
                         .append("</tr>");

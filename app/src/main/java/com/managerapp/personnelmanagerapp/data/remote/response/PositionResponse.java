@@ -19,7 +19,7 @@ public class PositionResponse implements Serializable {
     private DepartmentResponse department;
 
     @SerializedName("role")
-    private Role role;
+    private RoleResponse roleResponse;
 
     public String getId() {
         return id;
@@ -37,8 +37,16 @@ public class PositionResponse implements Serializable {
         return department;
     }
 
-    public Role getRole() {
-        return role;
+    public Role getRoleEnum() {
+        if ((roleResponse.getName() == null)) {
+            return null;
+        }
+        return Role.valueOf(roleResponse.getName());
     }
+
+    public RoleResponse getRole() {
+        return roleResponse;
+    }
+
 }
 

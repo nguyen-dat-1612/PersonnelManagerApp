@@ -12,7 +12,6 @@ import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Single;
 
-@Singleton
 public class FeedBackRepositoryImpl implements FeedBackRepository {
 
     private static final String TAG = "FeedBackRepository";

@@ -16,6 +16,7 @@ import com.managerapp.personnelmanagerapp.presentation.notification.adapter.Atta
 import com.managerapp.personnelmanagerapp.presentation.notification.viewmodel.NotificationViewModel;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.utils.DateTimeUtils;
 import com.managerapp.personnelmanagerapp.utils.PdfUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -66,7 +67,7 @@ public class DetailNotificationFragment extends Fragment {
 
                 binding.swipeRefresh.setRefreshing(false);
                 binding.tvNotificationTitle.setText(notification.getTitle());
-                binding.tvSendDate.setText(notification.getSendDate());
+                binding.tvSendDate.setText(DateTimeUtils.formatSendDate(notification.getSendDate()));
                 binding.tvSenderName.setText(notification.getSender().getFullName());
                 binding.tvNotificationContent.setText(notification.getContent());
                 binding.rvAttachments.setLayoutManager(new LinearLayoutManager(getContext()));

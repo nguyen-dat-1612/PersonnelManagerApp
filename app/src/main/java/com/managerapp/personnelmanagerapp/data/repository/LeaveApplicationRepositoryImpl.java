@@ -6,19 +6,15 @@ import com.managerapp.personnelmanagerapp.data.remote.request.LeaveApplicationRe
 import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
 import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 import com.managerapp.personnelmanagerapp.domain.repository.LeaveApplicationRepository;
-import com.managerapp.personnelmanagerapp.utils.manager.LocalDataManager;
+import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
-@Singleton
 public class LeaveApplicationRepositoryImpl implements LeaveApplicationRepository {
     private final LeaveApplicationApiService apiService;
     private final LocalDataManager localDataManager;

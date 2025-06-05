@@ -8,10 +8,14 @@ import com.google.gson.GsonBuilder;
 import com.managerapp.personnelmanagerapp.data.remote.api.DecisionApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.DepartmentApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.FileApiService;
+import com.managerapp.personnelmanagerapp.data.remote.api.JobGradeApiService;
+import com.managerapp.personnelmanagerapp.data.remote.api.PositionApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.ReportApiService;
+import com.managerapp.personnelmanagerapp.data.remote.api.SalaryPromotionApiService;
+import com.managerapp.personnelmanagerapp.data.remote.api.SeniorityAllowanceRuleApiService;
 import com.managerapp.personnelmanagerapp.data.remote.response.WorkLogResponse;
-import com.managerapp.personnelmanagerapp.utils.AuthInterceptor;
-import com.managerapp.personnelmanagerapp.utils.manager.SecureTokenManager;
+import com.managerapp.personnelmanagerapp.network.AuthInterceptor;
+import com.managerapp.personnelmanagerapp.manager.SecureTokenManager;
 import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.ContractApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.FeedbackApiService;
@@ -36,30 +40,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-// <editor-fold desc="📌 NOTE CHO TEAM - Hướng dẫn sử dụng NetworkModule">
-/*
-Đây là module cấu hình DI cho các service sử dụng Retrofit + OkHttp.
-
-🔧 Cấu hình chính:
-- BASE_URL hiện tại là IP nội bộ → cần thay bằng URL production khi build chính thức.
-- OkHttpClient có gắn AuthInterceptor để tự động đính kèm token.
-- Retrofit sử dụng custom Gson (WorkLogDeserializer) + RxJava3CallAdapterFactory.
-
-📌 Khi cần thêm API mới:
-1. Tạo interface API mới trong `data.remote.api`
-2. Tạo thêm hàm @Provides tương ứng trong module này giống các API khác.
-
-✅ Lưu ý:
-- Tất cả các service nên gắn @Singleton để tránh tạo nhiều instance.
-*/
-// </editor-fold>
-
 @Module
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
-
-    private static final String BASE_URL = "http://192.168.1.118:8080/api/";
-
+    private static final String BASE_URL = "http://192.168.86.165:8080/api/";
     @Provides
     @Singleton
     public static OkHttpClient provideOkHttpClient(SecureTokenManager secureTokenManager,@ApplicationContext Context context) {
@@ -152,6 +136,7 @@ public class NetworkModule {
     }
 
     @Provides
+    @Singleton
     public static DepartmentApiService provideDepartmentApiService(Retrofit retrofit) {
         return retrofit.create(DepartmentApiService.class);
 
@@ -163,4 +148,28 @@ public class NetworkModule {
         return retrofit.create(ReportApiService.class);
     }
 
+    @Singleton
+    @Provides
+    public static PositionApiService providePositionApiService(Retrofit retrofit) {
+        return retrofit.create(PositionApiService.class);
+    }
+
+    @Singleton
+    @Provides
+    public static SeniorityAllowanceRuleApiService provideSeniorityAllowanceRuleApiService(Retrofit retrofit) {
+        return retrofit.create(SeniorityAllowanceRuleApiService.class);
+
+    }
+
+    @Singleton
+    @Provides
+    public static SalaryPromotionApiService provideSalaryPromotionApiService(Retrofit retrofit) {
+        return retrofit.create(SalaryPromotionApiService.class);
+    }
+
+    @Singleton
+    @Provides
+    public static JobGradeApiService provideJobGradeApiService(Retrofit retrofit) {
+        return retrofit.create(JobGradeApiService.class);
+    }
 }
