@@ -70,7 +70,7 @@
 
     <!-- Home Fragment -->
     <string name="functions_title">Functions</string>
-    <string name="collaborate">Collaboration</string>
+    <string name="collaborate">Collaborate</string>
     <string name="decision">Decision</string>
     <string name="leave_request">Leave Request</string>
     <string name="upgrade_request">Upgrade Request</string>
@@ -81,7 +81,7 @@
     <string name="workplace">Workplace</string>
     <string name="workplace_info">Workplace: Posts and Telecommunications Institute of Technology</string>
     <string name="position_info">Position: Deputy Dean of Information Technology</string>
-    <string name="service_duration">Years of Service</string>
+    <string name="service_duration">Number of\nyears worked</string>
     <string name="rewards">Rewards</string>
     <string name="disciplines">Disciplines</string>
 
@@ -197,9 +197,7 @@
     <string name="gender_other">Other</string>
 
     <string name="error_old_password_empty">Please enter your old password</string>
-    <string name="error_new_password_empty">Please enter a new password</string>
     <string name="error_confirm_password_empty">Please confirm your password</string>
-    <string name="error_password_not_match">Passwords do not match</string>
     <string name="error_new_password_same_as_old">New password cannot be the same as old password</string>
     <string name="error_password_weak">Password must be at least 8 characters long and contain numbers and special characters</string>
 
@@ -222,7 +220,6 @@
     <string name="attachment">Attachment</string>
     <string name="no_file_selected">No File Selected</string>
     <string name="choose_file">Choose File</string>
-    <string name="send_notification_button">SEND NOTIFICATION</string>
     <string name="history_notifications">History Notifications</string>
 
 
@@ -243,12 +240,392 @@
     </string-array>
 
     <string-array name="select_type_decision_status">
-        <item>Unsigned</item>
-        <item>Signed</item>
+        <item>@string/status_unsigned</item>
+        <item>@string/status_signed</item>
     </string-array>
+
+    <string name="status_unsigned">Unsigned</string>
+    <string name="status_signed">Signed</string>
 
     <string-array name="select_type_salary_promotion">
         <item>APPROVED</item>
         <item>REJECTED</item>
     </string-array>
+
+    <string name="contract_status_pending">Pending</string>
+    <string name="contract_status_expired">Expired</string>
+    <string name="contract_status_terminated">Terminated</string>
+    <string name="contract_status_renewed">Renewed</string>
+    <string name="contract_status_signed">Signed</string>
+    <string name="contract_status_active">Active</string>
+
+
+
+    <!-- String Error -->
+    <string name="error_unauthorized">Unauthorized</string>
+    <string name="error_invalid_jwt">Jwt invalid</string>
+    <string name="error_username_not_found">Username does not exist</string>
+    <string name="error_wrong_password">Wrong password</string>
+    <string name="error_account_locked">Account locked</string>
+    <string name="error_degree_not_found">Degree not found</string>
+    <string name="error_role_not_found">Role not found</string>
+    <string name="error_user_not_found">User not found</string>
+    <string name="error_password_not_match">Passwords do not match</string>
+    <string name="error_department_not_found">Department not found</string>
+    <string name="error_position_not_found">Position not found</string>
+    <string name="error_cannot_be_deleted">Cannot delete record because related data still exists</string>
+    <string name="error_contract_type_name_existed">The name of the contract type already exists</string>
+    <string name="error_contract_type_not_found">Contract type not found</string>
+    <string name="error_department_name_exist">The department name already exists</string>
+    <string name="error_position_name_exists">Position name already exists</string>
+    <string name="error_job_grade_name_exists">Job grade name already exists</string>
+    <string name="error_job_grade_not_found">Job grade not found</string>
+    <string name="error_feedback_not_found">Feedback not found</string>
+    <string name="error_user_terminated">User has terminated the contract</string>
+    <string name="error_notification_not_found">Notification not found</string>
+    <string name="error_reward_decision_not_found">Reward decision not found</string>
+    <string name="error_assignment_not_found">Reward assignment not found</string>
+    <string name="error_discipline_decision_not_found">Discipline decision not found</string>
+    <string name="error_leave_type_not_found">Leave type not found</string>
+    <string name="error_leave_application_not_found">Leave application not found</string>
+    <string name="error_leave_balance_not_found">Leave balance not found</string>
+    <string name="error_leave_day_not_found">Leave day not found</string>
+    <string name="error_seniority_allowance_rule_not_found">Seniority allowance rule not found</string>
+    <string name="error_contract_not_found">Contract not found</string>
+    <string name="error_extend_contract">The contract is still valid and cannot be renewed</string>
+    <string name="error_contract_overlap">Contract overlap</string>
+    <string name="error_email_not_found">Email does not exist</string>
+    <string name="error_job_grade_id_exists">Job grade ID exists</string>
+    <string name="error_position_id_exists">Position ID exists</string>
+    <string name="error_department_id_exist">Department ID exists</string>
+    <string name="error_contract_not_eligible_for_renewal">Contract not eligible for renewal</string>
+    <string name="error_invalid_decision_type">Invalid decision type</string>
+    <string name="error_decision_already_exists">Decision already exists</string>
+    <string name="error_decision_not_found">Decision not found</string>
+    <string name="error_salary_promotion_not_found">Salary promotion not found</string>
+    <string name="error_salary_not_found">Salary not found</string>
+    <string name="error_salary_already_exists">Salary for this month already exists</string>
+    <string name="error_invalid_contract_user">The contract does not belong to the specified user</string>
+    <string name="error_contract_invalid_status">Contract invalid status</string>
+    <string name="error_promotion_already_processed">The promotion request has already been processed</string>
+    <string name="error_contract_update_failed">Failed to update contract with new salary and job grade</string>
+    <string name="error_decision_creation_failed">Failed to create salary change decision</string>
+    <string name="error_leave_type_already_exists">Leave type already exists</string>
+    <string name="error_form_status_invalid">Form status invalid</string>
+    <string name="error_invalid_leave_application">Invalid leave application data</string>
+    <string name="error_invalid_month">Invalid month value</string>
+    <string name="error_leave_balance_exists">Leave balance for this month and year already exists</string>
+    <string name="error_leave_balance_exceeded">Leave balance exceeded allowed days</string>
+    <string name="error_right_signer">The signatory is not authorized to sign</string>
+    <string name="error_signer_is_user">Employees are not allowed to sign</string>
+    <string name="error_email_existed">Email already exists</string>
+    <string name="error_month_year_leave_balance_exists">Leave balance for this month and year already exists</string>
+    <string name="error_unknown">Error unknown</string>
+
+
+    <string name="login_success">Login Success</string>
+
+    <string name="please_fill_all_fields">Please fill in all required information</string>
+    <string name="otp_resent">New OTP has been resent</string>
+    <string name="otp_code_6_digits">OTP code must be 6 digits</string>
+    <string name="otp_enter_6_digits">Please enter all 6 digits of OTP</string>
+    <string name="error_email_empty">Please enter your email</string>
+    <string name="error_email_invalid">Invalid email address</string>
+    <string name="error_new_password_empty">Please enter new password</string>
+    <string name="error_new_password_length">Password must be at least 6 characters</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
+
+    <string name="error_send_forgot_password">Please send forgot password request first</string>
+    <string name="error_verify_otp">Please verify OTP first</string>
+    <string name="reset_password_success">Password reset successfully</string>
+
+    <string name="status_pending">Pending</string>
+    <string name="status_approved">Approved</string>
+    <string name="status_rejected">Rejected</string>
+    <string name="label_status">Status: %1$s</string>
+    <string name="label_reason">Reason: %1$s</string>
+
+    <string name="toast_approve_success">Approved successfully</string>
+    <string name="toast_reject_success">Rejected successfully</string>
+    <string name="error_note_required_approve">Please enter a note before approving</string>
+    <string name="error_note_required_reject">Please enter a note before rejecting</string>
+
+    <string name="label_user">👤 Proposer: %1$s</string>
+    <string name="label_current_grade">🏷️ Current grade: %1$s</string>
+    <string name="label_request_grade">📈 Proposed grade: %1$s (%2$d)</string>
+    <string name="label_reason_grade">📝 Reason: %1$s</string>
+
+    <string name="error_general">Error</string>
+    <string name="dialog_note">🗒️ Note: %1$s</string>
+    <string name="dialog_note_empty">None</string>
+    <string name="dialog_status_approved">📋 Status: Approved</string>
+    <string name="dialog_status_rejected">📋 Status: Rejected</string>
+
+    <string name="title_salary_promotion_detail">Salary Promotion Details</string>
+
+    <string name="error_invalid_contract_id">Invalid contract ID</string>
+    <string name="error_load_pdf">Error loading PDF: %1$s</string>
+
+    <string name="error_empty_job_grade_list">Job grade list is empty</string>
+    <string name="error_cannot_load_user_profile">Cannot load user profile</string>
+    <string name="error_cannot_load_current_job_grade">Cannot load current job grade information</string>
+
+    <string name="error_empty_reason">Please enter the reason</string>
+    <string name="toast_request_success">Request for salary coefficient upgrade sent successfully</string>
+    <string name="btn_send_request">Send Request</string>
+    <string name="btn_back">Back</string>
+    <string name="btn_help">Help</string>
+
+    <string name="decision_type">Decision: %1$s</string>
+    <string name="decision_content">Content: %1$s</string>
+    <string name="decision_date">Date: %1$s</string>
+    <string name="decision_user">Decision recipient: %1$s</string>
+
+    <string name="decision_created_successfully">Decision created successfully</string>
+    <string name="select_decision_type">Please select a decision type</string>
+    <string name="select_employee">Please select an employee</string>
+    <string name="empty_decision_content">Decision content cannot be empty</string>
+    <string name="empty_decision_value">Decision value cannot be empty</string>
+    <string name="invalid_decision_value">Invalid decision value</string>
+    <string name="negative_decision_value">Decision value must be greater than 0</string>
+    <string name="optional_field">Optional</string>
+    <string name="decision_created_success">Decision created successfully</string>
+
+    <string name="feedback_send_success"> Submitted successfully</string>
+    <string name="feedback_send_failed">Submission failed</string>
+    <string name="feedback_send_error">System error: %1$s</string>
+    <string name="user_id_missing">User ID is missing</string>
+    <string name="user_id_invalid">Invalid user ID</string>
+
+    <string name="leave_form_prefix">Form #</string>
+    <string name="leave_type_label_leave_type">Leave Type: %1$s</string>
+    <string name="employee_label">Employee: %1$s</string>
+    <string name="reason_label_reason">Reason: %1$s</string>
+    <string name="signer_label">Signed by: %1$s</string>
+    <string name="signer_none">None</string>
+
+    <string name="form_status_pending">Pending</string>
+    <string name="form_status_approved">Approved</string>
+    <string name="form_status_rejected">Rejected</string>
+
+
+    <string name="title_new_leave">New Leave Request</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_position">Position</string>
+    <string name="label_department">Department</string>
+    <string name="label_leave_type">Leave Type</string>
+    <string name="label_start_date">Start Date</string>
+    <string name="label_end_date">End Date</string>
+    <string name="label_reason_text">Reason</string>
+    <string name="hint_reason">Enter leave reason...</string>
+    <string name="button_send_request">Send Request</string>
+    <string name="button_pick_date">Pick Date</string>
+    <string name="msg_loading">Loading...</string>
+    <string name="msg_leave_sent_success">Leave request sent successfully</string>
+    <string name="msg_error">Error: %1$s</string>
+    <string name="msg_invalid_date">Invalid date</string>
+    <string name="msg_invalid_date_format">Invalid date format</string>
+    <string name="msg_please_select_leave_type">Please select leave type</string>
+    <string name="msg_please_enter_reason">Please enter leave reason</string>
+
+    <string name="title_prefix">Title: </string>
+    <string name="time_prefix">Time: </string>
+
+    <string name="title_contract_date">Time: %1$s - %2$s</string>
+    <string name="title_decision_date">Time: %1$s</string>
+    <string name="contract_type_special">Contract Type: %1$s</string>
+    <string name="decision_type_special">Decision type: %1$s</string>
+    <string name="decision_value_salary">Salary Base: %1$s</string>
+    <string name="decision_content_special">Decision content: %1$s</string>
+    <string name="decision_signer">Signer: %1$s</string>
+
+    <string name="label_status_text">Status:</string>
+    <string name="label_lecturer_id_with_value">Personal ID: %1$s</string>
+    <string name="label_faculty_with_value">Faculty: %1$s</string>
+
+    <!-- Header -->
+    <string name="decision_detail_title">Decision Details</string>
+
+    <!-- Decision Info Section -->
+    <string name="decision_info_title">Decision Information</string>
+    <string name="decision_id_label">Decision ID:</string>
+    <string name="decision_type_label">Decision Type:</string>
+    <string name="decision_content_label">Content:</string>
+    <string name="decision_value_label">Value:</string>
+    <string name="decision_date_label">Decision Date:</string>
+
+    <!-- Signer Info Section -->
+    <string name="signer_info_title">Signer Information</string>
+    <string name="signer_id_label">Signer ID:</string>
+    <string name="signer_full_name_label">Signer Name:</string>
+    <string name="signer_cccd_label">CCCD Number:</string>
+    <string name="signer_dob_label">Date of Birth:</string>
+    <string name="signer_phone_label">Phone Number:</string>
+    <string name="signer_nationality_label">Nationality:</string>
+    <string name="signer_email_label">Email:</string>
+    <string name="signer_address_label">Address:</string>
+
+    <!-- User Info Section -->
+    <string name="user_info_title">Recipient Information</string>
+    <string name="user_id_label">Employee ID:</string>
+    <string name="user_full_name_label">Employee Name:</string>
+    <string name="user_cccd_label">CCCD Number:</string>
+    <string name="user_dob_label">Date of Birth:</string>
+    <string name="user_phone_label">Phone Number:</string>
+    <string name="user_nationality_label">Nationality:</string>
+    <string name="user_email_label">Email:</string>
+    <string name="user_address_label">Address:</string>
+
+    <!-- Position Info Section -->
+    <string name="position_label">Position:</string>
+    <string name="department_label">Department:</string>
+    <string name="role_label">Role:</string>
+
+    <!-- Attachment Section -->
+    <string name="attachment_label">Attachment:</string>
+
+    <!-- Salary Promotion Section -->
+    <string name="salary_promotion_title">Salary Promotion Information</string>
+    <string name="current_job_grade_label">Current Job Grade:</string>
+    <string name="request_job_grade_label">Requested Job Grade:</string>
+    <string name="request_job_grade_value_label">Requested Job Grade Value:</string>
+    <string name="status_label">Status:</string>
+    <string name="reason_label_text">Reason:</string>
+    <string name="note_label">Note:</string>
+
+    <!-- Seniority Allowance Rule Section -->
+    <string name="seniority_allowance_title">Seniority Allowance Rule</string>
+    <string name="seniority_id_label">Rule ID:</string>
+    <string name="min_service_label">Minimum Service:</string>
+    <string name="seniority_percentage_label">Seniority Percentage:</string>
+    <string name="seniority_leave_day_label">Seniority Leave Days:</string>
+    <string name="effective_date_label">Effective Date:</string>
+    <string name="expiry_date_label">Expiry Date:</string>
+    <string name="description_label">Description:</string>
+    <string name="rule_signer_id_label">Rule Signer ID:</string>
+    <string name="rule_signer_full_name_label">Rule Signer Name:</string>
+    <string name="rule_signer_cccd_label">Rule Signer CCCD Number:</string>
+    <string name="rule_signer_dob_label">Rule Signer Date of Birth:</string>
+    <string name="rule_signer_phone_label">Rule Signer Phone Number:</string>
+    <string name="rule_signer_nationality_label">Rule Signer Nationality:</string>
+    <string name="rule_signer_email_label">Rule Signer Email:</string>
+    <string name="rule_signer_address_label">Rule Signer Address:</string>
+
+    <string name="decision_statistics">Decision statistics</string>
+
+    <string name="list_of_rewards_and_disciplines">List of rewards and disciplines</string>
+
+    <string name="filter_all">All</string>
+    <string name="filter_read">Read</string>
+    <string name="filter_unread">Unread</string>
+
+    <string name="select_send_type">Select Send Type</string>
+    <string name="individual">Individual</string>
+    <string name="department">Department</string>
+    <string name="all_users">All Users</string>
+    <string name="search_hint">Enter employee name</string>
+    <string name="selected_users">Selected Recipients</string>
+    <string name="notification_title_hint">Enter notification title</string>
+    <string name="notification_content_hint">Enter notification content</string>
+    <string name="attached_file">Attachment</string>
+    <string name="send_notification_button">Send Notification</string>
+    <string name="select_department">Select Department</string>
+
+    <string name="lecturer_info_text">Personal ID: %1$s   |   Faculty: %2$s</string>
+
+
+    <string name="leave_taken">Left</string>
+    <string name="leave_remaining">Remaining</string>
+    <string name="leave_total_label">Total leave days</string>
+
+    <string name="seniority_percentage">%1$s%%</string>
+
+    <string name="leave_center_text">Days off\n%1$d/%2$d used</string>
+
+    <string name="reject">Reject</string>
+    <string name="leave_type">Leave Type</string>
+    <string name="leave_time">Leave Time</string>
+    <string name="leave_reason">Reason</string>
+
+    <string name="salary_promotion_approval">Salary Approval</string>
+    <string name="salary_promotion_detail">Salary Promotion Details</string>>
+    <string name="hint_enter_approval_rejection_note">Enter approval / rejection note…</string>
+
+    <string name="salary_promotion_history">Salary Promotion History</string>
+
+    <string name="label_position_text">Position: %s</string>
+    <string name="label_workplace">Workplace: %s</string>
+
+    <string name="decision_create">Create Decision</string>
+
+    <string name="full_name_label">Full Name <font color="#FF0000"><b>*</b></font></string>
+    <string name="position_label_title">Position <font color="#FF0000"><b>*</b></font></string>
+    <string name="department_label_title">Department <font color="#FF0000"><b>*</b></font></string>
+
+    <string name="report_label">Report</string>
+
+    <string name="create_decision_title">Create Decision</string>
+    <string name="submit_button">Create Decision</string>
+
+    <!-- Tìm kiếm nhân sự -->
+    <string name="search_personnel_label">Search Personnel</string>
+    <string name="search_user_hint">Enter employee name</string>
+
+    <!-- Nhân sự nhận quyết định -->
+    <string name="selected_personnel_label">Selected Personnel</string>
+    <string name="employee_id_label">Employee ID: *</string>
+    <string name="employee_id_hint">Employee ID</string>
+    <string name="employee_name_label">Employee Name: *</string>
+    <string name="employee_name_hint">Employee Name</string>
+
+    <!-- Thông tin quyết định -->
+    <string name="decision_info_label">Decision Information</string>
+    <string name="decision_value_label_specical">Value: <font color="#FF0000"><b>*</b></font></string>
+    <string name="decision_value_hint">Value (if any)</string>
+    <string name="decision_content_label_specical">Content: <font color="#FF0000"><b>*</b></font></string>
+    <string name="decision_content_hint">Content</string>
+    <string name="decision_type_label_specical">Decision Type: <font color="#FF0000"><b>*</b></font></string>
+    <string name="issue_date_label">Issue Date: <font color="#FF0000"><b>*</b></font></string>
+    <string name="effective_date_label_specical">Effective Date: <font color="#FF0000"><b>*</b></font></string>
+    <string name="optional_info_label">Select Information</string>
+
+    <string name="contract_title">Contract Report</string>
+    <string name="contract_subtitle">View employee contract duration</string>
+
+    <!-- Salary Card -->
+    <string name="salary_title">Salary Report</string>
+    <string name="salary_subtitle">View employee salary statistics</string>
+
+    <!-- ContractExpireFragment -->
+    <string name="contract_expire_title">Contract Expiration Report</string>
+    <string name="filter_days_label">Filter by days:</string>
+    <string name="export_pdf_button">📤 Export PDF Report</string>
+    <string name="export_excel_button">📊 Export Excel</string>
+    <string name="print_report_button">🖨️ Print Report</string>
+    <string name="contract_list_title">List of Expiring Contracts</string>
+
+    <!-- PayrollMonthlyFragment -->
+    <string name="payroll_monthly_title">Monthly Payroll Report</string>
+    <string name="start_date_label_report">From date</string>
+    <string name="end_date_label_report">To date</string>
+    <string name="generate_report_button">📤 Generate PDF Report</string>
+    <string name="payroll_list_title">Employee Payroll List</string>
+    <string name="loading_text">Processing...</string>
+
+    <string name="decision_approval_title">Decision\napproval</string>
+    <string name="decision_create_title">Create\nDecision</string>
+
+    <string name="action_sign">Sign</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_print">Print</string>
+
+    <string name="upload_signed_file">Please upload the signed decision file</string>
+    <string name="no_file_chosen">No file selected</string>
+    <string name="cancel">Cancel</string>
+    <string name="sign">Sign</string>
+
+    <string name="home">Home</string>
+    <string name="notifications">Notifications</string>
+    <string name="benefits">Benefits</string>
+    <string name="account">Account</string>
 </resources>

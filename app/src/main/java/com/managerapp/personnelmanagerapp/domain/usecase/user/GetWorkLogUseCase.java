@@ -21,7 +21,6 @@ public class GetWorkLogUseCase {
     }
 
     public Single<List<WorkLogResponse>> getWorkLogs() {
-        Log.d("API Hashcode",String.valueOf(userRepository.hashCode()));
         return userRepository.getWorkLog();
     }
 }

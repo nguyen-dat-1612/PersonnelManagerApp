@@ -4,9 +4,11 @@
     <data>
         <variable
             name="leaveRequest"
-            type="com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse" />
+            type="com.managerapp.personnelmanagerapp.domain.model.LeaveApplication" />
 
         <import type="android.view.View"/>
+        <import type="com.managerapp.personnelmanagerapp.utils.DateUtils"/>
+        <import type="com.managerapp.personnelmanagerapp.domain.model.FormStatusEnum"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -48,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="6dp"
-                    android:text='@{leaveRequest.getFormStatusEnumColor()}'
+                    android:text='@{leaveRequest.formStatusEnum.localizedStringRes}'
                     android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="@color/orange"
@@ -69,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text='@{leaveRequest.startDate}'
+                    android:text='@{DateUtils.formatDateToVietnamese(leaveRequest.startDate)}'
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:drawablePadding="6dp"/>
@@ -85,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text='@{leaveRequest.endDate}'
+                    android:text='@{DateUtils.formatDateToVietnamese(leaveRequest.endDate)}'
                     android:textSize="14sp"
                     android:gravity="end"
                     android:textColor="@color/black"/>
@@ -98,14 +100,14 @@
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:visibility='@{leaveRequest.formStatusEnum.equals("PENDING") ? View.VISIBLE : View.GONE}'>
+                android:visibility='@{leaveRequest.formStatusEnum.equals(FormStatusEnum.PENDING) ? View.VISIBLE : View.GONE}'>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnReject"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_weight="1"
-                    android:text="Từ chối"
+                    android:text="@string/reject"
                     app:cornerRadius="12dp"
                     android:textColor="@color/red"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
@@ -119,10 +121,10 @@
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_weight="1"
-                    android:text="Duyệt"
-                    app:cornerRadius="12dp"
+                    android:backgroundTint="@color/green"
+                    android:text="@string/approve"
                     android:textColor="@android:color/white"
-                    android:backgroundTint="@color/green"/>
+                    app:cornerRadius="12dp" />
             </LinearLayout>
         </LinearLayout>
 

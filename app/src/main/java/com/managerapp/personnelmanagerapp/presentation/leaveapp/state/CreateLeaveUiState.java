@@ -2,6 +2,7 @@ package com.managerapp.personnelmanagerapp.presentation.leaveapp.state;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
+import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 import com.managerapp.personnelmanagerapp.domain.model.LeaveType;
 
 import java.util.List;
@@ -21,9 +22,9 @@ public interface CreateLeaveUiState {
     }
 
     class LeaveCreated implements CreateLeaveUiState {
-        public final LeaveApplicationResponse response;
+        public final LeaveApplication response;
 
-        public LeaveCreated(LeaveApplicationResponse response) {
+        public LeaveCreated(LeaveApplication response) {
             this.response = response;
         }
     }

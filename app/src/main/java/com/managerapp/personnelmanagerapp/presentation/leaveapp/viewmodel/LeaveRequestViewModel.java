@@ -1,23 +1,20 @@
 package com.managerapp.personnelmanagerapp.presentation.leaveapp.viewmodel;
 
 import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
+import com.managerapp.personnelmanagerapp.domain.model.FormStatusEnum;
+import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 import com.managerapp.personnelmanagerapp.domain.usecase.department.GetDepartmentByUserIdUseCase;
 import com.managerapp.personnelmanagerapp.domain.usecase.leaveapp.ConfirmApplicationUseCase;
 import com.managerapp.personnelmanagerapp.domain.usecase.leaveapp.GetApplicationIsPendingUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -25,15 +22,14 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class LeaveRequestViewModel extends ViewModel {
-    private final String TAG = "LeaveRequestViewModel";
     private final GetApplicationIsPendingUseCase getApplicationIsPendingUseCase;
     private final ConfirmApplicationUseCase confirmApplicationUseCase;
     private final GetDepartmentByUserIdUseCase getDepartmentByUserIdUseCase;
+
     private final CompositeDisposable disposables = new CompositeDisposable();
+    private final MutableLiveData<UiState<List<LeaveApplication>>> uiStateLoad = new MutableLiveData<>();
 
-    private final MutableLiveData<UiState<List<LeaveApplicationResponse>>> uiStateLoad = new MutableLiveData<>();
-
-    private final MutableLiveData<UiState<LeaveApplicationResponse>> uiStateConfirm = new MutableLiveData<>();
+    private final MutableLiveData<UiState<LeaveApplication>> uiStateConfirm = new MutableLiveData<>();
 
     @Inject
     public LeaveRequestViewModel(GetApplicationIsPendingUseCase getApplicationIsPendingUseCase, ConfirmApplicationUseCase confirmApplicationUseCase, GetDepartmentByUserIdUseCase getDepartmentByUserIdUseCase) {
@@ -42,28 +38,27 @@ public class LeaveRequestViewModel extends ViewModel {
         this.getDepartmentByUserIdUseCase = getDepartmentByUserIdUseCase;
     }
 
-    public LiveData<UiState<List<LeaveApplicationResponse>>> getUiStateLoad() {
+    public LiveData<UiState<List<LeaveApplication>>> getUiStateLoad() {
         return uiStateLoad;
     }
 
-    public LiveData<UiState<LeaveApplicationResponse>> getUiStateConfirm() {
+    public LiveData<UiState<LeaveApplication>> getUiStateConfirm() {
         return uiStateConfirm;
     }
 
-    public void getApplicationIsPending(String formStatusEnum) {
+    public void getApplicationIsPending(FormStatusEnum formStatusEnum) {
         uiStateLoad.setValue(UiState.Loading.getInstance());
 
         disposables.add(getDepartmentByUserIdUseCase.execute()
                         .flatMap(department ->  getApplicationIsPendingUseCase.execute(formStatusEnum, department.getId()))
                         .subscribeOn(Schedulers.io())
+                        .timeout(5, TimeUnit.SECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 leaveApplicationResponses -> {
-                                    Log.d(TAG, "getApplicationIsPending: " + leaveApplicationResponses.size());
                                     uiStateLoad.postValue(new UiState.Success<>(leaveApplicationResponses));
                                 },
                                 throwable -> {
-                                    Log.e(TAG, "getApplicationIsPending: " + throwable.getMessage());
                                     uiStateLoad.postValue(new UiState.Error<>(throwable.getMessage()));
                                 }
                         )
@@ -71,12 +66,12 @@ public class LeaveRequestViewModel extends ViewModel {
 
     }
 
-    public void confirmApplication(long applicationId, String formStatusEnum) {
+    public void confirmApplication(long applicationId, FormStatusEnum formStatusEnum) {
         uiStateConfirm.setValue(UiState.Loading.getInstance());
         disposables.add(confirmApplicationUseCase.execute(applicationId, formStatusEnum)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .timeout(5, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         response -> {
                             if (response != null) {
@@ -93,11 +88,11 @@ public class LeaveRequestViewModel extends ViewModel {
         );
     }
     private void removeConfirmedApplication(long id) {
-        UiState<List<LeaveApplicationResponse>> currentState = uiStateLoad.getValue();
+        UiState<List<LeaveApplication>> currentState = uiStateLoad.getValue();
         if (currentState instanceof UiState.Success) {
-            List<LeaveApplicationResponse> currentList = ((UiState.Success<List<LeaveApplicationResponse>>) currentState).getData();
-            List<LeaveApplicationResponse> updatedList = new ArrayList<>();
-            for (LeaveApplicationResponse item : currentList) {
+            List<LeaveApplication> currentList = ((UiState.Success<List<LeaveApplication>>) currentState).getData();
+            List<LeaveApplication> updatedList = new ArrayList<>();
+            for (LeaveApplication item : currentList) {
                 if (item.getId() != id) {
                     updatedList.add(item);
                 }

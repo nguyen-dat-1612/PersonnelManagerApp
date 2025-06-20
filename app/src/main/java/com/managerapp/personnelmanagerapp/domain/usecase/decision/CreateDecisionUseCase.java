@@ -1,7 +1,7 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.decision;
 
 import com.managerapp.personnelmanagerapp.data.remote.request.DecisionRequest;
-import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
+import com.managerapp.personnelmanagerapp.domain.model.Decision;
 import com.managerapp.personnelmanagerapp.domain.repository.DecisionRepository;
 
 import javax.inject.Inject;
@@ -16,7 +16,7 @@ public class CreateDecisionUseCase {
         this.decisionRepository = decisionRepository;
     }
 
-    public Single<DecisionResponse> execute(DecisionRequest decisionRequest) {
+    public Single<Decision> execute(DecisionRequest decisionRequest) {
         return decisionRepository.createDecision(decisionRequest);
     }
 }

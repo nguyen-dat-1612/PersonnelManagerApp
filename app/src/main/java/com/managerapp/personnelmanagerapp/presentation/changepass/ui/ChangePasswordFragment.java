@@ -25,12 +25,13 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ChangePasswordFragment extends Fragment {
-
     private FragmentChangePasswordBinding binding;
     private boolean isOldPasswordVisible = false;
     private boolean isNewPasswordVisible = false;
     private boolean isConfirmPasswordVisible = false;
     private ChangePasswordViewModel viewModel;
+
+    private NavController navController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class ChangePasswordFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setupListeners();
         setupObservers();
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_main);
     }
 
     private void setupObservers() {
@@ -58,8 +60,8 @@ public class ChangePasswordFragment extends Fragment {
                 showLoading(true);
             } else if (state instanceof UiState.Success) {
                 showLoading(false);
-                String msg = ((UiState.Success<String>) state).getData();
-                showToast(msg);
+                showToast(getString(R.string.reset_password_success));
+                navController.popBackStack();
             } else if (state instanceof UiState.Error) {
                 showLoading(false);
                 String err = ((UiState.Error<?>) state).getErrorMessage();
@@ -73,7 +75,6 @@ public class ChangePasswordFragment extends Fragment {
     }
 
     private void setupListeners() {
-
         binding.edtOldPassToggle.setOnClickListener(v -> {
             isOldPasswordVisible = !isOldPasswordVisible;
             setupPasswordToggle(binding.edtOldPass, binding.edtOldPassToggle, isOldPasswordVisible);
@@ -102,7 +103,6 @@ public class ChangePasswordFragment extends Fragment {
         });
 
         binding.backBtn.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(v);
             navController.navigate(R.id.action_changePasswordFragment_to_mainFragment);
             navController.popBackStack();
         });

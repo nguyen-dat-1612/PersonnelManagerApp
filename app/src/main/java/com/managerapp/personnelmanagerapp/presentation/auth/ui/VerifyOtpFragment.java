@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.presentation.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentVerifyOtpBinding;
 import com.managerapp.personnelmanagerapp.presentation.auth.viewmodel.ForgotPasswordViewModel;
@@ -81,9 +82,13 @@ public class VerifyOtpFragment extends BaseFragment {
         binding.verifyButton.setOnClickListener(v -> {
             String otp = getOtp();
             if (otp.length() == 6) {
+                if (this.email == null) {
+                    showToast(getContext().getString(R.string.error_send_forgot_password));
+                    return;
+                }
                 viewModel.verifyOtp(otp);
             } else {
-                showToast("Vui lòng nhập đủ 6 số OTP");
+                showToast(getContext().getString(R.string.otp_enter_6_digits));
                 binding.otp1.requestFocus();
                 showKeyboard();
             }
@@ -101,7 +106,6 @@ public class VerifyOtpFragment extends BaseFragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 View current = requireActivity().getCurrentFocus();
 
-                // Xử lý khi nhập
                 if (count == 1 && current != null) {
                     if (current == binding.otp1) {
                         binding.otp2.requestFocus();
@@ -118,7 +122,6 @@ public class VerifyOtpFragment extends BaseFragment {
                     }
                 }
 
-                // Xử lý khi xóa
                 if (count == 0 && before == 1 && current != null) {
                     if (current == binding.otp6) {
                         binding.otp5.requestFocus();
@@ -187,7 +190,7 @@ public class VerifyOtpFragment extends BaseFragment {
                 if (pasteData.matches("\\d{6}")) {
                     handlePastedOtp(pasteData);
                 } else {
-                    showToast("Mã OTP phải có đủ 6 số");
+                    showToast(getContext().getString(R.string.otp_code_6_digits));
                 }
             }
         }
@@ -196,7 +199,7 @@ public class VerifyOtpFragment extends BaseFragment {
     private void resendOtp() {
         viewModel.sendForgotPassword(email);
         clearOtpFields();
-        showToast("Đã gửi lại mã OTP mới");
+        showToast(getContext().getString(R.string.otp_resent));
         binding.otp1.requestFocus();
         showKeyboard();
     }

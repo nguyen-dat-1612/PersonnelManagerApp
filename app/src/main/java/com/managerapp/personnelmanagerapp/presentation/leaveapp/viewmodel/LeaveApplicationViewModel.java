@@ -1,11 +1,17 @@
 package com.managerapp.personnelmanagerapp.presentation.leaveapp.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
 import com.managerapp.personnelmanagerapp.domain.usecase.leaveapp.GetLeaveApplications;
+import com.managerapp.personnelmanagerapp.domain.usecase.user.GetUserUseCase;
+import com.managerapp.personnelmanagerapp.presentation.leaveapp.state.CreateLeaveUiState;
 import com.managerapp.personnelmanagerapp.presentation.leaveapp.state.LeaveHistoryUiState;
+import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,12 +25,15 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @HiltViewModel
 public class LeaveApplicationViewModel extends ViewModel {
     private final GetLeaveApplications getLeaveApplications;
+    private final GetUserUseCase getUserProfileUseCase;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final MutableLiveData<LeaveHistoryUiState> uiState = new MutableLiveData<>();
 
+
     @Inject
-    public LeaveApplicationViewModel(GetLeaveApplications getLeaveApplications) {
-        this.getLeaveApplications = getLeaveApplications;;
+    public LeaveApplicationViewModel(GetLeaveApplications getLeaveApplications, GetUserUseCase getUserProfile) {
+        this.getLeaveApplications = getLeaveApplications;
+        this.getUserProfileUseCase = getUserProfile;
         loadLeaveApplications();
     }
 
@@ -48,10 +57,15 @@ public class LeaveApplicationViewModel extends ViewModel {
                                 leaveApplications -> {
                                     uiState.setValue(LeaveHistoryUiState.success(leaveApplications));
                                 },
-                                throwable -> uiState.setValue(LeaveHistoryUiState.error(throwable.getMessage()))
+                                throwable -> {
+                                    Log.e("LeaveApplicationViewModel", "Error loading leave applications", throwable);
+                                    uiState.setValue(LeaveHistoryUiState.error(throwable.getMessage()));
+                                }
                         )
         );
     }
+
+
 
     @Override
     protected void onCleared() {

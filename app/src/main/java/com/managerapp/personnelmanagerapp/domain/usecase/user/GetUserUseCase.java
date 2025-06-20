@@ -23,7 +23,6 @@ public class GetUserUseCase {
     }
 
     public Single<UserProfileResponse> execute() {
-        Log.d("API Hashcode", String.valueOf(userRepository.hashCode()));
         return userRepository.getUser();
     }
 

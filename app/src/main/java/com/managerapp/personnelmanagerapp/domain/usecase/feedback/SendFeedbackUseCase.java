@@ -17,7 +17,7 @@ public class SendFeedbackUseCase {
         this.feedbackRepository = feedbackRepository;
     }
 
-    public Single<FeedbackResponse> execute(FeedbackRequest feedbackRequest) {
-        return feedbackRepository.sendFeedback(feedbackRequest);
+    public Single<FeedbackResponse> execute(String title, String content) {
+        return feedbackRepository.sendFeedback(title, content);
     }
 }

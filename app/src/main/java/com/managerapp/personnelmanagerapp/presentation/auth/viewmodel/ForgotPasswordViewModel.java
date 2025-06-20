@@ -27,7 +27,6 @@ public class ForgotPasswordViewModel extends ViewModel {
     private final ForgotPasswordUseCase forgotPasswordUseCase;
     private final VerifyOTPUseCase verifyOTPUseCase;
     private final ResetPasswordUseCase resetPasswordUseCase;
-    private final String TAG = "ForgotPasswordViewModel";
     private String email;
 
     @Inject
@@ -50,28 +49,17 @@ public class ForgotPasswordViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    boolean val = response;
                     if (response) {
                         this.email = emailUser;
                         forgotPasswordState.postValue(new ForgotPasswordState.EmailSent(emailUser));
-                        Log.d(TAG, "Gửi email quên mật khẩu thành công");
-                    } else {
-                        Log.d(TAG, "Gửi email không thành công");
-                        forgotPasswordState.postValue(new ForgotPasswordState.Error("Gửi email không thành công"));
                     }
                 },
                     throwable -> {
-                        Log.e(TAG, "Lỗi khi gửi yêu cầu cấp lại mật khẩu: ", throwable);
-                        forgotPasswordState.postValue(new ForgotPasswordState.Error("Đã có lỗi xảy ra: " + throwable.getMessage() ));
+                        forgotPasswordState.postValue(new ForgotPasswordState.Error(throwable.getMessage()));
                     }));
     }
 
     public void verifyOtp(String otp) {
-        if (this.email == null) {
-            forgotPasswordState.postValue(new ForgotPasswordState.Error("Vui lòng gửi yêu cầu quên mật khẩu trước"));
-            return;
-        }
-        Log.d(TAG,"Mã OTP: " + otp);
         forgotPasswordState.setValue(ForgotPasswordState.Loading.getInstance());
         composite.add(verifyOTPUseCase.excute(this.email,otp)
                 .timeout(5, TimeUnit.SECONDS)
@@ -80,24 +68,15 @@ public class ForgotPasswordViewModel extends ViewModel {
                 .subscribe(response -> {
                             if (response) {
                                 forgotPasswordState.postValue(new ForgotPasswordState.OtpVerified());
-                                Log.d(TAG, "Xác thực OTP thành công");
-                            } else {
-                                Log.d(TAG, "Mã OTP không chính xác");
-                                forgotPasswordState.postValue(new ForgotPasswordState.Error("Mã OTP không chính xác"));
                             }
                         },
                         throwable -> {
-                            Log.e(TAG, "Lỗi khi gửi xác nhận OTP: ", throwable);
-                            forgotPasswordState.postValue(new ForgotPasswordState.Error("Đã có lỗi xảy ra: " + throwable.getMessage() ));
+                            forgotPasswordState.postValue(new ForgotPasswordState.Error(throwable.getMessage() ));
                         }));
     }
 
     // Bước 3: Đặt lại mật khẩu
     public void resetPassword(String newPassword) {
-        if (this.email == null) {
-            forgotPasswordState.postValue(new ForgotPasswordState.Error("Vui lòng xác thực OTP trước"));
-            return;
-        }
         forgotPasswordState.setValue(ForgotPasswordState.Loading.getInstance());
         composite.add(resetPasswordUseCase.excute(newPassword, this.email)
                 .timeout(5, TimeUnit.SECONDS)
@@ -106,15 +85,10 @@ public class ForgotPasswordViewModel extends ViewModel {
                 .subscribe(response -> {
                             if (response != null) {
                                 forgotPasswordState.postValue(new ForgotPasswordState.PasswordResetSuccess());
-                                Log.d(TAG, "Thay đổi mật khẩu thành công");
-                            } else {
-                                Log.d(TAG, "Mật khẩu không được chấp nhận");
-                                forgotPasswordState.postValue(new ForgotPasswordState.Error("Mật khẩu không được chấp nhận"));
                             }
                         },
                         throwable -> {
-                            Log.e(TAG, "Lỗi khi gửi xác nhận OTP: ", throwable);
-                            forgotPasswordState.postValue(new ForgotPasswordState.Error("Đã có lỗi xảy ra: " + throwable.getMessage() ));
+                            forgotPasswordState.postValue(new ForgotPasswordState.Error(throwable.getMessage() ));
                         }));
     }
 

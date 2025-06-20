@@ -14,11 +14,9 @@ import dagger.hilt.components.SingletonComponent;
 
 @HiltAndroidApp
 public class App extends Application {
-
     @Override
     public void onCreate() {
         super.onCreate();
-
         SettingsManager settingsManager = EntryPointAccessors.fromApplication(this, SettingsManagerEntryPoint.class).getSettingsManager();
         String languageTag = settingsManager.getSelectedLanguage();
         LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(languageTag);

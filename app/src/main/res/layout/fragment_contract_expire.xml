@@ -36,7 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📄 Báo cáo hợp đồng sắp hết hạn"
+                    android:text="@string/contract_expire_title"
                     android:textSize="16sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Số ngày lọc:"
+                    android:text="@string/filter_days_label"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginEnd="8dp" />
@@ -80,7 +80,7 @@
                 android:id="@+id/btnExport"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="📤 Xuất báo cáo PDF"
+                android:text="@string/export_pdf_button"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -108,7 +108,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="📊 Xuất Excel"
+                    android:text="@string/export_excel_button"
                     android:textSize="16sp"
                     style="@style/Widget.Material3.Button" />
 
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="🖨️ In báo cáo"
+                    android:text="@string/print_report_button"
                     android:textSize="16sp"
                     style="@style/Widget.Material3.Button" />
             </LinearLayout>
@@ -128,7 +128,7 @@
                 android:id="@+id/listTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Danh sách hợp đồng sắp hết hạn"
+                android:text="@string/contract_list_title"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginTop="16dp"

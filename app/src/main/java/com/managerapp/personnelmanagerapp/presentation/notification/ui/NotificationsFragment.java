@@ -18,27 +18,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import com.managerapp.personnelmanagerapp.databinding.FragmentNotificationsBinding;
 import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
 import com.managerapp.personnelmanagerapp.domain.model.PagedModel;
+import com.managerapp.personnelmanagerapp.domain.model.ReadEnum;
 import com.managerapp.personnelmanagerapp.presentation.main.ui.MainFragmentDirections;
 import com.managerapp.personnelmanagerapp.presentation.notification.viewmodel.NotificationRecipientViewModel;
 import com.managerapp.personnelmanagerapp.presentation.notification.adapter.NotificationAdapter;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 
+import java.util.ArrayList;
 import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 import com.managerapp.personnelmanagerapp.R;
 
 @AndroidEntryPoint
 public class NotificationsFragment extends Fragment {
-    private static final String TAG = "NotificationsFragment";
-
     private FragmentNotificationsBinding binding;
     private NotificationRecipientViewModel viewModel;
     private NotificationAdapter adapter;
     private LinearLayoutManager layoutManager;
+    private ReadEnum[] readEnums = ReadEnum.values();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,15 +52,14 @@ public class NotificationsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
-        setupRecyclerView();
+        setupView();
         setupSwipeToRefresh();
         setupScrollListener();
         observeNotificationState();
-        viewModel.loadFirstPage();
         return binding.getRoot();
     }
 
-    private void setupRecyclerView() {
+    private void setupView() {
         adapter = new NotificationAdapter(notification -> {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_main);
             MainFragmentDirections.ActionMainFragmentToDetailNotificationFragment action =
@@ -68,11 +70,25 @@ public class NotificationsFragment extends Fragment {
         layoutManager = new LinearLayoutManager(requireContext());
         binding.notificationList.setLayoutManager(layoutManager);
         binding.notificationList.setAdapter(adapter);
+
+        List<String> labels = new ArrayList<>();
+        for (ReadEnum readEnum : readEnums) {
+            labels.add(readEnum.getLabel(requireContext()));
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                labels
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerNotifications.setAdapter(adapter);
     }
 
     private void setupSwipeToRefresh() {
         binding.swipeRefresh.setOnRefreshListener(() -> {
             viewModel.loadFirstPage();
+            binding.swipeRefresh.setRefreshing(false);
         });
     }
 
@@ -95,6 +111,19 @@ public class NotificationsFragment extends Fragment {
                 }
             }
         });
+
+        binding.spinnerNotifications.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ReadEnum selected = readEnums[position];
+                viewModel.setSelectedFilter(selected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Không làm gì
+            }
+        });
     }
 
     private void observeNotificationState() {
@@ -102,20 +131,20 @@ public class NotificationsFragment extends Fragment {
             if (state instanceof UiState.Loading) {
                 showLoadingState();
             } else if (state instanceof UiState.Success) {
-                binding.swipeRefresh.setRefreshing(false);
                 PagedModel<NotificationRecipient> pagedModel =
                         ((UiState.Success<PagedModel<NotificationRecipient>>) state).getData();
                 showSuccessState(pagedModel);
+                binding.progressOverlay.getRoot().setVisibility(GONE);
             } else if (state instanceof UiState.Error) {
-                binding.swipeRefresh.setRefreshing(false);
                 showErrorState(((UiState.Error) state).getErrorMessage());
+                binding.progressOverlay.getRoot().setVisibility(GONE);
             }
         });
     }
 
     private void showLoadingState() {
         if (viewModel.getCurrentPage() == 0) {
-            binding.swipeRefresh.setRefreshing(true);
+            binding.progressOverlay.getRoot().setVisibility(VISIBLE);
             binding.notificationList.setVisibility(INVISIBLE);
             binding.emptyView.setVisibility(GONE);
         } else {
@@ -145,7 +174,6 @@ public class NotificationsFragment extends Fragment {
 
     private void showErrorState(String errorMsg) {
         Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show();
-        Log.e(TAG, "Lỗi khi tải thông báo: " + errorMsg);
 
         if (adapter.getItemCount() == 0) {
             binding.emptyView.setVisibility(VISIBLE);

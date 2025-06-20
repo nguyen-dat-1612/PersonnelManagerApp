@@ -1,6 +1,5 @@
 package com.managerapp.personnelmanagerapp.domain.model;
 
-import java.time.LocalDateTime;
 
 public class NotificationRecipient {
     private long id;

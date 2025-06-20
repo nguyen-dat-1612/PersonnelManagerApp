@@ -1,24 +1,20 @@
 package com.managerapp.personnelmanagerapp.domain.repository;
 
-import com.managerapp.personnelmanagerapp.data.remote.request.DecisionApproveRequest;
 import com.managerapp.personnelmanagerapp.data.remote.request.DecisionRequest;
-import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
-import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
-
+import com.managerapp.personnelmanagerapp.domain.model.Decision;
 import java.util.List;
-
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 public interface DecisionRepository {
-    Single<List<DecisionResponse>> getDecisions();
-    Single<DecisionResponse> getDecisionById(String id);
-    Single<DecisionResponse> createDecision(DecisionRequest decisionRequest);
+    Single<List<Decision>> getDecisions();
+    Single<Decision> getDecisionById(String id);
+    Single<Decision> createDecision(DecisionRequest decisionRequest);
 
-    Observable<List<DecisionResponse>> getAllDecisions(String type);
+    Observable<List<Decision>> getAllDecisions(String type);
 
-    Single<DecisionResponse> updateDecision(String id);
+    Single<Decision> updateDecision(String id, String attachment);
 
     Maybe<Boolean> deleteDecision(String id);
 }

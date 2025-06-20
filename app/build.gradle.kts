@@ -20,7 +20,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"http://192.168.1.118:8080/api/\"")
+        }
         release {
+            buildConfigField("String", "BASE_URL", "\"https://api.example.com/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -31,6 +35,7 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_18
@@ -71,11 +76,11 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")  // Use 'annotationProcessor' for Java
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
     // Hilt (Dependency Injection)
     implementation("com.google.dagger:hilt-android:2.51.1")
-    annotationProcessor ("com.google.dagger:hilt-android-compiler:2.51.1")  // Use 'annotationProcessor' for Java
+    annotationProcessor ("com.google.dagger:hilt-android-compiler:2.51.1")
 
     // RxJava 3
     implementation("io.reactivex.rxjava3:rxjava:3.1.6")
@@ -126,5 +131,4 @@ dependencies {
 
     // iText (HTML convert PDF)
     implementation ("com.itextpdf:html2pdf:4.0.4")
-
 }

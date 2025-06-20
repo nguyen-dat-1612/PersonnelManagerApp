@@ -1,13 +1,14 @@
 package com.managerapp.personnelmanagerapp.presentation.decision.state;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
+import com.managerapp.personnelmanagerapp.domain.model.Decision;
 
 public class DecisionDetailUiState {
     private final boolean isLoading;
-    private final DecisionResponse decision;
+    private final Decision decision;
     private final String errorMessage;
 
-    public DecisionDetailUiState(boolean isLoading, DecisionResponse decision, String errorMessage) {
+    public DecisionDetailUiState(boolean isLoading, Decision decision, String errorMessage) {
         this.isLoading = isLoading;
         this.decision = decision;
         this.errorMessage = errorMessage;
@@ -17,7 +18,7 @@ public class DecisionDetailUiState {
         return new DecisionDetailUiState(true, null, null);
     }
 
-    public static DecisionDetailUiState success(DecisionResponse decision) {
+    public static DecisionDetailUiState success(Decision decision) {
         return new DecisionDetailUiState(false, decision, null);
     }
 
@@ -29,7 +30,7 @@ public class DecisionDetailUiState {
         return isLoading;
     }
 
-    public DecisionResponse getDecision() {
+    public Decision getDecision() {
         return decision;
     }
 

@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
+import com.managerapp.personnelmanagerapp.data.mapper.SalaryPromotionMapper;
 import com.managerapp.personnelmanagerapp.data.remote.api.SalaryPromotionApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.SalaryPromotionRequest;
 import com.managerapp.personnelmanagerapp.data.remote.request.SalaryPromotionUpdateRequest;
@@ -9,9 +10,6 @@ import com.managerapp.personnelmanagerapp.domain.model.SalaryPromotion;
 import com.managerapp.personnelmanagerapp.domain.repository.SalaryPromotionRepository;
 import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.List;
 import javax.inject.Inject;
 
@@ -20,13 +18,14 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 public class SalaryPromotionRepositoryImpl implements SalaryPromotionRepository {
-    private static final Logger log = LoggerFactory.getLogger(SalaryPromotionRepositoryImpl.class);
     private final SalaryPromotionApiService salaryPromotionApiService;
 
+    private final RxResultHandler rxResultHandler;
     private final LocalDataManager localDataManager;
     @Inject
-    public SalaryPromotionRepositoryImpl(SalaryPromotionApiService salaryPromotionApiService, LocalDataManager localDataManager) {
+    public SalaryPromotionRepositoryImpl(SalaryPromotionApiService salaryPromotionApiService, com.managerapp.personnelmanagerapp.data.utils.RxResultHandler rxResultHandler, LocalDataManager localDataManager) {
         this.salaryPromotionApiService = salaryPromotionApiService;
+        this.rxResultHandler = rxResultHandler;
         this.localDataManager = localDataManager;
     }
 
@@ -34,13 +33,14 @@ public class SalaryPromotionRepositoryImpl implements SalaryPromotionRepository 
     @Override
     public Observable<List<SalaryPromotion>> getPendingSalaryPromotions() {
         return salaryPromotionApiService.getPendingSalaryPromotions()
-                .map(response -> response.getData())
+                .map(response -> SalaryPromotionMapper.toSalaryPromotion(response.getData()))
                 .onErrorReturnItem(List.of());
     }
 
     @Override
     public Single<SalaryPromotion> createSalaryPromotion(SalaryPromotionRequest salaryPromotionRequest) {
-        return RxResultHandler.handle(salaryPromotionApiService.createSalaryPromotion(salaryPromotionRequest));
+        return rxResultHandler.handleSingle(salaryPromotionApiService.createSalaryPromotion(salaryPromotionRequest))
+                .map(SalaryPromotionMapper::toSalaryPromotion);
     }
 
     @Override
@@ -58,9 +58,9 @@ public class SalaryPromotionRepositoryImpl implements SalaryPromotionRepository 
     public Single<SalaryPromotion> updateSalaryPromotion(int id, FormStatusEnum formStatus, String reason) {
         return localDataManager.getUserIdAsync()
                 .flatMap(userId ->
-                    RxResultHandler.handle(
+                        rxResultHandler.handleSingle(
                             salaryPromotionApiService.updateSalaryPromotion(id, new SalaryPromotionUpdateRequest(userId, formStatus, reason))
-                    )
+                    ).map(SalaryPromotionMapper::toSalaryPromotion)
                 );
     }
 
@@ -71,6 +71,6 @@ public class SalaryPromotionRepositoryImpl implements SalaryPromotionRepository 
                 .flatMap(userId ->
                         salaryPromotionApiService.getSalaryPromotionsBySignerId(userId,formStatus)
                 )
-                .map(response -> response.getData());
+                .map(response -> SalaryPromotionMapper.toSalaryPromotion(response.getData()));
     }
 }

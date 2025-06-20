@@ -6,7 +6,7 @@
     <data>
         <variable
             name="contract"
-            type="com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse"/>
+            type="com.managerapp.personnelmanagerapp.domain.model.Contract"/>
         <import type="com.managerapp.personnelmanagerapp.utils.CurrencyUtils"/>
         <import type="android.view.View"/>
         <import type="com.managerapp.personnelmanagerapp.domain.model.ContractStatusEnum"/>
@@ -282,7 +282,6 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="2"
-                                        android:text="@{contract.getContractStatusEnumUI()}"
                                         android:textSize="16sp"
                                         android:gravity="end"
                                         android:textColor="#333333"/>
@@ -373,6 +372,14 @@
                                         android:gravity="end"
                                         android:textColor="#333333"/>
                                 </TableRow>
+
+
+                                <!-- Divider -->
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="#D3D3D3"
+                                    android:layout_marginVertical="4dp"/>
 
                                 <TableRow
                                     android:paddingVertical="12dp">

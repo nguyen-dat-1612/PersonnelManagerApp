@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📄 Báo cáo lương hàng tháng"
+                android:text="@string/payroll_monthly_title"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Từ ngày"
+                android:text="@string/start_date_label"
                 android:textStyle="bold"
                 android:textSize="14sp" />
 
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Đến ngày"
+                android:text="@string/end_date_label"
                 android:textStyle="bold"
                 android:textSize="14sp" />
 
@@ -141,7 +141,7 @@
                 android:layout_height="48dp"
                 android:layout_gravity="end"
                 android:layout_marginTop="16dp"
-                android:text="📤 Xuất báo cáo PDF"
+                android:text="@string/generate_report_button"
                 android:textSize="16sp"
                 style="@style/Widget.Material3.Button" />
         </LinearLayout>
@@ -163,7 +163,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="📊 Xuất Excel"
+                android:text="@string/export_excel_button"
                 android:textSize="16sp"
                 style="@style/Widget.Material3.Button" />
 
@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="🖨️ In báo cáo"
+                android:text="@string/print_report_button"
                 android:textSize="16sp"
                 style="@style/Widget.Material3.Button" />
         </LinearLayout>
@@ -183,7 +183,7 @@
             android:id="@+id/listTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Danh sách lương nhân viên"
+            android:text="@string/payroll_list_title"
             android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginTop="16dp"
@@ -223,7 +223,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Đang xử lý..."
+                android:text="@string/loading_text"
                 android:textColor="#FFFFFF"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="40dp" />

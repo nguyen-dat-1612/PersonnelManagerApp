@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Tạo quyết định"
+                android:text="@string/create_decision_title"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -70,8 +70,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="100dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/individualSelectionLayout"
@@ -84,7 +83,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tìm kiếm nhân sự"
+                        android:text="@string/search_personnel_label"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/dark_gray"
@@ -94,7 +93,7 @@
                         android:id="@+id/searchUserEditText"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:hint="Nhập tên nhân viên"
+                        android:hint="@string/search_user_hint"
                         android:inputType="text"
                         android:drawableStart="@drawable/ic_search"
                         android:drawableTint="@color/dark_gray"
@@ -122,8 +121,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nhân sự nhận quyết định"
-                            android:textSize="16sp"
+                            android:text="@string/selected_personnel_label"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="@color/dark_gray"/>
                     </LinearLayout>
@@ -132,62 +131,66 @@
                         android:id="@+id/employeeId"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:hint="Mã nhân viên"
+                        android:hint="@string/employee_id_hint"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/button_background_3"
+                        android:padding="15dp"/>
+
+                    <TextView
+                        android:id="@+id/employeeName"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="@string/employee_name_hint"
                         android:layout_marginTop="15dp"
                         android:padding="15dp"
                         android:textSize="15dp"
                         android:background="@drawable/button_background_3"
                         android:inputType="text" />
 
-                    <TextView
-                        android:id="@+id/employeeName"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint="Họ và tên nhân viên"
-                        android:layout_marginTop="15dp"
-                        android:padding="15dp"
-                        android:textSize="15dp"
-                        android:background="@drawable/button_background_3"
-                        android:inputType="numberDecimal" />
-
-
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thông tin quyết định"
-                    android:textSize="16sp"
+                    android:text="@string/decision_info_label"
+                    android:textSize="20sp"
                     android:layout_marginTop="15dp"
                     android:textStyle="bold"
                     android:textColor="@color/dark_gray"/>
-                <EditText
-                    android:id="@+id/decisionCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:hint="Mã quyết định"
-                    android:layout_marginTop="15dp"
-                    android:padding="15dp"
-                    android:textSize="15dp"
-                    android:background="@drawable/button_background_3"
-                    android:inputType="text" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/decision_value_label_specical"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginTop="15dp"/>
                 <EditText
                     android:id="@+id/decisionValue"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="Giá trị (nếu có)"
+                    android:hint="@string/decision_value_hint"
                     android:layout_marginTop="15dp"
                     android:padding="15dp"
                     android:textSize="15dp"
                     android:background="@drawable/button_background_3"
                     android:inputType="numberDecimal" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/decision_content_label_specical"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginTop="15dp"/>
+
                 <EditText
                     android:id="@+id/decisionContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nội dung"
+                    android:hint="@string/decision_content_hint"
                     android:inputType="textMultiLine"
                     android:layout_marginTop="15dp"
                     android:padding="15dp"
@@ -195,6 +198,15 @@
                     android:background="@drawable/button_background_3"
                     android:minLines="1"
                     android:maxLines="3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/decision_type_label_specical"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginTop="15dp"/>
 
                 <Spinner
                     android:id="@+id/decisionTypeSpinner"
@@ -204,6 +216,15 @@
                     android:textSize="15dp"
                     android:padding="15dp"
                     android:background="@drawable/button_background_3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/issue_date_label"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginTop="16dp"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/decisionDate"
@@ -235,6 +256,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/effective_date_label_specical"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginTop="16dp"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/effectiveDate"
@@ -268,6 +298,17 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <TextView
+                    android:id="@+id/optionalSpinnerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/optional_info_label"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginTop="15dp"/>
+
                 <Spinner
                     android:id="@+id/optionalSpinner"
                     android:layout_width="match_parent"
@@ -284,13 +325,12 @@
                     android:layout_marginTop="24dp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:text="Tạo quyết định"
+                    android:text="@string/submit_button"
                     android:background="@drawable/button_background"
                     android:backgroundTint="?attr/colorPrimary"/>
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <include
         layout="@layout/progress_overlay"

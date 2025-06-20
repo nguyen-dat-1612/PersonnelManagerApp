@@ -1,17 +1,15 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
-import android.util.Log;
-
+import com.managerapp.personnelmanagerapp.data.mapper.UserSummaryMapper;
 import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.ChangePasswordRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
-import com.managerapp.personnelmanagerapp.data.remote.response.UserSummaryResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.WorkLogResponse;
 import com.managerapp.personnelmanagerapp.domain.model.UserSummary;
 import com.managerapp.personnelmanagerapp.domain.repository.UserRepository;
 import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +25,17 @@ public class UserRepositoryImpl implements UserRepository {
     private final UserApiService apiService;
     private final LocalDataManager localDataManager;
     private final Map<String, List<UserSummary>> cache = new HashMap<>();
+    private final RxResultHandler rxResultHandler;
 
     @Inject
-    public UserRepositoryImpl(UserApiService apiService, LocalDataManager localDataManager) {
+    public UserRepositoryImpl(UserApiService apiService, LocalDataManager localDataManager, RxResultHandler rxResultHandler) {
         this.apiService = apiService;
         this.localDataManager = localDataManager;
+        this.rxResultHandler = rxResultHandler;
     }
 
     public Single<UserProfileResponse> getUser() {
-        return RxResultHandler.handle(apiService.getUser())
+        return rxResultHandler.handleSingle(apiService.getUser())
                 .doOnSuccess(userProfileResponse -> {
                     if (userProfileResponse != null) {
                         localDataManager.saveUserId(userProfileResponse.getId());
@@ -43,25 +43,25 @@ public class UserRepositoryImpl implements UserRepository {
                 });
     }
 
-    public Single<Boolean> changePasswordUser(String oldPass, String newPass) {
+    public Maybe<Boolean> changePasswordUser(String oldPass, String newPass) {
         return localDataManager.getUserIdAsync()
-                .flatMap( userId -> {
-                    ChangePasswordRequest request = new ChangePasswordRequest(userId, oldPass, newPass);
-                    return RxResultHandler.handle(apiService.changePassword(request));
-                });
+                .toMaybe()
+                .flatMap( userId -> apiService.changePassword(new ChangePasswordRequest(userId, oldPass, newPass)))
+                .map(response -> response.getCode() == 200)
+                .doOnError(throwable -> Maybe.error(throwable));
     }
 
     public Single<List<WorkLogResponse>> getWorkLog() {
         return localDataManager.getUserIdAsync()
                 .flatMap( userId -> {
-                    return RxResultHandler.handle(apiService.getWorkLog(userId));
+                    return rxResultHandler.handleSingle(apiService.getWorkLog(userId));
                 });
     }
 
     public Single<Boolean> saveDevice(String token) {
         return localDataManager.getUserIdAsync()
                 .flatMap( userId -> {
-                    return RxResultHandler.handle(apiService.saveDevice(userId, token));
+                    return rxResultHandler.handleSingle(apiService.saveDevice(userId, token));
                 });
 
     }
@@ -79,13 +79,9 @@ public class UserRepositoryImpl implements UserRepository {
         if (cache.containsKey(query)) {
             return Observable.just(cache.get(query));
         }
-
         return apiService.searchUser(query)
                 .map(response -> {
-                    List<UserSummary> list = new ArrayList<>();
-                    for (UserSummaryResponse dto : response.getData()) {
-                        list.add(dto.toUserSummary());
-                    }
+                    List<UserSummary> list = UserSummaryMapper.toUserSummaryList(response.getData());
                     cache.put(query, list);
                     return list;
                 })

@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
+import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import com.managerapp.personnelmanagerapp.domain.usecase.contract.GetContractByIdUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 
@@ -24,15 +25,14 @@ public class ContractDetailViewModel extends ViewModel {
 
     private final GetContractByIdUseCase getContractByIdUseCase;
     private final CompositeDisposable disposables = new CompositeDisposable();
-    private final MutableLiveData<UiState<ContractResponse>> uiState = new MutableLiveData<>();
-    private final String TAG = "ContractDetailViewModel";
+    private final MutableLiveData<UiState<Contract>> uiState = new MutableLiveData<>();
 
     @Inject
     public ContractDetailViewModel(GetContractByIdUseCase getContractByIdUseCase) {
         this.getContractByIdUseCase = getContractByIdUseCase;
     }
 
-    public LiveData<UiState<ContractResponse>> getUiState() {
+    public LiveData<UiState<Contract>> getUiState() {
         return uiState;
     }
 
@@ -45,19 +45,9 @@ public class ContractDetailViewModel extends ViewModel {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                contract -> {
-                                    if (contract != null) {
-                                        Log.d(TAG, contract.toString());
-                                        uiState.postValue(new UiState.Success(contract));
-                                    } else {
-                                        uiState.postValue(new UiState.Error("Contract not found"));
-                                    }
+                                contract -> { uiState.postValue(new UiState.Success(contract));
                                 },
-                                throwable -> {
-                                    String errorMessage = throwable.getMessage() != null
-                                            ? throwable.getMessage()
-                                            : "An unknown error occurred";
-                                    uiState.postValue(new UiState.Error(errorMessage));
+                                throwable -> { uiState.postValue(new UiState.Error(throwable.getMessage()));
                                 }
                         )
         );

@@ -16,8 +16,8 @@ public class GetAllUserNotificationsUseCase {
         this.repository = notificationRepository;
     }
 
-    public Observable<PagedModel<NotificationRecipient>> execute(long userId, int page) {
-        return repository.getNotifications(userId, page, 10)
+    public Observable<PagedModel<NotificationRecipient>> execute(int page) {
+        return repository.getNotifications( page, 10)
                 .toObservable();
     }
 }

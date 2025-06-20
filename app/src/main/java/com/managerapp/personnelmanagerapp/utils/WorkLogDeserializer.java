@@ -18,7 +18,7 @@ public class WorkLogDeserializer implements JsonDeserializer<WorkLogResponse> {
         String type = obj.get("type").getAsString();
 
         switch (type) {
-            case "CONTRACT_SIGN":
+            case "CONTRACT_SIGN", "CONTRACT_RENEWAL":
                 return context.deserialize(obj, ContractWorkLog.class);
             default:
                 return context.deserialize(obj, DecisionWorkLog.class);

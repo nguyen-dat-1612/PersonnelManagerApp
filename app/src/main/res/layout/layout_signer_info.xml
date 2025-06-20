@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="decision"
+            type="com.managerapp.personnelmanagerapp.domain.model.Decision" />
+        <import type="com.managerapp.personnelmanagerapp.utils.DateTimeUtils"/>
+        <import type="android.view.View"/>
+        <import type="com.managerapp.personnelmanagerapp.utils.CurrencyUtils"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Signer ID -->
+            <TextView
+                android:id="@+id/tvSignerIdLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signer_id_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSignerId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.signer != null ? String.valueOf(decision.signer.id) : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSignerIdLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSignerIdLabel" />
+
+            <!-- Signer Full Name -->
+            <TextView
+                android:id="@+id/tvSignerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/signer_full_name_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSignerIdLabel" />
+
+            <TextView
+                android:id="@+id/tvSigner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.signer != null ? decision.signer.fullName : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSignerLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSignerLabel" />
+
+            <!-- Signer CCCD -->
+            <TextView
+                android:id="@+id/tvSignerCCCDLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/signer_cccd_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSignerLabel" />
+
+            <TextView
+                android:id="@+id/tvSignerCCCD"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.signer != null ? decision.signer.numberCCCD : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSignerCCCDLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSignerCCCDLabel" />
+
+            <!-- Signer Date of Birth -->
+            <TextView
+                android:id="@+id/tvSignerDobLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/signer_dob_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSignerCCCDLabel" />
+
+            <TextView
+                android:id="@+id/tvSignerDob"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.signer != null ? decision.signer.dateOfBirth : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSignerDobLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSignerDobLabel" />
+
+            <!-- Signer Phone Number -->
+            <TextView
+                android:id="@+id/tvSignerPhoneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/signer_phone_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSignerDobLabel" />
+
+            <TextView
+                android:id="@+id/tvSignerPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.signer != null ? decision.signer.phoneNumber : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSignerPhoneLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSignerPhoneLabel" />
+
+            <!-- Signer Nationality -->
+            <TextView
+                android:id="@+id/tvSignerNationalityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/signer_nationality_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSignerPhoneLabel" />
+
+            <TextView
+                android:id="@+id/tvSignerNationality"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.signer != null ? decision.signer.nationality : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSignerNationalityLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSignerNationalityLabel" />
+
+            <!-- Signer Email -->
+            <TextView
+                android:id="@+id/tvSignerEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/signer_email_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSignerNationalityLabel" />
+
+            <TextView
+                android:id="@+id/tvSignerEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.signer != null ? decision.signer.email : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSignerEmailLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSignerEmailLabel" />
+
+            <!-- Signer Address -->
+            <TextView
+                android:id="@+id/tvSignerAddressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/signer_address_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSignerEmailLabel" />
+
+            <TextView
+                android:id="@+id/tvSignerAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.signer != null ? decision.signer.address : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSignerAddressLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSignerAddressLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -11,31 +11,32 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.core.Single;
 
+@Singleton
 public class DepartmentRepositoryImpl implements DepartmentRepository {
     private final DepartmentApiService apiService;
     private final LocalDataManager localDataManager;
+    private final RxResultHandler rxResultHandler;
     @Inject
-    public DepartmentRepositoryImpl(DepartmentApiService apiService, LocalDataManager localDataManager) {
+    public DepartmentRepositoryImpl(DepartmentApiService apiService, LocalDataManager localDataManager, com.managerapp.personnelmanagerapp.data.utils.RxResultHandler rxResultHandler) {
         this.apiService = apiService;
         this.localDataManager = localDataManager;
+        this.rxResultHandler = rxResultHandler;
     }
-
-
     public Single<List<Department>> getAllDepartments() {
-        return RxResultHandler.handle(apiService.getAllDepartments()).
+        return rxResultHandler.handleSingle(apiService.getAllDepartments()).
                 map(listResponse -> listResponse.stream()
                             .map(DepartmentMapper::toDepartment)
                             .collect(Collectors.toList())
                 );
 
     }
-
     public Single<Department> getDepartmentByUserId() {
         return localDataManager.getUserIdAsync()
-                .flatMap(userId -> RxResultHandler.handle(apiService.getDepartmentByUserId(userId)).map(DepartmentMapper::toDepartment));
+                .flatMap(userId -> rxResultHandler.handleSingle(apiService.getDepartmentByUserId(userId)).map(DepartmentMapper::toDepartment));
 
     }
 }

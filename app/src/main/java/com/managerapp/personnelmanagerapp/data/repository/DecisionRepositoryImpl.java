@@ -1,15 +1,16 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
+import com.managerapp.personnelmanagerapp.data.mapper.DecisionMapper;
 import com.managerapp.personnelmanagerapp.data.remote.api.DecisionApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.DecisionApproveRequest;
 import com.managerapp.personnelmanagerapp.data.remote.request.DecisionRequest;
 import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
+import com.managerapp.personnelmanagerapp.domain.model.Decision;
 import com.managerapp.personnelmanagerapp.domain.repository.DecisionRepository;
 import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
 import java.util.List;
 import javax.inject.Inject;
-
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
@@ -17,40 +18,55 @@ import io.reactivex.rxjava3.core.Single;
 public class DecisionRepositoryImpl implements DecisionRepository {
     private final DecisionApiService apiService;
     private final LocalDataManager localDataManager;
+    private final RxResultHandler rxResultHandler;
 
     @Inject
-    public DecisionRepositoryImpl(DecisionApiService apiService, LocalDataManager localDataManager) {
+    public DecisionRepositoryImpl(DecisionApiService apiService, LocalDataManager localDataManager, com.managerapp.personnelmanagerapp.data.utils.RxResultHandler rxResultHandler) {
         this.apiService = apiService;
         this.localDataManager = localDataManager;
+        this.rxResultHandler = rxResultHandler;
     }
 
-    public Single<List<DecisionResponse>> getDecisions() {
+    public Single<List<Decision>> getDecisions() {
         return localDataManager.getUserIdAsync()
-                .flatMap( userId -> RxResultHandler.handle(apiService.getAllDecisionsByUserId(userId)));
+                .flatMap( userId ->
+                        rxResultHandler.handleSingle(apiService.getAllDecisionsByUserId(userId))
+                                .map(DecisionMapper::toDecisions)
+                );
     }
 
-    public Single<DecisionResponse> getDecisionById(String id) {
-        return RxResultHandler.handle(apiService.getDecisionById(id));
+    public Single<Decision> getDecisionById(String id) {
+        return rxResultHandler.handleSingle(apiService.getDecisionById(id))
+                .map(DecisionMapper::toDecision);
     }
 
     @Override
-    public Single<DecisionResponse> createDecision(DecisionRequest decisionRequest) {
-        return RxResultHandler.handle(apiService.createDecision(decisionRequest));
+    public Single<Decision> createDecision(DecisionRequest decisionRequest) {
+        return rxResultHandler.handleSingle(apiService.createDecision(decisionRequest))
+                .map(DecisionMapper::toDecision);
     }
 
     @Override
-    public Observable<List<DecisionResponse>> getAllDecisions(String type) {
+    public Observable<List<Decision>> getAllDecisions(String type) {
         return apiService.getAllDecisions(type)
-                .map(response -> response.getData())
-                .onErrorResumeNext(throwable -> {
-                    return Observable.error(new Throwable(throwable.getMessage()));
-                });
+                .map(response -> {
+                    List<DecisionResponse> decisionResponses = response.getData();
+                    return DecisionMapper.toDecisions(decisionResponses);
+                })
+                .onErrorResumeNext(throwable ->
+                    Observable.error(new Throwable(throwable.getMessage()))
+                );
     }
 
     @Override
-    public Single<DecisionResponse> updateDecision(String id) {
+    public Single<Decision> updateDecision(String id, String attachment) {
+
         return localDataManager.getUserIdAsync()
-                .flatMap( userId ->RxResultHandler.handle(apiService.updateDecision(id, new DecisionApproveRequest(null, userId))));
+                .flatMap( userId ->
+                        rxResultHandler.handleSingle(
+                                apiService.updateDecision(id, new DecisionApproveRequest(attachment, userId))
+                        ).map(DecisionMapper::toDecision)
+                );
     }
 
     @Override

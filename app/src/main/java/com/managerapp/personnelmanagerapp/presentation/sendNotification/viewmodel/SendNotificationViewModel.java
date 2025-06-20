@@ -1,13 +1,9 @@
 package com.managerapp.personnelmanagerapp.presentation.sendNotification.viewmodel;
 
 import android.util.Log;
-import android.widget.MultiAutoCompleteTextView;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
-
 import com.managerapp.personnelmanagerapp.domain.model.Department;
 import com.managerapp.personnelmanagerapp.domain.model.UserSummary;
 import com.managerapp.personnelmanagerapp.domain.usecase.department.GetAllDepartmentsUseCase;
@@ -16,15 +12,11 @@ import com.managerapp.personnelmanagerapp.domain.usecase.notification.CreateNoti
 import com.managerapp.personnelmanagerapp.domain.usecase.user.SearchUserUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.presentation.sendNotification.ui.SendNotificationUiState;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;

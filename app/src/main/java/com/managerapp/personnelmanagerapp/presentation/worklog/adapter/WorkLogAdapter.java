@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.presentation.worklog.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.managerapp.personnelmanagerapp.data.remote.response.DecisionWorkLog;
 import com.managerapp.personnelmanagerapp.data.remote.response.WorkLogResponse;
 import com.managerapp.personnelmanagerapp.databinding.ItemContractWorklogBinding;
 import com.managerapp.personnelmanagerapp.databinding.ItemDecisionWorklogBinding;
+import com.managerapp.personnelmanagerapp.utils.CurrencyUtils;
+import com.managerapp.personnelmanagerapp.utils.DateUtils;
 
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class WorkLogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemViewType(int position) {
         WorkLogResponse item = workLogResponseList.get(position);
-        if ("CONTRACT_SIGN".equals(item.getType())) {
+        if ("CONTRACT_SIGN".equals(item.getType()) || "CONTRACT_RENEWAL".equals(item.getType())) {
             return 0;
         } else {
             return 1;
@@ -77,7 +80,28 @@ public class WorkLogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bind(ContractWorkLog workLog, int position, int totalCount) {
-            binding.setWorklog(workLog);
+
+            Context context = binding.getRoot().getContext();
+            String title = context.getString(
+                    R.string.title_contract_date,
+                    DateUtils.formatDateToVietnameseNoTime(workLog.getContractResponse().getStartDate()),
+                    DateUtils.formatDateToVietnameseNoTime(workLog.getContractResponse().getEndDate())
+            );
+            binding.tvTitle.setText(title);
+
+            binding.tvContractType.setText(context.getString(
+                    R.string.contract_type_special,
+                    workLog.getContractResponse().getContractTypeName()
+            ));
+            binding.tvSalary.setText(context.getString(
+                    R.string.decision_value_salary,
+                    CurrencyUtils.formatToVNDSimple(workLog.getContractResponse().getBasicSalary())
+            ));
+
+            binding.tvSigner.setText(context.getString(
+                    R.string.decision_signer,
+                    workLog.getContractResponse().getSigner().getFullName()
+            ));
 
             int viewType = TimelineView.getTimeLineViewType(position, totalCount);
 
@@ -106,7 +130,27 @@ public class WorkLogAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bind(DecisionWorkLog workLog, int position, int totalCount) {
-            binding.setWorklog(workLog);
+
+            Context context = binding.getRoot().getContext();
+            binding.tvDecisionDate.setText(context.getString(
+                    R.string.title_decision_date,
+                    DateUtils.convertToDayMonthYearFormat(workLog.getDecisionResponse().getDate())
+            ));
+            binding.tvDecisionType.setText(context.getString(
+                    R.string.decision_type_special,
+                    workLog.getDecisionResponse().getType().getDecisionString(context,workLog.getDecisionResponse().getType())
+            ));
+            binding.tvDecisionContent.setText(context.getString(
+                    R.string.decision_content_special,
+                    workLog.getDecisionResponse().getContent()
+            ));
+
+            binding.tvDecisionSigner.setText(context.getString(
+                    R.string.decision_signer,
+                    workLog.getDecisionResponse().getSigner().getFullName()
+            ));
+
+
             int viewType = TimelineView.getTimeLineViewType(position, totalCount);
             binding.timelineView.initLine(viewType);
 

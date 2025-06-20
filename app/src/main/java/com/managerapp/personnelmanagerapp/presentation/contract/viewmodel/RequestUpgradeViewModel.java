@@ -1,14 +1,18 @@
 package com.managerapp.personnelmanagerapp.presentation.contract.viewmodel;
 
+import android.content.Context;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.data.remote.request.SalaryPromotionRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.JobGradeResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
+import com.managerapp.personnelmanagerapp.domain.model.JobGrade;
 import com.managerapp.personnelmanagerapp.domain.model.LeaveType;
 import com.managerapp.personnelmanagerapp.domain.model.SalaryPromotion;
 import com.managerapp.personnelmanagerapp.domain.usecase.jobGrade.GetAllJobGradesUseCase;
@@ -25,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -33,6 +38,7 @@ import kotlin.Triple;
 
 @HiltViewModel
 public class RequestUpgradeViewModel extends ViewModel {
+    private final Context context;
     private final GetUserUseCase getUserProfileUseCase;
     private final GetAllJobGradesUseCase getAllJobGradesUseCase;
     private final GetJobGradeByIdUseCase getLeaveTypeByIdUseCase;
@@ -40,8 +46,8 @@ public class RequestUpgradeViewModel extends ViewModel {
     private final CompositeDisposable disposable = new CompositeDisposable();
     private final MutableLiveData<RequestUpgradeUiState> uiState = new MutableLiveData<>();
     private final MutableLiveData<UiState<SalaryPromotion>> createSalaryProUiState = new MutableLiveData<>();
-    private List<JobGradeResponse> cachedJobGrades;
-    private JobGradeResponse jobGradeResponse;
+    private List<JobGrade> cachedJobGrades;
+    private JobGrade jobGradeResponse;
     private UserProfileResponse cachedUserProfile;
 
     public LiveData<RequestUpgradeUiState> getUiState() {
@@ -52,7 +58,13 @@ public class RequestUpgradeViewModel extends ViewModel {
     }
 
     @Inject
-    public RequestUpgradeViewModel(GetUserUseCase getUserProfileUseCase, GetAllJobGradesUseCase getAllJobGradesUseCase, GetJobGradeByIdUseCase getLeaveTypeByIdUseCase, CreateSalaryPromotionUseCase createSalaryPromotionUseCase) {
+    public RequestUpgradeViewModel(
+            @ApplicationContext Context context ,
+            GetUserUseCase getUserProfileUseCase,
+            GetAllJobGradesUseCase getAllJobGradesUseCase,
+            GetJobGradeByIdUseCase getLeaveTypeByIdUseCase,
+            CreateSalaryPromotionUseCase createSalaryPromotionUseCase) {
+        this.context = context;
         this.getUserProfileUseCase = getUserProfileUseCase;
         this.getAllJobGradesUseCase = getAllJobGradesUseCase;
         this.getLeaveTypeByIdUseCase = getLeaveTypeByIdUseCase;
@@ -77,10 +89,7 @@ public class RequestUpgradeViewModel extends ViewModel {
                                 .timeout(5, TimeUnit.SECONDS),
 
                         (jobGrades, userProfile, jobGradeById) -> {
-                            this.cachedJobGrades = jobGrades;
-                            this.cachedUserProfile = userProfile;
-                            this.jobGradeResponse = jobGradeById;
-                            return new Triple<List<JobGradeResponse>, UserProfileResponse, JobGradeResponse>(
+                            return new Triple<List<JobGrade>, UserProfileResponse, JobGrade>(
                                     jobGrades, userProfile, jobGradeById
                             );
                         })
@@ -88,21 +97,20 @@ public class RequestUpgradeViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         triple -> {
-                            List<JobGradeResponse> jobGrades = triple.getFirst();
+                            List<JobGrade> jobGrades = triple.getFirst();
                             UserProfileResponse userProfile = triple.getSecond();
-                            JobGradeResponse jobGradeById = triple.getThird();
+                            JobGrade jobGradeById = triple.getThird();
 
-                            // Cập nhật cache
                             this.cachedJobGrades = jobGrades;
                             this.cachedUserProfile = userProfile;
                             this.jobGradeResponse = jobGradeById;
 
                             if (jobGrades == null || jobGrades.isEmpty()) {
-                                uiState.setValue(new RequestUpgradeUiState.Error("Danh sách loại chức danh rỗng", null, null, null));
+                                uiState.setValue(new RequestUpgradeUiState.Error(context.getString(R.string.error_empty_job_grade_list), null, null, null));
                             } else if (userProfile == null) {
-                                uiState.setValue(new RequestUpgradeUiState.Error("Không thể tải thông tin người dùng", jobGrades, null, jobGradeById));
+                                uiState.setValue(new RequestUpgradeUiState.Error(context.getString(R.string.error_cannot_load_user_profile), jobGrades, null, jobGradeById));
                             } else if (jobGradeById == null) {
-                                uiState.setValue(new RequestUpgradeUiState.Error("Không thể tải thông tin bậc hiện tại", jobGrades, userProfile, null));
+                                uiState.setValue(new RequestUpgradeUiState.Error(context.getString(R.string.error_cannot_load_current_job_grade), jobGrades, userProfile, null));
                             } else {
                                 uiState.setValue(new RequestUpgradeUiState.DataLoaded(jobGrades, userProfile, jobGradeById));
                             }

@@ -1,87 +1,100 @@
 package com.managerapp.personnelmanagerapp.domain.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class LeaveApplication {
-    private int leaveApplicationId;  // Mã đơn xin nghỉ phép
-    private String leaveType;        // Loại nghỉ phép
-    private int userId;              // Mã người dùng
-    private Date startDate;          // Ngày bắt đầu nghỉ
-    private Date endDate;            // Ngày kết thúc nghỉ
-    private String reason;           // Lý do nghỉ
-    private LeaveStatus status;      // Trạng thái đơn
-    private boolean isPaid;         // Có tính lương hay không
+public class LeaveApplication implements Serializable {
 
-    // Enum for leave status
-    public enum LeaveStatus {
-        PENDING("Đang chờ"),
-        APPROVED("Đã duyệt"),
-        REJECTED("Từ chối"),
-        CANCELLED("Đã hủy");
+    private long id;
+    private Date startDate;
+    private Date endDate;
+    private String reason;
+    private FormStatusEnum formStatusEnum;
+    private UserSummary user;
+    private UserSummary signer;
+    private String leaveTypeName;
 
-        private final String vietnameseName;
-
-        LeaveStatus(String vietnameseName) {
-            this.vietnameseName = vietnameseName;
-        }
-
-        public String getVietnameseName() {
-            return vietnameseName;
-        }
-    }
-
-    // Constructors
     public LeaveApplication() {
-        this.status = LeaveStatus.PENDING;
     }
 
-    public LeaveApplication(int leaveApplicationId, String leaveType, int userId,
-                            Date startDate, Date endDate, String reason,
-                            LeaveStatus status, boolean isPaid) {
-        setLeaveApplicationId(leaveApplicationId);
-        setLeaveType(leaveType);
-        setUserId(userId);
-        setStartDate(startDate);
-        setEndDate(endDate);
-        setReason(reason);
-        setStatus(status);
-        setPaid(isPaid);
+    public LeaveApplication(long id, Date startDate, Date endDate, String reason,
+                            FormStatusEnum formStatusEnum, UserSummary user,
+                            UserSummary signer, String leaveTypeName) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reason = reason;
+        this.formStatusEnum = formStatusEnum;
+        this.user = user;
+        this.signer = signer;
+        this.leaveTypeName = leaveTypeName;
     }
 
-    // Getters and Setters with validation
-    public int getLeaveApplicationId() {
-        return leaveApplicationId;
-    }
+    // Builder Pattern
+    public static class Builder {
+        private long id;
+        private Date startDate;
+        private Date endDate;
+        private String reason;
+        private FormStatusEnum formStatusEnum;
+        private UserSummary user;
+        private UserSummary signer;
+        private String leaveTypeName;
 
-    public void setLeaveApplicationId(int leaveApplicationId) {
-        if (leaveApplicationId <= 0) {
-            throw new IllegalArgumentException("Leave application ID must be positive");
+        public Builder id(long id) {
+            this.id = id;
+            return this;
         }
-        this.leaveApplicationId = leaveApplicationId;
-    }
 
-    public String getLeaveType() {
-        return leaveType;
-    }
-
-    public void setLeaveType(String leaveType) {
-        if (leaveType == null || leaveType.trim().isEmpty()) {
-            throw new IllegalArgumentException("Leave type cannot be null or empty");
+        public Builder startDate(Date startDate) {
+            this.startDate = startDate;
+            return this;
         }
-        this.leaveType = leaveType.trim();
-    }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        if (userId <= 0) {
-            throw new IllegalArgumentException("UserEntity ID must be positive");
+        public Builder endDate(Date endDate) {
+            this.endDate = endDate;
+            return this;
         }
-        this.userId = userId;
+
+        public Builder reason(String reason) {
+            this.reason = reason;
+            return this;
+        }
+
+        public Builder formStatusEnum(FormStatusEnum formStatusEnum) {
+            this.formStatusEnum = formStatusEnum;
+            return this;
+        }
+
+        public Builder user(UserSummary user) {
+            this.user = user;
+            return this;
+        }
+
+        public Builder signer(UserSummary signer) {
+            this.signer = signer;
+            return this;
+        }
+
+        public Builder leaveTypeName(String leaveTypeName) {
+            this.leaveTypeName = leaveTypeName;
+            return this;
+        }
+
+        public LeaveApplication build() {
+            return new LeaveApplication(id, startDate, endDate, reason, formStatusEnum, user, signer, leaveTypeName);
+        }
+    }
+
+    // Getters và Setters
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Date getStartDate() {
@@ -89,7 +102,6 @@ public class LeaveApplication {
     }
 
     public void setStartDate(Date startDate) {
-        Objects.requireNonNull(startDate, "Start date cannot be null");
         this.startDate = startDate;
     }
 
@@ -98,10 +110,6 @@ public class LeaveApplication {
     }
 
     public void setEndDate(Date endDate) {
-        Objects.requireNonNull(endDate, "End date cannot be null");
-        if (startDate != null && endDate.before(startDate)) {
-            throw new IllegalArgumentException("End date cannot be before start date");
-        }
         this.endDate = endDate;
     }
 
@@ -110,67 +118,72 @@ public class LeaveApplication {
     }
 
     public void setReason(String reason) {
-        if (reason == null || reason.trim().isEmpty()) {
-            throw new IllegalArgumentException("Reason cannot be null or empty");
-        }
-        this.reason = reason.trim();
+        this.reason = reason;
     }
 
-    public LeaveStatus getStatus() {
-        return status;
+    public FormStatusEnum getFormStatusEnum() {
+        return formStatusEnum;
     }
 
-    public void setStatus(LeaveStatus status) {
-        this.status = status != null ? status : LeaveStatus.PENDING;
+    public void setFormStatusEnum(FormStatusEnum formStatusEnum) {
+        this.formStatusEnum = formStatusEnum;
     }
 
-    public boolean isPaid() {
-        return isPaid;
+    public UserSummary getUser() {
+        return user;
     }
 
-    public void setPaid(boolean paid) {
-        isPaid = paid;
+    public void setUser(UserSummary user) {
+        this.user = user;
     }
 
-    // Business logic methods
-    public boolean isApproved() {
-        return status == LeaveStatus.APPROVED;
+    public UserSummary getSigner() {
+        return signer;
     }
 
+    public void setSigner(UserSummary signer) {
+        this.signer = signer;
+    }
+
+    public String getLeaveTypeName() {
+        return leaveTypeName;
+    }
+
+    public void setLeaveTypeName(String leaveTypeName) {
+        this.leaveTypeName = leaveTypeName;
+    }
+
+    // Logic tính số ngày nghỉ
     public long getLeaveDays() {
-        if (startDate == null || endDate == null) {
-            return 0;
-        }
+        if (startDate == null || endDate == null) return 0;
         long diffInMillis = endDate.getTime() - startDate.getTime();
         return TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS) + 1;
     }
 
-    // toString method
     @Override
     public String toString() {
         return "LeaveApplication{" +
-                "leaveApplicationId=" + leaveApplicationId +
-                ", leaveType='" + leaveType + '\'' +
-                ", userId=" + userId +
+                "id=" + id +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", reason='" + reason + '\'' +
-                ", status=" + status +
-                ", isPaid=" + isPaid +
+                ", formStatusEnum=" + formStatusEnum +
+                ", user=" + user +
+                ", signer=" + signer +
+                ", leaveTypeName='" + leaveTypeName + '\'' +
                 '}';
     }
 
-    // equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof LeaveApplication)) return false;
         LeaveApplication that = (LeaveApplication) o;
-        return leaveApplicationId == that.leaveApplicationId;
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(leaveApplicationId);
+        return Objects.hash(id);
     }
 }

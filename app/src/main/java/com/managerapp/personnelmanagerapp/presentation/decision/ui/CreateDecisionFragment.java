@@ -26,13 +26,17 @@ import com.managerapp.personnelmanagerapp.presentation.decision.adapter.OptionIt
 import com.managerapp.personnelmanagerapp.presentation.decision.state.DecisionRequestBuilder;
 import com.managerapp.personnelmanagerapp.presentation.decision.viewmodel.CreateDecisionViewModel;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 import dagger.hilt.android.AndroidEntryPoint;
-import dagger.hilt.internal.aggregatedroot.codegen._com_managerapp_personnelmanagerapp_App;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.presentation.sendNotification.adapter.UserSearchRecyclerAdapter;
@@ -73,7 +77,6 @@ public class CreateDecisionFragment extends Fragment {
                 new DecisionItem(DecisionEnum.AWARD, R.string.decision_award),
                 new DecisionItem(DecisionEnum.DISCIPLINE, R.string.decision_discipline),
                 new DecisionItem(DecisionEnum.PROMOTION, R.string.decision_promotion),
-                new DecisionItem(DecisionEnum.INCREASE_SALARY, R.string.decision_increase_salary),
                 new DecisionItem(DecisionEnum.SENIORITY_ALLOWANCE, R.string.decision_seniority_allowance),
                 new DecisionItem(DecisionEnum.TERMINATION, R.string.decision_termination)
         );
@@ -95,6 +98,7 @@ public class CreateDecisionFragment extends Fragment {
 
         optionItemAdapter = new OptionItemAdapter(requireContext());
         binding.optionalSpinner.setAdapter(optionItemAdapter);
+
     }
 
     public void onListener() {
@@ -154,7 +158,7 @@ public class CreateDecisionFragment extends Fragment {
             if (state instanceof UiState.Loading) {
                 binding.progressBar.getRoot().setVisibility(View.VISIBLE);
             } else if (state instanceof UiState.Success) {
-                Toast.makeText(requireContext(), "Tạo quyết định thành công", Toast.LENGTH_SHORT).show();
+               showToast(getString(R.string.decision_created_success));
                 navigateBack();
             } else if (state instanceof UiState.Error) {
                 binding.progressBar.getRoot().setVisibility(View.INVISIBLE);
@@ -165,7 +169,6 @@ public class CreateDecisionFragment extends Fragment {
 
         viewModel.getSearchUiState().observe(getViewLifecycleOwner(), state -> {
             if (state.isLoading) {
-                // Hiển thị loading nếu cần
             }
 
             if (state.userSummaryList != null && !state.userSummaryList.isEmpty()) {
@@ -183,10 +186,12 @@ public class CreateDecisionFragment extends Fragment {
         viewModel.getOptionalOptions().observe(getViewLifecycleOwner(), state -> {
             if (state != null) {
                 binding.optionalSpinner.setVisibility(View.VISIBLE);
+                binding.optionalSpinnerText.setVisibility(View.VISIBLE);
                 optionItemAdapter.submitList(state);
                 binding.optionalSpinner.setAdapter(optionItemAdapter);
             } else {
                 binding.optionalSpinner.setVisibility(View.GONE);
+                binding.optionalSpinnerText.setVisibility(View.GONE);
             }
         });
     }
@@ -203,19 +208,39 @@ public class CreateDecisionFragment extends Fragment {
 
     private boolean validateInput() {
         if (binding.decisionTypeSpinner.getSelectedItem() == null) {
-            Toast.makeText(requireContext(), "Vui lòng chọn loại quyết định", Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.select_decision_type));
             return false;
         }
 
         if (userSummary == null) {
-            Toast.makeText(requireContext(), "Vui lòng chọn nhân sự", Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.select_employee));
             return false;
         }
 
-        // Thêm các validation khác
+        if (binding.decisionContent.getText().toString().trim().isEmpty()) {
+            showToast(getString(R.string.empty_decision_content));
+            return false;
+        }
+
+        String valueStr = binding.decisionValue.getText().toString().trim();
+        if (valueStr.isEmpty()) {
+            showToast(getString(R.string.empty_decision_value));
+            return false;
+        }
+
+        try {
+            double value = Double.parseDouble(valueStr);
+            if (value < 0) {
+                showToast(getString(R.string.negative_decision_value));
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            showToast(getString(R.string.invalid_decision_value));
+            return false;
+        }
+
         return true;
     }
-
     private DecisionRequest buildDecisionRequest() {
         DecisionItem selectedItem = (DecisionItem) binding.decisionTypeSpinner.getSelectedItem();
         OptionItem selectedOption = (OptionItem) binding.optionalSpinner.getSelectedItem();
@@ -223,8 +248,9 @@ public class CreateDecisionFragment extends Fragment {
         String startDate = DateUtils.convertToApiDateFormat(binding.textStartDay.getText().toString());
         String endDate = DateUtils.convertToApiDateFormat(binding.textEndDate.getText().toString());
 
+        String decisionId = generateDecisionId();
         DecisionRequestBuilder builder = new DecisionRequestBuilder()
-                .setId(binding.decisionCode.getText().toString())
+                .setId(decisionId)
                 .setValue(Double.valueOf(binding.decisionValue.getText().toString()))
                 .setContent(binding.decisionContent.getText().toString())
                 .setType(selectedItem.getDecisionEnum())
@@ -237,9 +263,6 @@ public class CreateDecisionFragment extends Fragment {
 
     private DecisionRequest applyDecisionSpecificOptions(DecisionRequestBuilder builder, DecisionEnum decisionType, OptionItem selectedOption) {
         switch (decisionType) {
-            case INCREASE_SALARY:
-                return builder.setSalaryPromotionId((Integer) selectedOption.getId()).build();
-
             case PROMOTION:
                 return builder.setPositionId(String.valueOf(selectedOption.getId())).build();
 
@@ -313,6 +336,15 @@ public class CreateDecisionFragment extends Fragment {
         }
     }
 
+    private String generateDecisionId() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+        String timestamp = sdf.format(new Date());
+        return "QD" + timestamp;
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;

@@ -91,8 +91,12 @@ public class NewLeaveAppFragment extends BaseFragment {
             binding.swipeRefresh.setRefreshing(false);
         });
 
-        binding.startDayBtn.setOnClickListener(v -> showDatePickerDialog(true));
-        binding.endDateBtn.setOnClickListener(v -> showDatePickerDialog(false));
+        binding.startDayBtn.setOnClickListener(v -> {
+            showDatePickerDialog(true);
+        });
+        binding.endDateBtn.setOnClickListener(v -> {
+            showDatePickerDialog(false);
+        });
 
         binding.btnSend.setOnClickListener(v -> submitLeaveApplication());
 
@@ -123,7 +127,7 @@ public class NewLeaveAppFragment extends BaseFragment {
                 binding.progressOverlayWhite.getRoot().setVisibility(View.GONE);
 
                 CreateLeaveUiState.Error error = (CreateLeaveUiState.Error) state;
-                Toast.makeText(requireContext(), "Lỗi: " + error.message, Toast.LENGTH_LONG).show();
+                showToast(error.message);
 
                 if (error.cachedUserProfile != null && error.cachedLeaveTypes != null) {
                     binding.nameText.setText(error.cachedUserProfile.getFullName());
@@ -223,18 +227,18 @@ public class NewLeaveAppFragment extends BaseFragment {
 
             createLeaveViewModel.sendLeaveApplication(request);
         } catch (ParseException e) {
-            Toast.makeText(requireContext(), "Invalid date format", Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.msg_invalid_date));
         }
     }
 
     private boolean validateForm() {
         if (createLeaveViewModel.getLeaveTypeId() <= 0) {
-            Toast.makeText(requireContext(), "Please select leave type", Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.msg_please_select_leave_type));
             return false;
         }
 
         if (binding.edtReason.getText().toString().trim().isEmpty()) {
-            Toast.makeText(requireContext(), "Please enter leave reason", Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.msg_please_enter_reason));
             return false;
         }
 
@@ -244,11 +248,11 @@ public class NewLeaveAppFragment extends BaseFragment {
             Date endDateObj = inputFormat.parse(binding.textEndDate.getText().toString());
 
             if (startDateObj == null || endDateObj == null) {
-                Toast.makeText(requireContext(), "Invalid date", Toast.LENGTH_SHORT).show();
+                showToast(getString(R.string.msg_invalid_date));
                 return false;
             }
         } catch (ParseException e) {
-            Toast.makeText(requireContext(), "Invalid date format", Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.msg_invalid_date_format));
             return false;
         }
 
@@ -395,6 +399,9 @@ public class NewLeaveAppFragment extends BaseFragment {
             htmlTemplate = result;
             updateWebView();
         }
+    }
+    private void showToast(String message) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

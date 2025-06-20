@@ -75,8 +75,7 @@
                     android:paddingEnd="8dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:entries="@array/select_type_status" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvLeaveRequests"

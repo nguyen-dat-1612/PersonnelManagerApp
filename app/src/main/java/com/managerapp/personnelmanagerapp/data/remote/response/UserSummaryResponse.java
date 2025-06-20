@@ -1,7 +1,6 @@
 package com.managerapp.personnelmanagerapp.data.remote.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.managerapp.personnelmanagerapp.domain.model.UserSummary;
 
 public class UserSummaryResponse {
     @SerializedName("id")
@@ -27,11 +26,6 @@ public class UserSummaryResponse {
 
     @SerializedName("address")
     private String address;
-
-    public UserSummary toUserSummary() {
-        return new UserSummary(id, fullName);
-    }
-
 
     public long getId() {
         return id;

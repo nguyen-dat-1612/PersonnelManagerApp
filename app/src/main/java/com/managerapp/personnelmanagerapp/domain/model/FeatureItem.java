@@ -5,9 +5,9 @@ import java.util.List;
 public class FeatureItem {
     private final int viewId;
     private final int navDestination;
-    private final List<Role> visibleFor;
+    private final List<RoleEnum> visibleFor;
 
-    public FeatureItem(int viewId, int navDestination, List<Role> visibleFor) {
+    public FeatureItem(int viewId, int navDestination, List<RoleEnum> visibleFor) {
         this.viewId = viewId;
         this.navDestination = navDestination;
         this.visibleFor = visibleFor;
@@ -21,7 +21,7 @@ public class FeatureItem {
         return navDestination;
     }
 
-    public boolean isVisibleFor(Role role) {
+    public boolean isVisibleFor(RoleEnum role) {
         return visibleFor.contains(role);
     }
 }

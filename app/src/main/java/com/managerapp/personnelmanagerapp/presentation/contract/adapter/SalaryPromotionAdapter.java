@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.presentation.contract.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,13 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.databinding.ItemSalaryPromotionBinding;
+import com.managerapp.personnelmanagerapp.domain.model.FormStatusEnum;
 import com.managerapp.personnelmanagerapp.domain.model.SalaryPromotion;
 
 import java.util.function.Consumer;
 
-public class SalaryPromotionAdapter extends ListAdapter<SalaryPromotion, SalaryPromotionAdapter.SalaryPromotionViewHolder> {
+    public class SalaryPromotionAdapter extends ListAdapter<SalaryPromotion, SalaryPromotionAdapter.SalaryPromotionViewHolder> {
 
     private final Consumer<SalaryPromotion> onItemClick;
 
@@ -27,8 +30,8 @@ public class SalaryPromotionAdapter extends ListAdapter<SalaryPromotion, SalaryP
     @NonNull
     @Override
     public SalaryPromotionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_salary_promotion, parent, false);
-        return new SalaryPromotionViewHolder(view);
+        ItemSalaryPromotionBinding binding = ItemSalaryPromotionBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new SalaryPromotionViewHolder(binding, onItemClick);
     }
 
     @Override
@@ -37,24 +40,21 @@ public class SalaryPromotionAdapter extends ListAdapter<SalaryPromotion, SalaryP
         holder.bind(promotion);
     }
 
-    class SalaryPromotionViewHolder extends RecyclerView.ViewHolder {
+    static class SalaryPromotionViewHolder extends RecyclerView.ViewHolder {
+        @NonNull
+        private final ItemSalaryPromotionBinding binding;
+        private final Consumer<SalaryPromotion> onItemClick;
 
-        private final TextView tvUserName;
-        private final TextView tvReason;
-        private final TextView tvStatus;
-
-        public SalaryPromotionViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvUserName = itemView.findViewById(R.id.tvUserName);
-            tvReason = itemView.findViewById(R.id.tvReason);
-            tvStatus = itemView.findViewById(R.id.tvStatus);
+        public SalaryPromotionViewHolder(@NonNull ItemSalaryPromotionBinding binding, Consumer<SalaryPromotion> onItemClick) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.onItemClick = onItemClick;
         }
-
         public void bind(SalaryPromotion promotion) {
-            tvUserName.setText(promotion.getUserName());
-            tvReason.setText("Lý do: " + promotion.getReason());
-            tvStatus.setText("Trạng thái: " + promotion.getStatus());
-
+            Context context = itemView.getContext();
+            binding.tvUserName.setText(promotion.getUserName());
+            binding.tvReason.setText(context.getString(R.string.label_reason, promotion.getReason()));
+            binding.tvStatus.setText(context.getString(R.string.label_status, getStatusText(context, promotion.getStatus())));
             itemView.setOnClickListener(v -> onItemClick.accept(promotion));
         }
     }
@@ -67,7 +67,18 @@ public class SalaryPromotionAdapter extends ListAdapter<SalaryPromotion, SalaryP
 
         @Override
         public boolean areContentsTheSame(@NonNull SalaryPromotion oldItem, @NonNull SalaryPromotion newItem) {
-            return oldItem.equals(newItem);
+            return oldItem.getUserName().equals(newItem.getUserName()) &&
+                    oldItem.getReason().equals(newItem.getReason()) &&
+                    oldItem.getStatus().equals(newItem.getStatus());
         }
     };
+
+        private static String getStatusText(Context context, String status) {
+            try {
+                FormStatusEnum statusEnum = FormStatusEnum.valueOf(status);
+                return context.getString(statusEnum.getLocalizedStringRes());
+            } catch (IllegalArgumentException e) {
+                return status;
+            }
+        }
 }

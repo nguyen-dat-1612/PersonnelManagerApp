@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="decision"
+            type="com.managerapp.personnelmanagerapp.domain.model.Decision" />
+        <import type="com.managerapp.personnelmanagerapp.utils.DateTimeUtils"/>
+        <import type="android.view.View"/>
+        <import type="com.managerapp.personnelmanagerapp.utils.CurrencyUtils"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/salaryPromotionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Salary Promotion Title -->
+            <TextView
+                android:id="@+id/tvSalaryPromotionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/salary_promotion_title"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Current Job Grade -->
+            <TextView
+                android:id="@+id/tvCurrentJobGradeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/current_job_grade_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSalaryPromotionLabel" />
+
+            <TextView
+                android:id="@+id/tvCurrentJobGrade"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.currentJobGradeName : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvCurrentJobGradeLabel"
+                app:layout_constraintTop_toTopOf="@id/tvCurrentJobGradeLabel" />
+
+            <!-- Request Job Grade -->
+            <TextView
+                android:id="@+id/tvRequestJobGradeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/request_job_grade_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCurrentJobGradeLabel" />
+
+            <TextView
+                android:id="@+id/tvRequestJobGrade"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.requestJobGradeName : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRequestJobGradeLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRequestJobGradeLabel" />
+
+            <!-- Request Job Grade Value -->
+            <TextView
+                android:id="@+id/tvRequestJobGradeValueLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/request_job_grade_value_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRequestJobGradeLabel" />
+
+            <TextView
+                android:id="@+id/tvRequestJobGradeValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.salaryPromotion != null ? CurrencyUtils.formatToVNDSimple(decision.salaryPromotion.requestJobGradeValue) : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRequestJobGradeValueLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRequestJobGradeValueLabel" />
+
+            <!-- Status -->
+            <TextView
+                android:id="@+id/tvStatusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/status_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRequestJobGradeValueLabel" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.status.toString() : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvStatusLabel"
+                app:layout_constraintTop_toTopOf="@id/tvStatusLabel" />
+
+            <!-- Reason -->
+            <TextView
+                android:id="@+id/tvReasonLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/reason_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvStatusLabel" />
+
+            <TextView
+                android:id="@+id/tvReason"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.reason : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvReasonLabel"
+                app:layout_constraintTop_toTopOf="@id/tvReasonLabel" />
+
+            <!-- Note -->
+            <TextView
+                android:id="@+id/tvNoteLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/note_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvReasonLabel" />
+
+            <TextView
+                android:id="@+id/tvNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.salaryPromotion != null ? decision.salaryPromotion.note : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvNoteLabel"
+                app:layout_constraintTop_toTopOf="@id/tvNoteLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

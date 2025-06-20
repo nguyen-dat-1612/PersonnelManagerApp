@@ -1,180 +1,217 @@
 package com.managerapp.personnelmanagerapp.domain.model;
 
-import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Contract {
-    private String id;  // Mã hợp đồng (primary key)
-    private int userId;  // Mã người dùng (foreign key)
-    private String contractTypeId;  // Mã loại hợp đồng (foreign key)
-    private Date startDate;  // Ngày bắt đầu hợp đồng
-    private Date endDate;  // Ngày kết thúc hợp đồng (nullable)
-    private ContractStatus status;  // Trạng thái hợp đồng
-    private String jobGradeId;  // Mã ngạch (foreign key)
-    private BigDecimal baseSalary;  // Lương cơ bản
-    private String positionId;  // Mã chức vụ (foreign key)
+    private final int id;
+    private final Date startDate;
+    private final Date endDate;
+    private final double basicSalary;
+    private final String clause;
+    private final ContractStatusEnum contractStatusEnum;
+    private final String contractTypeName;
+    private final UserSummary user;
+    private final UserSummary signer;
+    private final String positionName;
+    private final String departmentName;
+    private final double jobGradeCoefficient;
 
-    // Enum for contract status
-    public enum ContractStatus {
-        INACTIVE("Chưa có hiệu lực"),
-        ACTIVE("Đang hiệu lực"),
-        EXPIRED("Hết hạn"),
-        TERMINATED("Chấm dứt");
-
-        private final String vietnameseName;
-
-        ContractStatus(String vietnameseName) {
-            this.vietnameseName = vietnameseName;
-        }
-
-        public String getVietnameseName() {
-            return vietnameseName;
-        }
+    private Contract(Builder builder) {
+        this.id = builder.id;
+        this.startDate = builder.startDate;
+        this.endDate = builder.endDate;
+        this.basicSalary = builder.basicSalary;
+        this.clause = builder.clause;
+        this.contractStatusEnum = builder.contractStatusEnum;
+        this.contractTypeName = builder.contractTypeName;
+        this.user = builder.user;
+        this.signer = builder.signer;
+        this.positionName = builder.positionName;
+        this.departmentName = builder.departmentName;
+        this.jobGradeCoefficient = builder.jobGradeCoefficient;
     }
 
-    // Constructors
-    public Contract() {
-        this.status = ContractStatus.INACTIVE;
-    }
-
-    public Contract(String id, int userId, String contractTypeId,
-                    Date startDate, Date endDate,
-                    ContractStatus status, String jobGradeId,
-                    BigDecimal baseSalary, String positionId) {
-        setId(id);
-        setUserId(userId);
-        setContractTypeId(contractTypeId);
-        setStartDate(startDate);
-        setEndDate(endDate);
-        setStatus(status);
-        setJobGradeId(jobGradeId);
-        setBaseSalary(baseSalary);
-        setPositionId(positionId);
-    }
-
-    // Getters and Setters with validation
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
-        if (id == null || id.trim().isEmpty()) {
-            throw new IllegalArgumentException("Contract ID cannot be null or empty");
+    public String getStartDate() {
+        if (startDate == null) return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("'Ngày' dd 'tháng' MM 'năm' yyyy", new Locale("vi", "VN"));
+        return sdf.format(startDate);
+    }
+
+    public String getEndDate() {
+        if (endDate == null) return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("'Ngày' dd 'tháng' MM 'năm' yyyy", new Locale("vi", "VN"));
+        return sdf.format(endDate);
+    }
+
+    public double getBasicSalary() {
+        return basicSalary;
+    }
+
+    public String getClause() {
+        return clause;
+    }
+
+    public ContractStatusEnum getContractStatusEnum() {
+        return contractStatusEnum;
+    }
+
+    public String getContractStatusEnumUI() {
+        if (contractStatusEnum == null) return "";
+        switch (contractStatusEnum) {
+            case PENDING:
+                return "🔵 Đang chờ";
+            case EXPIRED:
+                return "⚫ Hết hạn";
+            case TERMINATED:
+                return "🔴 Đã hủy";
+            case RENEWED:
+                return "🟢 Đã gia hạn";
+            case SIGNED_PENDING_EFFECTIVE:
+                return "🟡 Đã ký";
+            case ACTIVE:
+                return "🟢 Đang hiệu lực";
+            default:
+                return "";
         }
-        this.id = id.trim();
     }
 
-    public int getUserId() {
-        return userId;
+    public String getContractTypeName() {
+        return contractTypeName;
     }
 
-    public void setUserId(int userId) {
-        if (userId <= 0) {
-            throw new IllegalArgumentException("UserEntity ID must be positive");
-        }
-        this.userId = userId;
+    public UserSummary getUser() {
+        return user;
     }
 
-    public String getContractTypeId() {
-        return contractTypeId;
+    public UserSummary getSigner() {
+        return signer;
     }
 
-    public void setContractTypeId(String contractTypeId) {
-        this.contractTypeId = contractTypeId != null ? contractTypeId.trim() : null;
+    public String getPositionName() {
+        return positionName;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setStartDate(Date startDate) {
-        Objects.requireNonNull(startDate, "Start date cannot be null");
-        this.startDate = startDate;
+    public double getJobGradeCoefficient() {
+        return jobGradeCoefficient;
     }
 
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        if (endDate != null && startDate != null && endDate.before(startDate)) {
-            throw new IllegalArgumentException("End date cannot be before start date");
-        }
-        this.endDate = endDate;
-    }
-
-    public ContractStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ContractStatus status) {
-        this.status = status != null ? status : ContractStatus.INACTIVE;
-    }
-
-    public String getJobGradeId() {
-        return jobGradeId;
-    }
-
-    public void setJobGradeId(String jobGradeId) {
-        this.jobGradeId = jobGradeId != null ? jobGradeId.trim() : null;
-    }
-
-    public BigDecimal getBaseSalary() {
-        return baseSalary;
-    }
-
-    public void setBaseSalary(BigDecimal baseSalary) {
-        if (baseSalary == null || baseSalary.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Base salary must be positive");
-        }
-        this.baseSalary = baseSalary;
-    }
-
-    public String getPositionId() {
-        return positionId;
-    }
-
-    public void setPositionId(String positionId) {
-        this.positionId = positionId != null ? positionId.trim() : null;
-    }
-
-    // Business logic methods
-    public boolean isActive() {
-        return status == ContractStatus.ACTIVE;
-    }
-
-    public boolean isExpired() {
-        return endDate != null && new Date().after(endDate);
-    }
-
-    // toString method
     @Override
     public String toString() {
         return "Contract{" +
-                "id='" + id + '\'' +
-                ", userId=" + userId +
-                ", contractTypeId='" + contractTypeId + '\'' +
+                "id=" + id +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", status=" + status +
-                ", jobGradeId='" + jobGradeId + '\'' +
-                ", baseSalary=" + baseSalary +
-                ", positionId='" + positionId + '\'' +
+                ", basicSalary=" + basicSalary +
+                ", clause='" + clause + '\'' +
+                ", contractStatusEnum=" + contractStatusEnum +
+                ", contractTypeName='" + contractTypeName + '\'' +
+                ", user=" + user +
+                ", signer=" + signer +
+                ", positionName='" + positionName + '\'' +
+                ", departmentName='" + departmentName + '\'' +
+                ", jobGradeCoefficient=" + jobGradeCoefficient +
                 '}';
     }
 
-    // equals and hashCode
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contract contract = (Contract) o;
-        return id.equals(contract.id);
+        return id == contract.id && Double.compare(basicSalary, contract.basicSalary) == 0 && Double.compare(jobGradeCoefficient, contract.jobGradeCoefficient) == 0 && Objects.equals(startDate, contract.startDate) && Objects.equals(endDate, contract.endDate) && Objects.equals(clause, contract.clause) && contractStatusEnum == contract.contractStatusEnum && Objects.equals(contractTypeName, contract.contractTypeName) && Objects.equals(user, contract.user) && Objects.equals(signer, contract.signer) && Objects.equals(positionName, contract.positionName) && Objects.equals(departmentName, contract.departmentName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, startDate, endDate, basicSalary, clause, contractStatusEnum, contractTypeName, user, signer, positionName, departmentName, jobGradeCoefficient);
+    }
+
+    public static class Builder {
+        private int id;
+        private Date startDate;
+        private Date endDate;
+        private double basicSalary;
+        private String clause;
+        private ContractStatusEnum contractStatusEnum;
+        private String contractTypeName;
+        private UserSummary user;
+        private UserSummary signer;
+        private String positionName;
+        private String departmentName;
+        private double jobGradeCoefficient;
+
+        public Builder id(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder startDate(Date startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        public Builder endDate(Date endDate) {
+            this.endDate = endDate;
+            return this;
+        }
+
+        public Builder basicSalary(double basicSalary) {
+            this.basicSalary = basicSalary;
+            return this;
+        }
+
+        public Builder clause(String clause) {
+            this.clause = clause;
+            return this;
+        }
+
+        public Builder contractStatusEnum(ContractStatusEnum contractStatusEnum) {
+            this.contractStatusEnum = contractStatusEnum;
+            return this;
+        }
+
+        public Builder contractTypeName(String contractTypeName) {
+            this.contractTypeName = contractTypeName;
+            return this;
+        }
+
+        public Builder user(UserSummary user) {
+            this.user = user;
+            return this;
+        }
+
+        public Builder signer(UserSummary signer) {
+            this.signer = signer;
+            return this;
+        }
+
+        public Builder positionName(String positionName) {
+            this.positionName = positionName;
+            return this;
+        }
+
+        public Builder departmentName(String departmentName) {
+            this.departmentName = departmentName;
+            return this;
+        }
+
+        public Builder jobGradeCoefficient(double jobGradeCoefficient) {
+            this.jobGradeCoefficient = jobGradeCoefficient;
+            return this;
+        }
+
+        public Contract build() {
+            return new Contract(this);
+        }
     }
 }

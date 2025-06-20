@@ -51,13 +51,20 @@ public class DateUtils {
 
     public static String convertToDayMonthYearFormat(String inputDate) {
         try {
-            // Tạo định dạng đầu vào (nhận cả yyyy-M-d và yyyy-MM-dd)
-            SimpleDateFormat fromInput = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
-            Date date = fromInput.parse(inputDate);
-
-            // Tạo định dạng đầu ra với đầy đủ 2 chữ số cho ngày và tháng
-            SimpleDateFormat toOutput = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            return toOutput.format(date);
+            // Thử định dạng ISO 8601 trước
+            SimpleDateFormat fromInput;
+            try {
+                fromInput = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault());
+                Date date = fromInput.parse(inputDate);
+                SimpleDateFormat toOutput = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                return toOutput.format(date);
+            } catch (Exception e) {
+                // Nếu không phải ISO 8601, thử định dạng yyyy-M-d hoặc yyyy-MM-dd
+                fromInput = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+                Date date = fromInput.parse(inputDate);
+                SimpleDateFormat toOutput = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                return toOutput.format(date);
+            }
         } catch (Exception e) {
             return inputDate; // Trả về nguyên bản nếu có lỗi
         }
@@ -75,4 +82,29 @@ public class DateUtils {
                 dateComponents.month,
                 dateComponents.year);
     }
+
+    /**
+     * Định dạng Date sang chuỗi kiểu "dd/MM/yyyy HH:mm:ss" (chuẩn Việt Nam)
+     *
+     * @param date Date cần định dạng
+     * @return Chuỗi ngày giờ định dạng Việt Nam
+     */
+    public static String formatDateToVietnamese(Date date) {
+        if (date == null) return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", new Locale("vi", "VN"));
+        return sdf.format(date);
+    }
+
+    /**
+     * Định dạng Date sang chuỗi kiểu "dd/MM/yyyy" (chỉ ngày tháng)
+     *
+     * @param date Date cần định dạng
+     * @return Chuỗi ngày định dạng Việt Nam
+     */
+    public static String formatDateToVietnameseNoTime(Date date) {
+        if (date == null) return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", new Locale("vi", "VN"));
+        return sdf.format(date);
+    }
+
 }

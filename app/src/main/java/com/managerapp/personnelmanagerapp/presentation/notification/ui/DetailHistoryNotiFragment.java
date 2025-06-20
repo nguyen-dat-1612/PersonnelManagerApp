@@ -22,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class DetailHistoryNotiFragment extends Fragment {
-    private static final String TAG = "DetailNotificationFragment";
 
     private DetailHistoryViewModel notificationViewModel;
     private FragmentDetailNotificationBinding binding;
@@ -72,7 +71,6 @@ public class DetailHistoryNotiFragment extends Fragment {
                 binding.rvAttachments.setAdapter(adapter);
             } else if (state instanceof  UiState.Error) {
                 binding.swipeRefresh.setRefreshing(false);
-                Log.d(TAG, "loadNotification: " + ((UiState.Error) state).getErrorMessage());
             }
         });
     }

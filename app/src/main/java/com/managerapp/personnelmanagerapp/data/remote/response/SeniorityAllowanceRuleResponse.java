@@ -2,6 +2,7 @@ package com.managerapp.personnelmanagerapp.data.remote.response;
 
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
+import java.util.Date;
 
 public class SeniorityAllowanceRuleResponse implements Serializable {
     @SerializedName("id")
@@ -17,10 +18,10 @@ public class SeniorityAllowanceRuleResponse implements Serializable {
     private int seniorityLeaveDay;
 
     @SerializedName("effectiveDate")
-    private String effectiveDate;
+    private Date effectiveDate;
 
     @SerializedName("expiryDate")
-    private String expiryDate;
+    private Date expiryDate;
 
     @SerializedName("description")
     private String description;
@@ -44,11 +45,11 @@ public class SeniorityAllowanceRuleResponse implements Serializable {
         return seniorityLeaveDay;
     }
 
-    public String getEffectiveDate() {
+    public Date getEffectiveDate() {
         return effectiveDate;
     }
 
-    public String getExpiryDate() {
+    public Date getExpiryDate() {
         return expiryDate;
     }
 

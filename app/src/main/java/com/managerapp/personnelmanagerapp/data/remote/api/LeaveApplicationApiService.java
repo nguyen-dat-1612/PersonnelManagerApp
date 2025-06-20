@@ -3,11 +3,9 @@ package com.managerapp.personnelmanagerapp.data.remote.api;
 import com.managerapp.personnelmanagerapp.data.remote.request.LeaveApplicationRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
-import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
+import com.managerapp.personnelmanagerapp.domain.model.FormStatusEnum;
 
 import java.util.List;
-
-import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -22,18 +20,20 @@ public interface LeaveApplicationApiService {
     Single<BaseResponse<List<LeaveApplicationResponse>>> getLeaveApplications(@Path("userId") long userId );
 
     @GET("leaveApplications/{id}")
-    Single<BaseResponse<LeaveApplication>> getLeaveApplicationById(@Path("id") String id);
+    Single<BaseResponse<LeaveApplicationResponse>> getLeaveApplicationById(@Path("id") String id);
 
     @POST("leave-applications/create")
     Single<BaseResponse<LeaveApplicationResponse>> createLeaveApplication(@Body LeaveApplicationRequest leaveApplicationRequest);
 
     @GET("leave-applications")
-    Single<BaseResponse<List<LeaveApplicationResponse>>> getApplicationIsPending(@Query("formStatusEnum") String formStatusEnum, @Query("departmentId") String departmentId);
+    Single<BaseResponse<List<LeaveApplicationResponse>>> getApplicationIsPending(@Query("formStatusEnum") FormStatusEnum formStatusEnum, @Query("departmentId") String departmentId);
 
     @PUT("leave-applications/confirm/{applicationId}")
     Single<BaseResponse<LeaveApplicationResponse>> confirmApplication(
         @Path("applicationId") long applicationId,
-        @Query("formStatusEnum") String formStatusEnum
+        @Query("formStatusEnum") FormStatusEnum formStatusEnum
     );
+
+
 
 }

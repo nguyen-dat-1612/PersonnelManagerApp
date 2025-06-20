@@ -1,6 +1,6 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.decision;
 
-import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
+import com.managerapp.personnelmanagerapp.domain.model.Decision;
 import com.managerapp.personnelmanagerapp.domain.repository.DecisionRepository;
 import java.util.List;
 import javax.inject.Inject;
@@ -14,7 +14,7 @@ public class GetAllDecisionUseCase {
         this.decisionRepository = decisionRepository;
     }
 
-    public Observable<List<DecisionResponse>> execute(String type) {
+    public Observable<List<Decision>> execute(String type) {
         return decisionRepository.getAllDecisions(type);
     }
 }

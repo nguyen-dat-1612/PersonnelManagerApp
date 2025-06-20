@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quyết Định</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 25mm 20mm 20mm 30mm;
+        }
+
+        body {
+            font-family: "Times New Roman", serif;
+            font-size: 13px;
+            line-height: 1.4;
+            margin: 0;
+            padding: 25mm 20mm 20mm 30mm;
+            color: #000;
+            background: white;
+        }
+
+        .header {
+            display: table;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .header-left {
+            display: table-cell;
+            width: 45%;
+            vertical-align: top;
+            font-size: 12px;
+        }
+
+        .header-right {
+            display: table-cell;
+            width: 55%;
+            text-align: center;
+            vertical-align: top;
+            font-size: 12px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .title-section {
+            text-align: center;
+            margin: 40px 0 30px 0;
+        }
+
+        .title-section h1 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 10px 0;
+            text-decoration: underline;
+        }
+
+        .subject {
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .content {
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        .content p {
+            margin: 10px 0;
+        }
+
+        .decision-body {
+            margin: 25px 0;
+        }
+
+        .footer {
+            display: table;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .footer-left {
+            display: table-cell;
+            width: 45%;
+            vertical-align: top;
+            font-size: 12px;
+        }
+
+        .footer-right {
+            display: table-cell;
+            width: 55%;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .signature-space {
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="header-left">
+        <p class="bold">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
+        <p class="bold">TRƯỜNG ĐẠI HỌC ABC</p>
+        <p>─────────────</p>
+        <p>Số: <span id="decisionNumber">___/QĐ-...</span></p>
+    </div>
+    <div class="header-right">
+        <p class="bold">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+        <p class="bold underline">Độc lập – Tự do – Hạnh phúc</p>
+        <p>─────────────</p>
+        <p><em>TP. Hồ Chí Minh, ngày <span id="day">__</span> tháng <span id="month">__</span> năm <span id="year">____</span></em></p>
+    </div>
+</div>
+
+<div class="title-section">
+    <h1>QUYẾT ĐỊNH</h1>
+    <p class="subject">Về việc: <span class="bold" id="decisionContentText">_________________________</span></p>
+</div>
+
+<div class="content">
+    <p class="bold">GIẢM ĐỐC TRƯỜNG ĐẠI HỌC ABC</p>
+
+    <p>- Căn cứ Luật Giáo dục đại học ngày 18/6/2012;</p>
+    <p>- Căn cứ Nghị định số 99/2019/NĐ-CP ngày 30/12/2019 của Chính phủ quy định chi tiết thi hành một số điều của Luật Viên chức;</p>
+    <p>- Căn cứ Quy chế tổ chức và hoạt động của Trường;</p>
+    <p>- Căn cứ nhu cầu công tác và đề xuất của đơn vị;</p>
+    <p>- Xét năng lực, phẩm chất đạo đức và kết quả công tác của cán bộ, viên chức;</p>
+
+    <div class="decision-body">
+        <p class="center bold" style="font-size: 14px;">QUYẾT ĐỊNH:</p>
+
+        <p><span class="bold">Điều 1.</span> <span id="decisionBody1">_________________________________________________</span></p>
+
+        <p><span class="bold">Điều 2.</span> Các ông/bà Trưởng các phòng, ban chức năng, Trưởng các khoa và cá nhân có liên quan chịu trách nhiệm thi hành quyết định này.</p>
+
+        <p><span class="bold">Điều 3.</span> Quyết định này có hiệu lực kể từ ngày ký.</p>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-left">
+        <p class="bold">Nơi nhận:</p>
+        <p>- Như Điều 2;</p>
+        <p>- Ban Giám hiệu;</p>
+        <p>- Phòng Tổ chức - Hành chính;</p>
+        <p>- Lưu: VT, HS.</p>
+    </div>
+    <div class="footer-right">
+        <p class="bold">GIÁM ĐỐC</p>
+        <div class="signature-space"></div>
+        <p class="bold underline" id="signerName">___________________</p>
+    </div>
+</div>
+</body>
+</html>

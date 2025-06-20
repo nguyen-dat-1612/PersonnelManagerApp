@@ -1,6 +1,6 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.position;
 
-import com.managerapp.personnelmanagerapp.data.remote.response.PositionResponse;
+import com.managerapp.personnelmanagerapp.domain.model.Position;
 import com.managerapp.personnelmanagerapp.domain.repository.PositionRepository;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class GetPositionUseCase {
         this.positionRepository = positionRepository;
     }
 
-    public Observable<List<PositionResponse>> execute() {
+    public Observable<List<Position>> execute() {
         return positionRepository.getPositions();
     }
 }

@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
 import com.managerapp.personnelmanagerapp.databinding.FragmentSeniorityBinding;
 import com.managerapp.personnelmanagerapp.presentation.base.BaseFragment;
@@ -52,8 +53,9 @@ public class SeniorityFragment extends BaseFragment {
                 UserProfileResponse newUser = ((UiState.Success<UserProfileResponse>) state).getData();
                 if (newUser != null) {
                     binding.seniorityLeaveDayText.setText(newUser.getSeniorityLeaveDay() + "");
-                    binding.seniorityPercentageText.setText(newUser.getSeniorityPercentage() + "%");
-                    int totalAllowed = newUser.getNumDiscipline() + newUser.getCarriedOverDay();
+                    String percentage = getString(R.string.seniority_percentage, String.valueOf(newUser.getSeniorityPercentage()));
+                    binding.seniorityPercentageText.setText(percentage);
+                    int totalAllowed =  newUser.getCarriedOverDay() + newUser.getSeniorityLeaveDay();
                     int taken = newUser.getUsedLeaveDay();
                     setupLeaveSummaryChart(totalAllowed, taken);
                 }
@@ -68,10 +70,10 @@ public class SeniorityFragment extends BaseFragment {
         int remaining = totalAllowed - taken;
 
         List<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(taken, "Đã nghỉ"));
-        entries.add(new PieEntry(remaining, "Còn lại"));
+        entries.add(new PieEntry(taken, getString(R.string.leave_taken)));
+        entries.add(new PieEntry(remaining, getString(R.string.leave_remaining)));
 
-        PieDataSet dataSet = new PieDataSet(entries, "Tổng ngày phép");
+        PieDataSet dataSet = new PieDataSet(entries, getString(R.string.leave_total_label));
         dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         dataSet.setSliceSpace(3f);
         dataSet.setValueTextColor(Color.WHITE);
@@ -80,7 +82,7 @@ public class SeniorityFragment extends BaseFragment {
         dataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return (int) value + " ngày";
+                return (int) value +"";
             }
         });
 
@@ -91,7 +93,8 @@ public class SeniorityFragment extends BaseFragment {
         chart.setDrawHoleEnabled(true);
         chart.setHoleRadius(50f);
         chart.setTransparentCircleRadius(55f);
-        chart.setCenterText("Ngày nghỉ\n" + taken + "/" + totalAllowed + " đã dùng");
+        String centerText = getString(R.string.leave_center_text, taken, totalAllowed);
+        chart.setCenterText(centerText);
         chart.setCenterTextSize(16f);
         chart.setUsePercentValues(false);
         chart.getDescription().setEnabled(false);

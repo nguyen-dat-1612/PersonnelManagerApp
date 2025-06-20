@@ -20,16 +20,13 @@ import com.managerapp.personnelmanagerapp.domain.usecase.user.SearchUserUseCase;
 import com.managerapp.personnelmanagerapp.presentation.decision.adapter.OptionItem;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.presentation.sendNotification.ui.SendNotificationUiState;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
@@ -140,26 +137,9 @@ public class CreateDecisionViewModel extends ViewModel {
         );
     }
 
-    public void getGetSalaryPromotionOptions() {
-        disposables.add(getSalaryPromotionPendingUseCase.execute()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        options -> {
-                            optionalOptions.setValue(mapToOptionItems(options));
-                        },
-                        throwable -> {
-                            // Xử lý lỗi
-                            Log.e("CreateDecisionViewModel", "Error fetching promotion options: " + throwable.getMessage());
-                        }
-                )
-        );
-
-    }
 
     public final Map<DecisionEnum, Runnable> decisionHandlers = new HashMap<DecisionEnum, Runnable>() {{
         put(DecisionEnum.PROMOTION, () -> getPositionOptions());
-        put(DecisionEnum.INCREASE_SALARY, () -> getGetSalaryPromotionOptions());
         put(DecisionEnum.SENIORITY_ALLOWANCE, () -> getSeniorityAllowanceOptions());
     }};
 

@@ -1,6 +1,7 @@
 package com.managerapp.personnelmanagerapp.data.remote.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.managerapp.personnelmanagerapp.domain.model.ContractStatusEnum;
 
 public class ContractExpireReportResponse {
 
@@ -21,10 +22,10 @@ public class ContractExpireReportResponse {
     @SerializedName("remainingDays")
     private int remainingDays;
     @SerializedName("contractStatus")
-    private String contractStatus;
+    private ContractStatusEnum contractStatus;
 
 
-    public ContractExpireReportResponse(int stt, String fullName, String email, String departmentName, String positionName, String contractTypeName, String endDate, String contractStatus, int remainingDays) {
+    public ContractExpireReportResponse(int stt, String fullName, String email, String departmentName, String positionName, String contractTypeName, String endDate, ContractStatusEnum contractStatus, int remainingDays) {
         this.stt = stt;
         this.fullName = fullName;
         this.email = email;
@@ -68,7 +69,7 @@ public class ContractExpireReportResponse {
         return remainingDays;
     }
 
-    public String getContractStatus() {
+    public ContractStatusEnum getContractStatus() {
         return contractStatus;
     }
 }

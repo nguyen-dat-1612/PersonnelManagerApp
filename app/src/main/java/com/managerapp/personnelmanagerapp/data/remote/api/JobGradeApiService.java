@@ -11,11 +11,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface JobGradeApiService {
-
     @GET("job-grades")
     Single<BaseResponse<List<JobGradeResponse>>> getAllJobGrades();
-
-
     @GET("job-grades/user/{id}")
     Single<BaseResponse<JobGradeResponse>> getJobGradeById(@Path("id") Long id);
 }

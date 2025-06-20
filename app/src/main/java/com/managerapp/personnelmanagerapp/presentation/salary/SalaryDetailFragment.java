@@ -32,7 +32,6 @@ public class SalaryDetailFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         binding = FragmentSalaryDetailBinding.inflate(inflater, container, false);
 
-        // Lấy contractId từ arguments
         Bundle args = getArguments();
         id = args != null ? args.getString("id", "DEFAULT_ID") : "DEFAULT_ID";
         return binding.getRoot();

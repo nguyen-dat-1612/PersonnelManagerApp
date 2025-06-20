@@ -1,12 +1,9 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.jobGrade;
 
-import com.managerapp.personnelmanagerapp.data.remote.response.JobGradeResponse;
+import com.managerapp.personnelmanagerapp.domain.model.JobGrade;
 import com.managerapp.personnelmanagerapp.domain.repository.JobGradeRepository;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
 import io.reactivex.rxjava3.core.Single;
 
 public class GetAllJobGradesUseCase {
@@ -17,7 +14,7 @@ public class GetAllJobGradesUseCase {
         this.jobGradeRepository = jobGradeRepository;
     }
 
-    public Single<List<JobGradeResponse>> execute() {
+    public Single<List<JobGrade>> execute() {
         return jobGradeRepository.getAllJobGrades();
     }
 }

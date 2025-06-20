@@ -98,27 +98,14 @@
                     app:layout_constraintTop_toBottomOf="@id/userNameText">
 
                     <TextView
-                        android:id="@+id/magvtext"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginStart="40dp"
-                        android:layout_weight="1"
-                        android:paddingEnd="16dp"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:gravity="start"/>
-
-                    <TextView
-                        android:id="@+id/khoagvtext"
+                        android:id="@+id/infoText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:layout_weight="1"
                         android:textSize="14sp"
-                        android:layout_marginEnd="40dp"
                         android:textStyle="bold"
-                        android:gravity="end"/>
+                        android:gravity="center"/>
 
                 </LinearLayout>
 
@@ -132,6 +119,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
+                <include
+                    layout="@layout/progress_overlay_white"
+                    android:id="@+id/progressOverlay"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
                 <include
                     android:id="@id/errorView"
                     layout="@layout/view_error_state"

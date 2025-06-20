@@ -24,7 +24,6 @@ public class HistoryViewModel extends ViewModel {
     private final MutableLiveData<List<NotificationRecipient>> notificationList = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isLastPage = new MutableLiveData<>(false);
-
     private final PublishSubject<Integer> pageTrigger = PublishSubject.create();
     private int pageSize = 10;
 

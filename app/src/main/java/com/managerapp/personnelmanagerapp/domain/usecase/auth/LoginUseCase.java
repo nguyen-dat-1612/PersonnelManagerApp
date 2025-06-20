@@ -9,7 +9,6 @@ import io.reactivex.rxjava3.core.Single;
 
 public class LoginUseCase {
     private final AuthRepository authRepository;
-
     @Inject
     public LoginUseCase(AuthRepository authRepository) {
         this.authRepository = authRepository;

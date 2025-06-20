@@ -3,6 +3,10 @@ package com.managerapp.personnelmanagerapp.utils;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.pdf.PdfDocument;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -15,10 +19,13 @@ import androidx.core.content.FileProvider;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractExpireReportResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.PayrollResponse;
+import com.managerapp.personnelmanagerapp.domain.model.ContractExpireReport;
+import com.managerapp.personnelmanagerapp.domain.model.Payroll;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +33,8 @@ import java.util.List;
 
 public class PdfUtils {
 
-    public static void exportPayrollToPdf(Context context, String dateRange, List<PayrollResponse> data, String fileName) {
+    // Pdf liên quan đến báo cáo hợp đồng
+    public static void exportPayrollToPdf(Context context, String dateRange, List<Payroll> data, String fileName) {
         try {
             // 1. Đọc file HTML template
             InputStream inputStream = context.getAssets().open("payroll_monthly.html");
@@ -40,7 +48,7 @@ public class PdfUtils {
 
             // 2. Tạo nội dung bảng lương
             StringBuilder tableBody = new StringBuilder();
-            for (PayrollResponse item : data) {
+            for (Payroll item : data) {
                 tableBody.append("<tr>")
                         .append("<td>").append(item.getUserId()).append("</td>")
                         .append("<td>").append(item.getFullName() != null ? item.getFullName() : "").append("</td>")
@@ -71,7 +79,7 @@ public class PdfUtils {
         }
     }
 
-    public static void exportContractExpireReport(Context context, String createdDate, int filterDays, List<ContractExpireReportResponse> data, String fileName) {
+    public static void exportContractExpireReport(Context context, String createdDate, int filterDays, List<ContractExpireReport> data, String fileName) {
         try {
             InputStream inputStream = context.getAssets().open("contract_expiring_report.html");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
@@ -83,7 +91,7 @@ public class PdfUtils {
             String htmlTemplate = htmlBuilder.toString();
 
             StringBuilder tableBody = new StringBuilder();
-            for (ContractExpireReportResponse item : data) {
+            for (ContractExpireReport item : data) {
                 tableBody.append("<tr>")
                         .append("<td>").append(item.getStt()).append("</td>")
                         .append("<td>").append(item.getFullName()).append("</td>")
@@ -106,7 +114,9 @@ public class PdfUtils {
             FileOutputStream outputStream = new FileOutputStream(pdfFile);
             HtmlConverter.convertToPdf(filledHtml, outputStream);
 
+            Log.d("FragmentDownloads", "Đã lưu vào: " + pdfFile.getAbsolutePath());
             openPdfWithIntent(context, pdfFile);
+
 
         } catch (Exception e) {
             Log.e("PdfUtils", "Lỗi tạo PDF", e);
@@ -158,5 +168,60 @@ public class PdfUtils {
     public static void setupDownloadButton(Context context, ImageView downloadButton, String fileUrl, String fileName) {
         downloadButton.setVisibility(fileUrl != null && !fileUrl.isEmpty() ? View.VISIBLE : View.GONE);
         downloadButton.setOnClickListener(v -> downloadFile(context, fileUrl, fileName));
+    }
+
+
+    // Pdf liên quan đến html webview:
+    public static void saveBitmapToPdf(Context context, Bitmap bitmap, String fileName) {
+        try {
+            // Tạo tên file PDF
+            String pdfName = fileName + "_" + System.currentTimeMillis() + ".pdf";
+
+            // Lấy thư mục Download
+            File downloadsDir = android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS);
+            if (!downloadsDir.exists()) {
+                downloadsDir.mkdirs(); // Tạo nếu chưa có
+            }
+
+            File pdfFile = new File(downloadsDir, pdfName);
+
+            // Tạo PDF
+            PdfDocument pdfDocument = new PdfDocument();
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), 1).create();
+            PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+            Canvas canvas = page.getCanvas();
+            canvas.drawBitmap(bitmap, 0f, 0f, null);
+            pdfDocument.finishPage(page);
+
+            FileOutputStream fos = new FileOutputStream(pdfFile);
+            pdfDocument.writeTo(fos);
+            pdfDocument.close();
+            fos.close();
+
+            // Quét media để cập nhật file mới (hiển thị trong các app khác)
+            MediaScannerConnection.scanFile(context, new String[]{pdfFile.getAbsolutePath()}, null, null);
+
+//            // Mở file PDF ngay lập tức
+//            openPdfFile(context, pdfFile);
+            Toast.makeText(context, "Đã tải xuống pdf thành công", Toast.LENGTH_SHORT).show();
+            Log.d("PdfUtils", "Đã lưu vào: " + pdfFile.getAbsolutePath());
+        } catch (IOException e) {
+            Log.e("PdfUtils", "Lỗi khi lưu PDF: ", e);
+            Toast.makeText(context, "Lỗi khi lưu file PDF", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private static void openPdfFile(Context context, File pdfFile) {
+        try {
+            Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", pdfFile);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, "application/pdf");
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("PdfUtils", "Không thể mở file PDF", e);
+            Toast.makeText(context, "Không thể mở file PDF", Toast.LENGTH_LONG).show();
+        }
     }
 }

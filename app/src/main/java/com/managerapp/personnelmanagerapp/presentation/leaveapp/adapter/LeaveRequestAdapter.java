@@ -2,32 +2,27 @@ package com.managerapp.personnelmanagerapp.presentation.leaveapp.adapter;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
 import com.managerapp.personnelmanagerapp.databinding.ItemLeaveRequestBinding;
+import com.managerapp.personnelmanagerapp.domain.model.FormStatusEnum;
+import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 import com.managerapp.personnelmanagerapp.presentation.leaveapp.ui.LeaveDetailBottomSheetFragment;
-
-import java.util.List;
 import java.util.function.Consumer;
-
 import io.reactivex.rxjava3.annotations.NonNull;
+import com.managerapp.personnelmanagerapp.R;
 
-public class LeaveRequestAdapter extends ListAdapter<LeaveApplicationResponse, LeaveRequestAdapter.LeaveRequestViewHolder> {
-
-    private final Consumer<LeaveApplicationResponse> rejectClickListener;
-    private final Consumer<LeaveApplicationResponse> approveClickListener;
+public class LeaveRequestAdapter extends ListAdapter<LeaveApplication, LeaveRequestAdapter.LeaveRequestViewHolder> {
+    private final Consumer<LeaveApplication> rejectClickListener;
+    private final Consumer<LeaveApplication> approveClickListener;
     private final FragmentActivity activity;
 
     public LeaveRequestAdapter(
-            Consumer<LeaveApplicationResponse> rejectClickListener,
-            Consumer<LeaveApplicationResponse> approveClickListener,
+            Consumer<LeaveApplication> rejectClickListener,
+            Consumer<LeaveApplication> approveClickListener,
             FragmentActivity activity) {
         super(DIFF_CALLBACK);
         this.rejectClickListener = rejectClickListener;
@@ -35,17 +30,17 @@ public class LeaveRequestAdapter extends ListAdapter<LeaveApplicationResponse, L
         this.activity = activity;
     }
 
-    public static final DiffUtil.ItemCallback<LeaveApplicationResponse> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<LeaveApplicationResponse>() {
+    public static final DiffUtil.ItemCallback<LeaveApplication> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<LeaveApplication>() {
                 @Override
                 public boolean areItemsTheSame(
-                        @NonNull LeaveApplicationResponse oldItem, @NonNull LeaveApplicationResponse newItem) {
+                        @NonNull LeaveApplication oldItem, @NonNull LeaveApplication newItem) {
                     return oldItem.getId() == newItem.getId();
                 }
 
                 @Override
                 public boolean areContentsTheSame(
-                        @NonNull LeaveApplicationResponse oldItem, @NonNull LeaveApplicationResponse newItem) {
+                        @NonNull LeaveApplication oldItem, @NonNull LeaveApplication newItem) {
                     return oldItem.equals(newItem);
                 }
             };
@@ -58,7 +53,7 @@ public class LeaveRequestAdapter extends ListAdapter<LeaveApplicationResponse, L
 
     @Override
     public void onBindViewHolder(LeaveRequestViewHolder holder, int position) {
-        LeaveApplicationResponse leaveRequest = getItem(position);
+        LeaveApplication leaveRequest = getItem(position);
         holder.bind(leaveRequest);
     }
 
@@ -71,11 +66,22 @@ public class LeaveRequestAdapter extends ListAdapter<LeaveApplicationResponse, L
             this.binding = binding;
         }
 
-        public void bind(LeaveApplicationResponse leaveRequest) {
+        public void bind(LeaveApplication leaveRequest) {
             binding.setLeaveRequest(leaveRequest);
 
             binding.btnReject.setOnClickListener(v -> rejectClickListener.accept(leaveRequest));
             binding.btnApprove.setOnClickListener(v -> approveClickListener.accept(leaveRequest));
+
+            int color;
+            if (leaveRequest.getFormStatusEnum().equals(FormStatusEnum.PENDING)) {
+                color = binding.getRoot().getContext().getColor(R.color.orange);
+            } else if (leaveRequest.getFormStatusEnum().equals(FormStatusEnum.REJECTED)) {
+                color = binding.getRoot().getContext().getColor(R.color.red);
+            } else {
+                color = binding.getRoot().getContext().getColor(R.color.green);
+            }
+
+            binding.tvStatus.setTextColor(color);
 
             binding.itemView.setOnClickListener(v -> {
                 LeaveDetailBottomSheetFragment bottomSheetFragment = new LeaveDetailBottomSheetFragment();

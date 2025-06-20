@@ -1,6 +1,5 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.leaveapp;
 
-import com.managerapp.personnelmanagerapp.data.repository.LeaveTypeRepositoryImpl;
 import com.managerapp.personnelmanagerapp.domain.model.LeaveType;
 import com.managerapp.personnelmanagerapp.domain.repository.LeaveTypeRepository;
 

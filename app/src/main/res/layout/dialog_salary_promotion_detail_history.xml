@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Tiêu đề -->
+
         <TextView
-            android:text="Chi tiết nâng bậc lương"
+            android:text="@string/title_salary_promotion_detail"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/black"
@@ -25,58 +25,51 @@
             android:layout_height="1dp"
             android:background="@color/dark_gray" />
 
-        <!-- Thông tin người đề xuất -->
+
         <TextView
             android:id="@+id/tvUser"
             android:layout_marginTop="12dp"
-            android:text="👤 Người đề xuất: ..."
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!-- Bậc hiện tại -->
+
         <TextView
             android:id="@+id/tvCurrentGrade"
             android:layout_marginTop="6dp"
-            android:text="🏷️ Bậc hiện tại: ..."
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!-- Bậc đề xuất -->
+
         <TextView
             android:id="@+id/tvRequestGrade"
             android:layout_marginTop="6dp"
-            android:text="📈 Bậc đề xuất: ..."
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!-- Lý do -->
+
         <TextView
             android:id="@+id/tvReason"
             android:layout_marginTop="6dp"
-            android:text="📝 Lý do: ..."
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!-- Trạng thái -->
+
         <TextView
             android:id="@+id/tvStatus"
             android:layout_marginTop="6dp"
-            android:text="📋 Trạng thái: Đã phê duyệt / Đã từ chối"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@color/green"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!-- Ghi chú -->
         <TextView
             android:id="@+id/tvNote"
             android:layout_marginTop="6dp"
-            android:text="🗒️ Ghi chú: ..."
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

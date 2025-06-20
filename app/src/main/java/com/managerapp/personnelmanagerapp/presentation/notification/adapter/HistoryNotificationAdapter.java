@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.presentation.notification.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +19,12 @@ import java.util.function.Consumer;
 
 public class HistoryNotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    // Kiểu ViewHolder cho item bình thường
     private static final int TYPE_ITEM = 0;
-    // Kiểu ViewHolder cho item loading (footer)
     private static final int TYPE_LOADING = 1;
 
     private List<NotificationRecipient> notificationList = new ArrayList<>();
-    private boolean isLoadingAdded = false; // cờ xác định có thêm footer loading hay không
-    private final Consumer<NotificationRecipient> onClick; // callback khi click item
+    private boolean isLoadingAdded = false;
+    private final Consumer<NotificationRecipient> onClick;
 
     public HistoryNotificationAdapter(Consumer<NotificationRecipient> onClick) {
         this.onClick = onClick;
@@ -33,13 +32,11 @@ public class HistoryNotificationAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public int getItemViewType(int position) {
-        // Nếu là vị trí cuối cùng và có loading footer thì trả về TYPE_LOADING, ngược lại TYPE_ITEM
         return (position == notificationList.size() && isLoadingAdded) ? TYPE_LOADING : TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        // Tổng số item = số phần tử + 1 nếu có loading footer
         return notificationList.size() + (isLoadingAdded ? 1 : 0);
     }
 
@@ -47,12 +44,10 @@ public class HistoryNotificationAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == TYPE_LOADING) {
-            // Inflate layout loading footer
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_loading, parent, false);
             return new LoadingViewHolder(view);
         } else {
-            // Inflate layout item thông báo
             ItemNotificationHistoryBinding binding = ItemNotificationHistoryBinding.inflate(
                     LayoutInflater.from(parent.getContext()), parent, false);
             return new HistoryViewHolder(binding);
@@ -64,10 +59,8 @@ public class HistoryNotificationAdapter extends RecyclerView.Adapter<RecyclerVie
         if (getItemViewType(position) == TYPE_ITEM) {
             ((HistoryViewHolder) holder).bind(notificationList.get(position));
         }
-        // LoadingViewHolder không cần bind dữ liệu
     }
 
-    // ViewHolder cho item thông báo
     public class HistoryViewHolder extends RecyclerView.ViewHolder {
         private final ItemNotificationHistoryBinding binding;
 
@@ -77,16 +70,18 @@ public class HistoryNotificationAdapter extends RecyclerView.Adapter<RecyclerVie
         }
 
         public void bind(NotificationRecipient item) {
-            // Set dữ liệu lên các view trong item
-            binding.tvTitle.setText("Tiêu đề: " + item.getTitle());
-            binding.tvTime.setText("Thời gian: " + DateTimeUtils.formatSendDate(item.getSendDate())); // hoặc item.getSentAt().toString()
+            Context context = binding.getRoot().getContext();
 
-            // Xử lý click item
+            String titlePrefix = context.getString(R.string.title_prefix);
+            String timePrefix = context.getString(R.string.time_prefix);
+
+            binding.tvTitle.setText(titlePrefix + item.getTitle());
+            binding.tvTime.setText(timePrefix + DateTimeUtils.formatSendDate(item.getSendDate()));
+
             binding.getRoot().setOnClickListener(v -> onClick.accept(item));
         }
     }
 
-    // Thêm footer loading
     public void addLoadingFooter() {
         if (!isLoadingAdded) {
             isLoadingAdded = true;
@@ -94,7 +89,6 @@ public class HistoryNotificationAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
-    // Xóa footer loading
     public void removeLoadingFooter() {
         if (isLoadingAdded) {
             isLoadingAdded = false;
@@ -102,21 +96,18 @@ public class HistoryNotificationAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
-    // Thêm danh sách mới vào cuối danh sách hiện tại
     public void addAll(List<NotificationRecipient> newItems) {
         int startPos = notificationList.size();
         notificationList.addAll(newItems);
         notifyItemRangeInserted(startPos, newItems.size());
     }
 
-    // Cập nhật lại toàn bộ danh sách, xóa hết rồi set mới
     public void updateList(List<NotificationRecipient> newList) {
         notificationList.clear();
         notificationList.addAll(newList);
         notifyDataSetChanged();
     }
 
-    // ViewHolder cho loading footer
     public static class LoadingViewHolder extends RecyclerView.ViewHolder {
         public LoadingViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -1,7 +1,7 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.leaveapp;
 
-import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
-import com.managerapp.personnelmanagerapp.data.repository.LeaveApplicationRepositoryImpl;
+import com.managerapp.personnelmanagerapp.domain.model.FormStatusEnum;
+import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 import com.managerapp.personnelmanagerapp.domain.repository.LeaveApplicationRepository;
 
 import javax.inject.Inject;
@@ -16,7 +16,7 @@ public class ConfirmApplicationUseCase {
         this.leaveApplicationRepository = leaveApplicationRepository;
     }
 
-    public Single<LeaveApplicationResponse> execute(long applicationId, String formStatusEnum) {
+    public Single<LeaveApplication> execute(long applicationId, FormStatusEnum formStatusEnum) {
         return leaveApplicationRepository.confirmApplication(applicationId, formStatusEnum);
     }
 }

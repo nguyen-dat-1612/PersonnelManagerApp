@@ -75,6 +75,10 @@ public class ResetPasswordFragment extends BaseFragment {
             String newPassword = binding.edtNewPassword.getText().toString().trim();
             String confirmPassword = binding.edtConfirmPassword.getText().toString().trim();
             if (validatePasswords(newPassword, confirmPassword)) {
+                if (this.email == null) {
+                    showError(getString(R.string.error_verify_otp));
+                    return;
+                }
                 viewModel.resetPassword(newPassword);
             }
         });
@@ -98,15 +102,15 @@ public class ResetPasswordFragment extends BaseFragment {
 
     private boolean validatePasswords(String newPassword, String confirmPassword) {
         if (newPassword.isEmpty()) {
-            binding.edtNewPassword.setError("Vui lòng nhập mật khẩu mới");
+            binding.edtNewPassword.setError(getString(R.string.error_new_password_empty));
             return false;
         }
         if (newPassword.length() < 6) {
-            binding.edtNewPassword.setError("Mật khẩu phải có ít nhất 6 ký tự");
+            binding.edtNewPassword.setError(getString(R.string.error_new_password_length));
             return false;
         }
         if (!newPassword.equals(confirmPassword)) {
-            binding.edtConfirmPassword.setError("Mật khẩu không khớp");
+            binding.edtConfirmPassword.setError(getString(R.string.error_password_mismatch));
             return false;
         }
         return true;

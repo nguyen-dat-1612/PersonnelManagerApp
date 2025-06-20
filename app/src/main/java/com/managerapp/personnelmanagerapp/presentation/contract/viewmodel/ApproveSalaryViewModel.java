@@ -26,7 +26,6 @@ public class ApproveSalaryViewModel extends ViewModel {
     private final GetSalaryPromotionPendingUseCase getSalaryPromotionPendingUseCase;
     private final UpdateSalaryPromotionUseCase updateSalaryPromotionUseCase;
     private final DeleteSalaryPromotionUseCase deleteSalaryPromotionUseCase;
-
     private final CompositeDisposable disposable = new CompositeDisposable();
     private MutableLiveData<UiState<List<SalaryPromotion>>> salaryPromotionUiState = new MutableLiveData<>();
     private MutableLiveData<UiState<SalaryPromotion>> updateSalaryPromotionUiState = new MutableLiveData<>();

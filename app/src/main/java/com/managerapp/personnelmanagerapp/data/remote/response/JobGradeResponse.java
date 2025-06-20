@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class JobGradeResponse {
     @SerializedName("id")
-    private String id;  // Mã ngạch (primary key)
+    private String id;
     @SerializedName("name")
-    private String name;  // Tên ngạch (unique, not null)
+    private String name;
     @SerializedName("coefficient")
-    private String coefficient;  // Hệ số lương;
+    private String coefficient;
     @SerializedName("description")
-    private String description;  // Chi tiết
+    private String description;
 
 
     public JobGradeResponse(String id, String name, String coefficient, String description) {

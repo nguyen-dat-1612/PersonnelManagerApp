@@ -1,8 +1,7 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.leaveapp;
 
 import com.managerapp.personnelmanagerapp.data.remote.request.LeaveApplicationRequest;
-import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
-import com.managerapp.personnelmanagerapp.data.repository.LeaveApplicationRepositoryImpl;
+import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 import com.managerapp.personnelmanagerapp.domain.repository.LeaveApplicationRepository;
 
 import javax.inject.Inject;
@@ -17,7 +16,7 @@ public class CreateLeaveAppUseCase {
         this.leaveApplicationRepository = leaveApplicationRepository;
     }
 
-    public Single<LeaveApplicationResponse> execute(LeaveApplicationRequest leaveApplicationRequest) {
+    public Single<LeaveApplication> execute(LeaveApplicationRequest leaveApplicationRequest) {
         return leaveApplicationRepository.createLeaveApplication(leaveApplicationRequest);
     }
 }

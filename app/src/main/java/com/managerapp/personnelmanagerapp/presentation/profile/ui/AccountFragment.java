@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.managerapp.personnelmanagerapp.databinding.FragmentAccountBinding;
 import com.managerapp.personnelmanagerapp.presentation.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.presentation.main.viewmodel.MainViewModel;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
+import com.managerapp.personnelmanagerapp.utils.ImageLoaderUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -28,7 +30,6 @@ public class AccountFragment extends BaseFragment {
 
     private FragmentAccountBinding binding;
     private MainViewModel mainViewModel;
-    private final String TAG = "ProfileFragment";
     private NavController navController;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,20 +89,26 @@ public class AccountFragment extends BaseFragment {
             else if (state instanceof UiState.Success) {
                 UserProfileResponse newUser = ((UiState.Success<UserProfileResponse>) state).getData();
                 if (newUser != null) {
-                    Glide.with(requireContext())
-                            .load(newUser.getAvatar())
-                            .placeholder(R.drawable.ic_default_avatar)
-                            .error(R.drawable.ic_broken_image)
-                            .into(binding.imageUser);
-                    binding.magvtext.setText("Mã giảng viên: " + newUser.getId());
-                    binding.khoagvtext.setText("Khoa: " + newUser.getDepartmentName());
+                    ImageLoaderUtils.loadAvatar(requireContext(), newUser.getAvatar(), binding.imageUser);
+                    binding.magvtext.setText(
+                        getString(
+                            R.string.label_lecturer_id_with_value,
+                            String.valueOf(newUser.getId())
+                        )
+                    );
+                    binding.khoagvtext.setText(
+                            getString(
+                                R.string.label_faculty_with_value,
+                                newUser.getDepartmentName()
+                            )
+                    );
                     binding.userNameText.setText(newUser.getFullName());
                     binding.main.setVisibility(View.VISIBLE);
                 }
             }
             else if (state instanceof UiState.Error) {
                 String errorMsg = ((UiState.Error) state).getErrorMessage();
-                Log.e(TAG, "Error loading profile: " + errorMsg);
+                Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show();
             }
         });
     }

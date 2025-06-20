@@ -76,7 +76,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chọn kiểu gửi"
+                    android:text="@string/select_send_type"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/dark_gray"
@@ -94,7 +94,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Cá nhân"
+                        android:text="@string/individual"
                         android:textColor="@color/dark_gray"
                         android:buttonTint="@color/red" />
 
@@ -103,7 +103,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Phòng ban"
+                        android:text="@string/department"
                         android:textColor="@color/dark_gray"
                         android:buttonTint="@color/red" />
 
@@ -112,7 +112,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Toàn bộ"
+                        android:text="@string/all_users"
                         android:textColor="@color/dark_gray"
                         android:buttonTint="@color/red" />
                 </RadioGroup>
@@ -129,7 +129,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tìm kiếm người nhận"
+                        android:text="@string/search_recipient"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/dark_gray"
@@ -139,7 +139,7 @@
                         android:id="@+id/searchUserEditText"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:hint="Nhập tên nhân viên"
+                        android:hint="@string/search_hint"
                         android:inputType="text"
                         android:drawableStart="@drawable/ic_search"
                         android:drawableTint="@color/dark_gray"
@@ -167,7 +167,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Người nhận đã chọn"
+                            android:text="@string/selected_recipients"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@color/dark_gray"/>
@@ -201,7 +201,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chọn phòng ban"
+                        android:text="@string/select_department"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/dark_gray"
@@ -219,7 +219,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tiêu đề thông báo"
+                    android:text="@string/notification_title"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/dark_gray"
@@ -229,7 +229,7 @@
                     android:id="@+id/notificationTitleEditText"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:hint="Nhập tiêu đề thông báo"
+                    android:hint="@string/notification_title_hint"
                     android:inputType="text"
                     android:textSize="16sp"
                     android:padding="12dp"
@@ -240,7 +240,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nội dung thông báo"
+                    android:text="@string/notification_content"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/dark_gray"
@@ -250,7 +250,7 @@
                     android:id="@+id/notificationContentEditText"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:hint="Nhập nội dung thông báo"
+                    android:hint="@string/notification_content_hint"
                     android:inputType="textMultiLine"
                     android:minLines="5"
                     android:gravity="top"
@@ -263,7 +263,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tệp đính kèm"
+                    android:text="@string/attachment"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/dark_gray"
@@ -281,7 +281,7 @@
                         android:id="@+id/uploadFileButton"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:text="Chọn Tệp"
+                        android:text="@string/choose_file"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:backgroundTint="?android:colorPrimary"
@@ -297,7 +297,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="12dp"
-                        android:text="Chưa chọn file"
+                        android:text="@string/no_file_selected"
                         android:textSize="14sp"
                         android:ellipsize="end"
                         android:maxLines="1"
@@ -313,7 +313,7 @@
                     android:id="@+id/sendNotificationButton"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:text="Gửi thông báo"
+                    android:text="@string/send_notification"
                     android:backgroundTint="?android:colorPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold"

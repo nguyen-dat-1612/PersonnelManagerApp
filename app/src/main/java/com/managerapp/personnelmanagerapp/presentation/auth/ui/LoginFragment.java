@@ -1,7 +1,6 @@
 package com.managerapp.personnelmanagerapp.presentation.auth.ui;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -9,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Toast;
-
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.FragmentLoginBinding;
 import com.managerapp.personnelmanagerapp.presentation.auth.viewmodel.LoginViewModel;
@@ -78,7 +75,7 @@ public class LoginFragment extends Fragment {
 
     private boolean isInputValid(String email, String password) {
         if (email.isEmpty() || password.isEmpty()) {
-            showToast("Vui lòng nhập đầy đủ thông tin!");
+            showToast(getContext().getString(R.string.please_fill_all_fields));
             return false;
         }
         return true;
@@ -96,25 +93,22 @@ public class LoginFragment extends Fragment {
         binding.editTextPassword.setSelection(binding.editTextPassword.getText().length());
     }
 
-    private void showToast(String message) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
-    }
 
     private void observeLoginState() {
         loginViewModel.getUiState().observe(getViewLifecycleOwner(), state -> {
             if (state instanceof UiState.Loading) {
                 binding.progressOverlay.getRoot().setVisibility(View.VISIBLE);
             } else if (state instanceof UiState.Success) {
+                showToast(getContext().getString(R.string.login_success));
                 handleLoginSuccess();
             } else if (state instanceof UiState.Error) {
                 binding.progressOverlay.getRoot().setVisibility(View.INVISIBLE);
-                handleLoginError(((UiState.Error) state).getErrorMessage());
+                showToast(((UiState.Error) state).getErrorMessage());
             }
         });
     }
 
     private void handleLoginSuccess() {
-        showToast("Đăng nhập thành công!");
         mainViewModel.loadUserAndRole();
         NavOptions navOptions = new NavOptions.Builder()
                 .setPopUpTo(R.id.nav_main, true)
@@ -122,10 +116,16 @@ public class LoginFragment extends Fragment {
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             navController.navigate(R.id.action_loginFragment_to_mainFragment, null, navOptions);
-        }, 500);
+        }, 1500);
     }
 
-    private void handleLoginError(String errorMessage) {
-        showToast(errorMessage);
+    private void showToast(String message) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

@@ -70,7 +70,7 @@ public class HistoryNotificationFragment extends Fragment {
 
                     currentPage++;
                     viewModel.loadNextPage(currentPage);
-                    adapter.addLoadingFooter(); // Hiển thị loading indicator
+                    adapter.addLoadingFooter();
                 }
             }
         });

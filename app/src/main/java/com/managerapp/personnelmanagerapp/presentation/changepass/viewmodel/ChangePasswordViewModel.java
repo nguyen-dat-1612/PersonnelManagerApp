@@ -20,9 +20,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class ChangePasswordViewModel extends ViewModel {
     private final ChangePasswordUseCase changePasswordUseCase;
     private final CompositeDisposable composite = new CompositeDisposable();
-
-    private final MutableLiveData<UiState<String>> changePasswordState = new MutableLiveData<>();
-    public LiveData<UiState<String>> getChangePasswordState() {
+    private final MutableLiveData<UiState<Boolean>> changePasswordState = new MutableLiveData<>();
+    public LiveData<UiState<Boolean>> getChangePasswordState() {
         return changePasswordState;
     }
 
@@ -34,19 +33,17 @@ public class ChangePasswordViewModel extends ViewModel {
     public void loadChangePassword(String oldPass, String newPass) {
         changePasswordState.setValue(UiState.Loading.getInstance());
         composite.add(
-                changePasswordUseCase.excute(oldPass, newPass)
+                changePasswordUseCase.execute(oldPass, newPass)
                         .timeout(5, TimeUnit.SECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 result -> {
                                     if (result) {
-                                        changePasswordState.setValue(new UiState.Success<>("Đổi mật khẩu thành công"));
-                                    } else {
-                                        changePasswordState.setValue(new UiState.Error<>("Đổi mật khẩu thất bại"));
+                                        changePasswordState.setValue(new UiState.Success<>(true));
                                     }
                                 },
-                                throwable -> changePasswordState.setValue(new UiState.Error<>("Lỗi hệ thống: " + throwable.getMessage()))
+                                throwable -> changePasswordState.setValue(new UiState.Error<>(throwable.getMessage()))
                         )
         );
     }

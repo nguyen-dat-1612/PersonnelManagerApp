@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
 import com.managerapp.personnelmanagerapp.databinding.FragmentContractDetailBinding;
+import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import com.managerapp.personnelmanagerapp.presentation.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.presentation.contract.viewmodel.ContractDetailViewModel;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
@@ -26,13 +27,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ContractDetailFragment extends BaseFragment {
-
     private FragmentContractDetailBinding binding;
     private ContractDetailViewModel viewModel;
-    private final String TAG = "ContractDetailFragment";
     private int contractId = -1;
     private String pdfUrl;
-    private String pdfFileName;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +39,7 @@ public class ContractDetailFragment extends BaseFragment {
 
         int contractId = ContractDetailFragmentArgs.fromBundle(getArguments()).getContractId();
         if (contractId == -1) {
-            showErrorAndFinish("Invalid contract ID");
+            showErrorAndFinish(getString(R.string.error_invalid_contract_id));
             return;
         }
         this.contractId = contractId;
@@ -83,12 +81,12 @@ public class ContractDetailFragment extends BaseFragment {
                 binding.mainView.setVisibility(INVISIBLE);
                 binding.errorView.getRoot().setVisibility(INVISIBLE);
             } else if (state instanceof UiState.Success) {
-                ContractResponse contract = ((UiState.Success<ContractResponse>) state).getData();
+                Contract contract = ((UiState.Success<Contract>) state).getData();
                 binding.swipeRefresh.setRefreshing(false);
                 binding.setContract(contract);
+                binding.txStatus.setText(contract.getContractStatusEnum().getIconWithText(requireContext()));
                 binding.mainView.setVisibility(VISIBLE);
 
-                pdfFileName = "Contract_" + contract.getId() + ".pdf";
                 pdfUrl = "https://www.googleapis.com/drive/v3/files/" + contract.getClause() +
                         "?alt=media&key=AIzaSyB3sNzITjsRHLvRq68dECM-w8N2tS0ZznQ";
                 configureWebViewSettings();
@@ -117,7 +115,7 @@ public class ContractDetailFragment extends BaseFragment {
             WebViewUtils.loadPdf(binding.webView, pdfUrl);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            showError("Lỗi tải PDF: " + e.getMessage());
+            showError(getString(R.string.error_load_pdf, e.getMessage()));
         }
     }
 

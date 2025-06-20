@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public interface UserRepository {
     Single<UserProfileResponse> getUser();
-    Single<Boolean> changePasswordUser(String oldPass, String newPass);
+    Maybe<Boolean> changePasswordUser(String oldPass, String newPass);
     Single<List<WorkLogResponse>> getWorkLog();
     Single<Boolean> saveDevice(String token);
     Maybe<Boolean> deleteDeviceToken();

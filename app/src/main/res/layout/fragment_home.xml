@@ -103,8 +103,7 @@
                         android:layout_height="wrap_content"
                         android:columnCount="4"
                         android:rowCount="2"
-                        android:visibility="gone
-"
+                        android:visibility="gone"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:layout_marginTop="0dp"
@@ -222,7 +221,6 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="76dp" />
                         </androidx.cardview.widget.CardView>
-
 
                         <!-- Chức năng 8: Hợp Đồng -->
                         <androidx.cardview.widget.CardView
@@ -403,10 +401,11 @@
                             </androidx.cardview.widget.CardView>
 
                             <TextView
+                                android:id="@+id/textBaoCao"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Báo cáo"
+                                android:text="@string/report_label"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:layout_gravity="center_horizontal"
@@ -431,6 +430,45 @@
 
                         <!-- Chức năng 1: Chấm công -->
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/btnCongTacAdmin"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:layout_columnWeight="1"
+                            android:padding="8dp"
+                            app:cardElevation="1dp"
+                            app:cardCornerRadius="12dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center_horizontal|top"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="10dp"
+                                app:cardBackgroundColor="#A4D1E2"
+                                app:cardCornerRadius="48dp"
+                                app:cardElevation="4dp">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/process" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/collaborate"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:maxLines="2"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="76dp" />
+                        </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
                             android:id="@+id/btnDuyet"
                             android:layout_width="0dp"
                             android:layout_height="130dp"
@@ -460,7 +498,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Duyệt quyết định"
+                                android:text="@string/decision_approval_title"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:layout_gravity="center_horizontal"
@@ -496,7 +534,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Tạo\nquyết định"
+                                android:text="@string/decision_create_title"
                                 android:textSize="14sp"
                                 android:gravity="center"
                                 android:textColor="@color/black"
@@ -579,9 +617,44 @@
                         </androidx.cardview.widget.CardView>
 
 
-                        <!-- Chức năng 1: Chấm công -->
                         <androidx.cardview.widget.CardView
-                            android:id="@+id/btnTangLuong"
+                            android:id="@+id/YeucauBtnAdmin"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:layout_columnWeight="1"
+                            android:padding="8dp"
+                            app:cardElevation="1dp"
+                            app:cardCornerRadius="12dp" >
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_marginTop="15dp"
+                                app:cardBackgroundColor="#A4D1E2"
+                                app:cardCornerRadius="48dp"
+                                app:cardElevation="4dp"
+                                android:layout_gravity="center_horizontal|top">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/contact_form" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/leave_request"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="76dp" />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/reportBtnAdmin"
                             android:layout_width="0dp"
                             android:layout_height="130dp"
                             android:layout_columnWeight="1"
@@ -592,36 +665,70 @@
                             <androidx.cardview.widget.CardView
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:layout_gravity="center_horizontal|top"
                                 android:layout_marginTop="15dp"
-                                android:layout_marginBottom="10dp"
                                 app:cardBackgroundColor="#A4D1E2"
                                 app:cardCornerRadius="48dp"
-                                app:cardElevation="4dp">
+                                app:cardElevation="4dp"
+                                android:layout_gravity="center_horizontal|top">
 
                                 <ImageView
                                     android:layout_width="32dp"
                                     android:layout_height="32dp"
                                     android:layout_gravity="center"
-                                    android:background="@drawable/salary" />
+                                    android:background="@drawable/registration" />
                             </androidx.cardview.widget.CardView>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Duyệt tăng lương"
+                                android:text="@string/report_label"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="76dp" />
                         </androidx.cardview.widget.CardView>
 
+                        <!-- Chức năng 6: Duyệt phép -->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/DuyetCardViewAdmin"
+                            android:layout_width="0dp"
+                            android:layout_height="130dp"
+                            android:layout_columnWeight="1"
+                            android:padding="8dp"
+                            app:cardElevation="1dp"
+                            app:cardCornerRadius="12dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_marginTop="15dp"
+                                app:cardBackgroundColor="#A4D1E2"
+                                app:cardCornerRadius="48dp"
+                                app:cardElevation="4dp"
+                                android:layout_gravity="center_horizontal|top">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/permission" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="76dp"
+                                android:gravity="center"
+                                android:text="@string/approve"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:layout_gravity="center_horizontal" />
+                        </androidx.cardview.widget.CardView>
+
+
                     </GridLayout>
                 </FrameLayout>
-
-
-
 
                 <TextView
                     android:id="@+id/textbosung"
@@ -704,7 +811,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/service_duration"
-                                    android:textSize="12sp"/>
+                                    android:textSize="12sp"
+                                    android:gravity="center"/>
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
 

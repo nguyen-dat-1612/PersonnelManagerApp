@@ -22,6 +22,7 @@ import com.managerapp.personnelmanagerapp.data.remote.response.PayrollResponse;
 import com.managerapp.personnelmanagerapp.databinding.FragmentPayrollMonthlyBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Cell;
 import com.managerapp.personnelmanagerapp.domain.model.ColumnHeader;
+import com.managerapp.personnelmanagerapp.domain.model.Payroll;
 import com.managerapp.personnelmanagerapp.domain.model.RowHeader;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.presentation.report.adapter.MyTableAdapter;
@@ -95,7 +96,7 @@ public class PayrollMonthlyFragment extends Fragment {
 
         binding.exportExcelBtn.setOnClickListener(v -> {
             if (currentState instanceof UiState.Success) {
-                List<PayrollResponse> data = ((UiState.Success<List<PayrollResponse>>) currentState).getData();
+                List<Payroll> data = ((UiState.Success<List<Payroll>>) currentState).getData();
                 Workbook wb = ExcelUtils.createPayrollWorkbook(data);
                 Uri savedUri = ExcelUtils.saveWorkbookToDownloads(requireActivity(), wb, "bang_luong.xlsx");
 
@@ -114,7 +115,7 @@ public class PayrollMonthlyFragment extends Fragment {
         binding.printReportBtn.setOnClickListener(v -> {
             Toast.makeText(requireContext(), "In báo cáo", Toast.LENGTH_SHORT).show();
             if (currentState instanceof UiState.Success) {
-                List<PayrollResponse> data = ((UiState.Success<List<PayrollResponse>>) currentState).getData();
+                List<Payroll> data = ((UiState.Success<List<Payroll>>) currentState).getData();
                 Log.d("In bao cao", "Đã có dữ liệu để xuất");
                 String start = binding.textStartDay.getText().toString();
                 String end = binding.textEndDate.getText().toString();
@@ -145,8 +146,8 @@ public class PayrollMonthlyFragment extends Fragment {
 
                 adapter.setAllItems(
                         createColumnHeaders(),
-                        createRowHeaders(((UiState.Success<List<PayrollResponse>>) state).getData()),
-                        createCells(((UiState.Success<List<PayrollResponse>>) state).getData())
+                        createRowHeaders(((UiState.Success<List<Payroll>>) state).getData()),
+                        createCells(((UiState.Success<List<Payroll>>) state).getData())
                 );
             } else if (state instanceof UiState.Error) {
 //                binding.progressOverlayWhite.getRoot().setVisibility(View.GONE);
@@ -158,7 +159,7 @@ public class PayrollMonthlyFragment extends Fragment {
     }
 
 
-    private List<RowHeader> createRowHeaders(List<PayrollResponse> payrollList) {
+    private List<RowHeader> createRowHeaders(List<Payroll> payrollList) {
         List<RowHeader> headers = new ArrayList<>();
         for (int i = 0; i < payrollList.size(); i++) {
             headers.add(new RowHeader(String.valueOf(i + 1)));
@@ -166,9 +167,9 @@ public class PayrollMonthlyFragment extends Fragment {
         return headers;
     }
 
-    private List<List<Cell>> createCells(List<PayrollResponse> payrollList) {
+    private List<List<Cell>> createCells(List<Payroll> payrollList) {
         List<List<Cell>> cells = new ArrayList<>();
-        for (PayrollResponse p : payrollList) {
+        for (Payroll p : payrollList) {
             List<Cell> row = new ArrayList<>();
             row.add(new Cell(String.valueOf(p.getUserId())));
             row.add(new Cell(p.getFullName()));

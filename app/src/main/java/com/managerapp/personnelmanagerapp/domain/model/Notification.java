@@ -2,44 +2,15 @@ package com.managerapp.personnelmanagerapp.domain.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class Notification {
-    @SerializedName("id")
     private long id;
-    @SerializedName("title")
     private String title;
-    @SerializedName("content")
     private String content;
-    @SerializedName("attached")
     private List<String> attached;
-    @SerializedName("sendDate")
     private String sendDate;
-
-    @SerializedName("sender")
-    private Sender sender;
-
-    public class Sender {
-        @SerializedName("id")
-        private int id;
-        @SerializedName("fullName")
-        private String fullName;
-
-        public Sender(int id, String fullName) {
-            this.id = id;
-            this.fullName = fullName;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getFullName() {
-            return fullName;
-        }
-    }
+    private UserSummary sender;
 
     public Notification(long id, String title, String content) {
         this.id = id;
@@ -47,7 +18,7 @@ public class Notification {
         this.content = content;
     }
 
-    public Notification(long id, String title, String content, List<String> attached, String sendDate, Sender sender) {
+    public Notification(long id, String title, String content, List<String> attached, String sendDate, UserSummary sender) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -76,11 +47,10 @@ public class Notification {
         return sendDate;
     }
 
-    public Sender getSender() {
+    public UserSummary getSender() {
         return sender;
     }
 
-    // toString method for debugging/logging
     @Override
     public String toString() {
         return "Notification{" +
@@ -89,5 +59,48 @@ public class Notification {
                 ", content='" + content + '\'' +
                 ", sendDate=" + sendDate +
                 '}';
+    }
+
+    public static class Builder {
+        private long id;
+        private String title;
+        private String content;
+        private List<String> attached;
+        private String sendDate;
+        private UserSummary sender;
+
+        public Builder id(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder content(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public Builder attached(List<String> attached) {
+            this.attached = attached;
+            return this;
+        }
+
+        public Builder sendDate(String sendDate) {
+            this.sendDate = sendDate;
+            return this;
+        }
+
+        public Builder sender(UserSummary sender) {
+            this.sender = sender;
+            return this;
+        }
+
+        public Notification build() {
+            return new Notification(id, title, content, attached, sendDate, sender);
+        }
     }
 }

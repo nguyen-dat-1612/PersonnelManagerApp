@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.presentation.decision.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,13 +9,15 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
 import com.managerapp.personnelmanagerapp.databinding.ItemDecisionBinding;
+import com.managerapp.personnelmanagerapp.domain.model.Decision;
 import com.managerapp.personnelmanagerapp.utils.DateTimeUtils;
 
 import java.util.function.Consumer;
 
-public class DecisionAdapter extends ListAdapter<DecisionResponse, DecisionAdapter.DecisionViewHolder> {
+public class DecisionAdapter extends ListAdapter<Decision, DecisionAdapter.DecisionViewHolder> {
 
     private final Consumer<String> onDecisionClickListener;
 
@@ -23,15 +26,14 @@ public class DecisionAdapter extends ListAdapter<DecisionResponse, DecisionAdapt
         this.onDecisionClickListener = onDecisionClickListener;
     }
 
-    private static final DiffUtil.ItemCallback<DecisionResponse> DIFF_CALLBACK = new DiffUtil.ItemCallback<DecisionResponse>() {
+    private static final DiffUtil.ItemCallback<Decision> DIFF_CALLBACK = new DiffUtil.ItemCallback<Decision>() {
         @Override
-        public boolean areItemsTheSame(@NonNull DecisionResponse oldItem, @NonNull DecisionResponse newItem) {
-            // So sánh ID
+        public boolean areItemsTheSame(@NonNull Decision oldItem, @NonNull Decision newItem) {
             return oldItem.getId().equals(newItem.getId());
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull DecisionResponse oldItem, @NonNull DecisionResponse newItem) {
+        public boolean areContentsTheSame(@NonNull Decision oldItem, @NonNull Decision newItem) {
             return oldItem.equals(newItem);
         }
     };
@@ -52,27 +54,30 @@ public class DecisionAdapter extends ListAdapter<DecisionResponse, DecisionAdapt
         holder.bind(getItem(position));
     }
 
-    static class DecisionViewHolder extends RecyclerView.ViewHolder {
+    class DecisionViewHolder extends RecyclerView.ViewHolder {
         private final ItemDecisionBinding binding;
 
         public DecisionViewHolder(@NonNull ItemDecisionBinding binding, Consumer<String> onDecisionClickListener) {
             super(binding.getRoot());
             this.binding = binding;
-            binding.getRoot().setOnClickListener(v -> {
-                if (binding.getDecision() != null && onDecisionClickListener != null) {
-                    onDecisionClickListener.accept(binding.getDecision().getId());
-                }
-            });
         }
 
-        public void bind(DecisionResponse decisionResponse) {
-            binding.setDecision(decisionResponse);
-//            binding.tvFullName.setText(decisionResponse.getFullName());
-            binding.tvType.setText("Quyết định: " + decisionResponse.getType());
-            binding.tvContent.setText("Nội dung: " + decisionResponse.getContent());
-            binding.tvDate.setText("Thời gian: " + DateTimeUtils.formatSendDate(decisionResponse.getDate()));
-            binding.tvUser.setText("Người nhận quyết định: " + decisionResponse.getUser().getFullName());
-            binding.executePendingBindings();
+        public void bind(Decision decision) {
+            Context context = binding.getRoot().getContext();
+            binding.tvType.setText(
+                    context.getString(
+                            R.string.decision_type,
+                            context.getString(decision.getType().getStringRes())
+                    )
+            );
+            binding.tvContent.setText(context.getString(R.string.decision_content, decision.getContent()));
+            binding.tvDate.setText(context.getString(R.string.decision_date, DateTimeUtils.formatSendDate(decision.getDate())));
+            binding.tvUser.setText(context.getString(R.string.decision_user, decision.getUser().getFullName()));
+            binding.getRoot().setOnClickListener(v -> {
+                if (decision != null && onDecisionClickListener != null) {
+                    onDecisionClickListener.accept(decision.getId());
+                }
+            });
         }
     }
 }

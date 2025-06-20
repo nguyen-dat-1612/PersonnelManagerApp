@@ -7,10 +7,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractExpireReportResponse;
+import com.managerapp.personnelmanagerapp.domain.model.ContractExpireReport;
 import com.managerapp.personnelmanagerapp.domain.usecase.report.GetContractExpireReportUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -23,7 +25,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class ContractExpireViewModel extends ViewModel {
     private final GetContractExpireReportUseCase getContractExpireReportUseCase;
     private final CompositeDisposable disposable = new CompositeDisposable();
-    private final MutableLiveData<UiState<List<ContractExpireReportResponse>>> contractExpireUiState = new MutableLiveData<>();
+    private final MutableLiveData<UiState<List<ContractExpireReport>>> contractExpireUiState = new MutableLiveData<>();
 
     private final MutableLiveData<Integer> selectedDays = new MutableLiveData<>(30);
     public LiveData<Integer> getSelectedDays() {
@@ -39,7 +41,7 @@ public class ContractExpireViewModel extends ViewModel {
         this.getContractExpireReportUseCase = getContractExpireReportUseCase;
     }
 
-    public LiveData<UiState<List<ContractExpireReportResponse>>> getContractExpireUiState() {
+    public LiveData<UiState<List<ContractExpireReport>>> getContractExpireUiState() {
         return contractExpireUiState;
     }
 
@@ -47,6 +49,7 @@ public class ContractExpireViewModel extends ViewModel {
         disposable.add(
                 getContractExpireReportUseCase.execute(days)
                         .subscribeOn(Schedulers.io())
+                        .timeout(5, TimeUnit.SECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 value -> {

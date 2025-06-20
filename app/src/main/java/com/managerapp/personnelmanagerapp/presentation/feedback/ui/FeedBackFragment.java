@@ -25,9 +25,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class FeedBackFragment extends Fragment {
 
-    private final String TAG = "FeedBackFragment";
     private FragmentFeedBackBinding binding;
     private FeedbackViewModel feedbackViewModel;
+    private  NavController navController ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class FeedBackFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_main);
         setOnListener();
         onFeedbackSent();
     }
@@ -112,14 +113,12 @@ public class FeedBackFragment extends Fragment {
             } else if (state instanceof UiState.Success) {
                 showLoading(false);
                 String message = ((UiState.Success<String>) state).getData();
-                Log.d(TAG, "Success: " + message);
                 showSuccessView();
                 navigateBackAfterDelay();
             } else if (state instanceof UiState.Error) {
                 showLoading(false);
                 hideSuccessView();
                 String errorMessage = ((UiState.Error) state).getErrorMessage();
-                Log.e(TAG, "Error: " + errorMessage);
                 showErrorToast(errorMessage);
             }
         });
@@ -143,7 +142,6 @@ public class FeedBackFragment extends Fragment {
 
     private void navigateBackAfterDelay() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            NavController navController = Navigation.findNavController(requireView());
             navController.navigate(R.id.action_feedBackFragment_to_mainFragment);
             navController.popBackStack();
         }, 3000);

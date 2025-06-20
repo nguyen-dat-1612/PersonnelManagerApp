@@ -36,8 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate");
         viewModel = new ViewModelProvider(this).get(BaseViewModel.class);
         observeNetworkStatus();
-
-        // Kiểm tra trạng thái thông báo khi khởi động
         checkNotificationStatus();
     }
 
@@ -117,16 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private final BroadcastReceiver forceLogoutReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG, "Token hết hạn, đăng xuất người dùng...");
-
-            // Xoá session
             sharedPreferences.edit().clear().apply();
-
-//            // Chuyển về LoginActivity và xoá toàn bộ backstack
-//            Intent loginIntent = new Intent(BaseActivity.this, LoginActivity.class);
-//            loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//            startActivity(loginIntent);
-//            finish();
         }
     };
 
@@ -148,6 +137,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
-        hideNoInternetSnackbar(); // Clean up nếu snackbar còn hiện
+        hideNoInternetSnackbar();
     }
 }

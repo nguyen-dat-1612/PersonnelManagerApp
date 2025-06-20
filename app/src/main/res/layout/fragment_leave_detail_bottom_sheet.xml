@@ -37,6 +37,7 @@
                 android:text="ĐANG CHỜ DUYỆT"
                 android:textSize="14sp"
                 android:textStyle="bold"
+                android:textAllCaps="true"
                 android:textColor="@color/orange"
                 android:background="@drawable/bg_status_orange"
                 android:padding="8dp"
@@ -46,7 +47,7 @@
 
         <!-- Loại nghỉ -->
         <TextView
-            android:text="Loại nghỉ:"
+            android:text="@string/leave_type"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -56,7 +57,7 @@
 
         <TextView
             android:id="@+id/tvLeaveType"
-            android:text="Nghỉ phép năm"
+            android:text="@string/leave_time"
             android:textSize="16sp"
             android:textColor="#616161"
             android:layout_width="match_parent"
@@ -64,7 +65,7 @@
 
         <!-- Thời gian nghỉ -->
         <TextView
-            android:text="Thời gian nghỉ:"
+            android:text="@string/leave_time"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -82,7 +83,7 @@
 
         <!-- Lý do nghỉ -->
         <TextView
-            android:text="Lý do nghỉ:"
+            android:text="@string/leave_reason"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -113,7 +114,7 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1"
-                android:text="Từ chối"
+                android:text="@string/reject"
                 app:cornerRadius="12dp"
                 android:textColor="@color/red"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
@@ -127,7 +128,7 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1"
-                android:text="Duyệt"
+                android:text="@string/approve"
                 app:cornerRadius="12dp"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/green"/>

@@ -25,7 +25,7 @@ public class DecisionDetailViewModel extends ViewModel {
     @Inject
     public DecisionDetailViewModel(
             GetDecisionByIdUseCase getDecisionByIdUseCase,
-            SavedStateHandle savedStateHandle  // Tham số được truyền từ bên ngoài
+            SavedStateHandle savedStateHandle
     ) {
         this.getDecisionByIdUseCase = getDecisionByIdUseCase;
         this.decisionId = savedStateHandle.get("decision_id");

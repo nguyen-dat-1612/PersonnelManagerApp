@@ -9,13 +9,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.managerapp.personnelmanagerapp.R;
-import com.managerapp.personnelmanagerapp.data.remote.response.DecisionResponse;
 import com.managerapp.personnelmanagerapp.databinding.FragmentDecisionListBinding;
+import com.managerapp.personnelmanagerapp.domain.model.Decision;
 import com.managerapp.personnelmanagerapp.presentation.decision.state.DecisionState;
 import com.managerapp.personnelmanagerapp.presentation.decision.viewmodel.DecisionListViewModel;
 import com.managerapp.personnelmanagerapp.presentation.decision.adapter.DecisionAdapter;
@@ -81,7 +81,7 @@ public class DecisionListFragment extends Fragment {
             );
 
             if (state.getDecisions() != null) {
-                List<DecisionResponse> descistions = state.getDecisions();
+                List<Decision> descistions = state.getDecisions();
                 if (state.getDecisions().isEmpty()) {
                     binding.emptyView.getRoot().setVisibility(View.VISIBLE);
                 } else {
@@ -92,6 +92,7 @@ public class DecisionListFragment extends Fragment {
 
             if (state.getErrorMessage() != null) {
                 binding.errorView.getRoot().setVisibility(View.VISIBLE);
+                Toast.makeText(requireContext(), state.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

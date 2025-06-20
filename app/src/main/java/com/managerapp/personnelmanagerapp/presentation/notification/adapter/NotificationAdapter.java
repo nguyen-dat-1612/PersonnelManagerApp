@@ -1,5 +1,6 @@
 package com.managerapp.personnelmanagerapp.presentation.notification.adapter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,9 +52,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             NotificationRecipient notification = notificationList.get(position);
             NotificationViewHolder viewHolder = (NotificationViewHolder) holder;
 
-            viewHolder.binding.notificationTitle.setText("Tiêu đề: " + notification.getTitle());
-            viewHolder.binding.notificationDate.setText("Thời gian: " + DateTimeUtils.formatSendDate(notification.getSendDate()));
+            Context context = viewHolder.binding.getRoot().getContext();
+            String titlePrefix = context.getString(R.string.title_prefix);
+            String timePrefix = context.getString(R.string.time_prefix);
+
+            viewHolder.binding.notificationTitle.setText(titlePrefix + notification.getTitle());
+            viewHolder.binding.notificationDate.setText(timePrefix + DateTimeUtils.formatSendDate(notification.getSendDate()));
             viewHolder.binding.setNotification(notification);
+
             viewHolder.itemView.setOnClickListener(v -> {
                 if (onItemClick != null) {
                     onItemClick.accept(notification);
@@ -61,6 +67,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
         }
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -75,10 +82,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void updateList(List<NotificationRecipient> newList) {
         NotificationDiffCallback diffCallback = new NotificationDiffCallback(notificationList, newList);
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
+        diffResult.dispatchUpdatesTo(this);
         this.notificationList.clear();
         this.notificationList.addAll(newList);
-        diffResult.dispatchUpdatesTo(this);
     }
 
     public void addItems(List<NotificationRecipient> newItems) {

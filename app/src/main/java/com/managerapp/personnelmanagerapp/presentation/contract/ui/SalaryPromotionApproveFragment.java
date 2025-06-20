@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.managerapp.personnelmanagerapp.R;
+import com.managerapp.personnelmanagerapp.databinding.DialogSalaryPromotionDetailBinding;
 import com.managerapp.personnelmanagerapp.databinding.FragmentSalaryPromotionApproveBinding;
 import com.managerapp.personnelmanagerapp.domain.model.FormStatusEnum;
 import com.managerapp.personnelmanagerapp.domain.model.SalaryPromotion;
@@ -38,7 +39,6 @@ public class SalaryPromotionApproveFragment extends Fragment {
     private ApproveSalaryViewModel viewModel;
     private SalaryPromotionAdapter adapter;
     private NavController navController;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,13 +58,13 @@ public class SalaryPromotionApproveFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         observeView();
-        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_main);
         onListener();
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_main);
     }
 
     public void setUpUI() {
         adapter = new SalaryPromotionAdapter(promotion -> {
-            showPromotionDetailDialog(requireContext(), promotion); // Viết dialog như phần trước
+            showPromotionDetailDialog(requireContext(), promotion);
         });
         binding.recyclerViewSalary.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerViewSalary.setAdapter(adapter);
@@ -80,46 +80,40 @@ public class SalaryPromotionApproveFragment extends Fragment {
     }
 
     private void showPromotionDetailDialog(Context context, SalaryPromotion promotion) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog); // nếu muốn style bo góc
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_salary_promotion_detail, null);
-        builder.setView(view);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        DialogSalaryPromotionDetailBinding dialogBinding = DialogSalaryPromotionDetailBinding.inflate(inflater);
+        builder.setView(dialogBinding.getRoot());
 
         AlertDialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(true); // Không tắt khi bấm ra ngoài
+        dialog.setCanceledOnTouchOutside(true);
 
-        // Bind view
-        TextView tvUser = view.findViewById(R.id.tvUser);
-        TextView tvCurrent = view.findViewById(R.id.tvCurrentGrade);
-        TextView tvRequest = view.findViewById(R.id.tvRequestGrade);
-        TextView tvReason = view.findViewById(R.id.tvReason);
-        EditText edtNote = view.findViewById(R.id.edtNote);
-        Button btnApprove = view.findViewById(R.id.btnApprove);
-        Button btnReject = view.findViewById(R.id.btnReject);
+        dialogBinding.tvUser.setText(getString(R.string.label_user, promotion.getUserName()));
+        dialogBinding.tvCurrentGrade.setText(getString(R.string.label_current_grade, promotion.getCurrentJobGradeName()));
+        dialogBinding.tvRequestGrade.setText(getString(
+                R.string.label_request_grade,
+                promotion.getRequestJobGradeName(),
+                (int) promotion.getRequestJobGradeValue())
+        );
+        dialogBinding.tvReason.setText(getString(R.string.label_reason, promotion.getReason()));
 
-        // Set data
-        tvUser.setText("👤 Người đề xuất: " + promotion.getUserName());
-        tvCurrent.setText("🏷️ Bậc hiện tại: " + promotion.getCurrentJobGradeName());
-        tvRequest.setText("📈 Bậc đề xuất: " + promotion.getRequestJobGradeName() + " (" + promotion.getRequestJobGradeValue() + ")");
-        tvReason.setText("📝 Lý do: " + promotion.getReason());
+        dialogBinding.edtNote.requestFocus();
 
-        // Focus ghi chú
-        edtNote.requestFocus();
-
-        // Handle nút
-        btnApprove.setOnClickListener(v -> {
-            String note = edtNote.getText().toString().trim();
+        dialogBinding.btnApprove.setOnClickListener(v -> {
+            String note = dialogBinding.edtNote.getText().toString().trim();
             if (note.isEmpty()) {
-                edtNote.setError("Vui lòng nhập ghi chú trước khi phê duyệt");
+                dialogBinding.edtNote.setError(getString(R.string.error_note_required_approve));
                 return;
             }
             viewModel.approveSalaryPromotion((int) promotion.getId(), FormStatusEnum.APPROVED, note);
             dialog.dismiss();
         });
 
-        btnReject.setOnClickListener(v -> {
-            String note = edtNote.getText().toString().trim();
+        dialogBinding.btnReject.setOnClickListener(v -> {
+            String note = dialogBinding.edtNote.getText().toString().trim();
             if (note.isEmpty()) {
-                edtNote.setError("Vui lòng nhập ghi chú trước khi từ chối");
+                dialogBinding.edtNote.setError(getString(R.string.error_note_required_reject));
                 return;
             }
             viewModel.approveSalaryPromotion((int) promotion.getId(), FormStatusEnum.REJECTED, note);
@@ -128,6 +122,7 @@ public class SalaryPromotionApproveFragment extends Fragment {
 
         dialog.show();
     }
+
 
     private void observeView() {
         viewModel.getSalaryPromotionUiState().observe(getViewLifecycleOwner(), state -> {
@@ -145,6 +140,8 @@ public class SalaryPromotionApproveFragment extends Fragment {
             } else if (state instanceof UiState.Error) {
                 binding.progressOverlay.getRoot().setVisibility(View.GONE);
                 binding.errorView.getRoot().setVisibility(View.VISIBLE);
+                String errorMessage = ((UiState.Error) state).getErrorMessage();
+                showToast(errorMessage);
             }
         });
 
@@ -155,14 +152,25 @@ public class SalaryPromotionApproveFragment extends Fragment {
                 binding.progressOverlay.getRoot().setVisibility(View.GONE);
                 SalaryPromotion promotion = ((UiState.Success<SalaryPromotion>) state).getData();
                 if (promotion.getStatus().equals(FormStatusEnum.APPROVED.toString())) {
-                    Toast.makeText(requireContext(), "Phê duyệt thành công", Toast.LENGTH_SHORT).show();
+                    showToast(getString(R.string.toast_approve_success));
                 } else {
-                    Toast.makeText(requireContext(), "Từ chối thành công", Toast.LENGTH_SHORT).show();
+                    showToast(getString(R.string.toast_reject_success));
                 }
             } else if (state instanceof UiState.Error) {
                 binding.progressOverlay.getRoot().setVisibility(View.GONE);
+                String errorMessage = ((UiState.Error) state).getErrorMessage();
+                showToast(errorMessage);
             }
         });
     }
 
+    private void showToast(String message) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

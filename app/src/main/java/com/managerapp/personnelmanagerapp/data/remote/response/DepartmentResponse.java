@@ -10,6 +10,5 @@ public class DepartmentResponse {
     public String name;
     @SerializedName("description")
     public String description;
-
 }
 

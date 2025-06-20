@@ -1,21 +1,15 @@
 package com.managerapp.personnelmanagerapp.domain.model;
 
 public class Department {
-    private String id;  // Primary key (e.g., "CNTT", "QTKD")
-    private String name;  // Unique, not null
+    private String id;
+    private String name;
     private String description;
-
-    // Constructors
-    public Department() {
-    }
-
     public Department(String id, String name, String description) {
         setId(id);
         setName(name);
         setDescription(description);
     }
 
-    // Getters and Setters with validation
     public String getId() {
         return id;
     }

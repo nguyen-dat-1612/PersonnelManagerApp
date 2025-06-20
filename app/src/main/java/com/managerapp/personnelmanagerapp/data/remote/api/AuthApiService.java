@@ -1,30 +1,18 @@
 package com.managerapp.personnelmanagerapp.data.remote.api;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-
-import com.managerapp.personnelmanagerapp.data.remote.request.TokenRefreshRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
-import com.managerapp.personnelmanagerapp.data.remote.response.LoginResponse;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
-import com.managerapp.personnelmanagerapp.data.remote.response.TokenRefreshResponse;
-import com.managerapp.personnelmanagerapp.data.remote.response.WorkLogResponse;
-
-import java.util.List;
 
 public interface AuthApiService {
     @Headers("No-Authentication: true")
     @POST("auth/login")
     Single<BaseResponse<String>> login(@Body LoginRequest request);
-
-//    @POST("auth/refresh-token")
-//    Single<Response<TokenRefreshResponse>> refreshToken(@Body TokenRefreshRequest request);
 
     @Headers("No-Authentication: true")
     @GET("auth/forgotPassword")
@@ -41,9 +29,7 @@ public interface AuthApiService {
     @POST("auth/logout")
     Single<BaseResponse<Void>> logout(@Body String token);
 
-
     @GET("auth/role")
     Single<BaseResponse<String>> getRole(@Query("token") String token);
-
 }
 

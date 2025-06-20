@@ -1,20 +1,16 @@
 package com.managerapp.personnelmanagerapp.presentation.sendNotification.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ItemUserSearchBinding;
 import com.managerapp.personnelmanagerapp.domain.model.UserSummary;
-
 import java.util.List;
 import java.util.function.Consumer;
-
-import com.managerapp.personnelmanagerapp.R;
 
 public class UserSearchRecyclerAdapter extends RecyclerView.Adapter<UserSearchRecyclerAdapter.UserViewHolder> {
     private List<UserSummary> userList;
@@ -60,8 +56,14 @@ public class UserSearchRecyclerAdapter extends RecyclerView.Adapter<UserSearchRe
         }
 
         public void bind(UserSummary user) {
+            Context context = binding.getRoot().getContext();
             binding.userNameTextView.setText(user.getFullName());
-            binding.userIdTextView.setText("Mã nhân sự: " + user.getId());
+            binding.userIdTextView.setText(
+                    context.getString(
+                            R.string.label_lecturer_id_with_value,
+                            String.valueOf(user.getId())
+                    )
+            );
         }
     }
 }

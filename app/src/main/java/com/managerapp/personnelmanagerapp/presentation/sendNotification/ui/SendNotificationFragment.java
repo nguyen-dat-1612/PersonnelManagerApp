@@ -97,7 +97,7 @@ public class SendNotificationFragment extends Fragment {
     }
     private void uploadPdfToServer(Uri pdfUri) {
         try {
-            isUploading = true; // bắt đầu upload
+            isUploading = true;
             InputStream inputStream = requireContext().getContentResolver().openInputStream(pdfUri);
             byte[] bytes = new byte[inputStream.available()];
             inputStream.read(bytes);

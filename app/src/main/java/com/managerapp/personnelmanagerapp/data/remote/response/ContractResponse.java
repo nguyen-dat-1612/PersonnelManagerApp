@@ -1,6 +1,7 @@
 package com.managerapp.personnelmanagerapp.data.remote.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.managerapp.personnelmanagerapp.data.mapper.UserSummaryMapper;
 import com.managerapp.personnelmanagerapp.domain.model.ContractStatusEnum;
 
 import java.text.SimpleDateFormat;
@@ -23,80 +24,17 @@ public class ContractResponse {
     @SerializedName("contractTypeName")
     private String contractTypeName ;
     @SerializedName("user")
-    private User user;
+    private UserSummaryResponse user;
     @SerializedName("signer")
-    private User signer;
+    private UserSummaryResponse signer;
     @SerializedName("positionName")
     private String positionName;
     @SerializedName("departmentName")
     private String departmentName;
-
     @SerializedName("jobGradeCoefficient")
     private double jobGradeCoefficient;
 
-    public static class User {
-        @SerializedName("id")
-        private long id;
-        @SerializedName("fullName")
-        private String fullName;
-        @SerializedName("numberCCCD")
-        private String numberCCCD;
-        @SerializedName("dob")
-        private String dateOfBirth;
-        @SerializedName("phoneNumber")
-        private String phoneNumber;
-        @SerializedName("nationality")
-        private String nationality;
-        @SerializedName("email")
-        private String email;
-        @SerializedName("address")
-        private String address;
-
-        public User(long id, String fullName, String numberCCCD, String dateOfBirth, String phoneNumber, String nationality, String email, String address) {
-            this.id = id;
-            this.fullName = fullName;
-            this.numberCCCD = numberCCCD;
-            this.dateOfBirth = dateOfBirth;
-            this.phoneNumber = phoneNumber;
-            this.nationality = nationality;
-            this.email = email;
-            this.address = address;
-        }
-
-        public long getId() {
-            return id;
-        }
-
-        public String getFullName() {
-            return fullName;
-        }
-
-        public String getNumberCCCD() {
-            return numberCCCD;
-        }
-
-        public String getDateOfBirth() {
-            return dateOfBirth;
-        }
-
-        public String getPhoneNumber() {
-            return phoneNumber;
-        }
-
-        public String getNationality() {
-            return nationality;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-    }
-
-    public ContractResponse(int id, String jobGradeName, String positionName, User signer, User user, String contractTypeName, ContractStatusEnum contractStatusEnum, String clause, double basicSalary, Date endDate, Date startDate) {
+    public ContractResponse(int id, String jobGradeName, String positionName, UserSummaryResponse signer, UserSummaryResponse user, String contractTypeName, ContractStatusEnum contractStatusEnum, String clause, double basicSalary, Date endDate, Date startDate) {
         this.id = id;
         this.departmentName = jobGradeName;
         this.positionName = positionName;
@@ -113,47 +51,33 @@ public class ContractResponse {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getStartDate() {
-        if (startDate == null) return "";
-        SimpleDateFormat sdf = new SimpleDateFormat("'Ngày' dd 'tháng' MM 'năm' yyyy", new Locale("vi", "VN"));
-        return sdf.format(startDate);
+    public Date getStartDate() {
+       return startDate;
     }
-
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
-
-    public String getEndDate() {
-        if (endDate == null) return "";
-        SimpleDateFormat sdf = new SimpleDateFormat("'Ngày' dd 'tháng' MM 'năm' yyyy", new Locale("vi", "VN"));
-        return sdf.format(endDate);
+    public Date getEndDate() {
+        return endDate;
     }
-
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
     public double getBasicSalary() {
         return basicSalary;
     }
-
     public void setBasicSalary(double basicSalary) {
         this.basicSalary = basicSalary;
     }
-
     public String getClause() {
         return clause;
     }
-
     public void setClause(String clause) {
         this.clause = clause;
     }
-
     public String getContractStatusEnumUI() {
         if (contractStatusEnum == null) return "";
         switch (contractStatusEnum) {
@@ -173,39 +97,30 @@ public class ContractResponse {
                 return "";
         }
     }
-
     public ContractStatusEnum getContractStatusEnum() {
         return contractStatusEnum;
     }
-
     public String getContractTypeName() {
         return contractTypeName;
     }
-
     public void setContractTypeName(String contractTypeName) {
         this.contractTypeName = contractTypeName;
     }
-
-    public User getUser() {
+    public UserSummaryResponse getUser() {
         return user;
     }
-
-    public void setUser(User user) {
+    public void setUser(UserSummaryResponse user) {
         this.user = user;
     }
-
-    public User getSigner() {
+    public UserSummaryResponse getSigner() {
         return signer;
     }
-
     public String getPositionName() {
         return positionName;
     }
-
     public String getDepartmentName() {
         return departmentName;
     }
-
     public double getJobGradeCoefficient() {
         return jobGradeCoefficient;
     }

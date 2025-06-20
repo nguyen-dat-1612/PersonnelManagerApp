@@ -1,6 +1,5 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
-import com.google.gson.Gson;
 import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.api.AuthApiService;
 import com.managerapp.personnelmanagerapp.data.remote.request.LoginRequest;
@@ -14,15 +13,14 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AuthRepositoryImpl implements AuthRepository {
-    private static final String TAG = "AuthRepository";
-
+    private final RxResultHandler rxResultHandler;
     private final AuthApiService authApiService;
     private final SecureTokenManager secureTokenManager;
     private final SessionManager sessionManager;
-    private final Gson gson = new Gson();
 
     @Inject
-    public AuthRepositoryImpl(AuthApiService authApiService, SecureTokenManager secureTokenManager, SessionManager sessionManager) {
+    public AuthRepositoryImpl(RxResultHandler rxResultHandler, AuthApiService authApiService, SecureTokenManager secureTokenManager, SessionManager sessionManager) {
+        this.rxResultHandler = rxResultHandler;
         this.authApiService = authApiService;
         this.secureTokenManager = secureTokenManager;
         this.sessionManager = sessionManager;
@@ -30,7 +28,7 @@ public class AuthRepositoryImpl implements AuthRepository {
 
 
     public Single<String> login(String email, String password) {
-        return RxResultHandler.handle(authApiService.login(new LoginRequest(email, password))
+        return rxResultHandler.handleSingle(authApiService.login(new LoginRequest(email, password))
                 .doOnSuccess(response ->
                         secureTokenManager.saveAccessToken(response.getData()))
         );
@@ -43,18 +41,18 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
     public Single<Boolean> verifyOTP(String email, String otp) {
-        return RxResultHandler.handle(authApiService.verifyOTP(email, otp));
+        return rxResultHandler.handleSingle(authApiService.verifyOTP(email, otp));
     }
 
     public Single<String> resetPassword(String newPass, String email) {
-        return RxResultHandler.handle(authApiService.resetPassword(newPass, email)
+        return rxResultHandler.handleSingle(authApiService.resetPassword(newPass, email)
                 .doOnSuccess(
                         response -> secureTokenManager.saveAccessToken(response.getData())
                 ));
     }
 
     public Single<String> getRole() {
-        return RxResultHandler.handle(authApiService.getRole(secureTokenManager.getAccessToken()))
+        return rxResultHandler.handleSingle(authApiService.getRole(secureTokenManager.getAccessToken()))
                 .doOnSuccess(
                         role -> sessionManager.saveRole(role)
                 );

@@ -24,11 +24,8 @@ import com.managerapp.personnelmanagerapp.data.remote.api.LeaveTypeApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.NotificationApiService;
 import com.managerapp.personnelmanagerapp.data.remote.api.UserApiService;
 import com.managerapp.personnelmanagerapp.utils.WorkLogDeserializer;
-
 import java.util.concurrent.TimeUnit;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
@@ -39,11 +36,16 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+import com.managerapp.personnelmanagerapp.BuildConfig;
 @Module
 @InstallIn(SingletonComponent.class)
 public class NetworkModule {
-    private static final String BASE_URL = "http://192.168.86.165:8080/api/";
+    @Provides
+    @Singleton
+    @BaseUrl
+    public static String provideBaseUrl() {
+        return BuildConfig.BASE_URL;
+    }
     @Provides
     @Singleton
     public static OkHttpClient provideOkHttpClient(SecureTokenManager secureTokenManager,@ApplicationContext Context context) {
@@ -62,13 +64,13 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public static Retrofit provideRetrofit(OkHttpClient client) {
+    public static Retrofit provideRetrofit(@BaseUrl String baseUrl, OkHttpClient client) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(WorkLogResponse.class, new WorkLogDeserializer())
                 .create();
 
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="decision"
+            type="com.managerapp.personnelmanagerapp.domain.model.Decision" />
+        <import type="com.managerapp.personnelmanagerapp.utils.DateTimeUtils"/>
+        <import type="android.view.View"/>
+        <import type="com.managerapp.personnelmanagerapp.utils.CurrencyUtils"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/senitoryAllowanceRuleCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:visibility="@{decision.seniorityAllowanceRule != null ? View.VISIBLE : View.GONE}"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Seniority Allowance Rule Title -->
+            <TextView
+                android:id="@+id/tvSeniorityAllowanceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seniority_allowance_title"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Rule ID -->
+            <TextView
+                android:id="@+id/tvSeniorityIdLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/seniority_id_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSeniorityAllowanceLabel" />
+
+            <TextView
+                android:id="@+id/tvSeniorityId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.id) : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSeniorityIdLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSeniorityIdLabel" />
+
+            <!-- Minimum Service -->
+            <TextView
+                android:id="@+id/tvMinServiceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/min_service_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSeniorityIdLabel" />
+
+            <TextView
+                android:id="@+id/tvMinService"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.minService) : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvMinServiceLabel"
+                app:layout_constraintTop_toTopOf="@id/tvMinServiceLabel" />
+
+            <!-- Seniority Percentage -->
+            <TextView
+                android:id="@+id/tvSeniorityPercentageLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/seniority_percentage_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMinServiceLabel" />
+
+            <TextView
+                android:id="@+id/tvSeniorityPercentage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.seniorityPercentage) : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSeniorityPercentageLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSeniorityPercentageLabel" />
+
+            <!-- Seniority Leave Day -->
+            <TextView
+                android:id="@+id/tvSeniorityLeaveDayLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/seniority_leave_day_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSeniorityPercentageLabel" />
+
+            <TextView
+                android:id="@+id/tvSeniorityLeaveDay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.seniorityLeaveDay) : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvSeniorityLeaveDayLabel"
+                app:layout_constraintTop_toTopOf="@id/tvSeniorityLeaveDayLabel" />
+
+            <!-- Effective Date -->
+            <TextView
+                android:id="@+id/tvEffectiveDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/effective_date_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSeniorityLeaveDayLabel" />
+
+            <TextView
+                android:id="@+id/tvEffectiveDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.effectiveDate : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvEffectiveDateLabel"
+                app:layout_constraintTop_toTopOf="@id/tvEffectiveDateLabel" />
+
+            <!-- Expiry Date -->
+            <TextView
+                android:id="@+id/tvExpiryDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/expiry_date_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvEffectiveDateLabel" />
+
+            <TextView
+                android:id="@+id/tvExpiryDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.expiryDate : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvExpiryDateLabel"
+                app:layout_constraintTop_toTopOf="@id/tvExpiryDateLabel" />
+
+            <!-- Description -->
+            <TextView
+                android:id="@+id/tvDescriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/description_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvExpiryDateLabel" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.description : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvDescriptionLabel"
+                app:layout_constraintTop_toTopOf="@id/tvDescriptionLabel" />
+
+            <!-- Rule Signer ID -->
+            <TextView
+                android:id="@+id/tvRuleSignerIdLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/rule_signer_id_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescriptionLabel" />
+
+            <TextView
+                android:id="@+id/tvRuleSignerId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? String.valueOf(decision.seniorityAllowanceRule.signer.id) : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRuleSignerIdLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRuleSignerIdLabel" />
+
+            <!-- Rule Signer Full Name -->
+            <TextView
+                android:id="@+id/tvRuleSignerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/rule_signer_full_name_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRuleSignerIdLabel" />
+
+            <TextView
+                android:id="@+id/tvRuleSigner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.fullName : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRuleSignerLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRuleSignerLabel" />
+
+            <!-- Rule Signer CCCD -->
+            <TextView
+                android:id="@+id/tvRuleSignerCCCDLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/rule_signer_cccd_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRuleSignerLabel" />
+
+            <TextView
+                android:id="@+id/tvRuleSignerCCCD"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.numberCCCD : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRuleSignerCCCDLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRuleSignerCCCDLabel" />
+
+            <!-- Rule Signer Date of Birth -->
+            <TextView
+                android:id="@+id/tvRuleSignerDobLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/rule_signer_dob_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRuleSignerCCCDLabel" />
+
+            <TextView
+                android:id="@+id/tvRuleSignerDob"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.dateOfBirth : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRuleSignerDobLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRuleSignerDobLabel" />
+
+            <!-- Rule Signer Phone Number -->
+            <TextView
+                android:id="@+id/tvRuleSignerPhoneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/rule_signer_phone_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRuleSignerDobLabel" />
+
+            <TextView
+                android:id="@+id/tvRuleSignerPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.phoneNumber : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRuleSignerPhoneLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRuleSignerPhoneLabel" />
+
+            <!-- Rule Signer Nationality -->
+            <TextView
+                android:id="@+id/tvRuleSignerNationalityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/rule_signer_nationality_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRuleSignerPhoneLabel" />
+
+            <TextView
+                android:id="@+id/tvRuleSignerNationality"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.nationality : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRuleSignerNationalityLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRuleSignerNationalityLabel" />
+
+            <!-- Rule Signer Email -->
+            <TextView
+                android:id="@+id/tvRuleSignerEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/rule_signer_email_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRuleSignerNationalityLabel" />
+
+            <TextView
+                android:id="@+id/tvRuleSignerEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.email : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRuleSignerEmailLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRuleSignerEmailLabel" />
+
+            <!-- Rule Signer Address -->
+            <TextView
+                android:id="@+id/tvRuleSignerAddressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/rule_signer_address_label"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRuleSignerEmailLabel" />
+
+            <TextView
+                android:id="@+id/tvRuleSignerAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{decision.seniorityAllowanceRule != null ? decision.seniorityAllowanceRule.signer.address : ``}"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvRuleSignerAddressLabel"
+                app:layout_constraintTop_toTopOf="@id/tvRuleSignerAddressLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -2,51 +2,118 @@ package com.managerapp.personnelmanagerapp.data.utils;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
+import com.managerapp.personnelmanagerapp.utils.ApiException;
+import com.managerapp.personnelmanagerapp.utils.ErrorMapper;
 
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
+import retrofit2.HttpException;
 
-// <editor-fold desc="📌 NOTE CHO TEAM - RxResultHandler xử lý kết quả từ API dùng RxJava">
-/*
-📦 RxResultHandler là utility class giúp xử lý response trả về từ API khi dùng RxJava (Single<BaseResponse<T>>).
-
-🎯 Mục đích:
-- Trích xuất `data` từ `BaseResponse<T>` nếu code trả về là 200.
-- Nếu response có lỗi (code khác 200 hoặc data null), ném ra Exception với message tương ứng.
-- Nếu gặp lỗi parse JSON (ví dụ khi API trả sai định dạng), trả về lỗi có nội dung dễ hiểu hơn: `"Data format error"`.
-
-🔄 Flow tổng quát:
-1. Nhận `Single<BaseResponse<T>>`
-2. Nếu `response.code == 200 && response.data != null` → `Single.just(data)`
-3. Ngược lại → `Single.error(Exception(message))`
-4. Nếu lỗi `JsonSyntaxException` → wrap lại lỗi với message `"Data format error"`
-5. Các lỗi còn lại được propagate nguyên trạng.
-
-📌 Gợi ý sử dụng:
-Trong Repository:
-```java
-return api.getSomething()
-          .compose(RxResultHandler::handle);
-*/
-
+@Singleton
 public class RxResultHandler {
-    public static <T> Single<T> handle(Single<BaseResponse<T>> source) {
+
+    private final ErrorMapper errorMapper;
+
+    @Inject
+    public RxResultHandler(ErrorMapper errorMapper) {
+        this.errorMapper = errorMapper;
+    }
+
+    public <T> Single<T> handleSingle(Single<BaseResponse<T>> source) {
+        return source.flatMap(response -> {
+            if (response.getCode() == 200) {
+                return Single.just(response.getData());
+            }
+            String errorMsg = errorMapper.getMessage(response.getCode());
+            return Single.error(new ApiException(response.getCode(), errorMsg));
+        }).onErrorResumeNext(throwable -> {
+            if (throwable instanceof JsonSyntaxException) {
+                Log.d("Lỗi định dạng dữ liệu: ", throwable.getMessage());
+                return Single.error(new Exception("Data format error"));
+            }
+            else if (throwable instanceof retrofit2.adapter.rxjava3.HttpException) {
+                retrofit2.adapter.rxjava3.HttpException httpEx = (retrofit2.adapter.rxjava3.HttpException) throwable;
+                int statusCode = httpEx.code();
+
+                try {
+                    String errorBody = httpEx.response().errorBody().string();
+                    BaseResponse<?> errorResponse = new Gson().fromJson(errorBody, BaseResponse.class);
+                    String errorMsg = errorMapper.getMessage(errorResponse.getCode());
+                    return Single.error(new ApiException(statusCode, errorMsg));
+                } catch (Exception e) {
+                    String errorMsg = errorMapper.getMessage(statusCode);
+                    return Single.error(new ApiException(statusCode, errorMsg));
+                }
+            }
+            else if (throwable instanceof java.net.SocketTimeoutException) {
+                Log.d("Lỗi timeout", throwable.getMessage());
+                return Single.error(new Exception("Request timeout"));
+            }
+            else if (throwable instanceof java.net.UnknownHostException) {
+                Log.d("Lỗi mạng", throwable.getMessage());
+                return Single.error(new Exception("No internet connection"));
+            }
+            else if (throwable instanceof IOException) {
+                Log.d("Lỗi IO", throwable.getMessage());
+                return Single.error(new Exception("Network error"));
+            }
+
+            Log.d("Lỗi khác", throwable.toString());
+            return Single.error(throwable);
+        });
+    }
+
+    // Xử lý Observable<BaseResponse<T>> -> Observable<T>
+    public <T> Observable<T> handleObservable(Observable<BaseResponse<T>> source) {
         return source.flatMap(response -> {
             if (response.getCode() == 200 && response.getData() != null) {
-                Log.d("RxResultHandler", "Success: " + response.getData());
-                return Single.just(response.getData());
+                return Observable.just(response.getData());
             } else {
-                Log.e("RxResultHandler", "API failed: " + response.getMessage());
-                return Single.error(new Exception(response.getMessage()));
+                String errorMsg = errorMapper.getMessage(response.getCode());
+                return Observable.error(new Exception(errorMsg));
             }
         }).onErrorResumeNext(throwable -> {
             if (throwable instanceof JsonSyntaxException) {
-                Log.e("RxResultHandler", "JSON parse error", throwable);
-                return Single.error(new Exception("Data format error"));
+                return Observable.error(new Exception("Data format error"));
             }
-            Log.e("RxResultHandler", "API error", throwable);
-            return Single.error(throwable);
+            return Observable.error(throwable);
+        });
+    }
+
+    // Xử lý Maybe<BaseResponse<T>> -> Maybe<T>
+    public <T> Maybe<T> handleMaybe(Maybe<BaseResponse<T>> source) {
+        return source.flatMap(response -> {
+            if (response.getCode() == 200 && response.getData() != null) {
+                return Maybe.just(response.getData());
+            } else {
+                String errorMsg = errorMapper.getMessage(response.getCode());
+                return Maybe.error(new Exception(errorMsg));
+            }
+        }).onErrorResumeNext(throwable -> {
+            if (throwable instanceof JsonSyntaxException) {
+                return Maybe.error(new Exception("Data format error"));
+            }
+            return Maybe.error(throwable);
+        });
+    }
+
+    // Xử lý Completable (không có dữ liệu trả về, chỉ xử lý lỗi)
+    public Completable handleCompletable(Completable source) {
+        return source.onErrorResumeNext(throwable -> {
+            if (throwable instanceof JsonSyntaxException) {
+                return Completable.error(new Exception("Data format error"));
+            }
+            return Completable.error(throwable);
         });
     }
 }

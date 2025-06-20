@@ -1,7 +1,6 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.contract;
 
-import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
-import com.managerapp.personnelmanagerapp.data.repository.ContractRepositoryImpl;
+import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import com.managerapp.personnelmanagerapp.domain.repository.ContractRepository;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class GetAllContractsUseCase {
         this.contractRepository = contractRepository;
     }
 
-    public Single<List<ContractResponse>> execute(long userId) {
-        return contractRepository.getContracts(userId);
+    public Single<List<Contract>> execute() {
+        return contractRepository.getContracts();
     }
 }

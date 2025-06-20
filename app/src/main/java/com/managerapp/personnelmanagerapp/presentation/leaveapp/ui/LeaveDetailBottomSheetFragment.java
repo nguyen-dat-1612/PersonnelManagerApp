@@ -12,9 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
 import com.managerapp.personnelmanagerapp.databinding.FragmentLeaveDetailBottomSheetBinding;
+import com.managerapp.personnelmanagerapp.domain.model.FormStatusEnum;
+import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 import com.managerapp.personnelmanagerapp.presentation.leaveapp.viewmodel.LeaveRequestViewModel;
+import com.managerapp.personnelmanagerapp.utils.DateUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -23,15 +27,14 @@ public class LeaveDetailBottomSheetFragment extends BottomSheetDialogFragment {
 
     private FragmentLeaveDetailBottomSheetBinding binding;
     private LeaveRequestViewModel viewModel;
-    private LeaveApplicationResponse leaveRequest;
+    private LeaveApplication leaveRequest;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Nhận dữ liệu từ Bundle
         Bundle args = getArguments();
         if (args != null) {
-            leaveRequest = (LeaveApplicationResponse) args.getSerializable("leaveRequest");
+            leaveRequest = (LeaveApplication) args.getSerializable("leaveRequest");
         }
     }
 
@@ -50,39 +53,44 @@ public class LeaveDetailBottomSheetFragment extends BottomSheetDialogFragment {
         if (leaveRequest != null) {
             binding.tvName.setText(leaveRequest.getUser().getFullName());
             binding.tvLeaveType.setText(leaveRequest.getLeaveTypeName());
-            binding.tvDate.setText(leaveRequest.getStartDate() + " - " + leaveRequest.getEndDate());
+            binding.tvDate.setText(DateUtils.formatDateToVietnamese(leaveRequest.getStartDate())
+                    + " - " + DateUtils.formatDateToVietnamese(leaveRequest.getEndDate()));
             binding.tvReason.setText(leaveRequest.getReason());
-            binding.tvStatus.setText(leaveRequest.getFormStatusEnumColor());
+            binding.tvStatus.setText(leaveRequest.getFormStatusEnum().getLocalizedStringRes());
 
-            // Kiểm tra quyền phê duyệt và trạng thái "PENDING"
+            int color;
+            if (leaveRequest.getFormStatusEnum().equals(FormStatusEnum.PENDING)) {
+                color = binding.getRoot().getContext().getColor(R.color.orange);
+            } else if (leaveRequest.getFormStatusEnum().equals(FormStatusEnum.REJECTED)) {
+                color = binding.getRoot().getContext().getColor(R.color.red);
+            } else {
+                color = binding.getRoot().getContext().getColor(R.color.green);
+            }
+
+            binding.tvStatus.setTextColor(color);
             if (leaveRequest.getFormStatusEnum() != null &&
-                    leaveRequest.getFormStatusEnum().equals("PENDING") &&
+                    leaveRequest.getFormStatusEnum().equals(FormStatusEnum.PENDING) &&
                     showApprove) {
                 binding.buttonContainer.setVisibility(View.VISIBLE);
-                // Khởi tạo ViewModel khi có quyền phê duyệt
                 viewModel = new ViewModelProvider(requireActivity()).get(LeaveRequestViewModel.class);
             } else {
                 binding.buttonContainer.setVisibility(GONE);
             }
         } else {
-            binding.buttonContainer.setVisibility(GONE); // fallback
+            binding.buttonContainer.setVisibility(GONE);
         }
 
-        // Nút duyệt
         binding.btnApprove.setOnClickListener(v -> {
             dismiss();
-            // Gửi yêu cầu phê duyệt
             if (viewModel != null && leaveRequest != null) {
-                viewModel.confirmApplication(leaveRequest.getId(), "APPROVED");
+                viewModel.confirmApplication(leaveRequest.getId(), FormStatusEnum.APPROVED);
             }
         });
 
-        // Nút từ chối
         binding.btnReject.setOnClickListener(v -> {
             dismiss();
-            // Gửi yêu cầu từ chối
             if (viewModel != null && leaveRequest != null) {
-                viewModel.confirmApplication(leaveRequest.getId(), "REJECTED");
+                viewModel.confirmApplication(leaveRequest.getId(), FormStatusEnum.REJECTED);
             }
         });
     }

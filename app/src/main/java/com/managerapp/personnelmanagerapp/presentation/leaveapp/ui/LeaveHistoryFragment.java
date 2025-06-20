@@ -12,15 +12,18 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
 import com.managerapp.personnelmanagerapp.presentation.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.FragmentRequestHistoryBinding;
 import com.managerapp.personnelmanagerapp.presentation.leaveapp.adapter.LeaveApplicationAdapter;
 import com.managerapp.personnelmanagerapp.presentation.leaveapp.viewmodel.LeaveApplicationViewModel;
+import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -100,6 +103,6 @@ public class LeaveHistoryFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null; // Giải phóng tài nguyên
+        binding = null;
     }
 }

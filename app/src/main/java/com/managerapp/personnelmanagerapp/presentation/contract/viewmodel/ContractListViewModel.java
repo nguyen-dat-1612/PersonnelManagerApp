@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractResponse;
+import com.managerapp.personnelmanagerapp.domain.model.Contract;
 import com.managerapp.personnelmanagerapp.domain.usecase.contract.GetAllContractsUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.manager.LocalDataManager;
@@ -22,28 +23,19 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class ContractListViewModel extends ViewModel {
     private final GetAllContractsUseCase getAllContractsUseCase;
     private final CompositeDisposable disposables = new CompositeDisposable();
-    private final MutableLiveData<UiState<List<ContractResponse>>> uiState = new MutableLiveData<>();
-    private final LocalDataManager localDataManager;
+    private final MutableLiveData<UiState<List<Contract>>> uiState = new MutableLiveData<>();
     @Inject
-    public ContractListViewModel(GetAllContractsUseCase getAllContractsUseCase, LocalDataManager localDataManager) {
+    public ContractListViewModel(GetAllContractsUseCase getAllContractsUseCase) {
         this.getAllContractsUseCase = getAllContractsUseCase;
-        this.localDataManager = localDataManager;
     }
 
-    public MutableLiveData<UiState<List<ContractResponse>>> getUiState() {
+    public MutableLiveData<UiState<List<Contract>>> getUiState() {
         return uiState;
     }
 
     public void loadAllContracts() {
         uiState.setValue(UiState.Loading.getInstance());
-        disposables.add(
-                Single.fromCallable(() -> localDataManager.getUserId())
-                        .flatMap(userId -> {
-                            if (userId <= 0) {
-                                return Single.error(new Throwable("Invalid user ID"));
-                            }
-                            return getAllContractsUseCase.execute(userId);
-                        })
+        disposables.add(getAllContractsUseCase.execute()
                         .timeout(10, TimeUnit.SECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -60,6 +52,6 @@ public class ContractListViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        disposables.clear(); // Hủy tất cả request khi ViewModel bị hủy
+        disposables.clear();
     }
 }

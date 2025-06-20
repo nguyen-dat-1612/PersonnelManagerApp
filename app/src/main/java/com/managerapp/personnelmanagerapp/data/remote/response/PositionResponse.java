@@ -1,7 +1,7 @@
 package com.managerapp.personnelmanagerapp.data.remote.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.managerapp.personnelmanagerapp.domain.model.Role;
+import com.managerapp.personnelmanagerapp.domain.model.RoleEnum;
 
 import java.io.Serializable;
 
@@ -37,11 +37,11 @@ public class PositionResponse implements Serializable {
         return department;
     }
 
-    public Role getRoleEnum() {
+    public RoleEnum getRoleEnum() {
         if ((roleResponse.getName() == null)) {
             return null;
         }
-        return Role.valueOf(roleResponse.getName());
+        return RoleEnum.valueOf(roleResponse.getName());
     }
 
     public RoleResponse getRole() {

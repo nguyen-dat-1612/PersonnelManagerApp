@@ -93,11 +93,11 @@ public class ForgotPasswordFragment extends BaseFragment {
 
     private boolean validateEmail(String email) {
         if (email.isEmpty()) {
-            binding.editTextEmail.setError("Vui lòng nhập email");
+            binding.editTextEmail.setError(getString(R.string.error_email_empty));
             return false;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            binding.editTextEmail.setError("Email không hợp lệ");
+            binding.editTextEmail.setError(getString(R.string.error_email_invalid));
             return false;
         }
         return true;

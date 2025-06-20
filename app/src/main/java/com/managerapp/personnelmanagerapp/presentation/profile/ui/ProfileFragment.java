@@ -25,6 +25,7 @@ import com.managerapp.personnelmanagerapp.domain.model.DataItem;
 import com.managerapp.personnelmanagerapp.presentation.profile.adapter.ProfileAdapter;
 import com.managerapp.personnelmanagerapp.presentation.profile.viewmodel.UserViewModel;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
+import com.managerapp.personnelmanagerapp.utils.ImageLoaderUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +72,8 @@ public class ProfileFragment extends Fragment {
 
     private void setupListeners() {
         binding.swipeRefresh.setOnRefreshListener(() -> {
-            binding.swipeRefresh.setRefreshing(true);
             viewModel.loadUser(requireContext());
+            binding.swipeRefresh.setRefreshing(false);
         });
 
         binding.backBtn.setOnClickListener(v -> {
@@ -87,34 +88,29 @@ public class ProfileFragment extends Fragment {
 
         viewModel.getUiState().observe(getViewLifecycleOwner(), state -> {
             if (state instanceof UiState.Loading) {
-                binding.content.setVisibility(INVISIBLE);
-            }
-            else if (state instanceof UiState.Success) {
+                binding.progressOverlay.getRoot().setVisibility(VISIBLE);
+            } else if (state instanceof UiState.Success) {
                 binding.content.setVisibility(VISIBLE);
                 UserProfileResponse newUser = ((UiState.Success<UserProfileResponse>) state).getData();
-
-                Glide.with(requireContext())
-                        .load(newUser.getAvatar())
-                        .placeholder(R.drawable.ic_default_avatar)
-                        .error(R.drawable.ic_broken_image)
-                        .into(binding.imageUser);
-
-                binding.magvtext.setText("Mã giảng viên: " + newUser.getId());
-                binding.khoagvtext.setText("Khoa: " + newUser.getDepartmentName());
+                ImageLoaderUtils.loadAvatar(requireContext(), newUser.getAvatar(), binding.imageUser);
+                binding.infoText.setText(
+                        getString(
+                                R.string.lecturer_info_text,
+                                String.valueOf(newUser.getId()),
+                                newUser.getDepartmentName()
+                        )
+                );
                 binding.userNameText.setText(newUser.getFullName());
-
-                binding.swipeRefresh.setRefreshing(false);
-            }
-            else if (state instanceof UiState.Error) {
+                binding.progressOverlay.getRoot().setVisibility(GONE);
+            } else if (state instanceof UiState.Error) {
                 String errorMsg = ((UiState.Error) state).getErrorMessage();
                 binding.content.setVisibility(GONE);
                 binding.errorView.getRoot().setVisibility(VISIBLE);
-                binding.swipeRefresh.setRefreshing(false);
+                binding.progressOverlay.getRoot().setVisibility(GONE);
                 Log.e(TAG, "Error loading profile: " + errorMsg);
             }
         });
 
-        // Quan sát thông tin người dùng
         viewModel.getUserInfoList().observe(getViewLifecycleOwner(), dataItems -> {
             if (dataItems != null) {
                 userInfoList.clear();

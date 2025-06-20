@@ -2,15 +2,10 @@ package com.managerapp.personnelmanagerapp.network;
 
 import android.content.Context;
 import android.content.Intent;
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import com.managerapp.personnelmanagerapp.manager.SecureTokenManager;
-
 import java.io.IOException;
-
 import javax.inject.Inject;
-
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -18,7 +13,6 @@ import okhttp3.Response;
 public class AuthInterceptor implements Interceptor {
     private final SecureTokenManager secureTokenManager;
     private final Context context;
-
     @Inject
     public AuthInterceptor(SecureTokenManager secureTokenManager, Context context) {
         this.secureTokenManager = secureTokenManager;
@@ -30,7 +24,6 @@ public class AuthInterceptor implements Interceptor {
         Request originalRequest = chain.request();
         String token = secureTokenManager.getAccessToken();
 
-        // Nếu có header "No-Authentication", bỏ qua việc gắn token
         if (originalRequest.header("No-Authentication") != null) {
             return chain.proceed(originalRequest);
         }
@@ -41,9 +34,9 @@ public class AuthInterceptor implements Interceptor {
                 : originalRequest;
 
         Response response = chain.proceed(authenticatedRequest);
-        // Nếu token hết hạn => đá người dùng về login
+
         if (response.code() == 401) {
-            secureTokenManager.clearTokens(); // Xoá token
+            secureTokenManager.clearTokens();
             Intent intent = new Intent("force_logout");
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }

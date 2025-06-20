@@ -21,6 +21,7 @@ import com.managerapp.personnelmanagerapp.data.remote.response.PayrollResponse;
 import com.managerapp.personnelmanagerapp.databinding.FragmentContractExpireBinding;
 import com.managerapp.personnelmanagerapp.domain.model.Cell;
 import com.managerapp.personnelmanagerapp.domain.model.ColumnHeader;
+import com.managerapp.personnelmanagerapp.domain.model.ContractExpireReport;
 import com.managerapp.personnelmanagerapp.domain.model.RowHeader;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import com.managerapp.personnelmanagerapp.presentation.report.adapter.MyTableAdapter;
@@ -42,6 +43,7 @@ public class ContractExpireFragment extends Fragment {
     private ContractExpireViewModel viewModel;
     private MyTableAdapter adapter;
     private UiState currentState;
+    private NavController navController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class ContractExpireFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_main);
         onListener();
         observeData();
         NumberPicker numberPicker = binding.numberPickerDays;
@@ -71,7 +73,6 @@ public class ContractExpireFragment extends Fragment {
 
     private void onListener() {
         binding.backBtn.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_main);
             navController.popBackStack();
         });
 
@@ -85,7 +86,7 @@ public class ContractExpireFragment extends Fragment {
             viewModel.exportExcel(requireContext(), days);
 
             if (currentState instanceof UiState.Success) {
-                List<ContractExpireReportResponse> data = ((UiState.Success<List<ContractExpireReportResponse>>) currentState).getData();
+                List<ContractExpireReport> data = ((UiState.Success<List<ContractExpireReport>>) currentState).getData();
                 Workbook wb = ExcelUtils.createContractExpireWorkbook(data);
                 Uri savedUri = ExcelUtils.saveWorkbookToDownloads(requireActivity(), wb, "bang_hop_dong_het_han.xlsx");
 
@@ -106,7 +107,7 @@ public class ContractExpireFragment extends Fragment {
             int days = binding.numberPickerDays.getValue();
             viewModel.exportPdfReport(requireContext(), days);
             if (currentState instanceof UiState.Success) {
-                List<ContractExpireReportResponse> data = ((UiState.Success<List<ContractExpireReportResponse>>) currentState).getData();
+                List<ContractExpireReport> data = ((UiState.Success<List<ContractExpireReport>>) currentState).getData();
                 String currentDate = DateUtils.getCurrentDateAsString();
 
                 PdfUtils.exportContractExpireReport(requireActivity(), currentDate,days, data, "Báo cáo hợp đồng sắp hết hạn");
@@ -133,8 +134,8 @@ public class ContractExpireFragment extends Fragment {
                 binding.tableView.setAdapter(adapter);
                 adapter.setAllItems(
                         createColumnHeaders(),
-                        createRowHeaders(((UiState.Success<List<ContractExpireReportResponse>>) uiState).getData()),
-                        createCells(((UiState.Success<List<ContractExpireReportResponse>>) uiState).getData())
+                        createRowHeaders(((UiState.Success<List<ContractExpireReport>>) uiState).getData()),
+                        createCells(((UiState.Success<List<ContractExpireReport>>) uiState).getData())
                 );
             }
 
@@ -162,7 +163,7 @@ public class ContractExpireFragment extends Fragment {
         headers.add(new ColumnHeader("Trạng thái"));
         return headers;
     }
-    private List<RowHeader> createRowHeaders(List<ContractExpireReportResponse> contractExpire) {
+    private List<RowHeader> createRowHeaders(List<ContractExpireReport> contractExpire) {
         List<RowHeader> headers = new ArrayList<>();
         for (int i = 0; i < contractExpire.size(); i++) {
             headers.add(new RowHeader(String.valueOf(i + 1)));
@@ -170,9 +171,9 @@ public class ContractExpireFragment extends Fragment {
         return headers;
     }
 
-    private List<List<Cell>> createCells(List<ContractExpireReportResponse> contractExpire) {
+    private List<List<Cell>> createCells(List<ContractExpireReport> contractExpire) {
         List<List<Cell>> cells = new ArrayList<>();
-        for (ContractExpireReportResponse c : contractExpire) {
+        for (ContractExpireReport c : contractExpire) {
             List<Cell> row = new ArrayList<>();
             row.add(new Cell(c.getFullName()));
             row.add(new Cell(String.valueOf(c.getEmail())));

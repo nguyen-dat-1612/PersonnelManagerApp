@@ -3,20 +3,19 @@ package com.managerapp.personnelmanagerapp.presentation.leaveapp.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.managerapp.personnelmanagerapp.data.remote.response.LeaveApplicationResponse;
+import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.databinding.ItemLeaveApplicationBinding;
+import com.managerapp.personnelmanagerapp.domain.model.LeaveApplication;
 import com.managerapp.personnelmanagerapp.presentation.leaveapp.ui.LeaveDetailBottomSheetFragment;
+import com.managerapp.personnelmanagerapp.utils.DateUtils;
 
-public class LeaveApplicationAdapter extends ListAdapter<LeaveApplicationResponse, LeaveApplicationAdapter.ViewHolder> {
+public class LeaveApplicationAdapter extends ListAdapter<LeaveApplication, LeaveApplicationAdapter.ViewHolder> {
 
     private final Context context;
 
@@ -25,15 +24,15 @@ public class LeaveApplicationAdapter extends ListAdapter<LeaveApplicationRespons
         this.context = context;
     }
 
-    private static final DiffUtil.ItemCallback<LeaveApplicationResponse> DIFF_CALLBACK =
-            new DiffUtil.ItemCallback<LeaveApplicationResponse>() {
+    private static final DiffUtil.ItemCallback<LeaveApplication> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<LeaveApplication>() {
                 @Override
-                public boolean areItemsTheSame(@NonNull LeaveApplicationResponse oldItem, @NonNull LeaveApplicationResponse newItem) {
+                public boolean areItemsTheSame(@NonNull LeaveApplication oldItem, @NonNull LeaveApplication newItem) {
                     return oldItem.getId() == newItem.getId();
                 }
 
                 @Override
-                public boolean areContentsTheSame(@NonNull LeaveApplicationResponse oldItem, @NonNull LeaveApplicationResponse newItem) {
+                public boolean areContentsTheSame(@NonNull LeaveApplication oldItem, @NonNull LeaveApplication newItem) {
                     // Compare all relevant fields that affect the UI
                     return oldItem.equals(newItem);
                 }
@@ -52,21 +51,31 @@ public class LeaveApplicationAdapter extends ListAdapter<LeaveApplicationRespons
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        LeaveApplicationResponse leaveApplication = getItem(position);
-        holder.binding.setLeaveApplication(leaveApplication);
-        holder.binding.executePendingBindings();
-        holder.binding.cardViewLeaveApplication.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LeaveDetailBottomSheetFragment bottomSheetFragment = new LeaveDetailBottomSheetFragment();
+        LeaveApplication leaveApplication = getItem(position);
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("leaveRequest", leaveApplication);
-                bundle.putBoolean("SHOW_APPROVE", false);
-                bottomSheetFragment.setArguments(bundle);
+        ItemLeaveApplicationBinding binding = holder.binding;
 
-                bottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), bottomSheetFragment.getTag());
-            }
+        binding.tvLeaveId.setText(context.getString(R.string.leave_form_prefix) + leaveApplication.getId());
+        binding.tvLeaveDates.setText(DateUtils.formatDateToVietnameseNoTime(leaveApplication.getStartDate())
+                + " → " + DateUtils.formatDateToVietnameseNoTime(leaveApplication.getEndDate()));
+        binding.tvLeaveType.setText(context.getString(R.string.leave_type_label_leave_type, leaveApplication.getLeaveTypeName()));
+        binding.tvUser.setText(context.getString(R.string.employee_label, leaveApplication.getUser().getFullName()));
+        binding.tvReason.setText(context.getString(R.string.reason_label_reason, leaveApplication.getReason()));
+
+        String signerName = leaveApplication.getSigner() != null && leaveApplication.getSigner().getFullName() != null
+                ? leaveApplication.getSigner().getFullName()
+                : context.getString(R.string.signer_none);
+        binding.tvSigner.setText(context.getString(R.string.signer_label, signerName));
+
+        holder.binding.tvLeaveStatus.setText(context.getString(leaveApplication.getFormStatusEnum().getLocalizedStringRes()));
+
+        binding.cardViewLeaveApplication.setOnClickListener(v -> {
+            LeaveDetailBottomSheetFragment bottomSheetFragment = new LeaveDetailBottomSheetFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("leaveRequest", leaveApplication);
+            bundle.putBoolean("SHOW_APPROVE", false);
+            bottomSheetFragment.setArguments(bundle);
+            bottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), bottomSheetFragment.getTag());
         });
     }
 

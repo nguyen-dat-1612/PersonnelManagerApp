@@ -15,12 +15,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import com.managerapp.personnelmanagerapp.R;
 import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
-import com.managerapp.personnelmanagerapp.domain.model.FeatureItem;
+import com.managerapp.personnelmanagerapp.domain.model.RoleEnum;
 import com.managerapp.personnelmanagerapp.presentation.main.viewmodel.MainViewModel;
 import com.managerapp.personnelmanagerapp.presentation.base.BaseFragment;
 import com.managerapp.personnelmanagerapp.databinding.FragmentHomeBinding;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
-import com.managerapp.personnelmanagerapp.domain.model.Role;
 import com.managerapp.personnelmanagerapp.utils.ImageLoaderUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -31,7 +30,7 @@ public class HomeFragment extends BaseFragment {
     private MainViewModel mainViewModel;
     private FragmentHomeBinding binding;
     private NavController navController;
-    private Role role;
+    private RoleEnum role;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,15 +80,19 @@ public class HomeFragment extends BaseFragment {
             navController.navigate(R.id.action_mainFragment_to_workLogFragment);
         });
         binding.DuyetCardView.setOnClickListener(v -> {
-            if (Role.STAFF.equals(role)) {
+            if (RoleEnum.STAFF.equals(role)) {
                 navController.navigate(R.id.action_mainFragment_to_createDecisionFragment);
             } else {
                 navController.navigate(R.id.action_mainFragment_to_leaveAppRequestFragment);
             }
         });
-        binding.reportBtn.setOnClickListener(v ->
-            navController.navigate(R.id.action_mainFragment_to_listReportFragment)
-        );
+        binding.reportBtn.setOnClickListener(v -> {
+            if (RoleEnum.MANAGER.equals(role)) {
+                navController.navigate(R.id.action_mainFragment_to_salaryPromotionApproveFragment);
+            } else {
+                navController.navigate(R.id.action_mainFragment_to_listReportFragment);
+            }
+        });
 
         binding.btnDuyet.setOnClickListener(v -> {
             // Den trang duyet quyet dinh
@@ -109,9 +112,23 @@ public class HomeFragment extends BaseFragment {
             navController.navigate(R.id.action_mainFragment_to_contractListFragment);
         });
 
-        binding.btnTangLuong.setOnClickListener(v -> {
-            navController.navigate(R.id.action_mainFragment_to_salaryPromotionApproveFragment);
+        binding.btnCongTacAdmin.setOnClickListener(v->{
+            navController.navigate(R.id.action_mainFragment_to_workLogFragment);
         });
+
+        binding.YeucauBtnAdmin.setOnClickListener(v->{
+            navController.navigate(R.id.action_mainFragment_to_requestHistoryFragment);
+        });
+
+        binding.reportBtnAdmin.setOnClickListener(v->{
+            navController.navigate(R.id.action_mainFragment_to_listReportFragment);
+        });
+
+        binding.DuyetCardViewAdmin.setOnClickListener(v->{
+            navController.navigate(R.id.action_mainFragment_to_leaveAppRequestFragment);
+        });
+
+
     }
 
 
@@ -131,25 +148,24 @@ public class HomeFragment extends BaseFragment {
         mainViewModel.getRoleUiState().observe(getViewLifecycleOwner(), state -> {
             if (state instanceof UiState.Success) {
                 String roleStr = ((UiState.Success<String>) state).getData();
-                role = Role.fromString(roleStr);
+                role = RoleEnum.fromString(roleStr);
                 binding.gridlayoutAdmin.setVisibility(GONE);
-                if (Role.USER.equals(role)) {
+                if (RoleEnum.USER.equals(role)) {
                     binding.gridlayout.setVisibility(VISIBLE);
                     binding.DuyetCardView.setVisibility(GONE);
                     binding.reportBtn.setVisibility(GONE);
                     binding.btnSendNotification.setVisibility(GONE);
-                } else if (Role.MANAGER.equals(role)){
+                } else if (RoleEnum.MANAGER.equals(role)){
                     binding.gridlayout.setVisibility(VISIBLE);
                     binding.DuyetCardView.setVisibility(VISIBLE);
-                    binding.reportBtn.setVisibility(GONE);
-                } else if (Role.STAFF.equals(role)) {
+                    binding.textBaoCao.setText(getString(R.string.salary_promotion_approval));
+                } else if (RoleEnum.STAFF.equals(role)) {
                     binding.gridlayout.setVisibility(VISIBLE);
-
                     binding.DuyetCardView.setVisibility(VISIBLE);
-                    binding.textDuyet.setText("Tạo quyết định");
+                    binding.textDuyet.setText(getString(R.string.decision_create));
                     binding.reportBtn.setVisibility(VISIBLE);
-                    binding.textSendNotification.setText("Gửi thông báo");
-                } else if (Role.ADMIN.equals(role)) {
+                    binding.textSendNotification.setText(getString(R.string.send_notification));
+                } else if (RoleEnum.ADMIN.equals(role)) {
                     binding.gridlayout.setVisibility(GONE);
                     binding.gridlayoutAdmin.setVisibility(VISIBLE);
                 }
@@ -161,8 +177,8 @@ public class HomeFragment extends BaseFragment {
         binding.numRewardText.setText(String.valueOf(user.getNumReward()));
         binding.numDisciplineText.setText(String.valueOf(user.getNumDiscipline()));
         binding.positionNameText.setText("Chức vụ: " + user.getPositionName());
-        binding.departmentNameText.setText("Nơi làm việc : " + user.getDepartmentName());
-        binding.serviceDurationText.setText(String.valueOf(user.getServiceDuration()));
+        binding.positionNameText.setText(getString(R.string.label_position_text, user.getPositionName()));
+        binding.departmentNameText.setText(getString(R.string.label_workplace, user.getDepartmentName()));
         ImageLoaderUtils.loadAvatar(requireContext(), user.getAvatar(), binding.imageUser);
     }
 

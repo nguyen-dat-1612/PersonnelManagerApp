@@ -29,7 +29,7 @@ public interface UserApiService {
 
     // Thay đổi mật khẩu
     @POST("users/change-pass")
-    Single<BaseResponse<Boolean>> changePassword( @Body ChangePasswordRequest request);
+    Maybe<BaseResponse<Boolean>> changePassword( @Body ChangePasswordRequest request);
 
     // Lấy quá trình công tác
     @GET("users/work-log")

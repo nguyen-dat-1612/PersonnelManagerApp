@@ -3,16 +3,8 @@ package com.managerapp.personnelmanagerapp.domain.model;
 import java.util.Objects;
 
 public class LeaveType {
-    private int id;             // Mã loại nghỉ phép (auto-incremented)
-    private String name;        // Tên loại nghỉ phép (unique, not null)
-
-    // Constructors
-    public LeaveType() {
-    }
-
-    public LeaveType(String name) {
-        setName(name);
-    }
+    private int id;
+    private String name;
 
     public LeaveType(int id, String name) {
         this.id = id;
@@ -44,7 +36,6 @@ public class LeaveType {
         this.name = name.trim();
     }
 
-    // toString method
     @Override
     public String toString() {
         return "LeaveType{" +
@@ -53,7 +44,6 @@ public class LeaveType {
                 '}';
     }
 
-    // equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

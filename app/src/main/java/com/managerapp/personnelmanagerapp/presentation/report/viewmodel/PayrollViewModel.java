@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.managerapp.personnelmanagerapp.data.remote.response.PayrollResponse;
+import com.managerapp.personnelmanagerapp.domain.model.Payroll;
 import com.managerapp.personnelmanagerapp.domain.usecase.report.GetPayrollUseCase;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 import java.util.List;
@@ -20,14 +21,14 @@ public class PayrollViewModel extends ViewModel {
     private CompositeDisposable disposable = new CompositeDisposable();
     private final GetPayrollUseCase getPayrollUseCase;
 
-    private final MutableLiveData<UiState<List<PayrollResponse>>> payrollUiState = new MutableLiveData<>();
+    private final MutableLiveData<UiState<List<Payroll>>> payrollUiState = new MutableLiveData<>();
 
     @Inject
     public PayrollViewModel(GetPayrollUseCase getPayrollUseCase) {
         this.getPayrollUseCase = getPayrollUseCase;
     }
 
-    public LiveData<UiState<List<PayrollResponse>>> getPayrollUiState() {
+    public LiveData<UiState<List<Payroll>>> getPayrollUiState() {
         return payrollUiState;
     }
 

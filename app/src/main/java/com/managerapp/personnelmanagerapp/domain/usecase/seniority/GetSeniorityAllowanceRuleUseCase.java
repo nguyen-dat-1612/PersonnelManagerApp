@@ -1,6 +1,5 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.seniority;
-
-import com.managerapp.personnelmanagerapp.data.remote.response.SeniorityAllowanceRuleResponse;
+import com.managerapp.personnelmanagerapp.domain.model.SeniorityAllowanceRule;
 import com.managerapp.personnelmanagerapp.domain.repository.SeniorityAllowanceRuleRepository;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class GetSeniorityAllowanceRuleUseCase {
         this.seniorityAllowanceRuleRepository = seniorityAllowanceRuleRepository;
     }
 
-    public Observable<List<SeniorityAllowanceRuleResponse>> execute(String fetchStatus) {
+    public Observable<List<SeniorityAllowanceRule>> execute(String fetchStatus) {
         return seniorityAllowanceRuleRepository.getSeniorityAllowanceRules(fetchStatus);
     }
 }

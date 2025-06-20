@@ -9,6 +9,8 @@ import android.provider.MediaStore;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.ContractExpireReportResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.PayrollResponse;
+import com.managerapp.personnelmanagerapp.domain.model.ContractExpireReport;
+import com.managerapp.personnelmanagerapp.domain.model.Payroll;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -24,7 +26,7 @@ public class ExcelUtils {
     /**
      * Tạo Workbook Excel cho bảng lương nhân viên (chỉ tạo dữ liệu, chưa lưu file).
      */
-    public static Workbook createPayrollWorkbook(List<PayrollResponse> payrollList) {
+    public static Workbook createPayrollWorkbook(List<Payroll> payrollList) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Báo cáo lương");
 
@@ -43,7 +45,7 @@ public class ExcelUtils {
 
         // Tạo dữ liệu
         for (int i = 0; i < payrollList.size(); i++) {
-            PayrollResponse p = payrollList.get(i);
+            Payroll p = payrollList.get(i);
             Row row = sheet.createRow(i + 1);
             row.createCell(0).setCellValue(p.getUserId());
             row.createCell(1).setCellValue(p.getFullName());
@@ -61,7 +63,7 @@ public class ExcelUtils {
      * Tạo Workbook Excel cho bảng báo cáo nhân viên gần hết hạn (chỉ tạo dữ liệu, ).
      */
 
-    public static Workbook createContractExpireWorkbook(List<ContractExpireReportResponse> contractExpire) {
+    public static Workbook createContractExpireWorkbook(List<ContractExpireReport> contractExpire) {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Báo cáo hợp đồng sắp hết hạn");
 
@@ -80,7 +82,7 @@ public class ExcelUtils {
 
         // Tạo dữ liệu
         for (int i = 0; i < contractExpire.size(); i++) {
-            ContractExpireReportResponse c = contractExpire.get(i);
+            ContractExpireReport c = contractExpire.get(i);
             Row row = sheet.createRow(i + 1);
             row.createCell(0).setCellValue(c.getStt());
             row.createCell(1).setCellValue(c.getFullName());
@@ -90,7 +92,7 @@ public class ExcelUtils {
             row.createCell(5).setCellValue(c.getContractTypeName());
             row.createCell(6).setCellValue(c.getEndDate());
             row.createCell(7).setCellValue(c.getRemainingDays());
-            row.createCell(8).setCellValue(c.getContractStatus());
+            row.createCell(8).setCellValue(c.getContractStatus().getStringRes());
         }
 
         return workbook;

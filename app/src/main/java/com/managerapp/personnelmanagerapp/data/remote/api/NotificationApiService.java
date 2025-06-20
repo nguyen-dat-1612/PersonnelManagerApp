@@ -2,6 +2,8 @@ package com.managerapp.personnelmanagerapp.data.remote.api;
 
 import com.managerapp.personnelmanagerapp.data.remote.request.NotificationRequest;
 import com.managerapp.personnelmanagerapp.data.remote.response.BaseResponse;
+import com.managerapp.personnelmanagerapp.data.remote.response.NotificationRecipientResponse;
+import com.managerapp.personnelmanagerapp.data.remote.response.NotificationResponse;
 import com.managerapp.personnelmanagerapp.domain.model.Notification;
 import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
 import com.managerapp.personnelmanagerapp.domain.model.PagedModel;
@@ -21,13 +23,13 @@ import retrofit2.http.Query;
 public interface NotificationApiService {
 
     @GET("notifications/{id}/read")
-    Single<BaseResponse<Notification>> getNotificationRecipient(@Path("id") long id);
+    Single<BaseResponse<NotificationResponse>> getNotificationRecipient(@Path("id") long id);
 
     @GET("notifications/{id}")
-    Single<BaseResponse<Notification>> getNotification(@Path("id") long id);
+    Single<BaseResponse<NotificationResponse>> getNotification(@Path("id") long id);
 
     @GET("notifications/user/{id}")
-    Single<BaseResponse<PagedModel<NotificationRecipient>>> getAllUserNotifications(
+    Single<BaseResponse<PagedModel<NotificationRecipientResponse>>> getAllUserNotifications(
             @Path("id") long userId,
             @Query("pageNumber") int page,
             @Query("pageSize") int size
@@ -40,7 +42,7 @@ public interface NotificationApiService {
     Maybe<BaseResponse<Unit>> createNotification (@Body NotificationRequest notificationRequest);
 
     @GET("notifications/sender/{id}")
-    Single<BaseResponse<PagedModel<NotificationRecipient>>> getAllSenderNotifications(
+    Single<BaseResponse<PagedModel<NotificationRecipientResponse>>> getAllSenderNotifications(
             @Path("id") long senderId,
             @Query("pageNumber") int page,
             @Query("pageSize") int size,

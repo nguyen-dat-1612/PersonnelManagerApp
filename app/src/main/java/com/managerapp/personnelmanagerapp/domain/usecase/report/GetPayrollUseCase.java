@@ -1,6 +1,7 @@
 package com.managerapp.personnelmanagerapp.domain.usecase.report;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.PayrollResponse;
+import com.managerapp.personnelmanagerapp.domain.model.Payroll;
 import com.managerapp.personnelmanagerapp.domain.repository.ReportRepository;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class GetPayrollUseCase {
         this.reportRepository = reportRepository;
     }
 
-    public Single<List<PayrollResponse>> execute(String startDate, String endDate) {
+    public Single<List<Payroll>> execute(String startDate, String endDate) {
         return reportRepository.getPayroll(startDate, endDate);
     }
 }

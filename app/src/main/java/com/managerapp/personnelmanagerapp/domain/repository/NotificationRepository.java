@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 
 public interface NotificationRepository {
-    Single<PagedModel<NotificationRecipient>> getNotifications(long userId, int page, int size);
+    Single<PagedModel<NotificationRecipient>> getNotifications( int page, int size);
     Single<Notification> getNotificationRecipient(long notificationId);
     Single<Notification> getNotification(long notificationId);
     Single<Boolean> markNotificationsAsSeen(List<Integer> notificationIds);

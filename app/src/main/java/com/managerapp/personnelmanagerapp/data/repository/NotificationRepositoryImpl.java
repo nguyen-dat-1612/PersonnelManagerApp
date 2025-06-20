@@ -1,5 +1,7 @@
 package com.managerapp.personnelmanagerapp.data.repository;
 
+import com.managerapp.personnelmanagerapp.data.mapper.NotificationMapper;
+import com.managerapp.personnelmanagerapp.data.mapper.NotificationRecipientMapper;
 import com.managerapp.personnelmanagerapp.data.utils.RxResultHandler;
 import com.managerapp.personnelmanagerapp.data.remote.request.NotificationRequest;
 import com.managerapp.personnelmanagerapp.domain.model.NotificationRecipient;
@@ -16,37 +18,39 @@ import javax.inject.Inject;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public class NotificationRepositoryImpl implements NotificationRepository {
     private final NotificationApiService apiService;
     private final LocalDataManager localDataManager;
-    private static final String TAG = "NotificationRepository";
-    private long userId;
-
-    PublishSubject<Integer> pageSubject = PublishSubject.create();
-
+    private final RxResultHandler rxResultHandler;
     @Inject
-    public NotificationRepositoryImpl(NotificationApiService notificationApiService, LocalDataManager localDataManager) {
+    public NotificationRepositoryImpl(NotificationApiService notificationApiService, LocalDataManager localDataManager, RxResultHandler rxResultHandler) {
         this.apiService = notificationApiService;
         this.localDataManager = localDataManager;
+        this.rxResultHandler = rxResultHandler;
     }
 
-    public Single<PagedModel<NotificationRecipient>> getNotifications(long userId, int page, int size) {
-        return RxResultHandler.handle(apiService.getAllUserNotifications(userId, page, size));
+    public Single<PagedModel<NotificationRecipient>> getNotifications(int page, int size) {
+        return localDataManager.getUserIdAsync()
+                .flatMap( userId ->
+                        rxResultHandler.handleSingle(apiService.getAllUserNotifications(userId, page, size))
+                                .map(NotificationRecipientMapper::toPagedModel)
+                );
     }
 
     public Single<Notification> getNotificationRecipient(long notificationId) {
-        return RxResultHandler.handle(apiService.getNotificationRecipient(notificationId));
+        return rxResultHandler.handleSingle(apiService.getNotificationRecipient(notificationId))
+                .map(NotificationMapper::toNotification);
     }
 
     @Override
     public Single<Notification> getNotification(long notificationId) {
-        return RxResultHandler.handle(apiService.getNotification(notificationId));
+        return rxResultHandler.handleSingle(apiService.getNotification(notificationId))
+                .map(NotificationMapper::toNotification);
     }
 
     public Single<Boolean> markNotificationsAsSeen(List<Integer> notificationIds) {
-        return RxResultHandler.handle(apiService.markNotificationsAsSeen(notificationIds));
+        return rxResultHandler.handleSingle(apiService.markNotificationsAsSeen(notificationIds));
     }
 
 
@@ -75,7 +79,10 @@ public class NotificationRepositoryImpl implements NotificationRepository {
     public Single<PagedModel<NotificationRecipient>> getSenderNotifications(int page, int size, String type) {
         return localDataManager.getUserIdAsync()
                 .subscribeOn(Schedulers.io())
-                .flatMap(userId -> RxResultHandler.handle(apiService.getAllSenderNotifications(userId, page, size, type)));
+                .flatMap(userId ->
+                        rxResultHandler.handleSingle(apiService.getAllSenderNotifications(userId, page, size, type))
+                                .map(NotificationRecipientMapper::toPagedModel)
+                );
     }
 
 }

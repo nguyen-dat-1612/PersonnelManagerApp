@@ -2,6 +2,7 @@ package com.managerapp.personnelmanagerapp.presentation.contract.state;
 
 import com.managerapp.personnelmanagerapp.data.remote.response.JobGradeResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.UserProfileResponse;
+import com.managerapp.personnelmanagerapp.domain.model.JobGrade;
 
 import java.util.List;
 
@@ -10,19 +11,19 @@ public abstract class RequestUpgradeUiState {
     public static final class Loading extends RequestUpgradeUiState {}
 
     public static final class DataLoaded extends RequestUpgradeUiState {
-        public final List<JobGradeResponse> jobGrades;
+        public final List<JobGrade> jobGrades;
         public final UserProfileResponse userProfile;
-        public final JobGradeResponse jobGradeById;
+        public final JobGrade jobGradeById;
 
-        public DataLoaded(List<JobGradeResponse> jobGrades,
+        public DataLoaded(List<JobGrade> jobGrades,
                           UserProfileResponse userProfile,
-                          JobGradeResponse jobGradeById) {
+                          JobGrade jobGradeById) {
             this.jobGrades = jobGrades;
             this.userProfile = userProfile;
             this.jobGradeById = jobGradeById;
         }
 
-        public List<JobGradeResponse> jobGrades() {
+        public List<JobGrade> jobGrades() {
             return jobGrades;
         }
 
@@ -30,21 +31,21 @@ public abstract class RequestUpgradeUiState {
             return userProfile;
         }
 
-        public JobGradeResponse getCurrentJobGrade() {
+        public JobGrade getCurrentJobGrade() {
             return jobGradeById;
         }
     }
 
     public static final class Error extends RequestUpgradeUiState {
         public final String message;
-        public final List<JobGradeResponse> jobGrades;
+        public final List<JobGrade> jobGrades;
         public final UserProfileResponse userProfile;
-        public final JobGradeResponse jobGradeById;
+        public final JobGrade jobGradeById;
 
         public Error(String message,
-                     List<JobGradeResponse> jobGrades,
+                     List<JobGrade> jobGrades,
                      UserProfileResponse userProfile,
-                     JobGradeResponse jobGradeById) {
+                     JobGrade jobGradeById) {
             this.message = message;
             this.jobGrades = jobGrades;
             this.userProfile = userProfile;

@@ -13,12 +13,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,7 +37,9 @@ import com.managerapp.personnelmanagerapp.presentation.contract.adapter.SalaryPr
 import com.managerapp.personnelmanagerapp.presentation.contract.viewmodel.HistoryApproveViewModel;
 import com.managerapp.personnelmanagerapp.presentation.main.state.UiState;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -49,7 +55,6 @@ public class HistoryApproveFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(HistoryApproveViewModel.class);
-        viewModel.getSalaryPromotions(FormStatusEnum.APPROVED);
     }
 
     @Override
@@ -70,11 +75,40 @@ public class HistoryApproveFragment extends Fragment {
 
     public void setUpUI() {
         adapter = new SalaryPromotionAdapter(promotion -> {
-            showPromotionDetailDialog(requireContext(), promotion); // Viết dialog như phần trước
+            showPromotionDetailDialog(requireContext(), promotion);
         });
         binding.recyclerViewSalary.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerViewSalary.setAdapter(adapter);
 
+        List<FormStatusEnum> filteredStatusList = Arrays.stream(FormStatusEnum.values())
+                .filter(status -> status != FormStatusEnum.PENDING)  // Loại bỏ PENDING
+                .collect(Collectors.toList());
+
+        ArrayAdapter<FormStatusEnum> statusAdapter = new ArrayAdapter<FormStatusEnum>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                filteredStatusList
+        ) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = view.findViewById(android.R.id.text1);
+                textView.setText(getContext().getString(getItem(position).getLocalizedStringRes()));
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = view.findViewById(android.R.id.text1);
+                textView.setText(getContext().getString(getItem(position).getLocalizedStringRes()));
+                return view;
+            }
+        };
+
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerStatus.setAdapter(statusAdapter);
     }
 
     public void onListener() {
@@ -84,7 +118,6 @@ public class HistoryApproveFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedStatus = parent.getItemAtPosition(position).toString();
-
                 if (FormStatusEnum.APPROVED.toString().equals(selectedStatus)) {
                     viewModel.getSalaryPromotions(FormStatusEnum.APPROVED);
                 } else if (FormStatusEnum.REJECTED.toString().equals(selectedStatus)) {
@@ -103,24 +136,28 @@ public class HistoryApproveFragment extends Fragment {
     private void showPromotionDetailDialog(Context context, SalaryPromotion model) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
 
-        // Inflate bằng binding
         DialogSalaryPromotionDetailHistoryBinding binding = DialogSalaryPromotionDetailHistoryBinding.inflate(LayoutInflater.from(context));
         builder.setView(binding.getRoot());
 
         AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(true);
 
-        binding.tvUser.setText("👤 Người đề xuất: " + model.getUserName());
-        binding.tvCurrentGrade.setText("🏷️ Bậc hiện tại: " + model.getCurrentJobGradeName());
-        binding.tvRequestGrade.setText("📈 Bậc đề xuất: " + model.getRequestJobGradeName());
-        binding.tvReason.setText("📝 Lý do: " + model.getReason());
-        binding.tvNote.setText("🗒️ Ghi chú: " + (TextUtils.isEmpty(model.getNote()) ? "Không có" : model.getNote()));
+        binding.tvUser.setText(getString(R.string.label_user, model.getUserName()));
+        binding.tvCurrentGrade.setText(getString(R.string.label_current_grade, model.getCurrentJobGradeName()));
+        binding.tvRequestGrade.setText(getString(
+                R.string.label_request_grade,
+                model.getRequestJobGradeName(),
+                (int) model.getRequestJobGradeValue()
+        ));
+        binding.tvReason.setText(getString(R.string.label_reason_grade, model.getReason()));
+        binding.tvNote.setText(getString(R.string.dialog_note,
+                TextUtils.isEmpty(model.getNote()) ? getString(R.string.dialog_note_empty) : model.getNote()));
 
         if ("APPROVED".equals(model.getStatus())) {
-            binding.tvStatus.setText("📋 Trạng thái: Đã phê duyệt");
+            binding.tvStatus.setText(getString(R.string.dialog_status_approved));
             binding.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green));
         } else if ("REJECTED".equals(model.getStatus())) {
-            binding.tvStatus.setText("📋 Trạng thái: Đã từ chối");
+            binding.tvStatus.setText(getString(R.string.dialog_status_rejected));
             binding.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.red));
         }
         dialog.show();
@@ -131,12 +168,23 @@ public class HistoryApproveFragment extends Fragment {
             if (state instanceof UiState.Loading) {
                 binding.progressOverlay.getRoot().setVisibility(View.VISIBLE);
             } else if (state instanceof UiState.Success) {
-                adapter.submitList(((UiState.Success<List<SalaryPromotion>>) state).getData());
-                binding.progressOverlay.getRoot().setVisibility(View.GONE);
+                List<SalaryPromotion> data = ((UiState.Success<List<SalaryPromotion>>) state).getData();
+                if (data != null && !data.isEmpty()) {
+                    adapter.submitList(data);
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        binding.progressOverlay.getRoot().setVisibility(View.GONE);
+                    }, 500);
+                }
             } else if (state instanceof UiState.Error) {
                 binding.progressOverlay.getRoot().setVisibility(View.GONE);
                 binding.errorView.getRoot().setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
