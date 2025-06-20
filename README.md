@@ -132,6 +132,7 @@
 - **Clean Architecture**
 - **MVVM (Model - View - ViewModel)**
 - **Repository Pattern**
+- **Builder Pattern**
 - **Single Activity – Multiple Fragment**
 - **Dependency Injection với Hilt**
 
@@ -150,7 +151,7 @@
 
 ### 📄 Hồ sơ & Quyết định
 - Xem **quá trình công tác**
-- Xem **các quyết định**:
+- Xem **các nghị định**:
   - Kỷ luật
   - Khen thưởng
   - Tăng lương
