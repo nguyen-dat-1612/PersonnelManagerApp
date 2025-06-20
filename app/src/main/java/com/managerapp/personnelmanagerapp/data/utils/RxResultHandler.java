@@ -72,48 +72,4 @@ public class RxResultHandler {
             return Single.error(throwable);
         });
     }
-
-    // Xử lý Observable<BaseResponse<T>> -> Observable<T>
-    public <T> Observable<T> handleObservable(Observable<BaseResponse<T>> source) {
-        return source.flatMap(response -> {
-            if (response.getCode() == 200 && response.getData() != null) {
-                return Observable.just(response.getData());
-            } else {
-                String errorMsg = errorMapper.getMessage(response.getCode());
-                return Observable.error(new Exception(errorMsg));
-            }
-        }).onErrorResumeNext(throwable -> {
-            if (throwable instanceof JsonSyntaxException) {
-                return Observable.error(new Exception("Data format error"));
-            }
-            return Observable.error(throwable);
-        });
-    }
-
-    // Xử lý Maybe<BaseResponse<T>> -> Maybe<T>
-    public <T> Maybe<T> handleMaybe(Maybe<BaseResponse<T>> source) {
-        return source.flatMap(response -> {
-            if (response.getCode() == 200 && response.getData() != null) {
-                return Maybe.just(response.getData());
-            } else {
-                String errorMsg = errorMapper.getMessage(response.getCode());
-                return Maybe.error(new Exception(errorMsg));
-            }
-        }).onErrorResumeNext(throwable -> {
-            if (throwable instanceof JsonSyntaxException) {
-                return Maybe.error(new Exception("Data format error"));
-            }
-            return Maybe.error(throwable);
-        });
-    }
-
-    // Xử lý Completable (không có dữ liệu trả về, chỉ xử lý lỗi)
-    public Completable handleCompletable(Completable source) {
-        return source.onErrorResumeNext(throwable -> {
-            if (throwable instanceof JsonSyntaxException) {
-                return Completable.error(new Exception("Data format error"));
-            }
-            return Completable.error(throwable);
-        });
-    }
 }

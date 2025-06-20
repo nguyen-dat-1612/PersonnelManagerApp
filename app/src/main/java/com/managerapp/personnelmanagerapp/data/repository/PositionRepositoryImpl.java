@@ -8,6 +8,7 @@ import com.managerapp.personnelmanagerapp.domain.model.Position;
 import com.managerapp.personnelmanagerapp.domain.repository.PositionRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -23,8 +24,10 @@ public class PositionRepositoryImpl implements PositionRepository {
 
     public Observable<List<Position>> getPositions() {
         return positionApiService.getPositions()
-                .map(response ->
-                        PositionMapper.toPositions(response.getData())
+                .map(response -> response.getData().stream()
+                        .filter(res -> res.getDepartment() != null)
+                        .map(PositionMapper::toPosition)
+                        .collect(Collectors.toList())
                 )
                 .onErrorResumeNext(throwable -> {
                     return Observable.error(new Throwable(throwable.getMessage()));

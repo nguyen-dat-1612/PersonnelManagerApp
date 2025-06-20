@@ -12,6 +12,9 @@ import com.managerapp.personnelmanagerapp.data.remote.response.PositionResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.SalaryPromotionResponse;
 import com.managerapp.personnelmanagerapp.data.remote.response.SeniorityAllowanceRuleResponse;
 import com.managerapp.personnelmanagerapp.domain.model.DecisionEnum;
+import com.managerapp.personnelmanagerapp.domain.model.Position;
+import com.managerapp.personnelmanagerapp.domain.model.SalaryPromotion;
+import com.managerapp.personnelmanagerapp.domain.model.SeniorityAllowanceRule;
 import com.managerapp.personnelmanagerapp.domain.usecase.decision.CreateDecisionUseCase;
 import com.managerapp.personnelmanagerapp.domain.usecase.position.GetPositionUseCase;
 import com.managerapp.personnelmanagerapp.domain.usecase.salarypromotion.GetSalaryPromotionPendingUseCase;
@@ -147,21 +150,22 @@ public class CreateDecisionViewModel extends ViewModel {
         List<OptionItem> result = new ArrayList<>();
 
         for (Object item : rawList) {
-            if (item instanceof SalaryPromotionResponse) {
-                SalaryPromotionResponse obj = (SalaryPromotionResponse) item;
+            if (item instanceof SalaryPromotion) {
+                SalaryPromotion obj = (SalaryPromotion) item;
                 result.add(new OptionItem(obj.getId(), obj.getUserName()));
 
-            } else if (item instanceof SeniorityAllowanceRuleResponse) {
-                SeniorityAllowanceRuleResponse obj = (SeniorityAllowanceRuleResponse) item;
+            } else if (item instanceof SeniorityAllowanceRule) {
+                SeniorityAllowanceRule obj = (SeniorityAllowanceRule) item;
                 result.add(new OptionItem(obj.getId(), obj.getDescription()));
 
-            } else if (item instanceof PositionResponse) {
-                PositionResponse obj = (PositionResponse) item;
+            } else if (item instanceof Position) {
+                Position obj = (Position) item;
                 result.add(new OptionItem(obj.getId(), obj.getName()));
             }
         }
         return result;
     }
+
 
 
     @Override
