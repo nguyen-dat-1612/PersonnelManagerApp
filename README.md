@@ -254,4 +254,13 @@
 
 App hỗ trợ đa quyền (`User`, `Manager`, `Staff`, `Admin`) với giao diện và tính năng tùy theo phân quyền. Có khả năng mở rộng dễ dàng do sử dụng Clean Architecture và DI bằng Hilt.
 
+---
+
+## 🌐 Cấu trúc hệ thống tổng thể
+
+Dự án này là một hệ thống đa nền tảng do nhóm phát triển, bao gồm:
+
+- 📱 **Ứng dụng Android** – _repo này_ (do tôi phụ trách phát triển)
+- 🌐 **Giao diện Web** – [Link GitHub Web Frontend](https://github.com/beedangiumuonchet/uni-hr-management) *(do thành viên khác phát triển)*
+- 🔙 **Backend API** – [Link GitHub Backend](https://github.com/huyprm/HR_management) *(do thành viên khác phát triển)*
 
